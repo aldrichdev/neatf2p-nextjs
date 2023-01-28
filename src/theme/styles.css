@@ -1,0 +1,18 @@
+@font-face {
+  font-family: 'Vinque';
+  font-style: normal;
+  font-weight: normal;
+  src: url('/fonts/Vinque-Rg.otf');
+}
+
+@font-face {
+  font-family: 'Saros';
+  font-style: normal;
+  font-weight: normal;
+  src: url('/fonts/Saros-Regular.otf');
+}
+
+body {
+  background-image: url('/img/2H-Lineup.png');
+  background-color: darkgoldenrod;
+}
