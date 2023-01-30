@@ -2,27 +2,8 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from '@theme/theme'
-import { styled } from '@mui/material/styles'
-import { css } from '@mui/system'
 import '@theme/styles.css'
-
-const Container = styled('div')`
-  margin: 0 10%;
-  padding: 20px;
-  background-color: white;
-`
-
-const Logo = styled('img')(
-  ({ theme }) =>  css`
-    margin: 0 auto;
-    display: block;
-    width: 100%;
-
-    ${theme.breakpoints.up('desktop')} {
-      width: 800px;
-    }
-  `
-)
+import { Container, Logo, PaddedContainer } from './_app.styled'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -35,8 +16,13 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider theme={theme}>
         <Container>
-          <Logo src="/img/NeatF2PLogo.png" alt="Neat F2P" />
-          <Component {...pageProps} />
+          <picture>
+            <source media="(max-width: 600px)" srcSet="/img/NeatF2PLogo-Mobile.png" />
+            <Logo src="/img/NeatF2PLogo.png" alt="Neat F2P" />
+          </picture>
+          <PaddedContainer>
+            <Component {...pageProps} />
+          </PaddedContainer>
         </Container>
       </ThemeProvider>
     </>

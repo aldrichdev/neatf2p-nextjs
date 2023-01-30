@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react'
 import Typography from '@mui/material/Typography'
-import { PlayersOnlineBox, PlayersOnlineMessage, BoldCount, Headline, Introduction } from './index.styled'
+import { ContentBlock, PlayersOnlineBox, PlayersOnlineMessage, OnlineCount, Introduction } from './index.styled'
 
 const Homepage = () => {
   const [playerCount, setPlayerCount] = useState(0)
@@ -22,12 +22,11 @@ const Homepage = () => {
     <div>
       <PlayersOnlineBox>
         <PlayersOnlineMessage>
-          There {verb} currently <BoldCount>{playerCount}</BoldCount> player(s) online.
+          There {verb} currently <OnlineCount>{playerCount}</OnlineCount> player(s) online.
         </PlayersOnlineMessage>
       </PlayersOnlineBox>
-
-      <div>
-        <Headline variant="h2">Welcome back to 2003.</Headline>
+      <ContentBlock>
+        <Typography variant="h2">Welcome back to 2003.</Typography>
         <Introduction variant="body">
           Our mission is to provide you with a F2P-only world and economy to explore and enjoy. 
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
@@ -36,9 +35,12 @@ const Homepage = () => {
           voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
           non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </Introduction>
-      </div>
+      </ContentBlock>
+      <ContentBlock>
+        <Typography variant="h2">Latest News & Updates</Typography>
+        
+      </ContentBlock>
     </div>
-
   )
 }
 
