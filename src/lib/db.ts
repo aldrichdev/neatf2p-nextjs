@@ -5,14 +5,25 @@ const port = !process.env.MARIADB_PORT || isNaN(parseInt(process.env.MARIADB_POR
   ? 3306
   : parseInt(process.env.MARIADB_PORT)
   
-const db = mysql({
+const sqlServerSettings = {
+  host: process.env.MARIADB_HOST,
+  port,
+  user: process.env.MARIADB_USER,
+  password: process.env.MARIADB_PASSWORD
+}
+
+const gameDB = mysql({
   config: {
-    host: process.env.MARIADB_HOST,
-    port,
-    database: process.env.MARIADB_DATABASE,
-    user: process.env.MARIADB_USER,
-    password: process.env.MARIADB_PASSWORD
-  }
+    ...sqlServerSettings,
+    database: process.env.GAME_DATABASE,
+  } 
+})
+
+const websiteDB = mysql({
+  config: {
+    ...sqlServerSettings,
+    database: process.env.WEBSITE_DATABASE,
+  } 
 })
 
 interface SomeProps {
@@ -20,14 +31,22 @@ interface SomeProps {
   values: string[]
 }
 
-const queryDatabase = async ({ query, values } : SomeProps) => {
+export const queryGameDatabase = async ({ query, values } : SomeProps) => {
   try {
-    const results = await db.query(query, values)
-    await db.end()
+    const results = await gameDB.query(query, values)
+    await gameDB.end()
     return results
   } catch (error) {
     return { error }
   }
 }
 
-export default queryDatabase
+export const queryWebsiteDatabase = async ({ query, values } : SomeProps) => {
+  try {
+    const results = await websiteDB.query(query, values)
+    await websiteDB.end()
+    return results
+  } catch (error) {
+    return { error }
+  }
+}

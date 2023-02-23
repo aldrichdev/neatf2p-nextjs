@@ -1,4 +1,4 @@
-import queryDatabase from '@lib/db'
+import { queryGameDatabase } from '@lib/db'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 interface Props {
@@ -10,7 +10,7 @@ const handler = async (
   res: NextApiResponse<Props>
 ) => {
   try {
-    const response = await queryDatabase({
+    const response = await queryGameDatabase({
       query: 'SELECT COUNT(id) FROM players WHERE ONLINE = 1',
       values: []
     })
@@ -23,26 +23,6 @@ const handler = async (
     res.json(error)
     res.status(500).end()
   }
-  // return new Promise((resolve, reject) => {
-  //   queryDatabase({ query: 'SELECT COUNT(username) FROM players WHERE ONLINE = 1', values: [] })
-  //     .then(response => {
-  //       console.log('response', response)
-  //       res.statusCode = 200
-  //       res.setHeader('Content-Type', 'application/json')
-  //       res.end(JSON.stringify(response))
-  //       resolve()
-  //     })
-  //     .catch(error => {
-  //       res.json(error)
-  //       res.status(405).end()
-  //       resolve()
-  //     })
-  // })
-  // const result = await queryDatabase({
-  //   query: 'SELECT COUNT(username) FROM players WHERE ONLINE = 1',
-  //   values: []
-  // })
-  // console.log('result', result)
 }
 
 export default handler

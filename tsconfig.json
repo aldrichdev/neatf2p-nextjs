@@ -22,7 +22,10 @@
       ],
       "@theme/*": [
         "src/theme/*"
-      ]
+      ],
+      "@atoms/*": [
+        "src/components/atoms/*"
+      ],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

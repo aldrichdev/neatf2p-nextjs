@@ -3,11 +3,12 @@ import { css } from '@mui/system'
 
 export const Container = styled('div')(
   ({ theme }) => css`
-    margin: 40px 10% 0;
+    margin: 10% 10% 0;
     background-color: white;
     border-radius: 0px;
 
     ${theme.breakpoints.up('desktop')} {
+      margin-top: 40px;
       border-radius: 40px;
     }
   `

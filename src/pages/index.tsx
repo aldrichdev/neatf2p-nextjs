@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { useState } from 'react'
 import Typography from '@mui/material/Typography'
-import { ContentBlock, PlayersOnlineBox, PlayersOnlineMessage, OnlineCount, Introduction } from './index.styled'
+import { ContentBlock } from '@atoms/ContentBlock'
+import { PlayersOnlineBox, PlayersOnlineMessage, OnlineCount, Introduction } from './index.styled'
+import { NewsAndUpdates } from '@atoms/NewsAndUpdates'
 
 const Homepage = () => {
   const [playerCount, setPlayerCount] = useState(0)
@@ -18,6 +20,8 @@ const Homepage = () => {
 
   const verb = playerCount === 1 ? 'is' : 'are'
 
+  const newsPosts = [] // TODO: get from database
+  
   return (
     <div>
       <PlayersOnlineBox>
@@ -36,10 +40,7 @@ const Homepage = () => {
           non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </Introduction>
       </ContentBlock>
-      <ContentBlock>
-        <Typography variant="h2">Latest News & Updates</Typography>
-        
-      </ContentBlock>
+      <NewsAndUpdates newsPosts={newsPosts} />
     </div>
   )
 }

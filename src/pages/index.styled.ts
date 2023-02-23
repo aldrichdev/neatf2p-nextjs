@@ -2,10 +2,6 @@ import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 import Typography from '@mui/material/Typography'
 
-export const ContentBlock = styled('div')`
-  margin-top: 20px;
-`
-
 export const PlayersOnlineBox = styled('div')`
   display: flex;
   justify-content: center;
