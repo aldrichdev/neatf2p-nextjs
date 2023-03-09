@@ -3,12 +3,15 @@ import { useState } from 'react'
 import Typography from '@mui/material/Typography'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { PlayersOnlineBox, PlayersOnlineMessage, OnlineCount, Introduction } from './index.styled'
-import { NewsAndUpdates } from '@atoms/NewsAndUpdates'
+import { NewsAndUpdates, NewsPost } from '@atoms/NewsAndUpdates'
 
 const Homepage = () => {
-  const [playerCount, setPlayerCount] = useState(0)
+  const [playerCount, setPlayerCount] = useState<number|undefined>(undefined)
+  const [newsPosts, setNewsPosts] = useState<NewsPost[]|undefined>(undefined)
+  const verb = playerCount === 1 ? 'is' : 'are'
 
   const fetchOnlinePlayerCount = () => {
+    console.log('fetchOnlinePlayerCount should only be called once', playerCount)
     axios.get('/api/getOnlinePlayerCount')
       .then((response) => {
         setPlayerCount(response.data)
@@ -16,12 +19,26 @@ const Homepage = () => {
       .catch((error : string) => error)
   }
 
-  fetchOnlinePlayerCount()
+  const fetchNewsPosts = () => {
+    console.log('fetchNewsPosts should only be called once', newsPosts)
+    axios.get('/api/getNewsPosts')
+      .then((response) => {
+        setNewsPosts(response.data)
+      })
+      .catch((error : string) => error)
+  }
 
-  const verb = playerCount === 1 ? 'is' : 'are'
+  // TODO: Homepage is re-rendering constantly. Find out why and fix it.
+  console.log('Homepage renders')
 
-  const newsPosts = [] // TODO: get from database
-  
+  if (playerCount === undefined) {
+    fetchOnlinePlayerCount()
+  }
+
+  if (newsPosts === undefined) {
+    fetchNewsPosts()
+  }
+
   return (
     <div>
       <PlayersOnlineBox>
@@ -40,7 +57,9 @@ const Homepage = () => {
           non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </Introduction>
       </ContentBlock>
-      <NewsAndUpdates newsPosts={newsPosts} />
+      {newsPosts && (
+        <NewsAndUpdates newsPosts={newsPosts} />
+      )}
     </div>
   )
 }

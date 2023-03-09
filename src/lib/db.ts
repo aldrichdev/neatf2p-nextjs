@@ -43,7 +43,7 @@ export const queryGameDatabase = async ({ query, values } : SomeProps) => {
 
 export const queryWebsiteDatabase = async ({ query, values } : SomeProps) => {
   try {
-    const results = await websiteDB.query(query, values)
+    const results = await websiteDB.query<Array<any>>(query, values)
     await websiteDB.end()
     return results
   } catch (error) {

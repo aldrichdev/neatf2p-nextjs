@@ -7,21 +7,10 @@ import ListItemAvatar from '@mui/material/ListItemAvatar'
 import Avatar from '@mui/material/Avatar'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { NewsPostImage, NewsPostContent } from './NewsAndUpdates.styled'
+import { NewsPost } from './NewsAndUpdates.d'
 
 // Example is OSRS website: https://oldschool.runescape.com
 // Using MUI component sample code: https://mui.com/material-ui/react-list/
-
-interface Image {
-  src: string
-  alt: string
-}
-
-interface NewsPost {
-  image: Image
-  title: string
-  date: string
-  body: string
-}
 
 interface NewsAndUpdatesProps {
   newsPosts: NewsPost[]
@@ -29,18 +18,24 @@ interface NewsAndUpdatesProps {
 
 const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
   const { newsPosts } = props
+  console.log('NewsandUpdates renders')
   
-  if (!newsPosts || !newsPosts.some(newsPost => newsPost.title)) return null;
+  // This component seems to re-render too many times.
+  // ERR_INSUFFICIENT_RESOURCES is seen in the console a lot. With hundreds of errors or messages.
+  // Right now, `newsPost.image` is a blob, or something containing a blob, so we need
+  // to update the code to render it from a blob.
+
+  if (!newsPosts || !Array.isArray(newsPosts) || !newsPosts?.some(newsPost => newsPost.title)) return null;
 
   return (
     <ContentBlock>
       <Typography variant="h2">Latest News & Updates</Typography>
       <List>
         {newsPosts.map((newsPost : NewsPost) => (
-          <>
+          <div key={newsPost.id}>
             <ListItem alignItems="flex-start">
               <ListItemAvatar>
-                <NewsPostImage alt={newsPost.image?.alt} src={newsPost.image?.src} />
+                <NewsPostImage alt={newsPost.alt} src={newsPost.image} />
               </ListItemAvatar>
               <NewsPostContent
                 primary={
@@ -48,7 +43,7 @@ const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
                 }
                 secondary={
                   <>
-                    <Typography variant="body">{newsPost.date}</Typography>
+                    <Typography variant="body">{newsPost.datePosted}</Typography>
                     <Typography variant="body" color="black">{newsPost.body}</Typography>
                   </>
                 }
@@ -56,7 +51,7 @@ const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
               </NewsPostContent>
             </ListItem>
             <Divider />
-          </>
+          </div>
         ))}
       </List>
     </ContentBlock>
