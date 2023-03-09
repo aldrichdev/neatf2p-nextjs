@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { useState } from 'react'
 import Typography from '@mui/material/Typography'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
@@ -12,21 +14,38 @@ import { NewsPost } from './NewsAndUpdates.d'
 // Example is OSRS website: https://oldschool.runescape.com
 // Using MUI component sample code: https://mui.com/material-ui/react-list/
 
-interface NewsAndUpdatesProps {
-  newsPosts: NewsPost[]
-}
-
-const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
-  const { newsPosts } = props
+// TODO: Right now, `newsPost.image` is a blob, or something containing a blob, so we need
+// to update the code to render it from a blob. 
+// Right now we get http://localhost:3001/[object%20Object] 404 (Not Found)
+const NewsAndUpdates = () => {
   console.log('NewsandUpdates renders')
-  
-  // This component seems to re-render too many times.
-  // ERR_INSUFFICIENT_RESOURCES is seen in the console a lot. With hundreds of errors or messages.
-  // Right now, `newsPost.image` is a blob, or something containing a blob, so we need
-  // to update the code to render it from a blob.
+
+  const [newsPosts, setNewsPosts] = useState<NewsPost[]|undefined>(undefined)
+
+  const fetchNewsPosts = () => {
+    console.log('fetchNewsPosts should only be called once', newsPosts)
+    axios.get('/api/getNewsPosts')
+      .then((response) => {
+        setNewsPosts(response.data)
+      })
+      .catch((error : string) => error)
+  }
+
+  if (newsPosts === undefined) {
+    fetchNewsPosts()
+  }
 
   if (!newsPosts || !Array.isArray(newsPosts) || !newsPosts?.some(newsPost => newsPost.title)) return null;
 
+  // Now that we have a Base64 string coming from the DB, we need to start converting it to a blob.
+  // const doThing = (base64String: string) => {
+  //   const convertedBlob = b64toBlob(base64String)
+  //   console.log('convertedBlob', convertedBlob)
+  //   const convertedUrl = URL.createObjectURL(convertedBlob)
+
+  //   setConvertedBlobUrl(convertedUrl)
+  // }
+  
   return (
     <ContentBlock>
       <Typography variant="h2">Latest News & Updates</Typography>
