@@ -14,14 +14,10 @@ const handler = async (
       query,
       values: []
     })
-
-    // This gives us a base64 string but it's different than the one we put into the table
-    // console.log('response[0].image', response[0].image.toString('base64'))
     
     if (response instanceof Array<any>) {
       response?.map((rowDataPacket: NewsPost) => {
-        const newObject = { ...rowDataPacket, image: response[0].image.toString('base64') }
-        console.log('newObject', newObject)
+        const newObject = { ...rowDataPacket, image: response[0].image.toString() }
         list.push(newObject);
       })
 
