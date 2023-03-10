@@ -20,6 +20,9 @@
       "@lib/*": [
         "src/lib/*"
       ],
+      "@helpers/*": [
+        "src/lib/helpers/*"
+      ],
       "@theme/*": [
         "src/theme/*"
       ],

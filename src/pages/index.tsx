@@ -1,34 +1,15 @@
-import axios from 'axios';
-import { useState } from 'react'
 import Typography from '@mui/material/Typography'
 import { ContentBlock } from '@atoms/ContentBlock'
-import { PlayersOnlineBox, PlayersOnlineMessage, OnlineCount, Introduction } from './index.styled'
+import { Introduction } from './index.styled'
+import { OnlinePlayers } from '@atoms/OnlinePlayers'
 import { NewsAndUpdates } from '@atoms/NewsAndUpdates'
 
 const Homepage = () => {
-  const [playerCount, setPlayerCount] = useState(0)
+  console.log('Homepage renders')
 
-  const fetchOnlinePlayerCount = () => {
-    axios.get('/api/getOnlinePlayerCount')
-      .then((response) => {
-        setPlayerCount(response.data)
-      })
-      .catch((error : string) => error)
-  }
-
-  fetchOnlinePlayerCount()
-
-  const verb = playerCount === 1 ? 'is' : 'are'
-
-  const newsPosts = [] // TODO: get from database
-  
   return (
     <div>
-      <PlayersOnlineBox>
-        <PlayersOnlineMessage>
-          There {verb} currently <OnlineCount>{playerCount}</OnlineCount> player(s) online.
-        </PlayersOnlineMessage>
-      </PlayersOnlineBox>
+      <OnlinePlayers />
       <ContentBlock>
         <Typography variant="h2">Welcome back to 2003.</Typography>
         <Introduction variant="body">
@@ -40,7 +21,7 @@ const Homepage = () => {
           non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </Introduction>
       </ContentBlock>
-      <NewsAndUpdates newsPosts={newsPosts} />
+      <NewsAndUpdates />
     </div>
   )
 }
