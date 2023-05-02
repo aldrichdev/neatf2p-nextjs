@@ -3,15 +3,10 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { insertIntoWebsiteDatabase } from '@lib/db'
 import { NewsPost } from '@atoms/NewsAndUpdates'
 import { OkPacket } from 'mysql'
+import { cleanInputString } from '@lib/helpers/string/stringUtils'
 
 const isOkPacket = (o: any): o is OkPacket => {
   return o && o.hasOwnProperty('insertId') && typeof o.insertId === 'number'
-}
-
-const cleanIt = (text: string) => {
-  if (!text) return 'No input string'
-
-  return text.replace(/'/g, "\\'")
 }
 
 const handler = async (
@@ -27,8 +22,8 @@ const handler = async (
 
     // Next, build the insertNewsPost command and execute, then return results.
     const insertNewsPostStub = fs.readFileSync('src/sql/insertNewsPost.sql').toString()
-    const insertNewsPostQuery = `${insertNewsPostStub} (${insertedImageId}, '${cleanIt(req.body?.title)}',
-      '${req.body?.datePosted}', '${cleanIt(req.body?.body)}')`
+    const insertNewsPostQuery = `${insertNewsPostStub} (${insertedImageId}, '${cleanInputString(req.body?.title)}',
+      '${req.body?.datePosted}', '${cleanInputString(req.body?.body)}')`
     console.log('insertNewsPostQuery', insertNewsPostQuery)
     const insertNewsPostResponse: OkPacket | { error: unknown } = await insertIntoWebsiteDatabase(insertNewsPostQuery)
 
