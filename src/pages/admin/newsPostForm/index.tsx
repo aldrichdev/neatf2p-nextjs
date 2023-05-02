@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios';
 import { convertBlobToBase64String } from '@helpers/base64'
-import { getDateString } from '@/lib/helpers/date/date';
 import { StyledForm, Field, SubmitArea, SubmitButton, SubmitMessage } from './NewsPostForm.styled'
 import Typography from '@mui/material/Typography'
 
@@ -45,7 +44,7 @@ const NewsPostForm = () => {
       image: imageBase64,
       alt,
       title,
-      datePosted: getDateString(new Date()),
+      datePosted: new Date(),
       body
     })
     .then((response) => {

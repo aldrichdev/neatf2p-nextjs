@@ -16,3 +16,19 @@ export const getDateString = (date: Date) => {
 
   return `${month} ${day}, ${year}`
 }
+
+export const getPrettyDateStringFromISOString = (dateString: string) => {
+  const date = new Date(dateString)
+
+  const month = date.toLocaleString('default', { month: 'long' });
+  const dayInt = date.getDate()
+  const day = `${dayInt}${nth(dayInt)}`
+  const year = date.getFullYear()
+
+  // Add time, not in military
+  const hours = date.getHours() - 12
+  const minutes = date.getMinutes()
+  const period = date.getHours() >= 12? 'PM' : 'AM'
+
+  return `${month} ${day}, ${year} ${hours}:${minutes} ${period}`
+}
