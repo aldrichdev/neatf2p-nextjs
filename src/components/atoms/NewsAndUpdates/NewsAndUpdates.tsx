@@ -12,6 +12,7 @@ import {
 } from './NewsAndUpdates.styled'
 import { NewsPost } from './NewsAndUpdates.d'
 import { getImageUrlFromBase64 } from '@helpers/base64'
+import { getPrettyDateStringFromISOString } from '@/lib/helpers/date/date'
 
 // Example is OSRS website: https://oldschool.runescape.com
 // Using MUI component sample code: https://mui.com/material-ui/react-list/``
@@ -34,12 +35,13 @@ const NewsAndUpdates = () => {
 
   if (!newsPosts || !Array.isArray(newsPosts) || !newsPosts?.some(newsPost => newsPost.title)) return null
 
-  // TODO: Handle this as a different Jira ticket. You're just trying to get the submit form 100% in this branch!
-  // newsPosts.sort((a, b) => {
-  //   // Turn your strings into dates, and then subtract them
-  //   // to get a value that is either negative, positive, or zero.
-  //   return new Date(b.datePosted) - new Date(a.datePosted)
-  // })
+  // Make latest posts appear first
+  newsPosts.sort((a, b) => {
+    const aDatePosted = new Date(a.datePosted)
+    const bDatePosted = new Date(b.datePosted)
+
+    return bDatePosted.getTime() - aDatePosted.getTime()
+  })
 
   return (
     <ContentBlock>
@@ -57,7 +59,7 @@ const NewsAndUpdates = () => {
                 }
                 secondary={
                   <>
-                    <Typography variant="body">{newsPost.datePosted}</Typography>
+                    <Typography variant="body">{getPrettyDateStringFromISOString(newsPost.datePosted)}</Typography>
                     <Typography variant="body" color="black">{newsPost.body}</Typography>
                   </>
                 }
