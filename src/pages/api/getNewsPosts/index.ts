@@ -10,14 +10,11 @@ const handler = async (
   try {
     let list: NewsPost[] = []
     const query = fs.readFileSync('src/sql/getNewsPosts.sql').toString()
-    const response: Array<any> | { error: unknown } = await queryWebsiteDatabase({
-      query,
-      values: []
-    })
+    const response: Array<any> | { error: unknown } = await queryWebsiteDatabase(query)
     
     if (response instanceof Array<any>) {
       response?.map((rowDataPacket: NewsPost) => {
-        const newObject = { ...rowDataPacket, image: response[0].image.toString() }
+        const newObject = { ...rowDataPacket, image: rowDataPacket.image.toString() }
         list.push(newObject);
       })
 

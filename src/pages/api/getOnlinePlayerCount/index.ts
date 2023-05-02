@@ -1,3 +1,4 @@
+import fs from 'fs'
 import { queryGameDatabase } from '@lib/db'
 import { NextApiRequest, NextApiResponse } from 'next'
 
@@ -5,23 +6,35 @@ interface Props {
   onlinePlayerCount: number
 }
 
+interface RowDataPacket {
+  'COUNT(id)': number
+}
+
+interface ErrorResult {
+  error: unknown
+}
+
 const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<Props>
 ) => {
   try {
-    const response = await queryGameDatabase({
-      query: 'SELECT COUNT(id) FROM players WHERE ONLINE = 1',
-      values: []
-    })
-    const onlineCount = response?.[0]?.['COUNT(id)']
+    const query = fs.readFileSync('src/sql/getOnlinePlayers.sql').toString()
+    const response = await queryGameDatabase<RowDataPacket[] | ErrorResult>(query)
+
+    if (!Array.isArray(response)) {
+      throw new Error(response?.error?.toString());
+    }
+
+    const onlineCount = Array.isArray(response) && response?.[0]?.["COUNT(id)"]
     res.statusCode = 200
-    res.setHeader('Content-Type', 'application/json')
+    res.setHeader("Content-Type", "application/json")
     res.end(JSON.stringify(onlineCount))
   }
   catch (error) {
-    res.json(error)
-    res.status(500).end()
+    res.statusCode = 500
+    res.setHeader('Content-Type', 'application/json')
+    res.end(JSON.stringify(error?.toString()))
   }
 }
 
