@@ -1,4 +1,5 @@
 // https://www.simplenextjs.com/posts/next-mysql
+import { OkPacket } from 'mysql'
 import mysql from 'serverless-mysql'
 
 const port = !process.env.MARIADB_PORT || isNaN(parseInt(process.env.MARIADB_PORT)) 
@@ -26,14 +27,11 @@ const websiteDB = mysql({
   } 
 })
 
-interface SomeProps {
-  query: string
-  values: string[]
-}
-
-export const queryGameDatabase = async ({ query, values } : SomeProps) => {
+// TODO: Refactor these query functions so the caller can pass a reference to the database (maybe via a string), 
+// that way we only need 1 query function
+export const queryGameDatabase = async <T>(sqlStatement : string) => {
   try {
-    const results = await gameDB.query(query, values)
+    const results = await gameDB.query<T>(sqlStatement, [])
     await gameDB.end()
     return results
   } catch (error) {
@@ -41,9 +39,19 @@ export const queryGameDatabase = async ({ query, values } : SomeProps) => {
   }
 }
 
-export const queryWebsiteDatabase = async ({ query, values } : SomeProps) => {
+export const queryWebsiteDatabase = async (sqlStatement : string) => {
   try {
-    const results = await websiteDB.query<Array<any>>(query, values)
+    const results = await websiteDB.query<Array<any>>(sqlStatement, [])
+    await websiteDB.end()
+    return results
+  } catch (error) {
+    return { error }
+  }
+}
+
+export const insertIntoWebsiteDatabase = async (sqlStatement : string) => {
+  try {
+    const results = await websiteDB.query<OkPacket>(sqlStatement, [])
     await websiteDB.end()
     return results
   } catch (error) {

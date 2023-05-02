@@ -19,6 +19,8 @@ const OnlinePlayers = () => {
     fetchOnlinePlayerCount()
   }
 
+  if (playerCount != 0 && !playerCount) return null
+
   return (
     <PlayersOnlineBox>
       <PlayersOnlineMessage>

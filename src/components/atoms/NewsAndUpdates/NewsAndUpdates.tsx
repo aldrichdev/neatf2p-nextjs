@@ -32,7 +32,14 @@ const NewsAndUpdates = () => {
     fetchNewsPosts()
   }
 
-  if (!newsPosts || !Array.isArray(newsPosts) || !newsPosts?.some(newsPost => newsPost.title)) return null;
+  if (!newsPosts || !Array.isArray(newsPosts) || !newsPosts?.some(newsPost => newsPost.title)) return null
+
+  // TODO: Handle this as a different Jira ticket. You're just trying to get the submit form 100% in this branch!
+  // newsPosts.sort((a, b) => {
+  //   // Turn your strings into dates, and then subtract them
+  //   // to get a value that is either negative, positive, or zero.
+  //   return new Date(b.datePosted) - new Date(a.datePosted)
+  // })
 
   return (
     <ContentBlock>
