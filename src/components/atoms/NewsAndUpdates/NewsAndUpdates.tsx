@@ -1,14 +1,12 @@
 import axios from 'axios';
 import { useState } from 'react'
-import Typography from '@mui/material/Typography'
-import Divider from '@mui/material/Divider'
+import { ListItemText, Typography, Divider } from "@mui/material";
 import { ContentBlock } from '@atoms/ContentBlock'
 import {
   NewsPostList,
   NewsPostListItem,
   NewsPostAvatar,
   NewsPostImage,
-  NewsPostContent
 } from './NewsAndUpdates.styled'
 import { NewsPost } from './NewsAndUpdates.d'
 import { getImageUrlFromBase64 } from '@helpers/base64'
@@ -27,6 +25,15 @@ const NewsAndUpdates = () => {
         setNewsPosts(response.data)
       })
       .catch((error : string) => error)
+  }
+
+  const getNewsPostImageUrl = (newsPostImage: string) => {
+    // Show a placeholder image if there isn't an image in the database
+    if (!newsPostImage) {
+      return "/img/S2H.png"
+    }
+
+    return getImageUrlFromBase64(newsPostImage)
   }
 
   if (newsPosts === undefined) {
@@ -51,9 +58,9 @@ const NewsAndUpdates = () => {
           <div key={newsPost.id}>
             <NewsPostListItem alignItems="flex-start">
               <NewsPostAvatar>
-                <NewsPostImage alt={newsPost.alt} src={getImageUrlFromBase64(newsPost.image)} />
+                <NewsPostImage alt={newsPost.alt} src={getNewsPostImageUrl(newsPost.image)} />
               </NewsPostAvatar>
-              <NewsPostContent
+              <ListItemText
                 primary={
                   <Typography variant="body">{newsPost.title}</Typography>
                 }
@@ -64,7 +71,7 @@ const NewsAndUpdates = () => {
                   </>
                 }
                 secondaryTypographyProps={{ component: 'div' }}>
-              </NewsPostContent>
+              </ListItemText>
             </NewsPostListItem>
             <Divider />
           </div>
