@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from '@theme/theme'
 import '@theme/styles.css'
-import { Container, Logo, PaddedContainer } from './_app.styled'
+import { Container, HomepageLink, Logo, PaddedContainer } from './_app.styled'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -16,10 +16,12 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider theme={theme}>
         <Container>
-          <picture>
-            <source media="(max-width: 600px)" srcSet="/img/NeatF2PLogo-Mobile.png" />
-            <Logo src="/img/NeatF2PLogo.png" alt="Neat F2P" />
-          </picture>
+          <HomepageLink href="/">
+            <picture>
+              <source media="(max-width: 600px)" srcSet="/img/NeatF2PLogo-Mobile.png" />
+              <Logo src="/img/NeatF2PLogo.png" alt="Neat F2P" />
+            </picture>
+          </HomepageLink>
           <PaddedContainer>
             <Component {...pageProps} />
           </PaddedContainer>

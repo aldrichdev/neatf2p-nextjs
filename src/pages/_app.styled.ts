@@ -1,5 +1,6 @@
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
+import Link from 'next/link'
 
 export const Container = styled('div')(
   ({ theme }) => css`
@@ -14,11 +15,10 @@ export const Container = styled('div')(
   `
 )
 
-export const Logo = styled('img')(
-  ({ theme }) =>  css`
+export const HomepageLink = styled(Link)(
+  ({ theme }) => css`
     margin: 0 auto;
     display: block;
-    width: 100%;
 
     ${theme.breakpoints.up('desktop')} {
       padding-top: 40px;
@@ -27,8 +27,14 @@ export const Logo = styled('img')(
   `
 )
 
+export const Logo = styled('img')(
+  () =>  css`
+    width: 100%;
+  `
+)
+
 export const PaddedContainer = styled('div')(
-  ({ theme }) => css`
+  () => css`
     padding: 20px;
   `
 )
