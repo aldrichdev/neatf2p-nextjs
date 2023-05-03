@@ -9,12 +9,12 @@ const handler = async (
 ) => {
   try {
     let list: NewsPost[] = []
-    const query = fs.readFileSync('src/sql/getNewsPosts.sql').toString()
+    const query = fs.readFileSync('src/sql/getNewsPosts.sql')?.toString()
     const response: Array<any> | { error: unknown } = await queryWebsiteDatabase(query)
     
     if (response instanceof Array<any>) {
       response?.map((rowDataPacket: NewsPost) => {
-        const newObject = { ...rowDataPacket, image: rowDataPacket.image.toString() }
+        const newObject = { ...rowDataPacket, image: rowDataPacket.image?.toString() || '' }
         list.push(newObject);
       })
 
@@ -22,7 +22,7 @@ const handler = async (
       res.setHeader('Content-Type', 'application/json')
       res.end(JSON.stringify(list))
     } else {
-      throw new Error(response.error?.toString());
+      throw new Error(response.error?.toString())
     }
   }
   catch (error) {

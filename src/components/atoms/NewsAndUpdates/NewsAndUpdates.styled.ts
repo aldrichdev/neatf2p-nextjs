@@ -1,4 +1,3 @@
-import { ListItemText } from "@mui/material";
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 import List from '@mui/material/List'
@@ -28,6 +27,10 @@ export const NewsPostAvatar = styled(ListItemAvatar)(
     ${theme.breakpoints.up('tablet')} {
       width: auto;
     }
+
+    ${theme.breakpoints.up('desktop')} {
+      margin-right: 20px;
+    }
   `
 )
 export const NewsPostImage = styled('img')(
@@ -37,14 +40,5 @@ export const NewsPostImage = styled('img')(
     ${theme.breakpoints.up('tablet')} {
       width: 150px;
     }
-  `
-)
-
-export const NewsPostContent = styled(ListItemText)(
-  ({ theme }) => css`
-    ${theme.breakpoints.up('desktop')} {
-      margin-left: 20px;
-    }
-    
   `
 )

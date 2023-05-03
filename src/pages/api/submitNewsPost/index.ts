@@ -15,7 +15,7 @@ const handler = async (
 ) => {
   try {
     const insertImageStub = fs.readFileSync('src/sql/insertImage.sql').toString()
-    const insertImageQuery = `${insertImageStub} ('${req.body?.image}', '${req.body?.alt}')`
+    const insertImageQuery = `${insertImageStub} ('${req.body?.image}', '${cleanInputString(req.body?.alt)}')`
     const insertImageResponse: OkPacket | { error: unknown } = await insertIntoWebsiteDatabase(insertImageQuery)
     
     const insertedImageId = isOkPacket(insertImageResponse) && insertImageResponse?.insertId
