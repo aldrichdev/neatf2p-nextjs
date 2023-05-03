@@ -17,6 +17,10 @@ export const NewsPostListItem = styled(ListItem)(
     flex-wrap: wrap;
     padding: 0;
     margin: 10px 0 20px;
+
+    ${theme.breakpoints.up('tablet')} {
+      flex-wrap: nowrap;
+    }
   `
 )
 
