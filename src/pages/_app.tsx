@@ -4,6 +4,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import theme from '@theme/theme'
 import '@theme/styles.css'
 import { Container, HomepageLink, Logo, PaddedContainer } from './_app.styled'
+import { MainNavigation } from '@molecules/MainNavigation'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -22,6 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
               <Logo src="/img/NeatF2PLogo.png" alt="Neat F2P" />
             </picture>
           </HomepageLink>
+          <MainNavigation />
           <PaddedContainer>
             <Component {...pageProps} />
           </PaddedContainer>
