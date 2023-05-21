@@ -9,11 +9,12 @@ export const PlayersOnlineBox = styled('div')`
 export const PlayersOnlineMessage = styled('p')(
   ({ theme }) => css`
     font-family: Helvetica;
-    font-size: 14px;
-    margin: 0;
-      
+    font-size: 20px;
+    text-align: center;
+    margin: 20px 0;
+
     ${theme.breakpoints.up('tablet')} {
-      font-size: 20px;
+      margin: 0;
     }
   `
 )

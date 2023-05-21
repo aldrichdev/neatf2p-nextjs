@@ -3,27 +3,21 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { Introduction } from './index.styled'
 import { OnlinePlayers } from '@atoms/OnlinePlayers'
 import { NewsAndUpdates } from '@atoms/NewsAndUpdates'
+import Link from 'next/link'
 
-const Homepage = () => {
-  console.log('Homepage renders')
-
-  return (
-    <div>
-      <OnlinePlayers />
-      <ContentBlock>
-        <Typography variant="h2">Welcome back to 2003.</Typography>
-        <Introduction variant="body">
-          Our mission is to provide you with a F2P-only world and economy to explore and enjoy. 
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-          laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
-          voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
-          non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </Introduction>
-      </ContentBlock>
-      <NewsAndUpdates />
-    </div>
-  )
-}
+const Homepage = () => (
+  <div>
+    <OnlinePlayers />
+    <ContentBlock>
+      <Typography variant="h2">Welcome back to 2003.</Typography>
+      <Introduction variant="body">
+        Neat F2P is a RuneScape Classic private server community that aims to provide you with 
+        an RS1 F2P experience, featuring a F2P-only world and economy to explore and enjoy.
+        For more information, check out the <Link href="/about" target="_blank">About page</Link>.
+      </Introduction>
+    </ContentBlock>
+    <NewsAndUpdates />
+  </div>
+)
 
 export default Homepage
