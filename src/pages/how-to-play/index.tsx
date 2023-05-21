@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import Link from "next/link";
 
 const HowToPlay = () => (
-  <Typography variant="body">Coming Soon... For now, you'll have to join our <Link href="/discord">Discord</Link> for 
+  <Typography variant="body">Coming Soon... For now, you&apos;ll have to join our <Link href="/discord">Discord</Link> for 
     info on how to play.
   </Typography>
 )

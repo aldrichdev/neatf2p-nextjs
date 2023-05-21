@@ -13,7 +13,7 @@ const About = () => (
     </Paragraph>
     <Paragraph variant="body">
       We seek to provide the RSC F2P nostalgia, but with an added twist: <em>there are no members items
-      or worlds.</em> You'll find that some items which are considered F2P, but were only accessible in 
+      or worlds.</em> You&apos;ll find that some items which are considered F2P, but were only accessible in 
       members lands, will be unobtainable. In this way, Neat F2P provides a unique RSC experience 
       that we have never seen!
     </Paragraph>
