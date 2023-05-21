@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { NavUnorderedList, NavListItem, NavLink } from './MainNavigation.styled'
+import { NavUnorderedList, NavLink } from './MainNavigation.styled'
 
 const MainNavigation = () => {
   const { asPath } = useRouter()
