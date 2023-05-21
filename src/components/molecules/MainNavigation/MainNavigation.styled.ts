@@ -23,16 +23,6 @@ export const NavUnorderedList = styled('ul')(
   `
 )
 
-export const NavListItem = styled('li')(
-  ({ theme }) => css`
-    flex-basis: auto;
-
-    ${theme.breakpoints.up('tablet')} {
-      flex-basis: auto;
-    }
-  `
-)
-
 export const NavLink = styled(Link)<{ isActive?: boolean }>(
   ({ isActive }) => css`
     color: white;

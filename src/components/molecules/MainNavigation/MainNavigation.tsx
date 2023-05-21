@@ -33,9 +33,9 @@ const MainNavigation = () => {
   return (
     <NavUnorderedList>
       {navigationLinks.map((link: { path: string; text: string; }) => (
-        <NavListItem key={link.path}>
+        <li key={link.path}>
           <NavLink href={link.path} isActive={link.path === asPath}>{link.text}</NavLink>
-        </NavListItem>
+        </li>
       ))}
     </NavUnorderedList>
   )
