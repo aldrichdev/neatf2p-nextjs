@@ -11,7 +11,7 @@ export const StyledForm = styled('form')(
 )
 
 export const Field = styled('div')(
-  ({ theme }) => css`
+  () => css`
     margin-top: 10px;
     flex-basis: 100%;
     display: grid;
@@ -19,7 +19,7 @@ export const Field = styled('div')(
 )
 
 export const SubmitArea = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -28,14 +28,14 @@ export const SubmitArea = styled('div')(
 )
 
 export const SubmitButton = styled('button')(
-  ({ theme }) => css`
+  () => css`
     margin-top: 10px;
     flex-basis: 100%;
   `
 )
 
 export const SubmitMessage = styled('label')<{ color?: string; }>(
-  ({ theme, color }) => css`
+  ({ color }) => css`
     flex-basis: 100%;
     color: ${color || 'black'};
     text-align: center;

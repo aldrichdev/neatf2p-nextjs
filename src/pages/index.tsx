@@ -1,6 +1,6 @@
 import Typography from '@mui/material/Typography'
 import { ContentBlock } from '@atoms/ContentBlock'
-import { Introduction } from './index.styled'
+import { Introduction } from '@styled/Homepage/Homepage.styled'
 import { OnlinePlayers } from '@atoms/OnlinePlayers'
 import { NewsAndUpdates } from '@atoms/NewsAndUpdates'
 import Link from 'next/link'

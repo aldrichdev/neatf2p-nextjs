@@ -32,6 +32,9 @@
       "@molecules/*": [
         "src/components/molecules/*"
       ],
+      "@styled/*": [
+        "src/components/styled/*"
+      ],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

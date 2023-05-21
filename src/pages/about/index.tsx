@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material"
-import { Paragraph } from "./index.styled"
+import { Paragraph } from "@styled/About/About.styled"
 import { ContentBlock } from '@atoms/ContentBlock'
 import Link from "next/link"
 

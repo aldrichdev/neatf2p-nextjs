@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from '@theme/theme'
 import '@theme/styles.css'
-import { Container, HomepageLink, Logo, PaddedContainer } from './_app.styled'
+import { Container, HomepageLink, Logo, PaddedContainer } from '@styled/App/App.styled'
 import { MainNavigation } from '@molecules/MainNavigation'
 
 export default function App({ Component, pageProps }: AppProps) {
