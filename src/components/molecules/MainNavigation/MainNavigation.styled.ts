@@ -3,17 +3,33 @@ import { css } from '@mui/system'
 import Link from 'next/link'
 
 export const NavUnorderedList = styled('ul')(
-  () => css`
+  ({ theme }) => css`
     list-style-type: none;
-    margin: 0;
-    padding: 0;
     margin: 20px 0 10px;
+    padding: 0;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 32px;
     font-family: Saros;
     font-size: 20px;
+    column-gap: 16px;
+    row-gap: 32px;
+
+    ${theme.breakpoints.up('desktop')} {
+      flex-wrap: nowrap;
+      gap: 32px;
+    }
+  `
+)
+
+export const NavListItem = styled('li')(
+  ({ theme }) => css`
+    flex-basis: auto;
+
+    ${theme.breakpoints.up('tablet')} {
+      flex-basis: auto;
+    }
   `
 )
 
