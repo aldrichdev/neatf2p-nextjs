@@ -21,7 +21,8 @@ const handler = async (
   try {
     const query = fs.readFileSync('src/sql/getOnlinePlayers.sql').toString()
     const response = await queryGameDatabase<RowDataPacket[] | ErrorResult>(query)
-
+    console.log('response', response);
+    
     if (!Array.isArray(response)) {
       throw new Error(response?.error?.toString());
     }
