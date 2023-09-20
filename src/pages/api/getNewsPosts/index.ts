@@ -8,8 +8,11 @@ const handler = async (
   res: NextApiResponse<NewsPost>
 ) => {
   try {
+    const path = require("path");
     let list: NewsPost[] = []
-    const query = fs.readFileSync('../../../sql/getNewsPosts.sql')?.toString()
+    console.log('__dirname', __dirname);
+    console.log('path.resolve', path.resolve(__dirname, "../../../sql/getNewsPosts.sql"));
+    const query = fs.readFileSync(path.resolve(__dirname, "../../../sql/getNewsPosts.sql"))?.toString()
     const response: Array<any> | { error: unknown } = await queryWebsiteDatabase(query)
     
     if (response instanceof Array<any>) {
