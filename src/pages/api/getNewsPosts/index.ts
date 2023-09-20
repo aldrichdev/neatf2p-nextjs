@@ -1,4 +1,3 @@
-import fs from 'fs'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { queryWebsiteDatabase } from '@lib/db'
 import { NewsPost } from '@atoms/NewsAndUpdates'
@@ -9,10 +8,12 @@ const handler = async (
 ) => {
   try {
     let list: NewsPost[] = []
-    const query = fs.readFileSync('sql/getNewsPosts.sql')?.toString()
+    const query = `SELECT np.id, i.image, i.alt, np.title, np.datePosted, np.body
+    FROM newsposts np
+    LEFT OUTER JOIN images i ON np.image = i.id`
     const response: Array<any> | { error: unknown } = await queryWebsiteDatabase(query)
     
-    if (response instanceof Array<any>) {
+    if (response instanceof Array) {
       response?.map((rowDataPacket: NewsPost) => {
         const newObject = { ...rowDataPacket, image: rowDataPacket.image?.toString() || '' }
         list.push(newObject);

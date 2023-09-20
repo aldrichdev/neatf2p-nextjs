@@ -1,4 +1,3 @@
-import fs from 'fs'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { insertIntoWebsiteDatabase } from '@lib/db'
 import { NewsPost } from '@atoms/NewsAndUpdates'
@@ -14,14 +13,16 @@ const handler = async (
   res: NextApiResponse<NewsPost>
 ) => {
   try {
-    const insertImageStub = fs.readFileSync('sql/insertImage.sql').toString()
+    const insertImageStub = `INSERT INTO images (image, alt)
+      VALUES `
     const insertImageQuery = `${insertImageStub} ('${req.body?.image}', '${cleanInputString(req.body?.alt)}')`
     const insertImageResponse: OkPacket | { error: unknown } = await insertIntoWebsiteDatabase(insertImageQuery)
     
     const insertedImageId = isOkPacket(insertImageResponse) && insertImageResponse?.insertId
 
     // Next, build the insertNewsPost command and execute, then return results.
-    const insertNewsPostStub = fs.readFileSync('sql/insertNewsPost.sql').toString()
+    const insertNewsPostStub = `INSERT INTO newsPosts (image, title, datePosted, body)
+      VALUES `
     const insertNewsPostQuery = `${insertNewsPostStub} (${insertedImageId}, '${cleanInputString(req.body?.title)}',
       '${req.body?.datePosted}', '${cleanInputString(req.body?.body)}')`
     console.log('insertNewsPostQuery', insertNewsPostQuery)

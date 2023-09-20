@@ -1,1 +1,0 @@
-SELECT COUNT(id) FROM players WHERE ONLINE = 1

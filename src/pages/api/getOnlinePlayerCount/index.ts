@@ -1,4 +1,3 @@
-import fs from 'fs'
 import { queryGameDatabase } from '@lib/db'
 import { NextApiRequest, NextApiResponse } from 'next'
 
@@ -14,12 +13,13 @@ interface ErrorResult {
   error: unknown
 }
 
+/** Note: `req` variable is unused, but removing it will throw an error, `res.setHeader is not a function`. */
 const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<Props>
 ) => {
   try {
-    const query = fs.readFileSync('sql/getOnlinePlayers.sql').toString()
+    const query = `SELECT COUNT(id) FROM players WHERE ONLINE = 1`
     const response = await queryGameDatabase<RowDataPacket[] | ErrorResult>(query)
     console.log('response', response);
     
