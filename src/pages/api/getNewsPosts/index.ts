@@ -9,7 +9,7 @@ const handler = async (
 ) => {
   try {
     let list: NewsPost[] = []
-    const query = fs.readFileSync('../../../../public/sql/getNewsPosts.sql')?.toString()
+    const query = fs.readFileSync('../../../sql/getNewsPosts.sql')?.toString()
     const response: Array<any> | { error: unknown } = await queryWebsiteDatabase(query)
     
     if (response instanceof Array<any>) {
