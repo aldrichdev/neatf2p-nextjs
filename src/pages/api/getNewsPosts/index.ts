@@ -13,7 +13,7 @@ const handler = async (
     LEFT OUTER JOIN images i ON np.image = i.id`
     const response: Array<any> | { error: unknown } = await queryWebsiteDatabase(query)
     
-    if (response instanceof Array<any>) {
+    if (response instanceof Array) {
       response?.map((rowDataPacket: NewsPost) => {
         const newObject = { ...rowDataPacket, image: rowDataPacket.image?.toString() || '' }
         list.push(newObject);
