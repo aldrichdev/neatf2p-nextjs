@@ -19,7 +19,7 @@ const handler = async (
   res: NextApiResponse<Props>
 ) => {
   try {
-    const query = fs.readFileSync('src/sql/getOnlinePlayers.sql').toString()
+    const query = fs.readFileSync('sql/getOnlinePlayers.sql').toString()
     const response = await queryGameDatabase<RowDataPacket[] | ErrorResult>(query)
     console.log('response', response);
     
