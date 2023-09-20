@@ -1,4 +1,3 @@
-import fs from 'fs'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { queryWebsiteDatabase } from '@lib/db'
 import { NewsPost } from '@atoms/NewsAndUpdates'
@@ -8,11 +7,10 @@ const handler = async (
   res: NextApiResponse<NewsPost>
 ) => {
   try {
-    const path = require("path");
     let list: NewsPost[] = []
-    console.log('__dirname', __dirname);
-    console.log('path.resolve', path.resolve(__dirname, "../../../sql/getNewsPosts.sql"));
-    const query = fs.readFileSync(path.resolve(__dirname, "../../../sql/getNewsPosts.sql"))?.toString()
+    const query = `SELECT np.id, i.image, i.alt, np.title, np.datePosted, np.body
+    FROM newsposts np
+    LEFT OUTER JOIN images i ON np.image = i.id`
     const response: Array<any> | { error: unknown } = await queryWebsiteDatabase(query)
     
     if (response instanceof Array<any>) {
