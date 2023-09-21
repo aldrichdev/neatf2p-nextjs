@@ -42,7 +42,7 @@ export const NewsPostImage = styled('img')(
     width: 100%;
 
     ${theme.breakpoints.up('tablet')} {
-      width: 150px;
+      width: 85px;
     }
   `
 )
