@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios';
 import { convertBlobToBase64String } from '@helpers/base64'
-import { StyledForm, Field, SubmitArea, SubmitButton, SubmitMessage } from '@styled/NewsPostForm/NewsPostForm.styled'
+import { StyledForm, Field, SubmitArea, SubmitButton, SubmitMessage, FieldInfo } from '@styled/NewsPostForm/NewsPostForm.styled'
 import Typography from '@mui/material/Typography'
 
 // TODO: F2P-1 - Check if user is logged in
@@ -67,6 +67,7 @@ const NewsPostForm = () => {
       <StyledForm onSubmit={handleSubmit}>
         <Field>
           <label htmlFor="imageSrc">Image</label>
+          <FieldInfo>(Optional; if not provided, a placeholder image will be displayed next to the post)</FieldInfo>
           <input type="file" id="imageSrc" onChange={handleImageChange} />
         </Field>
         <Field>

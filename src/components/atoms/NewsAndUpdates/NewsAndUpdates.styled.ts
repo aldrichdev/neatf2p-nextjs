@@ -3,9 +3,10 @@ import { css } from '@mui/system'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
+import { Typography } from '@mui/material'
 
 export const NewsPostList = styled(List)(
-  ({ theme }) => css`
+  () => css`
     hr:last-child {
       display: none;
     }
@@ -46,3 +47,7 @@ export const NewsPostImage = styled('img')(
     }
   `
 )
+
+export const NewsPostTitle = styled(Typography)`
+  font-weight: 600;
+`

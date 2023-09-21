@@ -7,13 +7,14 @@ import {
   NewsPostListItem,
   NewsPostAvatar,
   NewsPostImage,
+  NewsPostTitle,
 } from './NewsAndUpdates.styled'
 import { NewsPost } from './NewsAndUpdates.d'
 import { getImageUrlFromBase64 } from '@helpers/base64'
-import { getPrettyDateStringFromISOString } from '@/lib/helpers/date/date'
+import { getPrettyDateStringFromISOString } from '@helpers/date/date'
 
 // Example is OSRS website: https://oldschool.runescape.com
-// Using MUI component sample code: https://mui.com/material-ui/react-list/``
+// Using MUI component sample code: https://mui.com/material-ui/react-list/
 const NewsAndUpdates = () => {
   console.log('NewsandUpdates renders')
 
@@ -30,7 +31,7 @@ const NewsAndUpdates = () => {
   const getNewsPostImageUrl = (newsPostImage: string) => {
     // Show a placeholder image if there isn't an image in the database
     if (!newsPostImage) {
-      return "/img/S2H.png"
+      return "/img/NeatF2PLogo-Compact.png"
     }
 
     return getImageUrlFromBase64(newsPostImage)
@@ -51,9 +52,9 @@ const NewsAndUpdates = () => {
   })
 
   return (
-    <ContentBlock>
+    <ContentBlock isHomepage>
       <Typography variant="h2">Latest News & Updates</Typography>
-      <NewsPostList>
+      <NewsPostList disablePadding>
         {newsPosts.map((newsPost : NewsPost) => (
           <div key={newsPost.id}>
             <NewsPostListItem alignItems="flex-start">
@@ -62,7 +63,7 @@ const NewsAndUpdates = () => {
               </NewsPostAvatar>
               <ListItemText
                 primary={
-                  <Typography variant="body">{newsPost.title}</Typography>
+                  <NewsPostTitle variant="body">{newsPost.title}</NewsPostTitle>
                 }
                 secondary={
                   <>

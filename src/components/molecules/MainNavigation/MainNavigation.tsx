@@ -21,12 +21,8 @@ const MainNavigation = () => {
       text: 'Hiscores',
     },
     {
-      path: '/discord',
-      text: 'Discord',
-    }, 
-    {
       path: '/bug-reports',
-      text: 'Bug Reports'
+      text: 'Report a Bug'
     },
   ]
 

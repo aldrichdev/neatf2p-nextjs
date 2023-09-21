@@ -18,6 +18,11 @@ export const Field = styled('div')(
   `
 )
 
+export const FieldInfo = styled('span')`
+  color: gray;
+  font-size: 12px;
+`
+
 export const SubmitArea = styled('div')(
   () => css`
     display: flex;

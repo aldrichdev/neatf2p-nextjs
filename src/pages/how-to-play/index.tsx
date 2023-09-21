@@ -1,10 +1,16 @@
 import { Typography } from "@mui/material";
 import Link from "next/link";
+import { ContentBlock } from "@atoms/ContentBlock";
 
 const HowToPlay = () => (
-  <Typography variant="body">Coming Soon... For now, you&apos;ll have to join our <Link href="/discord">Discord</Link> for 
-    info on how to play.
-  </Typography>
+  <ContentBlock topMargin={20}>
+    <Typography variant="body">
+      Neat F2P is not currently available to play.
+      Please keep checking our <Link href="https://discord.gg/wd67zUxPXn" target="_blank">Discord</Link> and
+      the homepage for further updates on when the game will be ready to play.
+    </Typography>
+  </ContentBlock>
+
 )
 
 export default HowToPlay
