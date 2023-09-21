@@ -7,6 +7,7 @@ import {
   NewsPostListItem,
   NewsPostAvatar,
   NewsPostImage,
+  NewsPostTitle,
 } from './NewsAndUpdates.styled'
 import { NewsPost } from './NewsAndUpdates.d'
 import { getImageUrlFromBase64 } from '@helpers/base64'
@@ -62,7 +63,7 @@ const NewsAndUpdates = () => {
               </NewsPostAvatar>
               <ListItemText
                 primary={
-                  <Typography variant="body">{newsPost.title}</Typography>
+                  <NewsPostTitle variant="body">{newsPost.title}</NewsPostTitle>
                 }
                 secondary={
                   <>
