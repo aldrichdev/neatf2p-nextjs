@@ -8,20 +8,26 @@ import {
   NewsPostAvatar,
   NewsPostImage,
   NewsPostTitle,
+  ReadMoreLink,
 } from './NewsAndUpdates.styled'
 import { NewsPost } from './NewsAndUpdates.d'
 import { getImageUrlFromBase64 } from '@helpers/base64'
 import { getPrettyDateStringFromISOString } from '@helpers/date/date'
 
-// Example is OSRS website: https://oldschool.runescape.com
-// Using MUI component sample code: https://mui.com/material-ui/react-list/
-const NewsAndUpdates = () => {
-  console.log('NewsandUpdates renders')
+interface NewsAndUpdatesProps {
+  heading: string;
+  /** Limits the number of news posts to show. */
+  limit?: number;
+  showReadMore?: boolean;
+}
 
+const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
+  const { heading, limit, showReadMore } = props;
   const [newsPosts, setNewsPosts] = useState<NewsPost[]|undefined>(undefined)
+
   const fetchNewsPosts = () => {
     console.log('fetchNewsPosts should only be called once', newsPosts)
-    axios.get('/api/getNewsPosts')
+    axios.get(`/api/getNewsPosts${limit ? `?limit=${limit}` : ''}`)
       .then((response) => {
         setNewsPosts(response.data)
       })
@@ -53,7 +59,7 @@ const NewsAndUpdates = () => {
 
   return (
     <ContentBlock isHomepage>
-      <Typography variant="h2">Latest News & Updates</Typography>
+      <Typography variant="h2">{heading}</Typography>
       <NewsPostList disablePadding>
         {newsPosts.map((newsPost : NewsPost) => (
           <div key={newsPost.id}>
@@ -78,6 +84,11 @@ const NewsAndUpdates = () => {
           </div>
         ))}
       </NewsPostList>
+      {showReadMore && newsPosts.length >= 3 && (
+        <ReadMoreLink href='/news'>
+          <Typography variant="body">Read more</Typography>
+        </ReadMoreLink>
+      )}
     </ContentBlock>
   )
 }

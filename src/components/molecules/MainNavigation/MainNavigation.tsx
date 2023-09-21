@@ -13,6 +13,10 @@ const MainNavigation = () => {
       text: 'About'
     },
     {
+      path: '/news',
+      text: 'News',
+    },
+    {
       path: '/how-to-play',
       text: 'How to Play',
     },
