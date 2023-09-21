@@ -80,6 +80,7 @@ const NewsPostForm = () => {
         </Field>
         <Field>
           <label htmlFor="postBody">Body</label>
+          <FieldInfo>(You can enter HTML tags here for links and other things)</FieldInfo>
           <textarea id="postBody" rows={10} cols={70} onChange={handleBodyChange} required />
         </Field>
         <SubmitArea>
