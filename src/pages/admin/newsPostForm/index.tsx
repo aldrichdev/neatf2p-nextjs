@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { styled } from '@mui/material/styles'
 import axios from 'axios';
 import { convertBlobToBase64String } from '@helpers/base64'
 import { StyledForm, Field, SubmitArea, SubmitButton, SubmitMessage } from '@styled/NewsPostForm/NewsPostForm.styled'
@@ -61,12 +62,18 @@ const NewsPostForm = () => {
     })
   }
 
+  const FieldInfo = styled('span')`
+    color: gray;
+    font-size: 12px;
+  `
+
   return (
     <>
       <Typography variant="h2">Submit a News Post</Typography>
       <StyledForm onSubmit={handleSubmit}>
         <Field>
           <label htmlFor="imageSrc">Image</label>
+          <FieldInfo>(Optional; if not provided, a placeholder image will be displayed next to the post)</FieldInfo>
           <input type="file" id="imageSrc" onChange={handleImageChange} />
         </Field>
         <Field>

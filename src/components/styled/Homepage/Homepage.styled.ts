@@ -1,7 +1,12 @@
 import { styled } from '@mui/material/styles'
-import { css } from '@mui/system'
 import Typography from '@mui/material/Typography'
+import Image from 'next/image'
 
 export const Introduction = styled(Typography)`
-  margin-top: 20px; 
+  margin-top: 1.25rem; 
+`
+
+export const DiscordImage = styled('img')`
+  margin-top: 1rem;
+  width: 200px;
 `
