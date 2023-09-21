@@ -13,6 +13,7 @@ import {
 import { NewsPost } from './NewsAndUpdates.d'
 import { getImageUrlFromBase64 } from '@helpers/base64'
 import { getPrettyDateStringFromISOString } from '@helpers/date/date'
+import parse from 'html-react-parser';
 
 interface NewsAndUpdatesProps {
   heading: string;
@@ -74,7 +75,7 @@ const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
                 secondary={
                   <>
                     <Typography variant="body">{getPrettyDateStringFromISOString(newsPost.datePosted)}</Typography>
-                    <Typography variant="body" color="black">{newsPost.body}</Typography>
+                    <Typography variant="body" color="black">{parse(newsPost.body)}</Typography>
                   </>
                 }
                 secondaryTypographyProps={{ component: 'div' }}>
