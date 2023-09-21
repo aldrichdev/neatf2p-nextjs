@@ -4,9 +4,12 @@ import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
 import { Typography } from '@mui/material'
+import Link from 'next/link'
 
 export const NewsPostList = styled(List)(
   () => css`
+    margin-top: 20px;
+    
     hr:last-child {
       display: none;
     }
@@ -50,4 +53,16 @@ export const NewsPostImage = styled('img')(
 
 export const NewsPostTitle = styled(Typography)`
   font-weight: 600;
+`
+
+export const ReadMoreLink = styled(Link)`
+  text-decoration: none;
+  color: unset;
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+
+  :hover {
+    text-decoration: underline;
+  }
 `

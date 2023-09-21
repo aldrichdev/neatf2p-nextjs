@@ -7,10 +7,14 @@ const handler = async (
   res: NextApiResponse<NewsPost>
 ) => {
   try {
-    let list: NewsPost[] = []
+    const list: NewsPost[] = []
+    const limit = req?.query?.limit
     const query = `SELECT np.id, i.image, i.alt, np.title, np.datePosted, np.body
-    FROM newsposts np
-    LEFT OUTER JOIN images i ON np.image = i.id`
+      FROM newsposts np
+      LEFT OUTER JOIN images i ON np.image = i.id
+      ORDER BY np.datePosted DESC
+      ${limit ? `LIMIT ${limit}` : ''}`
+
     const response: Array<any> | { error: unknown } = await queryWebsiteDatabase(query)
     
     if (response instanceof Array) {

@@ -17,7 +17,7 @@ const Homepage = () => (
         For more information, check out the <Link href="/about">About page</Link>.
       </SectionBody>
     </ContentBlock>
-    <NewsAndUpdates />
+    <NewsAndUpdates heading='Latest News & Updates' limit={3} showReadMore />
     <ContentBlock isHomepage>
       <Typography variant="h2">Join the Community</Typography>
       <SectionBody variant="body">
