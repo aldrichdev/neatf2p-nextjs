@@ -1,4 +1,4 @@
-import { useRouter } from "next/router"
+import { useRouter } from 'next/router'
 import { NavUnorderedList, NavLink } from './MainNavigation.styled'
 
 const MainNavigation = () => {

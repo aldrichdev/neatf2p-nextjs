@@ -1,5 +1,5 @@
-import { ContentBlock } from "@atoms/ContentBlock";
-import { Typography } from "@mui/material";
+import { ContentBlock } from '@atoms/ContentBlock'
+import { Typography } from '@mui/material'
 
 const Hiscores = () => (
   <ContentBlock topMargin={20}>

@@ -1,6 +1,6 @@
-import { ContentBlock } from "@atoms/ContentBlock";
-import { Typography } from "@mui/material";
-import Link from "next/link";
+import { ContentBlock } from '@atoms/ContentBlock'
+import { Typography } from '@mui/material'
+import Link from 'next/link'
 
 const BugReports = () => (
   <>
