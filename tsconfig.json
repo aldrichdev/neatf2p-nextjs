@@ -16,11 +16,11 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@lib/*": [
-        "src/lib/*"
-      ],
       "@helpers/*": [
         "src/lib/helpers/*"
+      ],
+      "@globalTypes/*": [
+        "src/lib/globalTypes/*"
       ],
       "@theme/*": [
         "src/theme/*"
@@ -30,6 +30,9 @@
       ],
       "@molecules/*": [
         "src/components/molecules/*"
+      ],
+      "@organisms/*": [
+        "src/components/organisms/*"
       ],
       "@styled/*": [
         "src/components/styled/*"

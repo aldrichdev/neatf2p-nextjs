@@ -1,7 +1,7 @@
 import { getPrettyDateStringFromISOString } from '@helpers/date/date'
 import parse from 'html-react-parser';
-import { NewsPostItemProps } from "@lib/types/NewsPostItemProps";
-import { getNewsPostImageUrl } from "@lib/helpers/imageUtils";
+import { NewsPostItemProps } from "@globalTypes/NewsPostItemProps";
+import { getNewsPostImageUrl } from "@helpers/imageUtils";
 import { NewsPostDetailContainer, PageHeading, NewsPostTitle, NewsPostDetailImage, NewsPostDetailDate, NewsPostDetailAuthor, NewsPostDetailBody} from './NewsPostDetailItem.styled';
 
 const NewsPostDetailItem = (props: NewsPostItemProps) => {

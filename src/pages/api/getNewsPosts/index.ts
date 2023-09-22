@@ -1,7 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { queryWebsiteDatabase } from '@lib/db'
-import { NewsPost } from 'src/components/organisms/NewsAndUpdates'
+import { queryWebsiteDatabase } from '@helpers/db'
+import { NewsPost } from '@globalTypes/NewsPost'
 
+/** Handler for the getNewsPosts API endpoint.
+ * Query Options:
+    * `?limit=n` - limits the number of results from the database
+    * `?id=n` - returns a single news post (in an array) by its unique ID
+ */
 const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<NewsPost>

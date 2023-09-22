@@ -1,4 +1,4 @@
-import { queryGameDatabase } from '@lib/db'
+import { queryGameDatabase } from '@helpers/db'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 interface Props {

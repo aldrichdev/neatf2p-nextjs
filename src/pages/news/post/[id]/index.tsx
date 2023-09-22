@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ContentBlock } from "@atoms/ContentBlock";
-import { NewsPost } from '@lib/types/NewsPost';
+import { NewsPost } from '@globalTypes/NewsPost';
 import axios from "axios";
 import { useRouter } from "next/router";
 import { NewsPostDetailItem } from "@molecules/NewsPostDetailItem";

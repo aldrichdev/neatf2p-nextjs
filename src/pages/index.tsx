@@ -2,7 +2,7 @@ import Typography from '@mui/material/Typography'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { SectionBody, DiscordIcon } from '@styled/Homepage/Homepage.styled'
 import { OnlinePlayers } from '@atoms/OnlinePlayers'
-import { NewsAndUpdates } from 'src/components/organisms/NewsAndUpdates'
+import { NewsAndUpdates } from '@organisms/NewsAndUpdates'
 import Link from 'next/link'
 import DiscordLogo from 'public/img/discord-512.webp';
 
