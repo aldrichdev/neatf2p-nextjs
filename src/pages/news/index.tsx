@@ -1,5 +1,5 @@
-import { ContentBlock } from "@atoms/ContentBlock";
-import { NewsAndUpdates } from "@atoms/NewsAndUpdates";
+import { ContentBlock } from '@atoms/ContentBlock'
+import { NewsAndUpdates } from '@organisms/NewsAndUpdates'
 
 const News = () => (
   <ContentBlock topMargin={20}>

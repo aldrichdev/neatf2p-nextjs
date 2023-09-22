@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import axios from 'axios';
+import axios from 'axios'
 import { convertBlobToBase64String } from '@helpers/base64'
 import { StyledForm, Field, SubmitArea, SubmitButton, SubmitMessage, FieldInfo } from '@styled/NewsPostForm/NewsPostForm.styled'
 import Typography from '@mui/material/Typography'
