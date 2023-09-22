@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { insertIntoWebsiteDatabase } from '@lib/db'
-import { NewsPost } from '@atoms/NewsAndUpdates'
+import { NewsPost } from 'src/components/organisms/NewsAndUpdates'
 import { OkPacket } from 'mysql'
 import { cleanInputString } from '@lib/helpers/string/stringUtils'
 

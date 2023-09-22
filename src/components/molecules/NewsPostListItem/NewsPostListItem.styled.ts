@@ -1,22 +1,10 @@
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
-import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
-import { Typography } from '@mui/material'
-import Link from 'next/link'
+import { Link, Typography } from '@mui/material'
 
-export const NewsPostList = styled(List)(
-  () => css`
-    margin-top: 20px;
-    
-    hr:last-child {
-      display: none;
-    }
-  `
-)
-
-export const NewsPostListItem = styled(ListItem)(
+export const NewsPostLi = styled(ListItem)(
   ({ theme }) => css`
     flex-wrap: wrap;
     padding: 0;
@@ -41,6 +29,18 @@ export const NewsPostAvatar = styled(ListItemAvatar)(
     }
   `
 )
+
+export const NewsPostTitleLink = styled(Link)`
+    text-decoration: none;
+    color: unset;
+    display: block;
+    width: fit-content;
+
+    :hover {
+      text-decoration: underline;
+    }
+`
+
 export const NewsPostImage = styled('img')(
   ({ theme }) => css`
     width: 100%;
@@ -53,16 +53,4 @@ export const NewsPostImage = styled('img')(
 
 export const NewsPostTitle = styled(Typography)`
   font-weight: 600;
-`
-
-export const ReadMoreLink = styled(Link)`
-  text-decoration: none;
-  color: unset;
-  display: block;
-  width: fit-content;
-  margin: 0 auto;
-
-  :hover {
-    text-decoration: underline;
-  }
 `

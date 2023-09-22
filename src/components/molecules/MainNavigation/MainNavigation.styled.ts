@@ -23,7 +23,9 @@ export const NavUnorderedList = styled('ul')(
   `
 )
 
-export const NavLink = styled(Link)<{ isActive?: boolean }>(
+export const NavLink = styled(Link, {
+  shouldForwardProp: (prop) => prop !== 'isActive',
+})<{ isActive?: boolean }>(
   ({ isActive }) => css`
     color: white;
     text-decoration: none;

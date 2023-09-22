@@ -8,5 +8,5 @@ export const SectionBody = styled(Typography)`
 
 export const DiscordIcon = styled('img')`
   margin-top: 1rem;
-  width: 200px;
+  width: 150px;
 `

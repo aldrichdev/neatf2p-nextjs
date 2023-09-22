@@ -30,11 +30,20 @@ const MainNavigation = () => {
     },
   ]
 
+  const isLinkActive = (linkPath: string): boolean => {
+    // Special cases.
+    if (linkPath === '/news' && asPath.startsWith('/news')) {
+      return true
+    }
+
+    return linkPath === asPath
+  }
+
   return (
     <NavUnorderedList>
       {navigationLinks.map((link: { path: string; text: string; }) => (
         <li key={link.path}>
-          <NavLink href={link.path} isActive={link.path === asPath}>{link.text}</NavLink>
+          <NavLink href={link.path} isActive={isLinkActive(link.path)}>{link.text}</NavLink>
         </li>
       ))}
     </NavUnorderedList>
