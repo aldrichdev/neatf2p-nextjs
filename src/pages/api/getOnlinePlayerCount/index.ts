@@ -21,7 +21,6 @@ const handler = async (
   try {
     const query = `SELECT COUNT(id) FROM players WHERE ONLINE = 1`
     const response = await queryGameDatabase<RowDataPacket[] | ErrorResult>(query)
-    console.log('response', response);
     
     if (!Array.isArray(response)) {
       throw new Error(response?.error?.toString());

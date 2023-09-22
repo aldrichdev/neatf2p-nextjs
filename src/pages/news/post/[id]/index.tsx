@@ -3,7 +3,7 @@ import { ContentBlock } from "@atoms/ContentBlock";
 import { NewsPost } from '@globalTypes/NewsPost';
 import axios from "axios";
 import { useRouter } from "next/router";
-import { NewsPostDetailItem } from "@molecules/NewsPostDetailItem";
+import { NewsPostDetailItem } from "@atoms/NewsPostDetailItem";
 
 const NewsPostDetail = () => {
   const { query } = useRouter();

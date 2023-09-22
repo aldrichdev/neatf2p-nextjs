@@ -2,7 +2,7 @@ import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 import Link from 'next/link'
 
-export const Text = styled('p')(
+export const Text = styled('span')(
   () => css`
     display: inline;
     width: 100%;

@@ -4,7 +4,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import theme from '@theme/theme'
 import '@theme/styles.css'
 import { Container, HomepageLink, Logo, PaddedContainer } from '@styled/App/App.styled'
-import { MainNavigation } from '@molecules/MainNavigation'
+import { MainNavigation } from '@atoms/MainNavigation'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Typography } from "@mui/material";
 import { ContentBlock } from '@atoms/ContentBlock'
 import { NewsPostList, ViewAllNewsLink } from './NewsAndUpdates.styled'
@@ -17,18 +17,19 @@ const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
   const { heading, limit, showReadMore } = props
   const [newsPosts, setNewsPosts] = useState<NewsPost[]|undefined>(undefined)
 
-  const fetchNewsPosts = () => {
-    console.log('fetchNewsPosts should only be called once', newsPosts)
-    axios.get(`/api/getNewsPosts${limit ? `?limit=${limit}` : ''}`)
-      .then((response) => {
-        setNewsPosts(response.data)
-      })
-      .catch((error : string) => error)
-  }
+  useEffect(() => {
+    const fetchNewsPosts = () => {
+      axios.get(`/api/getNewsPosts${limit ? `?limit=${limit}` : ''}`)
+        .then((response) => {
+          setNewsPosts(response.data)
+        })
+        .catch((error : string) => error)
+    }
 
-  if (newsPosts === undefined) {
-    fetchNewsPosts()
-  }
+    if (newsPosts === undefined) {
+      fetchNewsPosts()
+    }
+  }, [newsPosts, limit])
 
   if (!newsPosts || !Array.isArray(newsPosts) || !newsPosts?.some(newsPost => newsPost.title)) return null
 
