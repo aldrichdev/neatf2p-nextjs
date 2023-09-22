@@ -10,11 +10,11 @@ interface NewsAndUpdatesProps {
   heading: string
   /** Limits the number of news posts to show. */
   limit?: number
-  showReadMore?: boolean
+  showViewAllButton?: boolean
 }
 
 const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
-  const { heading, limit, showReadMore } = props
+  const { heading, limit, showViewAllButton } = props
   const [newsPosts, setNewsPosts] = useState<NewsPost[]|undefined>(undefined)
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
           <NewsPostListItem key={newsPost.id} newsPost={newsPost} />
         ))}
       </NewsPostList>
-      {showReadMore && newsPosts.length >= 1 && (
+      {showViewAllButton && newsPosts.length > 3 && (
         <ViewAllNewsLink href='/news'>
           <Typography variant="body">View all news</Typography>
         </ViewAllNewsLink>
