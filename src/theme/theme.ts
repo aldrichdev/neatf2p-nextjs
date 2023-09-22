@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles'
-import React from 'react';
+import { CSSProperties } from 'react'
 
 let theme = createTheme({
   breakpoints: {
@@ -87,22 +87,16 @@ declare module '@mui/material/styles' {
   }
 
   interface TypographyVariants {
-    // h1b: React.CSSProperties;
-    // h2b: React.CSSProperties;
-    body: React.CSSProperties;
+    body: CSSProperties;
   }
 
   interface TypographyVariantsOptions {
-    // h1b?: React.CSSProperties;
-    // h2b?: React.CSSProperties;
-    body?: React.CSSProperties;
+    body?: CSSProperties;
   }
 }
 
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
-    // h1b: true;
-    // h2b: true;
     body: true;
   }
 }

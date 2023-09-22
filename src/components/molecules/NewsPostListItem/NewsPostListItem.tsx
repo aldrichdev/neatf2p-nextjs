@@ -1,4 +1,4 @@
-import { ListItemText, Typography, Divider } from "@mui/material";
+import { ListItemText, Typography, Divider } from '@mui/material';
 import {
   NewsPostLi,
   NewsPostAvatar,
@@ -8,8 +8,8 @@ import {
 } from './NewsPostListItem.styled'
 import { NewsPostItemProps } from '@globalTypes/NewsPostItemProps'
 import { getPrettyDateStringFromISOString } from '@helpers/date/date'
-import ReadMore from '@atoms/ReadMore/ReadMore';
-import { getNewsPostImageUrl } from "@helpers/imageUtils";
+import ReadMore from '@atoms/ReadMore/ReadMore'
+import { getNewsPostImageUrl } from '@helpers/imageUtils'
 
 const NewsPostListItem = (props: NewsPostItemProps) => {
   const { newsPost } = props;

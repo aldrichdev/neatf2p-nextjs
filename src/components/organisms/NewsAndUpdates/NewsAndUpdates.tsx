@@ -1,10 +1,10 @@
-import axios from 'axios';
+import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { Typography } from "@mui/material";
+import { Typography } from "@mui/material"
 import { ContentBlock } from '@atoms/ContentBlock'
 import { NewsPostList, ViewAllNewsLink } from './NewsAndUpdates.styled'
-import { NewsPost } from '@globalTypes/NewsPost';
-import NewsPostListItem from '@molecules/NewsPostListItem/NewsPostListItem';
+import { NewsPost } from '@globalTypes/NewsPost'
+import { NewsPostListItem } from '@molecules/NewsPostListItem'
 
 interface NewsAndUpdatesProps {
   heading: string

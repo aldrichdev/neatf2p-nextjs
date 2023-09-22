@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { PlayersOnlineBox, PlayersOnlineMessage, OnlineCount } from './OnlinePlayers.styled'
 

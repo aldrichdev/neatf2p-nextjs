@@ -1,5 +1,5 @@
-import { Text, ReadMoreLink } from './ReadMore.styled';
-import parse from 'html-react-parser';
+import { Text, ReadMoreLink } from './ReadMore.styled'
+import parse from 'html-react-parser'
 
 interface ReadMoreProps {
   linkHref: string

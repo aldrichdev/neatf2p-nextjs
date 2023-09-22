@@ -4,7 +4,7 @@ import { SectionBody, DiscordIcon } from '@styled/Homepage/Homepage.styled'
 import { OnlinePlayers } from '@atoms/OnlinePlayers'
 import { NewsAndUpdates } from '@organisms/NewsAndUpdates'
 import Link from 'next/link'
-import DiscordLogo from 'public/img/discord-512.webp';
+import DiscordLogo from 'public/img/discord-512.webp'
 
 const Homepage = () => (
   <div>
