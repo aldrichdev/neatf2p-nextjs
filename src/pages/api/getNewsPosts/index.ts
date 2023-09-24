@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { queryWebsiteDatabase } from '@helpers/db'
-import { NewsPost } from '@globalTypes/NewsPost'
+import { NewsPost } from 'src/globalTypes/NewsPost'
 
 /** Handler for the getNewsPosts API endpoint.
  * Query Options:

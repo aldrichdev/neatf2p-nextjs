@@ -17,10 +17,10 @@
     "baseUrl": ".",
     "paths": {
       "@helpers/*": [
-        "src/lib/helpers/*"
+        "src/helpers/*"
       ],
       "@globalTypes/*": [
-        "src/lib/globalTypes/*"
+        "src/globalTypes/*"
       ],
       "@theme/*": [
         "src/theme/*"
@@ -36,6 +36,12 @@
       ],
       "@styled/*": [
         "src/components/styled/*"
+      ],
+      "@contexts/*": [
+        "src/contexts/*"
+      ],
+      "@models/*": [
+        "src/models/*"
       ],
     }
   },

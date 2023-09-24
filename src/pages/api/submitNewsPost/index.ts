@@ -1,12 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { insertIntoWebsiteDatabase } from '@helpers/db'
-import { NewsPost } from '@globalTypes/NewsPost'
+import { insertIntoWebsiteDatabase, isOkPacket } from '@helpers/db'
+import { NewsPost } from 'src/globalTypes/NewsPost'
 import { OkPacket } from 'mysql'
 import { cleanInputString } from '@helpers/string/stringUtils'
-
-const isOkPacket = (o: any): o is OkPacket => {
-  return o && o.hasOwnProperty('insertId') && typeof o.insertId === 'number'
-}
 
 const handler = async (
   req: NextApiRequest,

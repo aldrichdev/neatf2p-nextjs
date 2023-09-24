@@ -58,3 +58,7 @@ export const insertIntoWebsiteDatabase = async (sqlStatement : string) => {
     return { error }
   }
 }
+
+export const isOkPacket = (o: any): o is OkPacket => {
+  return o && o.hasOwnProperty('insertId') && typeof o.insertId === 'number'
+}

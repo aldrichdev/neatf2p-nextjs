@@ -6,7 +6,7 @@ import {
   NewsPostImage,
   NewsPostTitle,
 } from './NewsPostListItem.styled'
-import { NewsPostItemProps } from '@globalTypes/NewsPostItemProps'
+import { NewsPostItemProps } from 'src/globalTypes/NewsPostItemProps'
 import { getPrettyDateStringFromISOString } from '@helpers/date/date'
 import ReadMore from '@atoms/ReadMore/ReadMore'
 import { getNewsPostImageUrl } from '@helpers/imageUtils'
