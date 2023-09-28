@@ -49,7 +49,7 @@ export const queryWebsiteDatabase = async (sqlStatement : string) => {
   }
 }
 
-export const manipulateWebsiteDatabase = async (sqlStatement : string) => {
+export const manipulateWebsiteData = async (sqlStatement : string) => {
   try {
     const results = await websiteDB.query<OkPacket>(sqlStatement, [])
     await websiteDB.end()

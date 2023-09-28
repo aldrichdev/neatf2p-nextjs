@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { manipulateWebsiteDatabase, isOkPacket } from '@helpers/db'
-import { NewsPost } from 'src/globalTypes/NewsPost'
+import { manipulateWebsiteData, isOkPacket } from '@helpers/db'
+import { NewsPost } from '@globalTypes/NewsPost'
 import { OkPacket } from 'mysql'
 import { cleanInputString } from '@helpers/string/stringUtils'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
@@ -10,16 +10,15 @@ const handler = async (
   res: NextApiResponse<NewsPost>
 ) => {
   try {
-    const insertImageStub = `INSERT INTO images (image, alt) VALUES `
-    const insertImageQuery = `${insertImageStub} ('${req.body?.image}', '${cleanInputString(req.body?.alt)}')`
-    const insertImageResponse: OkPacket | ErrorResult = await manipulateWebsiteDatabase(insertImageQuery)
+    const insertImageQuery = `INSERT INTO images (image, alt) VALUES ('${req.body?.image}', '${cleanInputString(req.body?.alt)}')`
+    const insertImageResponse: OkPacket | ErrorResult = await manipulateWebsiteData(insertImageQuery)
     const insertedImageId = isOkPacket(insertImageResponse) && insertImageResponse?.insertId
 
     // Next, build the insertNewsPost command and execute, then return results.
-    const insertNewsPostStub = `INSERT INTO newsPosts (image, title, datePosted, body) VALUES `
-    const insertNewsPostQuery = `${insertNewsPostStub} (${insertedImageId}, '${cleanInputString(req.body?.title)}',
-      '${req.body?.datePosted}', '${cleanInputString(req.body?.body)}')`
-    const insertNewsPostResponse: OkPacket | ErrorResult = await manipulateWebsiteDatabase(insertNewsPostQuery)
+    const insertNewsPostQuery = `INSERT INTO newsPosts (image, title, datePosted, body) VALUES (${insertedImageId}, 
+      '${cleanInputString(req.body?.title)}', '${req.body?.datePosted}', 
+      '${cleanInputString(req.body?.body)}')`
+    const insertNewsPostResponse: OkPacket | ErrorResult = await manipulateWebsiteData(insertNewsPostQuery)
 
     if (!isOkPacket(insertNewsPostResponse)) {
       throw new Error(insertNewsPostResponse?.error?.toString())

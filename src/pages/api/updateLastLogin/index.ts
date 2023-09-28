@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { manipulateWebsiteDatabase, isOkPacket } from '@helpers/db'
-import { NewsPost } from 'src/globalTypes/NewsPost'
+import { manipulateWebsiteData, isOkPacket } from '@helpers/db'
+import { NewsPost } from '@globalTypes/NewsPost'
 import { OkPacket } from 'mysql'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 
@@ -12,7 +12,7 @@ const handler = async (
   const query = `UPDATE users SET lastLogin = '${lastLogin}' WHERE id = ${userId}`
 
   try {
-    const queryResponse: OkPacket | ErrorResult = await manipulateWebsiteDatabase(query)
+    const queryResponse: OkPacket | ErrorResult = await manipulateWebsiteData(query)
 
     if (!isOkPacket(queryResponse)) {
       throw new Error(queryResponse?.error?.toString())

@@ -24,8 +24,8 @@ export default function App({ Component, pageProps }: AppProps) {
           <AccountWidget user={user} />
           <HomepageLink href="/">
             <picture>
-              <source media="(max-width: 600px)" srcSet="/img/MobileHeaderImageV3.png" />
-              <Logo src="/img/HeaderImageV1.png" alt="Neat F2P" />
+              <source media="(max-width: 600px)" srcSet="/img/MobileHeaderImage.png" />
+              <Logo src="/img/HeaderImage.png" alt="Neat F2P" />
             </picture>
           </HomepageLink>
           <MainNavigation />

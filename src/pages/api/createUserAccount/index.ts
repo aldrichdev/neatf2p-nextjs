@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { manipulateWebsiteDatabase, isOkPacket } from '@helpers/db'
-import { NewsPost } from 'src/globalTypes/NewsPost'
+import { manipulateWebsiteData, isOkPacket } from '@helpers/db'
+import { NewsPost } from '@globalTypes/NewsPost'
 import { OkPacket } from 'mysql'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 
@@ -11,8 +11,9 @@ const handler = async (
   const insertUserQuery = `INSERT INTO users (emailAddress, username, password, passwordSalt, lastLogin, isAdmin, dateCreated)
     VALUES ('${req.body?.email}', '${req.body?.username}', '${req.body?.password}', '${req.body?.passwordSalt}',
     '${req.body?.currentDate}', '0', '${req?.body?.currentDate}')`
+  
   try {
-    const insertUserResponse: OkPacket | ErrorResult = await manipulateWebsiteDatabase(insertUserQuery)
+    const insertUserResponse: OkPacket | ErrorResult = await manipulateWebsiteData(insertUserQuery)
 
     if (!isOkPacket(insertUserResponse)) {
       throw new Error(insertUserResponse?.error?.toString())

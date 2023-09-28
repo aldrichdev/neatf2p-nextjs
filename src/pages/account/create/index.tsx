@@ -85,7 +85,7 @@ const CreateAccountPage = () => {
         axios.post('/api/ironLogin', { ...user })
           .then((response) => {
             if (response?.status !== 200) {
-              setValidationError('An error occurred logging you into the new account.')
+              setValidationError(`An error occurred logging you into the new account: HTTP ${response?.status}: ${response?.statusText}.`)
             } else {
               // Need to inform user it was successful, or redirect them to a page that shows they are logged in.
               const win: Window = window

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Typography } from '@mui/material'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { NewsPostList, ViewAllNewsLink } from './NewsAndUpdates.styled'
-import { NewsPost } from 'src/globalTypes/NewsPost'
+import { NewsPost } from '@globalTypes/NewsPost'
 import { NewsPostListItem } from '@molecules/NewsPostListItem'
 
 interface NewsAndUpdatesProps {

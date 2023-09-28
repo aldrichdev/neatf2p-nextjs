@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { queryWebsiteDatabase } from '@helpers/db'
-import { NewsPost } from 'src/globalTypes/NewsPost'
+import { NewsPost } from '@globalTypes/NewsPost'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { UserDataRow } from '@globalTypes/Database/Users/UserDataRow'
 

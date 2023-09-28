@@ -1,12 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { queryWebsiteDatabase } from '@helpers/db'
-import { NewsPost } from 'src/globalTypes/NewsPost'
+import { NewsPost } from '@globalTypes/NewsPost'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult';
-
-export interface UserIdentityInfo {
-  emailAddress: string;
-  username: string;
-}
+import { UserIdentityInfo } from '@globalTypes/Database/Users/UserIdentityInfo';
 
 const handler = async (
   req: NextApiRequest,
@@ -26,6 +22,7 @@ const handler = async (
     }
   }
   catch (error) {
+    console.log('An error occurred in the getExistingUserInfo API: ', error)
     res.statusCode = 500
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(error?.toString()))
