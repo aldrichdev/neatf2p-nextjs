@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { queryWebsiteDatabase } from '@helpers/db'
 import { NewsPost } from '@globalTypes/NewsPost'
+import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 
 /** Handler for the getNewsPosts API endpoint.
  * Query Options:
@@ -22,7 +23,7 @@ const handler = async (
       ORDER BY np.datePosted DESC
       ${limit ? `LIMIT ${limit}` : ''}`
 
-    const response: Array<any> | { error: unknown } = await queryWebsiteDatabase(query)
+    const response: Array<any> | ErrorResult = await queryWebsiteDatabase(query)
     
     if (response instanceof Array) {
       response?.map((rowDataPacket: NewsPost) => {

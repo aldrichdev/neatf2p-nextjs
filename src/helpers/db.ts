@@ -49,7 +49,7 @@ export const queryWebsiteDatabase = async (sqlStatement : string) => {
   }
 }
 
-export const insertIntoWebsiteDatabase = async (sqlStatement : string) => {
+export const manipulateWebsiteData = async (sqlStatement : string) => {
   try {
     const results = await websiteDB.query<OkPacket>(sqlStatement, [])
     await websiteDB.end()
@@ -57,4 +57,8 @@ export const insertIntoWebsiteDatabase = async (sqlStatement : string) => {
   } catch (error) {
     return { error }
   }
+}
+
+export const isOkPacket = (o: any): o is OkPacket => {
+  return o && o.hasOwnProperty('insertId') && typeof o.insertId === 'number'
 }

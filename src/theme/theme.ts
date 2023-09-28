@@ -10,7 +10,7 @@ let theme = createTheme({
     },
   },
   typography: {
-    fontFamily: ['Saros', 'Vinque'].join(','),
+    fontFamily: 'Saros,Vinque',
     body1: undefined,
     body2: undefined,
     subtitle1: undefined,
@@ -22,12 +22,26 @@ let theme = createTheme({
     MuiTypography: {
       defaultProps: {
         variantMapping: {
-          // h1b: 'h1',
-          // h2b: 'h2',
           body: 'p',
         },
       },
     },
+    MuiButton: {
+      styleOverrides: {
+        containedPrimary: {
+          backgroundColor: 'green',
+          fontFamily: 'Saros',
+          textTransform: 'none',
+          fontSize: '16px',
+          padding: '10px 40px',
+          marginTop: '40px',
+
+          '&:hover': {
+            backgroundColor: 'darkgreen',
+          }
+        }
+      }
+    }
   },
 })
 

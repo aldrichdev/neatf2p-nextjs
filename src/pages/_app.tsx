@@ -5,8 +5,12 @@ import theme from '@theme/theme'
 import '@theme/styles.css'
 import { Container, HomepageLink, Logo, PaddedContainer } from '@styled/App/App.styled'
 import { MainNavigation } from '@atoms/MainNavigation'
+import { AccountWidget } from '@atoms/AccountWidget'
+import useAuthentication from '@hooks/useAuthentication'
 
 export default function App({ Component, pageProps }: AppProps) {
+  const user = useAuthentication()
+
   return (
     <>
       <Head>
@@ -17,10 +21,11 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider theme={theme}>
         <Container>
+          <AccountWidget user={user} />
           <HomepageLink href="/">
             <picture>
-              <source media="(max-width: 600px)" srcSet="/img/NeatF2PLogo-Mobile.png" />
-              <Logo src="/img/NeatF2PLogo.png" alt="Neat F2P" />
+              <source media="(max-width: 600px)" srcSet="/img/MobileHeaderImage.png" />
+              <Logo src="/img/HeaderImage.png" alt="Neat F2P" />
             </picture>
           </HomepageLink>
           <MainNavigation />
