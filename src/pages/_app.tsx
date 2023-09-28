@@ -6,9 +6,11 @@ import '@theme/styles.css'
 import { Container, HomepageLink, Logo, PaddedContainer } from '@styled/App/App.styled'
 import { MainNavigation } from '@atoms/MainNavigation'
 import { AccountWidget } from '@atoms/AccountWidget'
-import UserContextProvider from 'src/contexts/UserContext/UserContextProvider'
+import useAuthentication from '@hooks/useAuthentication'
 
 export default function App({ Component, pageProps }: AppProps) {
+  const user = useAuthentication()
+
   return (
     <>
       <Head>
@@ -18,21 +20,19 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta key="keywords" content="neatf2p, neat f2p, f2p, rsc f2p" />
       </Head>
       <ThemeProvider theme={theme}>
-        <UserContextProvider>
-          <Container>
-            <AccountWidget />
-            <HomepageLink href="/">
-              <picture>
-                <source media="(max-width: 600px)" srcSet="/img/MobileHeaderImageV3.png" />
-                <Logo src="/img/HeaderImageV1.png" alt="Neat F2P" />
-              </picture>
-            </HomepageLink>
-            <MainNavigation />
-            <PaddedContainer>
-              <Component {...pageProps} />
-            </PaddedContainer>
-          </Container>
-        </UserContextProvider>
+        <Container>
+          <AccountWidget user={user} />
+          <HomepageLink href="/">
+            <picture>
+              <source media="(max-width: 600px)" srcSet="/img/MobileHeaderImageV3.png" />
+              <Logo src="/img/HeaderImageV1.png" alt="Neat F2P" />
+            </picture>
+          </HomepageLink>
+          <MainNavigation />
+          <PaddedContainer>
+            <Component {...pageProps} />
+          </PaddedContainer>
+        </Container>
       </ThemeProvider>
     </>
   )

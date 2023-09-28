@@ -1,19 +1,18 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 import { convertBlobToBase64String } from '@helpers/base64'
 import { StyledForm, Field, SubmitArea, SubmitButton, SubmitMessage, FieldInfo } from '@styled/NewsPostForm/NewsPostForm.styled'
 import Typography from '@mui/material/Typography'
-import { UserContext } from '@contexts/UserContext'
 import { ContentBlock } from '@atoms/ContentBlock'
+import useAuthentication from '@hooks/useAuthentication'
 
-// TODO: F2P-1 - Check if user is logged in
 const NewsPostForm = () => {
   const [image, setImage] = useState<string>('')
   const [alt, setAlt] = useState<string>('')
   const [title, setTitle] = useState<string>('')
   const [body, setBody] = useState<string>('')
   const [submitResult, setSubmitResult] = useState<{ answer: string; code: string; }>()
-  const { user } = useContext(UserContext)
+  const user = useAuthentication()
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {

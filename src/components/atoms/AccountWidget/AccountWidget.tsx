@@ -1,32 +1,48 @@
-import { useContext } from "react"
-import { UserContext } from "@contexts/UserContext"
-import { AccountArea, AccountAreaLink } from './AccountWidget.styled'
+import { AccountArea, Username, AccountAreaLink } from './AccountWidget.styled'
 import { Typography } from "@mui/material";
-import { NullUser } from "@models/NullUser";
-import { useRouter } from 'next/router'
+import axios from "axios";
+import { User } from '@globalTypes/User';
 
-const AccountWidget = () => {
-  const router = useRouter()
-  const { user, setUser } = useContext(UserContext);
-  const userIsLoggedIn = user?.id > 0
+interface AccountWidgetProps {
+  user: User;
+}
+
+const AccountWidget = (props: AccountWidgetProps) => {
+  const { user } = props;
+  const isLoggedIn = user?.id > 0
 
   const handleLogout = () => {
-    setUser(NullUser)
-    router.reload()
+    axios.get('/api/ironLogout')
+    .then(() => {
+      const win: Window = window
+      win.location = '/'
+    })
+    .catch((error : string) => {
+      console.log('An error occurred on logout: ', error)
+    })
   }
 
   return (
     <AccountArea>
-      {userIsLoggedIn && (
+      {isLoggedIn && (
         <>
-          <Typography variant="body">Hi {user.username}!</Typography>
-          |
+          <Typography variant="body">Hi <Username href='/account'>{user.username}</Username>!</Typography>
+          ~
         </>
       )}
-      {userIsLoggedIn && <AccountAreaLink href='' onClick={handleLogout}>Logout</AccountAreaLink>}
-      <AccountAreaLink href={userIsLoggedIn ? '/account' : '/account/login'}>
-        {userIsLoggedIn ? 'Account' : 'Login'}
-      </AccountAreaLink>
+      {!isLoggedIn && (
+        <>
+          <AccountAreaLink href='/account/login'>Login</AccountAreaLink>
+          ~
+          <AccountAreaLink href='/account/create'>Register</AccountAreaLink>
+        </>
+      )}
+
+      {isLoggedIn && (
+        <>
+          <AccountAreaLink href='' onClick={handleLogout}>Logout</AccountAreaLink>
+        </>
+      )}
     </AccountArea>
   )
 }

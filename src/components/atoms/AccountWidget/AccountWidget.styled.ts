@@ -1,3 +1,4 @@
+import { InlineLink } from '@atoms/InlineLink'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 import Link from 'next/link'
@@ -21,10 +22,20 @@ export const AccountArea = styled('div')(
     }
 
     ${theme.breakpoints.up('desktop')} {
-      font-size: 18px;
+      font-size: 20px;
     }
   `
 )
+
+export const Username = styled(InlineLink)`
+  font-weight: 600;
+  color: green;
+  text-decoration: none;
+
+  :hover {
+    text-decoration: underline;
+  }
+`
 
 export const AccountAreaLink = styled(Link)(
   () => css`

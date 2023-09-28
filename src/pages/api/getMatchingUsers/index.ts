@@ -11,15 +11,13 @@ const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<Props>
 ) => {
-  try {
-    const { email, username } = req?.query
-    const query = `SELECT id, emailAddress, username, password, passwordSalt, lastLogin, isAdmin
+  const { email, username } = req?.query
+  const query = `SELECT id, emailAddress, username, password, passwordSalt, lastLogin, isAdmin
     FROM users
     WHERE emailAddress = '${email}' OR username = '${username}'`
 
+  try {
     const response: UserDataRow[] | ErrorResult = await queryWebsiteDatabase(query)
-
-    console.log('response', response)
 
     if (response instanceof Array) {
       res.statusCode = 200
@@ -30,6 +28,7 @@ const handler = async (
     }
   }
   catch (error) {
+    console.log('An error occurred in the getMatchingUsers API: ', error)
     res.statusCode = 500
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(error?.toString()))

@@ -8,25 +8,27 @@ const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<NewsPost>
 ) => {
-  const insertUserQuery = `INSERT INTO users (emailAddress, username, password, passwordSalt, lastLogin, isAdmin, dateCreated)
-    VALUES ('${req.body?.email}', '${req.body?.username}', '${req.body?.password}', '${req.body?.passwordSalt}',
-    '${req.body?.currentDate}', '0', '${req?.body?.currentDate}')`
-  try {
-    const insertUserResponse: OkPacket | ErrorResult = await manipulateWebsiteDatabase(insertUserQuery)
+  const { userId, lastLogin } = req?.body
+  const query = `UPDATE users SET lastLogin = '${lastLogin}' WHERE id = ${userId}`
 
-    if (!isOkPacket(insertUserResponse)) {
-      throw new Error(insertUserResponse?.error?.toString())
+  try {
+    const queryResponse: OkPacket | ErrorResult = await manipulateWebsiteDatabase(query)
+
+    if (!isOkPacket(queryResponse)) {
+      throw new Error(queryResponse?.error?.toString())
     }
 
-    const newUserId = insertUserResponse?.insertId
+    if (queryResponse?.affectedRows !== 1) {
+      throw new Error(`No rows, or too many rows, affected! Affected Rows: ${queryResponse.affectedRows}. Response: ${queryResponse}`)
+    }
 
     // Return a JSON result indicating success
     res.statusCode = 200
     res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify(newUserId))
+    res.end(JSON.stringify(queryResponse?.affectedRows))
   }
   catch (error) {
-    console.log('An error occurred in the createUserAccount API: ', error)
+    console.log('An error occurred in the updateLastLogin API: ', error)
     res.statusCode = 500
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(`${error?.toString()}`))

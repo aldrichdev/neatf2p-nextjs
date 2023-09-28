@@ -34,7 +34,7 @@ const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
   if (!newsPosts || !Array.isArray(newsPosts) || !newsPosts?.some(newsPost => newsPost.title)) return null
 
   return (
-    <ContentBlock isHomepage>
+    <ContentBlock isWide>
       <Typography variant="h2">{heading}</Typography>
       <NewsPostList disablePadding>
         {newsPosts.map((newsPost : NewsPost) => (

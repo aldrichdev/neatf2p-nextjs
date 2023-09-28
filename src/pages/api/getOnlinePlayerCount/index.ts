@@ -1,3 +1,4 @@
+import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { queryGameDatabase } from '@helpers/db'
 import { NextApiRequest, NextApiResponse } from 'next'
 
@@ -7,10 +8,6 @@ interface Props {
 
 interface RowDataPacket {
   'COUNT(id)': number
-}
-
-interface ErrorResult {
-  error: unknown
 }
 
 /** Note: `req` variable is unused, but removing it will throw an error, `res.setHeader is not a function`. */

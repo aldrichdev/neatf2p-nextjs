@@ -6,8 +6,3 @@ export type User = {
   lastLogin: Date;
   isAdmin: boolean;
 }
-
-export type UserContextType = {
-  user: User;
-  setUser: React.Dispatch<React.SetStateAction<User>>;
-}

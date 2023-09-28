@@ -9,7 +9,7 @@ import DiscordLogo from 'public/img/discord-512.webp'
 const Homepage = () => (
   <div>
     <OnlinePlayers />
-    <ContentBlock isHomepage>
+    <ContentBlock isWide>
       <Typography variant="h2">Welcome back to 2003</Typography>
       <SectionBody variant="body">
         Neat F2P is an <em>upcoming</em> RuneScape Classic private server that aims to provide you with 
@@ -18,7 +18,7 @@ const Homepage = () => (
       </SectionBody>
     </ContentBlock>
     <NewsAndUpdates heading='Latest News & Updates' limit={3} showViewAllButton />
-    <ContentBlock isHomepage>
+    <ContentBlock isWide>
       <Typography variant="h2">Join the Community</Typography>
       <SectionBody variant="body">
         Click the button below to join our Discord server.

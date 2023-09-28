@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { queryWebsiteDatabase } from '@helpers/db'
 import { NewsPost } from 'src/globalTypes/NewsPost'
+import { ErrorResult } from '@globalTypes/Database/ErrorResult';
 
 export interface UserIdentityInfo {
   emailAddress: string;
@@ -11,13 +12,10 @@ const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<NewsPost>
 ) => {
-  try {
-    console.log('running getExistingUserInfo')
-    const query = `SELECT emailAddress, username FROM users`
-    const response: UserIdentityInfo[] | { error: unknown } = await queryWebsiteDatabase(query)
+  const query = `SELECT emailAddress, username FROM users`
 
-    // Is it an array of `UserIdentityInfo`?
-    console.log('response of getExistingUserInfo', response)
+  try {
+    const response: UserIdentityInfo[] | ErrorResult = await queryWebsiteDatabase(query)
 
     if (response instanceof Array) {
       res.statusCode = 200

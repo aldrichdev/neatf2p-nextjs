@@ -43,6 +43,9 @@
       "@models/*": [
         "src/models/*"
       ],
+      "@hooks/*": [
+        "src/hooks/*"
+      ],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
