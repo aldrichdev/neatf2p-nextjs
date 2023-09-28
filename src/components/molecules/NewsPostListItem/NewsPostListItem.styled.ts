@@ -22,9 +22,6 @@ export const NewsPostAvatar = styled(ListItemAvatar)(
 
     ${theme.breakpoints.up('tablet')} {
       width: auto;
-    }
-
-    ${theme.breakpoints.up('desktop')} {
       margin-right: 20px;
     }
   `

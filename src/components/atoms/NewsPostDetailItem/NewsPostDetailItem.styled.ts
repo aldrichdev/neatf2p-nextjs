@@ -22,8 +22,13 @@ export const NewsPostTitle = styled(Typography)(
 )
 
 export const NewsPostDetailImage = styled('img')(
-  () => css`
+  ({ theme }) => css`
     margin-top: 20px;
+    max-width: 100%;
+
+    ${theme.breakpoints.up('tablet')} {
+      max-width: 300px;
+    }
   `
 )
 
@@ -43,7 +48,11 @@ export const NewsPostDetailAuthor = styled(Typography)(
 )
 
 export const NewsPostDetailBody = styled(Typography)(
-  () => css`
-    margin-top: 40px;
+  ({ theme }) => css`
+    margin-top: 20px;
+
+    ${theme.breakpoints.up('tablet')} {
+      margin-top: 40px;
+    }
   `
 )
