@@ -23,7 +23,7 @@ const AccountPage = () => {
     <ContentBlock>
       <Typography variant="h2">My Account</Typography>
       <BodyText variant="body">
-        The website owner still has to make this page. It's on the list and should be done soon!
+        The website owner still has to make this page. It&apos;s on the list and should be done soon!
         Please keep checking the <InlineLink href='/news'>News page</InlineLink>, or this one, for updates.
       </BodyText>
     </ContentBlock>
