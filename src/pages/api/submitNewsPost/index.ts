@@ -16,8 +16,7 @@ const handler = async (
 
     // Next, build the insertNewsPost command and execute, then return results.
     const insertNewsPostQuery = `INSERT INTO newsPosts (image, title, datePosted, body) VALUES (${insertedImageId}, 
-      '${cleanInputString(req.body?.title)}', '${req.body?.datePosted}', 
-      '${cleanInputString(req.body?.body)}')`
+      '${cleanInputString(req.body?.title)}', '${req.body?.datePosted}', '${cleanInputString(req.body?.body)}')`
     const insertNewsPostResponse: OkPacket | ErrorResult = await manipulateWebsiteData(insertNewsPostQuery)
 
     if (!isOkPacket(insertNewsPostResponse)) {
