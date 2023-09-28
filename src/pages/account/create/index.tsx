@@ -9,7 +9,7 @@ import { FieldValidationError } from '@atoms/FieldValidationError'
 import bcrypt from 'bcryptjs'
 import axios from "axios"
 import { User } from "@globalTypes/User"
-import { UserIdentityInfo } from 'src/pages/api/getExistingUserInfo/index'
+import { UserIdentityInfo } from '@globalTypes/Database/Users/UserIdentityInfo'
 import useAuthentication from "@hooks/useAuthentication"
 
 const CreateAccountPage = () => {
