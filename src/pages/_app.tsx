@@ -3,9 +3,9 @@ import Head from 'next/head'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from '@theme/theme'
 import '@theme/styles.css'
-import { Container, HomepageLink, Logo, PaddedContainer } from '@styled/App/App.styled'
+import { Container, HomepageLink, Logo, PaddedContainer } from './_app.styled'
 import { MainNavigation } from '@atoms/MainNavigation'
-import { AccountWidget } from '@atoms/AccountWidget'
+import { AccountWidget } from '@molecules/AccountWidget'
 import useAuthentication from '@hooks/useAuthentication'
 
 export default function App({ Component, pageProps }: AppProps) {
