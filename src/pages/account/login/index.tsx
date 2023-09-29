@@ -10,6 +10,7 @@ import axios from 'axios'
 import bcrypt from 'bcryptjs'
 import { User } from '@globalTypes/User'
 import useAuthentication from '@hooks/useAuthentication'
+import { redirectTo } from '@helpers/window'
 
 const AccountLoginPage = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('')
@@ -87,8 +88,7 @@ const AccountLoginPage = () => {
           })
           .then(() => {
             // Take user to homepage. `AccountWidget` will indicate login was successful.
-            const win: Window = window
-            win.location = '/'
+            redirectTo('/')
           })
           .catch((error: { response: { data: string } }) => {
             setValidationError(`Couldn't set last login date: ${error?.response?.data}`)

@@ -11,6 +11,7 @@ import axios from 'axios'
 import { User } from '@globalTypes/User'
 import { UserIdentityInfo } from '@globalTypes/Database/Users/UserIdentityInfo'
 import useAuthentication from '@hooks/useAuthentication'
+import { redirectTo } from '@helpers/window'
 
 const CreateAccountPage = () => {
   const [email, setEmail] = useState('')
@@ -91,9 +92,8 @@ const CreateAccountPage = () => {
                   `An error occurred logging you into the new account: HTTP ${response?.status}: ${response?.statusText}.`,
                 )
               } else {
-                // Need to inform user it was successful, or redirect them to a page that shows they are logged in.
-                const win: Window = window
-                win.location = '/account/create/success'
+                // Redirect them to a page that shows they are logged in.
+                redirectTo('/account/create/success')
               }
             })
             .catch((error: { response: { data: string } }) => {
