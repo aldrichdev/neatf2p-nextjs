@@ -2,7 +2,8 @@ import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 import ListItem from '@mui/material/ListItem'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
-import { Link, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
+import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 
 export const NewsPostLi = styled(ListItem)(
   ({ theme }) => css`
@@ -27,15 +28,10 @@ export const NewsPostAvatar = styled(ListItemAvatar)(
   `,
 )
 
-export const NewsPostTitleLink = styled(Link)`
-  text-decoration: none;
+export const NewsPostTitleLink = styled(HoverUnderlineLink)`
   color: unset;
   display: block;
   width: fit-content;
-
-  :hover {
-    text-decoration: underline;
-  }
 `
 
 export const NewsPostImage = styled('img')(

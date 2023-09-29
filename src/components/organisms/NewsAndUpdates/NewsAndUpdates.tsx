@@ -4,7 +4,7 @@ import { Typography } from '@mui/material'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { NewsPostList, ViewAllNewsLink } from './NewsAndUpdates.styled'
 import { NewsPost } from '@globalTypes/NewsPost'
-import { NewsPostListItem } from '@molecules/NewsPostListItem'
+import { NewsPostListItem } from '@organisms/NewsPostListItem'
 import { Spinner } from '@molecules/Spinner'
 
 interface NewsAndUpdatesProps {

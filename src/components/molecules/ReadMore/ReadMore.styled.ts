@@ -1,6 +1,6 @@
+import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
-import Link from 'next/link'
 
 export const Text = styled('span')(
   () => css`
@@ -9,13 +9,8 @@ export const Text = styled('span')(
   `,
 )
 
-export const ReadMoreLink = styled(Link)(
+export const ReadMoreLink = styled(HoverUnderlineLink)(
   () => css`
     cursor: pointer;
-    text-decoration: none;
-
-    :hover {
-      text-decoration: underline;
-    }
   `,
 )
