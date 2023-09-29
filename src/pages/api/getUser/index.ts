@@ -5,7 +5,7 @@ import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { UserDataRow } from '@globalTypes/Database/Users/UserDataRow'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
-  const { user } = req?.query
+  const { user } = req.query
   const query = `SELECT id, emailAddress, username, password, passwordSalt, lastLogin, isAdmin
     FROM users
     WHERE emailAddress = '${user}' OR username = '${user}'`

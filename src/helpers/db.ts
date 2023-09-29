@@ -59,5 +59,5 @@ export const manipulateWebsiteData = async (sqlStatement: string) => {
 }
 
 export const isOkPacket = (o: any): o is OkPacket => {
-  return o && o.hasOwnProperty('insertId') && typeof o.insertId === 'number'
+  return o && Object.prototype.hasOwnProperty.call(o, 'insertId') && typeof o.insertId === 'number'
 }

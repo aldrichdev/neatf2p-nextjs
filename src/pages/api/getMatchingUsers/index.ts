@@ -8,7 +8,7 @@ interface Props {
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Props>) => {
-  const { email, username } = req?.query
+  const { email, username } = req.query
   const query = `SELECT id, emailAddress, username, password, passwordSalt, lastLogin, isAdmin
     FROM users
     WHERE emailAddress = '${email}' OR username = '${username}'`

@@ -2,7 +2,7 @@ import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
 export const StyledForm = styled('form')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
