@@ -2,6 +2,7 @@ import { AccountArea, Username, AccountAreaLink } from './AccountWidget.styled'
 import { Typography } from '@mui/material'
 import axios from 'axios'
 import { User } from '@globalTypes/User'
+import { redirectTo } from '@helpers/window'
 
 interface AccountWidgetProps {
   user: User
@@ -15,8 +16,7 @@ const AccountWidget = (props: AccountWidgetProps) => {
     axios
       .get('/api/ironLogout')
       .then(() => {
-        const win: Window = window
-        win.location = '/'
+        redirectTo('/')
       })
       .catch((error: string) => {
         console.log('An error occurred on logout: ', error)
