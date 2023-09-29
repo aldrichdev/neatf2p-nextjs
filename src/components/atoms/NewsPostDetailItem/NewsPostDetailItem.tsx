@@ -9,22 +9,22 @@ import {
   NewsPostDetailImage,
   NewsPostDetailDate,
   NewsPostDetailAuthor,
-  NewsPostDetailBody
+  NewsPostDetailBody,
 } from './NewsPostDetailItem.styled'
 
 const NewsPostDetailItem = (props: NewsPostItemProps) => {
-  const { newsPost } = props;
+  const { newsPost } = props
 
   return (
     <NewsPostDetailContainer>
-      <PageHeading variant="h2">News Post</PageHeading>
-      <NewsPostTitle variant="h3">{newsPost.title}</NewsPostTitle>
+      <PageHeading variant='h2'>News Post</PageHeading>
+      <NewsPostTitle variant='h3'>{newsPost.title}</NewsPostTitle>
       <NewsPostDetailImage src={getNewsPostImageUrl(newsPost.image)} alt={newsPost.alt} />
-      <NewsPostDetailDate variant="body">{getPrettyDateStringFromISOString(newsPost.datePosted)}</NewsPostDetailDate>
-      <NewsPostDetailAuthor variant="body">Beast Fable</NewsPostDetailAuthor>
-      <NewsPostDetailBody variant="body">{parse(newsPost.body)}</NewsPostDetailBody>
+      <NewsPostDetailDate variant='body'>{getPrettyDateStringFromISOString(newsPost.datePosted)}</NewsPostDetailDate>
+      <NewsPostDetailAuthor variant='body'>Beast Fable</NewsPostDetailAuthor>
+      <NewsPostDetailBody variant='body'>{parse(newsPost.body)}</NewsPostDetailBody>
     </NewsPostDetailContainer>
   )
 }
 
-export default NewsPostDetailItem;
+export default NewsPostDetailItem

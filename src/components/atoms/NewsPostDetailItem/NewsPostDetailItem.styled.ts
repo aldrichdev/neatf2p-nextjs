@@ -5,20 +5,19 @@ import { css } from '@mui/system'
 export const NewsPostDetailContainer = styled('div')(
   () => css`
     text-align: left;
-  `
+  `,
 )
 
 export const PageHeading = styled(Typography)(
   () => css`
     text-align: center;
-  `
+  `,
 )
-
 
 export const NewsPostTitle = styled(Typography)(
   () => css`
     margin-top: 20px;
-  `
+  `,
 )
 
 export const NewsPostDetailImage = styled('img')(
@@ -29,7 +28,7 @@ export const NewsPostDetailImage = styled('img')(
     ${theme.breakpoints.up('tablet')} {
       max-width: 300px;
     }
-  `
+  `,
 )
 
 export const NewsPostDetailDate = styled(Typography)(
@@ -37,14 +36,14 @@ export const NewsPostDetailDate = styled(Typography)(
     margin-top: 10px;
     font-size: 18px;
     color: gray;
-  `
+  `,
 )
 
 export const NewsPostDetailAuthor = styled(Typography)(
   () => css`
     font-size: 18px;
     color: gray;
-  `
+  `,
 )
 
 export const NewsPostDetailBody = styled(Typography)(
@@ -54,5 +53,5 @@ export const NewsPostDetailBody = styled(Typography)(
     ${theme.breakpoints.up('tablet')} {
       margin-top: 40px;
     }
-  `
+  `,
 )

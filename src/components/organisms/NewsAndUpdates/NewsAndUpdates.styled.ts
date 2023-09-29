@@ -6,11 +6,11 @@ import Link from 'next/link'
 export const NewsPostList = styled(List)(
   () => css`
     margin-top: 20px;
-    
+
     hr:last-child {
       display: none;
     }
-  `
+  `,
 )
 
 export const ViewAllNewsLink = styled(Link)`

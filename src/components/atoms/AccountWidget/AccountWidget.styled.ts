@@ -24,7 +24,7 @@ export const AccountArea = styled('div')(
     ${theme.breakpoints.up('desktop')} {
       font-size: 20px;
     }
-  `
+  `,
 )
 
 export const Username = styled(InlineLink)`
@@ -45,5 +45,5 @@ export const AccountAreaLink = styled(Link)(
     :hover {
       text-decoration: underline;
     }
-  `
+  `,
 )

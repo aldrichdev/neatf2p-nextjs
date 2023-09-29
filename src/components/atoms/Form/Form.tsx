@@ -12,5 +12,5 @@ export const Form = styled('form')(
     ${theme.breakpoints.up('desktop')} {
       width: 40%;
     }
-  `
+  `,
 )

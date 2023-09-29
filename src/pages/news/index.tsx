@@ -3,7 +3,7 @@ import { NewsAndUpdates } from '@organisms/NewsAndUpdates'
 
 const News = () => (
   <ContentBlock topMargin={20}>
-    <NewsAndUpdates heading="News" />
+    <NewsAndUpdates heading='News' />
   </ContentBlock>
 )
 

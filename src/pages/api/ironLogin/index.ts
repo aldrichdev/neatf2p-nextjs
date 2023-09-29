@@ -1,7 +1,7 @@
 import type { User } from '@globalTypes/User'
-import { withIronSessionApiRoute } from "iron-session/next"
-import { sessionOptions } from "@models/session"
-import { NextApiRequest, NextApiResponse } from "next"
+import { withIronSessionApiRoute } from 'iron-session/next'
+import { sessionOptions } from '@models/session'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 export default withIronSessionApiRoute(loginRoute, sessionOptions)
 

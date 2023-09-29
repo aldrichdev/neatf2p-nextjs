@@ -6,7 +6,7 @@ let theme = createTheme({
     values: {
       mobile: 600,
       tablet: 768,
-      desktop: 1200
+      desktop: 1200,
     },
   },
   typography: {
@@ -38,10 +38,10 @@ let theme = createTheme({
 
           '&:hover': {
             backgroundColor: 'darkgreen',
-          }
-        }
-      }
-    }
+          },
+        },
+      },
+    },
   },
 })
 
@@ -90,28 +90,28 @@ theme = createTheme(theme, {
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
-    xs: false;
-    sm: false;
-    md: false;
-    lg: false;
-    xl: false;
-    mobile: true;
-    tablet: true;
-    desktop: true;
+    xs: false
+    sm: false
+    md: false
+    lg: false
+    xl: false
+    mobile: true
+    tablet: true
+    desktop: true
   }
 
   interface TypographyVariants {
-    body: CSSProperties;
+    body: CSSProperties
   }
 
   interface TypographyVariantsOptions {
-    body?: CSSProperties;
+    body?: CSSProperties
   }
 }
 
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
-    body: true;
+    body: true
   }
 }
 

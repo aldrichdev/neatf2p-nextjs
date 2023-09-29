@@ -9,5 +9,5 @@ export const FieldValidationError = styled('span')(
     margin-top: 20px;
     flex-basis: 100%;
     text-align: left;
-  `
+  `,
 )

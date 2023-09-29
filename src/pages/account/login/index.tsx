@@ -1,15 +1,15 @@
-import { FormEvent, useState, ChangeEvent } from "react"
-import { Button, Typography } from "@mui/material"
-import { ContentBlock } from "@atoms/ContentBlock"
+import { FormEvent, useState, ChangeEvent } from 'react'
+import { Button, Typography } from '@mui/material'
+import { ContentBlock } from '@atoms/ContentBlock'
 import { Form } from '@atoms/Form'
 import { BodyText } from '@atoms/BodyText'
 import { Field } from '@atoms/Field'
 import { InlineLink } from '@atoms/InlineLink'
-import { FieldValidationError } from "@atoms/FieldValidationError"
-import axios from "axios"
+import { FieldValidationError } from '@atoms/FieldValidationError'
+import axios from 'axios'
 import bcrypt from 'bcryptjs'
-import { User } from "@globalTypes/User"
-import useAuthentication from "@hooks/useAuthentication"
+import { User } from '@globalTypes/User'
+import useAuthentication from '@hooks/useAuthentication'
 
 const AccountLoginPage = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('')
@@ -21,9 +21,9 @@ const AccountLoginPage = () => {
   if (userIsLoggedIn) {
     return (
       <ContentBlock>
-        <Typography variant="h2">Login</Typography>
+        <Typography variant='h2'>Login</Typography>
         <BodyText textAlign='center'>
-          <Typography variant="body" component='span'>
+          <Typography variant='body' component='span'>
             You are already logged in. You can visit your
             <InlineLink href='/account'>Account page</InlineLink>.
           </Typography>
@@ -43,8 +43,9 @@ const AccountLoginPage = () => {
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    axios.get(`/api/getUser?user=${usernameOrEmail}`)
-      .then(async (response) => {
+    axios
+      .get(`/api/getUser?user=${usernameOrEmail}`)
+      .then(async response => {
         const result = response?.data
 
         // First thing would be to confirm the user exists.
@@ -63,50 +64,69 @@ const AccountLoginPage = () => {
           setValidationError('Password is incorrect.')
           return
         }
-        
+
         // If we get this far, it's a match. Log them in and redirect to homepage
         const user: User = { ...result }
 
-        axios.post('/api/ironLogin', { ...user })
-          .then((response) => {
+        axios
+          .post('/api/ironLogin', { ...user })
+          .then(response => {
             if (response?.status !== 200) {
               setValidationError('An error occurred logging you in.')
             }
           })
-          .catch((error: { response: { data: string; } }) => {
+          .catch((error: { response: { data: string } }) => {
             setValidationError(`An error occurred logging you in: ${error?.response?.data}`)
           })
 
         // Update the user's lastLogin in the database.
-        axios.post('/api/updateLastLogin', {
-          userId: user.id,
-          lastLogin: new Date(),
-        })
+        axios
+          .post('/api/updateLastLogin', {
+            userId: user.id,
+            lastLogin: new Date(),
+          })
           .then(() => {
             // Take user to homepage. `AccountWidget` will indicate login was successful.
             const win: Window = window
             win.location = '/'
           })
-          .catch((error: { response: { data: string; } }) => {
+          .catch((error: { response: { data: string } }) => {
             setValidationError(`Couldn't set last login date: ${error?.response?.data}`)
           })
       })
-      .catch((error : string) => error)
+      .catch((error: string) => error)
   }
 
   return (
     <ContentBlock>
-      <Typography variant="h2">Login</Typography>
-      <BodyText variant="body" textAlign='left'>Log in to your website account below.</BodyText>
+      <Typography variant='h2'>Login</Typography>
+      <BodyText variant='body' textAlign='left'>
+        Log in to your website account below.
+      </BodyText>
       <Form onSubmit={handleLogin}>
-        <Field required id="usernameOrEmail" label="Username or Email" variant="standard" onChange={handleUsernameOrEmailChange} />
-        <Field required id="password" label="Password" type="password" variant="standard" onChange={handlePasswordChange} />
+        <Field
+          required
+          id='usernameOrEmail'
+          label='Username or Email'
+          variant='standard'
+          onChange={handleUsernameOrEmailChange}
+        />
+        <Field
+          required
+          id='password'
+          label='Password'
+          type='password'
+          variant='standard'
+          onChange={handlePasswordChange}
+        />
         <FieldValidationError>{validationError}</FieldValidationError>
-        <Button variant='contained' type="submit">Log In</Button>
+        <Button variant='contained' type='submit'>
+          Log In
+        </Button>
       </Form>
-      <BodyText variant="body" topMargin={40} textAlign='left'>
+      <BodyText variant='body' topMargin={40} textAlign='left'>
         <span>New around here?</span>
-        <InlineLink href="/account/create">Create a site account.</InlineLink>
+        <InlineLink href='/account/create'>Create a site account.</InlineLink>
       </BodyText>
     </ContentBlock>
   )

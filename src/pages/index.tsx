@@ -10,24 +10,21 @@ const Homepage = () => (
   <div>
     <OnlinePlayers />
     <ContentBlock isWide>
-      <Typography variant="h2">Welcome back to 2003</Typography>
-      <SectionBody variant="body">
-        Neat F2P is an <em>upcoming</em> RuneScape Classic private server that aims to provide you with 
-        an RS1 F2P experience, featuring a F2P-only world and economy to explore and enjoy.
-        For more information, check out the <Link href="/about">About page</Link>.
+      <Typography variant='h2'>Welcome back to 2003</Typography>
+      <SectionBody variant='body'>
+        Neat F2P is an <em>upcoming</em> RuneScape Classic private server that aims to provide you with an RS1 F2P
+        experience, featuring a F2P-only world and economy to explore and enjoy. For more information, check out the{' '}
+        <Link href='/about'>About page</Link>.
       </SectionBody>
     </ContentBlock>
     <NewsAndUpdates heading='Latest News & Updates' limit={3} showViewAllButton />
     <ContentBlock isWide>
-      <Typography variant="h2">Join the Community</Typography>
-      <SectionBody variant="body">
-        Click the button below to join our Discord server.
-      </SectionBody>
-      <Link href="https://discord.gg/wd67zUxPXn" target="_blank">
+      <Typography variant='h2'>Join the Community</Typography>
+      <SectionBody variant='body'>Click the button below to join our Discord server.</SectionBody>
+      <Link href='https://discord.gg/wd67zUxPXn' target='_blank'>
         <DiscordIcon src={DiscordLogo.src} alt='Join our Discord Server' />
       </Link>
     </ContentBlock>
-
   </div>
 )
 

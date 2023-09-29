@@ -2,7 +2,7 @@ import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 
 export const SectionBody = styled(Typography)`
-  margin-top: 1.25rem; 
+  margin-top: 1.25rem;
 `
 
 export const DiscordIcon = styled('img')`

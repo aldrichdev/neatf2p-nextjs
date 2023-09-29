@@ -9,30 +9,29 @@ import { Spinner } from '@molecules/Spinner'
 const NewsPostDetail = () => {
   const { query } = useRouter()
   const [isLoading, setIsLoading] = useState(true)
-  const [newsPost, setNewsPost] = useState<NewsPost|undefined>(undefined)
+  const [newsPost, setNewsPost] = useState<NewsPost | undefined>(undefined)
 
   useEffect(() => {
     const fetchNewsPost = () => {
-      axios.get(`/api/getNewsPosts${query?.id ? `?id=${query.id}` : ''}`)
-        .then((response) => {
+      axios
+        .get(`/api/getNewsPosts${query?.id ? `?id=${query.id}` : ''}`)
+        .then(response => {
           if (response?.data?.length === 1) {
             setNewsPost(response.data[0])
             setIsLoading(false)
           }
         })
-        .catch((error : string) => error)
+        .catch((error: string) => error)
     }
-  
+
     if (newsPost === undefined) {
       fetchNewsPost()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query])
 
   if (isLoading) {
-    return (
-      <Spinner />
-    )
+    return <Spinner />
   }
 
   if (!newsPost?.title) return null

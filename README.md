@@ -5,6 +5,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Getting Started
 
 First, create your `.env` file:
+
 ```
 cp .env.dist .env
 ```
@@ -47,10 +48,12 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## Appendix
 
 ### Adding new Typography variants
+
 Instructions:
+
 1. Add a new property to the `typography` object in `src/theme/theme.ts`.
 2. Add the new typography name to the following interfaces:
-  a. `TypographyVariants`
-  b. `TypographyVariantsOptions`
-  c. `TypographyPropsVariantOverrides`
-3. Set the new typography's element in `variantMapping` 
+   a. `TypographyVariants`
+   b. `TypographyVariantsOptions`
+   c. `TypographyPropsVariantOverrides`
+3. Set the new typography's element in `variantMapping`
