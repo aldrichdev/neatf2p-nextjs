@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "lint-staged",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -39,7 +41,7 @@
     "@types/bcryptjs": "^2.4.4",
     "@types/jest": "^29.5.0",
     "babel-jest": "^29.5.0",
-    "husky": "^8.0.3",
+    "husky": "^7.0.0",
     "lint-staged": "^13.2.2",
     "prettier": "^3.0.3"
   },
