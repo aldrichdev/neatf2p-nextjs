@@ -4,10 +4,7 @@ import { NewsPost } from '@globalTypes/NewsPost'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { UserDataRow } from '@globalTypes/Database/Users/UserDataRow'
 
-const handler = async (
-  req: NextApiRequest,
-  res: NextApiResponse<NewsPost>
-) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
   const { user } = req?.query
   const query = `SELECT id, emailAddress, username, password, passwordSalt, lastLogin, isAdmin
     FROM users
@@ -23,8 +20,7 @@ const handler = async (
     } else {
       throw new Error(response.error?.toString())
     }
-  }
-  catch (error) {
+  } catch (error) {
     console.log('An error occurred in the getUser API: ', error)
     res.statusCode = 500
     res.setHeader('Content-Type', 'application/json')

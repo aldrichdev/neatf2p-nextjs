@@ -1,7 +1,14 @@
 import { useState } from 'react'
 import axios from 'axios'
 import { convertBlobToBase64String } from '@helpers/base64'
-import { StyledForm, Field, SubmitArea, SubmitButton, SubmitMessage, FieldInfo } from '@styled/NewsPostForm/NewsPostForm.styled'
+import {
+  StyledForm,
+  Field,
+  SubmitArea,
+  SubmitButton,
+  SubmitMessage,
+  FieldInfo,
+} from '@styled/NewsPostForm/NewsPostForm.styled'
 import Typography from '@mui/material/Typography'
 import { ContentBlock } from '@atoms/ContentBlock'
 import useAuthentication from '@hooks/useAuthentication'
@@ -11,13 +18,13 @@ const NewsPostForm = () => {
   const [alt, setAlt] = useState<string>('')
   const [title, setTitle] = useState<string>('')
   const [body, setBody] = useState<string>('')
-  const [submitResult, setSubmitResult] = useState<{ answer: string; code: string; }>()
+  const [submitResult, setSubmitResult] = useState<{ answer: string; code: string }>()
   const user = useAuthentication()
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const i = event.target.files[0]
-      convertBlobToBase64String(i, (base64: string) => { 
+      convertBlobToBase64String(i, (base64: string) => {
         setImage(base64)
       })
     }
@@ -42,62 +49,62 @@ const NewsPostForm = () => {
   }
 
   const sendDataToApi = (imageBase64: string, alt: string, title: string, body: string) => {
-    axios.post('/api/submitNewsPost', {
-      image: imageBase64,
-      alt,
-      title,
-      datePosted: new Date(),
-      body
-    })
-    .then((response) => {
-      setSubmitResult({
-        answer: response?.data,
-        code: response?.data?.includes('SUCCESS') ? 'green' : 'red',
+    axios
+      .post('/api/submitNewsPost', {
+        image: imageBase64,
+        alt,
+        title,
+        datePosted: new Date(),
+        body,
       })
-    })
-    .catch((error: { response: { data: string; } }) => {
-      setSubmitResult({
-        answer: error.response.data,
-        code: 'red',
+      .then(response => {
+        setSubmitResult({
+          answer: response?.data,
+          code: response?.data?.includes('SUCCESS') ? 'green' : 'red',
+        })
       })
-    })
+      .catch((error: { response: { data: string } }) => {
+        setSubmitResult({
+          answer: error.response.data,
+          code: 'red',
+        })
+      })
   }
 
   if (!user?.isAdmin) {
     return (
       <ContentBlock>
-        <Typography variant="body">You must be an administrator to perform that action.</Typography>
+        <Typography variant='body'>You must be an administrator to perform that action.</Typography>
       </ContentBlock>
     )
   }
 
   return (
     <>
-      <Typography variant="h2">Submit a News Post</Typography>
+      <Typography variant='h2'>Submit a News Post</Typography>
       <StyledForm onSubmit={handleSubmit}>
         <Field>
-          <label htmlFor="imageSrc">Image</label>
+          <label htmlFor='imageSrc'>Image</label>
           <FieldInfo>(Optional; if not provided, a placeholder image will be displayed next to the post)</FieldInfo>
-          <input type="file" id="imageSrc" onChange={handleImageChange} />
+          <input type='file' id='imageSrc' onChange={handleImageChange} />
         </Field>
         <Field>
-          <label htmlFor="imageAlt">Alt Text</label>
-          <input type="string" id="imageAlt" onChange={handleAltChange} />
+          <label htmlFor='imageAlt'>Alt Text</label>
+          <input type='string' id='imageAlt' onChange={handleAltChange} />
         </Field>
         <Field>
-          <label htmlFor="postTitle">Title</label>
-          <input type="string" id="postTitle" onChange={handleTitleChange} required />
+          <label htmlFor='postTitle'>Title</label>
+          <input type='string' id='postTitle' onChange={handleTitleChange} required />
         </Field>
         <Field>
-          <label htmlFor="postBody">Body</label>
+          <label htmlFor='postBody'>Body</label>
           <FieldInfo>(You can enter HTML tags here for links and other things)</FieldInfo>
-          <textarea id="postBody" rows={10} cols={70} onChange={handleBodyChange} required />
+          <textarea id='postBody' rows={10} cols={70} onChange={handleBodyChange} required />
         </Field>
         <SubmitArea>
-          <SubmitButton type="submit">Submit</SubmitButton>
+          <SubmitButton type='submit'>Submit</SubmitButton>
           <SubmitMessage color={submitResult?.code}>{submitResult?.answer}</SubmitMessage>
         </SubmitArea>
-
       </StyledForm>
     </>
   )

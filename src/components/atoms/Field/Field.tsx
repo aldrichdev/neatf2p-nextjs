@@ -6,5 +6,5 @@ export const Field = styled(TextField)(
   () => css`
     flex-basis: 100%;
     margin-top: 20px;
-  `
+  `,
 )

@@ -10,7 +10,7 @@ const MainNavigation = () => {
     },
     {
       path: '/about',
-      text: 'About'
+      text: 'About',
     },
     {
       path: '/news',
@@ -20,13 +20,13 @@ const MainNavigation = () => {
       path: '/how-to-play',
       text: 'How to Play',
     },
-    { 
+    {
       path: '/hiscores',
       text: 'Hiscores',
     },
     {
       path: '/bug-reports',
-      text: 'Report a Bug'
+      text: 'Report a Bug',
     },
   ]
 
@@ -41,9 +41,11 @@ const MainNavigation = () => {
 
   return (
     <NavUnorderedList>
-      {navigationLinks.map((link: { path: string; text: string; }) => (
+      {navigationLinks.map((link: { path: string; text: string }) => (
         <li key={link.path}>
-          <NavLink href={link.path} isActive={isLinkActive(link.path)}>{link.text}</NavLink>
+          <NavLink href={link.path} isActive={isLinkActive(link.path)}>
+            {link.text}
+          </NavLink>
         </li>
       ))}
     </NavUnorderedList>

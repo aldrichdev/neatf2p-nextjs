@@ -11,7 +11,7 @@ export const Container = styled('div')(
     ${theme.breakpoints.up('desktop')} {
       border-radius: 40px;
     }
-  `
+  `,
 )
 
 export const HomepageLink = styled(Link)(
@@ -19,17 +19,17 @@ export const HomepageLink = styled(Link)(
     margin: 0 auto;
     display: block;
     width: 100%;
-  `
+  `,
 )
 
 export const Logo = styled('img')(
-  () =>  css`
+  () => css`
     width: 100%;
-  `
+  `,
 )
 
 export const PaddedContainer = styled('div')(
   () => css`
     padding: 20px;
-  `
+  `,
 )

@@ -5,12 +5,11 @@ import { OkPacket } from 'mysql'
 import { cleanInputString } from '@helpers/string/stringUtils'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 
-const handler = async (
-  req: NextApiRequest,
-  res: NextApiResponse<NewsPost>
-) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
   try {
-    const insertImageQuery = `INSERT INTO images (image, alt) VALUES ('${req.body?.image}', '${cleanInputString(req.body?.alt)}')`
+    const insertImageQuery = `INSERT INTO images (image, alt) VALUES ('${req.body?.image}', '${cleanInputString(
+      req.body?.alt,
+    )}')`
     const insertImageResponse: OkPacket | ErrorResult = await manipulateWebsiteData(insertImageQuery)
     const insertedImageId = isOkPacket(insertImageResponse) && insertImageResponse?.insertId
 
@@ -29,8 +28,7 @@ const handler = async (
     res.statusCode = 200
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(`SUCCESS: Created news post with ID ${insertedNewsPostId}!`))
-  }
-  catch (error) {
+  } catch (error) {
     console.log('An error occurred in the submitNewsPost API: ', error)
     res.statusCode = 500
     res.setHeader('Content-Type', 'application/json')

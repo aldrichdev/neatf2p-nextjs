@@ -6,7 +6,7 @@ export const Text = styled('span')(
   () => css`
     display: inline;
     width: 100%;
-  `
+  `,
 )
 
 export const ReadMoreLink = styled(Link)(
@@ -17,5 +17,5 @@ export const ReadMoreLink = styled(Link)(
     :hover {
       text-decoration: underline;
     }
-  `
+  `,
 )

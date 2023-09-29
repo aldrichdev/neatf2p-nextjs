@@ -5,13 +5,10 @@ import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 
 /** Handler for the getNewsPosts API endpoint.
  * Query Options:
-    * `?limit=n` - limits the number of results from the database
-    * `?id=n` - returns a single news post (in an array) by its unique ID
+ * `?limit=n` - limits the number of results from the database
+ * `?id=n` - returns a single news post (in an array) by its unique ID
  */
-const handler = async (
-  req: NextApiRequest,
-  res: NextApiResponse<NewsPost>
-) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
   try {
     const list: NewsPost[] = []
     const limit = req?.query?.limit
@@ -24,11 +21,11 @@ const handler = async (
       ${limit ? `LIMIT ${limit}` : ''}`
 
     const response: Array<any> | ErrorResult = await queryWebsiteDatabase(query)
-    
+
     if (response instanceof Array) {
       response?.map((rowDataPacket: NewsPost) => {
         const newObject = { ...rowDataPacket, image: rowDataPacket.image?.toString() || '' }
-        list.push(newObject);
+        list.push(newObject)
       })
 
       res.statusCode = 200
@@ -37,8 +34,7 @@ const handler = async (
     } else {
       throw new Error(response.error?.toString())
     }
-  }
-  catch (error) {
+  } catch (error) {
     res.statusCode = 500
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(error?.toString()))

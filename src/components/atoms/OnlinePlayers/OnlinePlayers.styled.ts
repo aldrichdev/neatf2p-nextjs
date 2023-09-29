@@ -16,7 +16,7 @@ export const PlayersOnlineMessage = styled('p')(
     ${theme.breakpoints.up('tablet')} {
       margin: 0;
     }
-  `
+  `,
 )
 
 export const OnlineCount = styled('span')`

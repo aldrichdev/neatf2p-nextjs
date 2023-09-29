@@ -13,7 +13,7 @@ export const NewsPostLi = styled(ListItem)(
     ${theme.breakpoints.up('tablet')} {
       flex-wrap: nowrap;
     }
-  `
+  `,
 )
 
 export const NewsPostAvatar = styled(ListItemAvatar)(
@@ -24,18 +24,18 @@ export const NewsPostAvatar = styled(ListItemAvatar)(
       width: auto;
       margin-right: 20px;
     }
-  `
+  `,
 )
 
 export const NewsPostTitleLink = styled(Link)`
-    text-decoration: none;
-    color: unset;
-    display: block;
-    width: fit-content;
+  text-decoration: none;
+  color: unset;
+  display: block;
+  width: fit-content;
 
-    :hover {
-      text-decoration: underline;
-    }
+  :hover {
+    text-decoration: underline;
+  }
 `
 
 export const NewsPostImage = styled('img')(
@@ -45,7 +45,7 @@ export const NewsPostImage = styled('img')(
     ${theme.breakpoints.up('tablet')} {
       width: 85px;
     }
-  `
+  `,
 )
 
 export const NewsPostTitle = styled(Typography)`

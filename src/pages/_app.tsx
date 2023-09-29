@@ -15,17 +15,19 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>NeatF2P :: A Wholesome RSC Experience</title>
-        <meta name="description" 
-          content="NeatF2P is an upcoming RSC private server that is F2P-only (no members) and is 100% free." />
-        <meta key="keywords" content="neatf2p, neat f2p, f2p, rsc f2p" />
+        <meta
+          name='description'
+          content='NeatF2P is an upcoming RSC private server that is F2P-only (no members) and is 100% free.'
+        />
+        <meta key='keywords' content='neatf2p, neat f2p, f2p, rsc f2p' />
       </Head>
       <ThemeProvider theme={theme}>
         <Container>
           <AccountWidget user={user} />
-          <HomepageLink href="/">
+          <HomepageLink href='/'>
             <picture>
-              <source media="(max-width: 600px)" srcSet="/img/MobileHeaderImage.png" />
-              <Logo src="/img/HeaderImage.png" alt="Neat F2P" />
+              <source media='(max-width: 600px)' srcSet='/img/MobileHeaderImage.png' />
+              <Logo src='/img/HeaderImage.png' alt='Neat F2P' />
             </picture>
           </HomepageLink>
           <MainNavigation />

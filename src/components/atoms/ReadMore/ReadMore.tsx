@@ -15,14 +15,13 @@ const ReadMore = (props: ReadMoreProps) => {
         <>
           {parse(children.slice(0, 300))}
           ... &nbsp;
-          <ReadMoreLink href={linkHref}>
-            (read more)
-          </ReadMoreLink>
+          <ReadMoreLink href={linkHref}>(read more)</ReadMoreLink>
         </>
-      ): parse(children)}
-
+      ) : (
+        parse(children)
+      )}
     </Text>
-  );
-};
+  )
+}
 
 export default ReadMore

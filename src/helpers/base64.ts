@@ -1,14 +1,14 @@
 export const convertBlobToBase64String = (blob: any, callback: Function) => {
   const reader = new FileReader()
-  reader.onload = function() {
-      const dataUrl = reader.result as string;
-      const base64 = dataUrl?.split(',')[1];
-      callback(base64);
-  };
-  reader.readAsDataURL(blob);
-};
+  reader.onload = function () {
+    const dataUrl = reader.result as string
+    const base64 = dataUrl?.split(',')[1]
+    callback(base64)
+  }
+  reader.readAsDataURL(blob)
+}
 
-export const convertBase64StringToBlob = (b64Data: string, contentType='', sliceSize=512) => {
+export const convertBase64StringToBlob = (b64Data: string, contentType = '', sliceSize = 512) => {
   const byteCharacters = atob(b64Data)
   const byteArrays = []
 
@@ -24,7 +24,7 @@ export const convertBase64StringToBlob = (b64Data: string, contentType='', slice
     byteArrays.push(byteArray)
   }
 
-  const blob = new Blob(byteArrays, {type: contentType})
+  const blob = new Blob(byteArrays, { type: contentType })
   return blob
 }
 

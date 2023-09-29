@@ -20,11 +20,11 @@ export const NavUnorderedList = styled('ul')(
       flex-wrap: nowrap;
       gap: 32px;
     }
-  `
+  `,
 )
 
 export const NavLink = styled(Link, {
-  shouldForwardProp: (prop) => prop !== 'isActive',
+  shouldForwardProp: prop => prop !== 'isActive',
 })<{ isActive?: boolean }>(
   ({ isActive }) => css`
     color: white;
@@ -39,5 +39,5 @@ export const NavLink = styled(Link, {
       background-color: ${isActive ? '#670067' : 'darkgreen'};
       border-color: ${isActive ? '#670067' : 'darkgreen'};
     }
-  `
+  `,
 )
