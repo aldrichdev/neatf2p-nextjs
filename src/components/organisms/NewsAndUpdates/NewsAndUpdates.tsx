@@ -5,6 +5,7 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { NewsPostList, ViewAllNewsLink } from './NewsAndUpdates.styled'
 import { NewsPost } from '@globalTypes/NewsPost'
 import { NewsPostListItem } from '@molecules/NewsPostListItem'
+import { Spinner } from '@molecules/Spinner'
 
 interface NewsAndUpdatesProps {
   heading: string
@@ -15,6 +16,7 @@ interface NewsAndUpdatesProps {
 
 const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
   const { heading, limit, showViewAllButton } = props
+  const [isLoading, setIsLoading] = useState(true)
   const [newsPosts, setNewsPosts] = useState<NewsPost[]|undefined>(undefined)
 
   useEffect(() => {
@@ -22,6 +24,7 @@ const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
       axios.get(`/api/getNewsPosts${limit ? `?limit=${limit}` : ''}`)
         .then((response) => {
           setNewsPosts(response.data)
+          setIsLoading(false)
         })
         .catch((error : string) => error)
     }
@@ -29,7 +32,14 @@ const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
     if (newsPosts === undefined) {
       fetchNewsPosts()
     }
-  }, [newsPosts, limit])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  if (isLoading) {
+    return (
+      <Spinner />
+    )
+  }
 
   if (!newsPosts || !Array.isArray(newsPosts) || !newsPosts?.some(newsPost => newsPost.title)) return null
 
