@@ -8,6 +8,12 @@ The source code for the [Neat F2P website](https://neatf2p-nextjs.vercel.app/).
 
 ## Appendix
 
+### Issues
+
+#### `FATAL ERROR: NewNativeModule Allocation failed - process out of memory` when running `npm run build`
+
+This went away when I installed node/lts and used it. However I also noted that after switching `nvs` back to `16.14.0`, which was the Node version I had installed when I originally had this problem, the problem was gone. Somehow, `nvs` installing newer Node verisons, or switching them, fixed this.
+
 ### Adding new Typography variants
 
 Instructions:
