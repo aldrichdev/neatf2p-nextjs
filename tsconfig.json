@@ -22,7 +22,6 @@
       "@atoms/*": ["src/components/atoms/*"],
       "@molecules/*": ["src/components/molecules/*"],
       "@organisms/*": ["src/components/organisms/*"],
-      "@styled/*": ["src/components/styled/*"],
       "@contexts/*": ["src/contexts/*"],
       "@models/*": ["src/models/*"],
       "@hooks/*": ["src/hooks/*"]
