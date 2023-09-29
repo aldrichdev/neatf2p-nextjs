@@ -21,6 +21,9 @@ export const getDateString = (date: Date) => {
   return `${month} ${day}, ${year}`
 }
 
+export const getTimeZoneAbbreviation = (date: Date) =>
+  date.toLocaleTimeString('en-us', { timeZoneName: 'short' }).split(' ')[2]
+
 export const getPrettyDateStringFromISOString = (dateString: string) => {
   const date = new Date(dateString)
 
@@ -34,5 +37,5 @@ export const getPrettyDateStringFromISOString = (dateString: string) => {
   const minutes = date.getMinutes()
   const period = date.getHours() >= 12 ? 'PM' : 'AM'
 
-  return `${month} ${day}, ${year} ${hours}:${minutes} ${period}`
+  return `${month} ${day}, ${year} ${hours}:${minutes} ${period} ${getTimeZoneAbbreviation(date)}`
 }
