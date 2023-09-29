@@ -1,6 +1,6 @@
 import Typography from '@mui/material/Typography'
 import { ContentBlock } from '@atoms/ContentBlock'
-import { SectionBody, DiscordIcon } from './index.styled'
+import { SectionBody, DiscordIcon } from '@styledPages/Homepage.styled'
 import { OnlinePlayers } from '@organisms/OnlinePlayers'
 import { NewsAndUpdates } from '@organisms/NewsAndUpdates'
 import Link from 'next/link'
