@@ -5,8 +5,8 @@ import { OkPacket } from 'mysql'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
-  const { userId, lastLogin } = req.body
-  const query = `UPDATE users SET lastLogin = '${lastLogin}' WHERE id = ${userId}`
+  const { userId, currentDate } = req.body
+  const query = `UPDATE users SET lastLogin = '${currentDate}', dateModified = '${currentDate}'  WHERE id = ${userId}`
 
   try {
     const queryResponse: OkPacket | ErrorResult = await manipulateWebsiteData(query)
