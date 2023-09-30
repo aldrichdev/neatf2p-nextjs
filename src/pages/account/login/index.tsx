@@ -84,7 +84,7 @@ const AccountLoginPage = () => {
         axios
           .post('/api/updateLastLogin', {
             userId: user.id,
-            lastLogin: new Date(),
+            currentDate: new Date(),
           })
           .then(() => {
             // Take user to homepage. `AccountWidget` will indicate login was successful.
