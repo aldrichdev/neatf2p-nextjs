@@ -40,6 +40,12 @@ let theme = createTheme({
             backgroundColor: 'darkgreen',
           },
         },
+        textPrimary: {
+          '&:hover': {
+            color: 'darkgreen',
+            backgroundColor: 'transparent',
+          },
+        },
       },
     },
   },
