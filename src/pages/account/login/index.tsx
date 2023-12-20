@@ -1,5 +1,7 @@
 import { FormEvent, useState, ChangeEvent } from 'react'
 import { Button, Typography } from '@mui/material'
+import { styled } from '@mui/material/styles'
+import { css } from '@mui/system'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { Form } from '@atoms/Form'
 import { BodyText } from '@atoms/BodyText'
@@ -11,6 +13,21 @@ import bcrypt from 'bcryptjs'
 import { User } from '@globalTypes/User'
 import useAuthentication from '@hooks/useAuthentication'
 import { redirectTo } from '@helpers/window'
+import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
+
+const ForgotPasswordBlock = styled(BodyText)(
+  () => css`
+    flex-basis: 100%;
+    font-family: Helvetica;
+    font-size: 16px;
+  `,
+)
+
+const ForgotPasswordLink = styled(HoverUnderlineLink)(
+  () => css`
+    color: black;
+  `,
+)
 
 const AccountLoginPage = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('')
@@ -21,6 +38,7 @@ const AccountLoginPage = () => {
 
   if (userIsLoggedIn) {
     return (
+      // TODO: Create reusable component for this block.
       <ContentBlock>
         <Typography variant='h2'>Login</Typography>
         <BodyText textAlign='center'>
@@ -120,6 +138,9 @@ const AccountLoginPage = () => {
           onChange={handlePasswordChange}
         />
         <FieldValidationError>{validationError}</FieldValidationError>
+        <ForgotPasswordBlock variant='body' topMargin={20} textAlign='left'>
+          <ForgotPasswordLink href='/account/login/forgot-password'>Forgot Password?</ForgotPasswordLink>
+        </ForgotPasswordBlock>
         <Button variant='contained' type='submit'>
           Log In
         </Button>
