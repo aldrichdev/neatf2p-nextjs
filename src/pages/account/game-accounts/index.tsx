@@ -4,10 +4,11 @@ import { Typography } from '@mui/material'
 import useAuthentication from '@hooks/useAuthentication'
 import { UnauthenticatedWarning } from '@molecules/UnauthenticatedWarning'
 import { GameAccountsTable } from '@atoms/GameAccountsTable'
+import { UserIsLoggedIn } from '@helpers/users/users'
 
 const GameAccountsPage = () => {
   const user = useAuthentication()
-  const isLoggedIn = user?.id > 0
+  const isLoggedIn = UserIsLoggedIn(user)
 
   if (!isLoggedIn) {
     return <UnauthenticatedWarning />

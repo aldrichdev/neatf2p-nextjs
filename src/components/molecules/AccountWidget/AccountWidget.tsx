@@ -3,6 +3,7 @@ import { Typography } from '@mui/material'
 import axios from 'axios'
 import { User } from '@globalTypes/User'
 import { redirectTo } from '@helpers/window'
+import { UserIsLoggedIn } from '@helpers/users/users'
 
 interface AccountWidgetProps {
   user: User
@@ -10,7 +11,7 @@ interface AccountWidgetProps {
 
 const AccountWidget = (props: AccountWidgetProps) => {
   const { user } = props
-  const isLoggedIn = user?.id > 0
+  const isLoggedIn = UserIsLoggedIn(user)
 
   const handleLogout = () => {
     axios

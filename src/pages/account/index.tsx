@@ -6,12 +6,13 @@ import { Typography } from '@mui/material'
 import useAuthentication from '@hooks/useAuthentication'
 import { AccountNavigationContainer, AccountNavigationButton, AccountNavigationItem } from '@styledPages/Account.styled'
 import Menu from '@mui/material/Menu'
+import { UserIsLoggedIn } from '@helpers/users/users'
 
 const AccountPage = () => {
   const user = useAuthentication()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
-  const isLoggedIn = user?.id > 0
+  const isLoggedIn = UserIsLoggedIn(user)
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)

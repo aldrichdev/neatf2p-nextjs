@@ -12,6 +12,7 @@ import { User } from '@globalTypes/User'
 import { UserIdentityInfo } from '@globalTypes/Database/Users/UserIdentityInfo'
 import useAuthentication from '@hooks/useAuthentication'
 import { redirectTo } from '@helpers/window'
+import { UserExists } from '@helpers/users/users'
 
 const CreateAccountPage = () => {
   const [email, setEmail] = useState('')
@@ -123,7 +124,7 @@ const CreateAccountPage = () => {
     fetchExistingUserInfo()
   }
 
-  if (user?.id > 0) {
+  if (UserExists(user)) {
     // Logged-in users should not see this page
     return (
       <ContentBlock>

@@ -14,6 +14,8 @@ import { User } from '@globalTypes/User'
 import useAuthentication from '@hooks/useAuthentication'
 import { redirectTo } from '@helpers/window'
 import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
+import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
+import { UserExists, UserIsLoggedIn } from '@helpers/users/users'
 
 const ForgotPasswordBlock = styled(BodyText)(
   () => css`
@@ -34,21 +36,10 @@ const AccountLoginPage = () => {
   const [password, setPassword] = useState('')
   const [validationError, setValidationError] = useState('')
   const user = useAuthentication()
-  const userIsLoggedIn = user?.id > 0
+  const userIsLoggedIn = UserIsLoggedIn(user)
 
   if (userIsLoggedIn) {
-    return (
-      // TODO: Create reusable component for this block.
-      <ContentBlock>
-        <Typography variant='h2'>Login</Typography>
-        <BodyText textAlign='center'>
-          <Typography variant='body' component='span'>
-            You are already logged in. You can visit your
-            <InlineLink href='/account'>Account page</InlineLink>.
-          </Typography>
-        </BodyText>
-      </ContentBlock>
-    )
+    return <AlreadyLoggedIn />
   }
 
   const handleUsernameOrEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -68,8 +59,7 @@ const AccountLoginPage = () => {
         const result = response?.data
 
         // First thing would be to confirm the user exists.
-        const userExists = result?.id > 0
-        if (!userExists) {
+        if (!UserExists(result)) {
           setValidationError('Username or email does not exist.')
           return
         }

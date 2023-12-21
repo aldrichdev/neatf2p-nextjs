@@ -9,24 +9,16 @@ import axios from 'axios'
 import useAuthentication from '@hooks/useAuthentication'
 import { redirectTo } from '@helpers/window'
 import Link from 'next/link'
+import { UserExists, UserIsLoggedIn } from '@helpers/users/users'
+import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState('')
   const user = useAuthentication()
-  const userIsLoggedIn = user?.id > 0
+  const userIsLoggedIn = UserIsLoggedIn(user)
 
   if (userIsLoggedIn) {
-    return (
-      <ContentBlock>
-        <Typography variant='h2'>Login</Typography>
-        <BodyText textAlign='center'>
-          <Typography variant='body' component='span'>
-            You are already logged in. You can visit your
-            <InlineLink href='/account'>Account page</InlineLink>.
-          </Typography>
-        </BodyText>
-      </ContentBlock>
-    )
+    return <AlreadyLoggedIn />
   }
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +32,7 @@ const ForgotPasswordPage = () => {
       .get(`/api/getUser?user=${email}`)
       .then(async response => {
         const result = response?.data
-        const userExists = result?.id > 0
+        const userExists = UserExists(result)
 
         if (!userExists) {
           // Redirect to a "success" page, but do nothing.
@@ -59,7 +51,7 @@ const ForgotPasswordPage = () => {
         Forgotten your password? Enter your email below and we will send you a password reset link. If you have
         forgotten your username and email as well, please contact an administrator in{' '}
         <Link href='https://discord.gg/wd67zUxPXn' target='_blank'>
-          Neat F2P's Discord server
+          Neat F2P&apos;s Discord server
         </Link>
         {''}.
       </BodyText>
