@@ -9,8 +9,8 @@ const ForgotPasswordSuccessPage = () => {
       <Typography variant='h2'>Request Received</Typography>
       <BodyText variant='body' textAlign='center'>
         If the email you entered is associated with an account, you will receive an email with a password reset link
-        shortly. You can now return to the
-        <InlineLink href='/account'>homepage</InlineLink>.
+        within the next 5-10 minutes. You can now return to the
+        <InlineLink href='/'>homepage</InlineLink>.
       </BodyText>
     </ContentBlock>
   )

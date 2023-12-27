@@ -1,5 +1,5 @@
 import { FormEvent, ChangeEvent, useState } from 'react'
-import { Button, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { Form } from '@atoms/Form'
 import { BodyText } from '@atoms/BodyText'
@@ -13,6 +13,7 @@ import { UserIdentityInfo } from '@globalTypes/Database/Users/UserIdentityInfo'
 import useAuthentication from '@hooks/useAuthentication'
 import { redirectTo } from '@helpers/window'
 import { UserExists } from '@helpers/users/users'
+import { FormButton } from '@atoms/FormButton/FormButton'
 
 const CreateAccountPage = () => {
   const [email, setEmail] = useState('')
@@ -75,7 +76,7 @@ const CreateAccountPage = () => {
         currentDate: now,
       })
       .then(response => {
-        if (typeof response?.data === 'number') {
+        if (typeof response?.data === 'string') {
           const user: User = {
             id: response?.data,
             emailAddress: email,
@@ -179,9 +180,9 @@ const CreateAccountPage = () => {
             onChange={handleConfirmPasswordChange}
           />
           <FieldValidationError>{validationError}</FieldValidationError>
-          <Button variant='contained' type='submit' disabled={!!validationError}>
+          <FormButton variant='contained' type='submit' disabled={!!validationError}>
             Submit
-          </Button>
+          </FormButton>
         </Form>
         <BodyText variant='body' topMargin={40} textAlign='left'>
           <span>Already have an account?</span>

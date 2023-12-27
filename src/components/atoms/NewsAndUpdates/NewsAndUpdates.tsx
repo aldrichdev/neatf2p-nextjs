@@ -5,7 +5,7 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { NewsPostList, NewsPostListItem, NewsPostAvatar, NewsPostImage } from './NewsAndUpdates.styled'
 import { NewsPost } from './NewsAndUpdates.d'
 import { getImageUrlFromBase64 } from '@helpers/base64'
-import { getPrettyDateStringFromISOString } from '@/lib/helpers/date/date'
+import { getPrettyDateStringFromISOString } from '@helpers/date/date'
 
 // Example is OSRS website: https://oldschool.runescape.com
 // Using MUI component sample code: https://mui.com/material-ui/react-list/``

@@ -1,0 +1,26 @@
+import { Typography } from '@mui/material'
+import { ContentBlock } from '@atoms/ContentBlock'
+import { BodyText } from '@atoms/BodyText'
+import { InlineLink } from '@atoms/InlineLink'
+import useAuthentication from '@hooks/useAuthentication'
+import { UserIsLoggedIn } from '@helpers/users/users'
+
+const ResetPasswordSuccessPage = () => {
+  const user = useAuthentication()
+  return (
+    <ContentBlock>
+      <Typography variant='h2'>Reset Successful</Typography>
+      <BodyText variant='body' textAlign='center'>
+        Your password was reset successfully.
+        {!UserIsLoggedIn(user) && (
+          <>
+            You can now
+            <InlineLink href='/account/login'>login</InlineLink>.
+          </>
+        )}
+      </BodyText>
+    </ContentBlock>
+  )
+}
+
+export default ResetPasswordSuccessPage

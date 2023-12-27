@@ -6,6 +6,10 @@ The source code for the [Neat F2P website](https://neatf2p-nextjs.vercel.app/).
 
 - Node 16+
 
+## Setup
+
+Copy `.env.dist` to `.env` and fill in empty values.
+
 ## Appendix
 
 ### Issues

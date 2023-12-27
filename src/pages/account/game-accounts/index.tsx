@@ -3,7 +3,7 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { Typography } from '@mui/material'
 import useAuthentication from '@hooks/useAuthentication'
 import { UnauthenticatedWarning } from '@molecules/UnauthenticatedWarning'
-import { GameAccountsTable } from '@atoms/GameAccountsTable'
+import { GameAccountsTable } from '@organisms/GameAccountsTable'
 import { UserIsLoggedIn } from '@helpers/users/users'
 
 const GameAccountsPage = () => {
@@ -15,7 +15,7 @@ const GameAccountsPage = () => {
   }
 
   return (
-    <ContentBlock>
+    <ContentBlock isWide>
       <Typography variant='h2'>Game Accounts</Typography>
       <BodyText variant='body'>
         Here, you can view your current game accounts, create new ones, rename them, and update passwords. Idea is to

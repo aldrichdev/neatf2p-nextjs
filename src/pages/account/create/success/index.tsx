@@ -7,7 +7,7 @@ import useAuthentication from '@hooks/useAuthentication'
 const CreateAccountSuccessPage = () => {
   const user = useAuthentication()
 
-  if (user?.id < 1) {
+  if (user?.id === 'NULL') {
     // Something went wrong...
     return (
       <ContentBlock>

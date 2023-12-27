@@ -7,9 +7,13 @@ import { Container, HomepageLink, Logo, PaddedContainer } from '@styledPages/App
 import { MainNavigation } from '@atoms/MainNavigation'
 import { AccountWidget } from '@molecules/AccountWidget'
 import useAuthentication from '@hooks/useAuthentication'
+import emailjs from '@emailjs/browser'
+import { useEffect } from 'react'
 
 export default function App({ Component, pageProps }: AppProps) {
   const user = useAuthentication()
+
+  useEffect(() => emailjs.init('NnydzXPqox79rXZ4M'), [])
 
   return (
     <>

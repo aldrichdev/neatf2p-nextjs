@@ -1,5 +1,5 @@
 import { FormEvent, useState, ChangeEvent } from 'react'
-import { Button, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 import { ContentBlock } from '@atoms/ContentBlock'
@@ -16,6 +16,7 @@ import { redirectTo } from '@helpers/window'
 import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
 import { UserExists, UserIsLoggedIn } from '@helpers/users/users'
+import { FormButton } from '@atoms/FormButton/FormButton'
 
 const ForgotPasswordBlock = styled(BodyText)(
   () => css`
@@ -92,7 +93,6 @@ const AccountLoginPage = () => {
         axios
           .post('/api/updateLastLogin', {
             userId: user.id,
-            currentDate: new Date(),
           })
           .then(() => {
             // Take user to homepage. `AccountWidget` will indicate login was successful.
@@ -131,9 +131,9 @@ const AccountLoginPage = () => {
         <ForgotPasswordBlock variant='body' topMargin={20} textAlign='left'>
           <ForgotPasswordLink href='/account/login/forgot-password'>Forgot Password?</ForgotPasswordLink>
         </ForgotPasswordBlock>
-        <Button variant='contained' type='submit'>
+        <FormButton variant='contained' type='submit'>
           Log In
-        </Button>
+        </FormButton>
       </Form>
       <BodyText variant='body' topMargin={40} textAlign='left'>
         <span>New around here?</span>

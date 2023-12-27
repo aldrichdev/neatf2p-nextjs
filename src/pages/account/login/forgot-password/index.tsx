@@ -1,5 +1,5 @@
 import { FormEvent, useState, ChangeEvent } from 'react'
-import { Button, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { Form } from '@atoms/Form'
 import { BodyText } from '@atoms/BodyText'
@@ -11,6 +11,8 @@ import { redirectTo } from '@helpers/window'
 import Link from 'next/link'
 import { UserExists, UserIsLoggedIn } from '@helpers/users/users'
 import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
+import emailjs from '@emailjs/browser'
+import { FormButton } from '@atoms/FormButton/FormButton'
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState('')
@@ -34,12 +36,17 @@ const ForgotPasswordPage = () => {
         const result = response?.data
         const userExists = UserExists(result)
 
-        if (!userExists) {
-          // Redirect to a "success" page, but do nothing.
-          redirectTo('/account/login/forget-password/success')
-        } else {
+        if (userExists) {
           // Send an email with a reset link.
+          await emailjs.send('service_6xpikef', 'template_t4tp3fq', {
+            recipient: result?.emailAddress,
+            websiteAccountId: result?.id,
+          })
         }
+
+        // Whether or not the user exists, redirect to success page.
+        // We will not tell the user trying to reset whether the account exists.
+        redirectTo('/account/login/forgot-password/success')
       })
       .catch((error: string) => error)
   }
@@ -57,9 +64,9 @@ const ForgotPasswordPage = () => {
       </BodyText>
       <Form onSubmit={handleRequest}>
         <Field required id='email' label='Email' variant='standard' onChange={handleEmailChange} />
-        <Button variant='contained' type='submit'>
+        <FormButton variant='contained' type='submit'>
           Submit
-        </Button>
+        </FormButton>
       </Form>
       <BodyText variant='body' topMargin={40} textAlign='left'>
         <span>Or, if you remember it,</span>

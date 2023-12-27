@@ -3,8 +3,9 @@ import { queryWebsiteDatabase } from '@helpers/db'
 import { NewsPost } from '@globalTypes/NewsPost'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { UserIdentityInfo } from '@globalTypes/Database/Users/UserIdentityInfo'
+import { User } from '@globalTypes/User'
 
-const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   const query = `SELECT emailAddress, username FROM users`
 
   try {

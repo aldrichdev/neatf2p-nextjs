@@ -34,7 +34,6 @@ let theme = createTheme({
           textTransform: 'none',
           fontSize: '16px',
           padding: '10px 40px',
-          marginTop: '40px',
 
           '&:hover': {
             backgroundColor: 'darkgreen',

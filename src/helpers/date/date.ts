@@ -33,9 +33,9 @@ export const getPrettyDateStringFromISOString = (dateString: string) => {
   const year = date.getFullYear()
 
   // Add time, not in military
-  const hours = date.getHours() <= 12 ? date.getHours() : date.getHours() - 12
+  const hours = date.getHours() - 12
   const minutes = date.getMinutes()
   const period = date.getHours() >= 12 ? 'PM' : 'AM'
 
-  return `${month} ${day}, ${year} ${hours}:${minutes} ${period} ${getTimeZoneAbbreviation(date)}`
+  return `${month} ${day}, ${year} ${hours}:${minutes} ${period}`
 }

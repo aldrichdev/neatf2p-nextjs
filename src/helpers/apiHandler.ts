@@ -1,30 +1,32 @@
-// Something to think about. I think our API calls are very redundant. However, the typing of the response can be
-// custom and I don't know how that could be controlled
+import { NextApiResponse } from 'next'
+import { manipulateWebsiteData, isOkPacket } from '@helpers/db'
+import { OkPacket } from 'mysql'
+import { ErrorResult } from '@globalTypes/Database/ErrorResult'
+import { User } from '@globalTypes/User'
 
-// import { ErrorResult } from '@globalTypes/Database/ErrorResult'
-// import { UserDataRow } from '@globalTypes/Database/Users/UserDataRow'
-// import { queryWebsiteDatabase } from '@helpers/db'
-// import { NextApiRequest, NextApiResponse } from 'next'
+/** Helper for updating website records. */
+export const handleWebsiteUpdate = async (sqlQuery: string, res: NextApiResponse<User>): Promise<void> => {
+  try {
+    const queryResponse: OkPacket | ErrorResult = await manipulateWebsiteData(sqlQuery)
 
-// interface Props {
-//   onlinePlayerCount: number
-// }
+    if (!isOkPacket(queryResponse)) {
+      throw new Error(queryResponse?.error?.toString())
+    }
 
-// const apiHandler = async (req: NextApiRequest, res: NextApiResponse<Props>, response: any) => {
-//   try {
-//     if (response instanceof Array) {
-//       res.statusCode = 200
-//       res.setHeader('Content-Type', 'application/json')
-//       res.end(JSON.stringify(response?.length))
-//     } else {
-//       throw new Error(response.error?.toString())
-//     }
-//   } catch (error) {
-//     console.log('An error occurred in the getMatchingUsers API: ', error)
-//     res.statusCode = 500
-//     res.setHeader('Content-Type', 'application/json')
-//     res.end(JSON.stringify(error?.toString()))
-//   }
-// }
+    if (queryResponse?.affectedRows !== 1) {
+      throw new Error(
+        `No rows, or too many rows, affected! Affected Rows: ${queryResponse.affectedRows}. Response: ${queryResponse}`,
+      )
+    }
 
-// export default handler
+    // Return a JSON result indicating success
+    res.statusCode = 200
+    res.setHeader('Content-Type', 'application/json')
+    res.end(JSON.stringify(queryResponse?.affectedRows))
+  } catch (error) {
+    console.log('An error occurred in the API handler: ', error)
+    res.statusCode = 500
+    res.setHeader('Content-Type', 'application/json')
+    res.end(JSON.stringify(`${error?.toString()}`))
+  }
+}
