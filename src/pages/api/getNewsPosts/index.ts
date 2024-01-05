@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { queryWebsiteDatabase } from '@helpers/db'
+import { queryDatabase } from '@helpers/db'
 import { NewsPost } from '@globalTypes/NewsPost'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 
@@ -20,7 +20,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
       ORDER BY np.datePosted DESC
       ${limit ? `LIMIT ${limit}` : ''}`
 
-    const response: Array<any> | ErrorResult = await queryWebsiteDatabase(query)
+    const response: Array<any> | ErrorResult = await queryDatabase('website', query)
 
     if (response instanceof Array) {
       response?.map((rowDataPacket: NewsPost) => {

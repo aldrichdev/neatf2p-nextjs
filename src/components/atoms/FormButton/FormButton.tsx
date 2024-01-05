@@ -4,7 +4,7 @@ import { css } from '@mui/system'
 
 /** A button that is part of a form usually needs some space above it. */
 export const FormButton = styled(Button)(
-  ({}) => css`
+  () => css`
     margin-top: 40px;
   `,
 )

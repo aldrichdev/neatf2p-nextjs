@@ -15,7 +15,7 @@ export const AccountNavigationContainer = styled('div')(
 export const AccountNavigationButton = styled(Button)(
   () => css`
     margin-top: 10px;
-    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-family: Source Sans Pro;
     color: green;
     font-size: 20px;
     text-transform: none;
@@ -24,7 +24,7 @@ export const AccountNavigationButton = styled(Button)(
 export const AccountNavigationItem = styled(Link)(
   () => css`
     display: block;
-    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-family: Source Sans Pro;
     color: unset;
     padding: 16px;
     text-align: left;

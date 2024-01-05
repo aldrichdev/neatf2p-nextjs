@@ -4,7 +4,7 @@ import { css } from '@mui/system'
 export const Form = styled('form')(
   ({ theme }) => css`
     margin-top: 20px;
-    font-family: Helvetica;
+    font-family: Source Sans Pro;
     display: flex;
     flex-wrap: wrap;
     width: 100%;

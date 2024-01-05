@@ -12,10 +12,22 @@
   src: url('/fonts/Saros-Regular.otf');
 }
 
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: normal;
+  src: url('/fonts/SourceSansPro-Regular.ttf');
+}
+
 body {
   margin: 0;
 }
 
 a {
   color: #800080;
+}
+
+button {
+  border: none;
+  background-color: transparent;
 }

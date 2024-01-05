@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { manipulateWebsiteData, isOkPacket } from '@helpers/db'
+import { queryDatabase, isOkPacket } from '@helpers/db'
 import { OkPacket } from 'mysql'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { v4 as uuidv4 } from 'uuid'
@@ -14,7 +14,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
     '${req.body?.currentDate}', '0', '${req?.body?.currentDate}')`
 
   try {
-    const insertUserResponse: OkPacket | ErrorResult = await manipulateWebsiteData(insertUserQuery)
+    const insertUserResponse: OkPacket | ErrorResult = await queryDatabase('website', insertUserQuery)
 
     if (!isOkPacket(insertUserResponse)) {
       throw new Error(insertUserResponse?.error?.toString())

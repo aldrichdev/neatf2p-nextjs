@@ -1,11 +1,11 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material'
+import { Table, TableCell, TableContainer } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
 export const AccountTableContainer = styled(TableContainer, {
   shouldForwardProp: prop => prop !== 'component',
 })<{ component: any }>(
-  ({ theme }) => css`
+  () => css`
     margin-top: 40px;
     border-top: 2px solid black;
     border-bottom: 2px solid black;
@@ -17,8 +17,8 @@ export const AccountTableContainer = styled(TableContainer, {
 export const AccountTable = styled(Table, {
   shouldForwardProp: prop => !['sx', 'aria-label'].includes(prop.toString()),
 })(
-  ({ theme }) => css`
-    font-family: Saros;
+  () => css`
+    font-family: Source Sans Pro;
 
     & .MuiTableRow-root:last-child td {
       border-left: 1px solid black;
@@ -29,10 +29,11 @@ export const AccountTable = styled(Table, {
 
 export const AccountTableCell = styled(TableCell, {
   shouldForwardProp: prop => !['component', 'scope', 'align'].includes(prop.toString()),
-})(
-  ({ theme }) => css`
+})<{ bold?: boolean }>(
+  ({ bold }) => css`
     text-align: center;
     border-left: 1px solid black;
     border-right: 1px solid black;
+    font-weight: ${bold ? 700 : 400};
   `,
 )

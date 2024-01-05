@@ -1,13 +1,17 @@
 import { NextApiResponse } from 'next'
-import { manipulateWebsiteData, isOkPacket } from '@helpers/db'
+import { queryDatabase, isOkPacket } from '@helpers/db'
 import { OkPacket } from 'mysql'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { User } from '@globalTypes/User'
 
 /** Helper for updating website records. */
-export const handleWebsiteUpdate = async (sqlQuery: string, res: NextApiResponse<User>): Promise<void> => {
+export const handleUpdate = async (
+  databaseType: 'website' | 'game',
+  sqlQuery: string,
+  res: NextApiResponse<User>,
+): Promise<void> => {
   try {
-    const queryResponse: OkPacket | ErrorResult = await manipulateWebsiteData(sqlQuery)
+    const queryResponse: OkPacket | ErrorResult = await queryDatabase(databaseType, sqlQuery)
 
     if (!isOkPacket(queryResponse)) {
       throw new Error(queryResponse?.error?.toString())

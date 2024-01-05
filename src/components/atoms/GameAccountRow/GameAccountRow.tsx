@@ -1,41 +1,44 @@
-import { TableRow, Button } from '@mui/material'
+import { TableRow } from '@mui/material'
 import { AccountTableCell } from '@organisms/GameAccountsTable/GameAccountsTable.styled'
 import { GameAccountRowProps } from './GameAccountRow.types'
+import { TableButton } from '@atoms/TableButton/TableButton'
+import { getFullDateStringFromMillis } from '@helpers/date/date'
 
 const GameAccountRow = (props: GameAccountRowProps) => {
-  const { account } = props
+  const { account, showRenameModal, showPasswordModal } = props
 
   const handleRename = () => {
-    console.log('rename requested')
-
-    // NO idea how i'll get the ID here..
-    const theId = account.id // That's how
+    // Show a modal which handles the rename
+    showRenameModal(true, account)
   }
 
   const handleUpdatePassword = () => {
     console.log('update password requested')
+    showPasswordModal(true, account)
   }
 
   return (
-    <TableRow key={account.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-      <AccountTableCell component='th' scope='row'>
-        {account.id}
-      </AccountTableCell>
-      <AccountTableCell align='right'>{account.username}</AccountTableCell>
-      <AccountTableCell align='right'>{account.combat}</AccountTableCell>
-      <AccountTableCell align='right'>{new Date(account.creation_date).toISOString()}</AccountTableCell>
-      <AccountTableCell align='right'>{new Date(account.login_date).toISOString()}</AccountTableCell>
-      <AccountTableCell align='right'>
-        <Button variant='contained' onClick={handleRename}>
-          Rename
-        </Button>
-      </AccountTableCell>
-      <AccountTableCell align='right'>
-        <Button variant='contained' onClick={handleUpdatePassword}>
-          Update
-        </Button>
-      </AccountTableCell>
-    </TableRow>
+    <>
+      <TableRow key={account.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+        <AccountTableCell component='th' scope='row'>
+          {account.id}
+        </AccountTableCell>
+        <AccountTableCell align='right'>{account.username}</AccountTableCell>
+        <AccountTableCell align='right'>{account.combat}</AccountTableCell>
+        <AccountTableCell align='right'>{getFullDateStringFromMillis(account.creation_date)}</AccountTableCell>
+        <AccountTableCell align='right'>{getFullDateStringFromMillis(account.login_date)}</AccountTableCell>
+        <AccountTableCell align='right'>
+          <TableButton variant='contained' onClick={handleRename}>
+            Rename
+          </TableButton>
+        </AccountTableCell>
+        <AccountTableCell align='right'>
+          <TableButton variant='contained' onClick={handleUpdatePassword}>
+            Update
+          </TableButton>
+        </AccountTableCell>
+      </TableRow>
+    </>
   )
 }
 

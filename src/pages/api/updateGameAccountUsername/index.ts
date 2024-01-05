@@ -3,11 +3,10 @@ import { User } from '@globalTypes/User'
 import { handleUpdate } from '@helpers/apiHandler'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
-  const { userId } = req.body
-  const now = new Date().toISOString()
-  const query = `UPDATE users SET lastLogin = '${now}', dateModified = '${now}' WHERE id = '${userId}'`
+  const { accountId, currentName, newName } = req.body
+  const query = `UPDATE players SET former_name = '${currentName}', username = '${newName}' WHERE id = ${accountId}`
 
-  return handleUpdate('website', query, res)
+  return handleUpdate('game', query, res)
 }
 
 export default handler

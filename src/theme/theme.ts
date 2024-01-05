@@ -30,13 +30,29 @@ let theme = createTheme({
       styleOverrides: {
         containedPrimary: {
           backgroundColor: 'green',
-          fontFamily: 'Saros',
+          fontFamily: 'Source Sans Pro',
           textTransform: 'none',
           fontSize: '16px',
           padding: '10px 40px',
 
           '&:hover': {
             backgroundColor: 'darkgreen',
+          },
+        },
+        outlinedPrimary: {
+          color: 'green',
+          backgroundColor: 'transparent',
+          borderColor: 'green',
+          borderWidth: '2px',
+          fontFamily: 'Source Sans Pro',
+          textTransform: 'none',
+          fontSize: '16px',
+          padding: '10px 40px',
+
+          '&:hover': {
+            color: 'darkgreen',
+            borderColor: 'darkgreen',
+            borderWidth: '2px',
           },
         },
         textPrimary: {

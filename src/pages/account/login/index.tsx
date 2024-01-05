@@ -21,7 +21,7 @@ import { FormButton } from '@atoms/FormButton/FormButton'
 const ForgotPasswordBlock = styled(BodyText)(
   () => css`
     flex-basis: 100%;
-    font-family: Helvetica;
+    font-family: Source Sans Pro;
     font-size: 16px;
   `,
 )

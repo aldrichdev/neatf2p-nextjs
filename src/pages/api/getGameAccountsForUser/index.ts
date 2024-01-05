@@ -1,6 +1,6 @@
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
-import { queryGameDatabase } from '@helpers/db'
+import { queryDatabase } from '@helpers/db'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 interface Props {
@@ -9,12 +9,12 @@ interface Props {
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Props>) => {
   const { userId } = req.query
-  const query = `SELECT id, username, pass, salt, combat, creation_date, login_date, banned
+  const query = `SELECT id, username, former_name, pass, salt, combat, creation_date, login_date, banned
     FROM players
     WHERE websiteUserId = '${userId}'`
 
   try {
-    const response: PlayerDataRow[] | ErrorResult = await queryGameDatabase(query)
+    const response: PlayerDataRow[] | ErrorResult = await queryDatabase('game', query)
 
     if (response instanceof Array) {
       res.statusCode = 200
