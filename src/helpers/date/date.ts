@@ -41,8 +41,6 @@ export const getDateFromMillis = (millis: number): Date => {
 }
 
 export const getPrettyDateStringFromMillis = (millis: number): string => {
-  // TODO: Reuse shared logic between here and `getPrettyDateStringFromISOString`
-  // I think this file is out of date with main because the timezone is missing from the above method!
   const date = getDateFromMillis(millis)
 
   return getPrettyDateString(date)

@@ -4,11 +4,16 @@ import { css } from '@mui/system'
 import Link from 'next/link'
 
 export const AccountNavigationContainer = styled('div')(
-  () => css`
+  ({ theme }) => css`
     margin-top: 20px;
     display: flex;
-    column-gap: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
     justify-content: center;
+
+    ${theme.breakpoints.up('tablet')} {
+      flex-wrap: nowrap;
+    }
   `,
 )
 

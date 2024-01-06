@@ -18,13 +18,10 @@ const RenameAccountModal = (props: RenameAccountModalProps) => {
   const [successMessage, setSuccessMessage] = useState('')
   const playerAlreadyRenamed = account.former_name?.length > 0
 
-  // TODO: This method of disabling scroll works, but it also makes the page content jump because
-  // the page goes from having a scrollbar, to not having one. Maybe there is another solution
-  // that doesn't involve a jump? Worth a read: https://aykevl.nl/2014/09/fix-jumping-scrollbar/
-  // if (open) {
-  //   // Prevent scrolling
-  //   document.body.style.overflow = 'hidden'
-  // }
+  if (open) {
+    // Prevent scrolling
+    document.body.style.overflow = 'hidden'
+  }
 
   const handleNewNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setNewName(event.target.value)
@@ -33,7 +30,7 @@ const RenameAccountModal = (props: RenameAccountModalProps) => {
 
   const handleClose = () => {
     setOpen(false)
-    // document.body.style.overflow = 'unset'
+    document.body.style.overflow = 'unset'
   }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -90,8 +87,7 @@ const RenameAccountModal = (props: RenameAccountModalProps) => {
           <>
             <strong>Please log {account.username} out of the game before continuing.</strong>{' '}
             <Warning>You can only rename an account once</Warning>, so please choose wisely when picking a new account
-            name. Please note that any spaces at the beginning or end of your new name will not be counted as RSC+ does
-            not support those kinds of names.
+            name. Any spaces at the beginning or end of your new name will not be counted, but spaces within are fine.
           </>
         )
       }

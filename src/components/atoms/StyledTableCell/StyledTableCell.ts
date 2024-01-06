@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
 export const StyledTableCell = styled(TableCell, {
-  shouldForwardProp: prop => !['component', 'scope', 'align'].includes(prop.toString()),
+  shouldForwardProp: prop => !['component', 'scope', 'align', 'bold'].includes(prop.toString()),
 })<{ bold?: boolean }>(
   ({ bold }) => css`
     text-align: center;

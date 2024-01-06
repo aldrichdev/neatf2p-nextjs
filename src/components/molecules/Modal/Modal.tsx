@@ -1,6 +1,6 @@
 import { BodyText } from '@atoms/BodyText'
 import { Typography } from '@mui/material'
-import { CloseBar, CloseButton, CloseIcon, ModalOverlay, ModalRoot } from './Modal.styled'
+import { CloseBar, CloseButton, CloseIcon, ModalHeader, ModalOverlay, ModalRoot } from './Modal.styled'
 import { Form } from '@atoms/Form'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { FieldValidationError } from '@atoms/FieldValidationError'
@@ -30,7 +30,7 @@ const Modal = (props: ModalProps) => {
             <CloseIcon src='/img/close-icon.webp' alt='' />
           </CloseButton>
         </CloseBar>
-        <Typography variant='h3'>{heading}</Typography>
+        <ModalHeader variant='h3'>{heading}</ModalHeader>
         <BodyText variant='body' textAlign='left'>
           {body}
         </BodyText>

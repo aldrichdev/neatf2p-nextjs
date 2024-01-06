@@ -1,5 +1,6 @@
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
+import { Typography } from '@mui/material'
+import { styled } from '@mui/material/styles'
+import { css } from '@mui/system'
 
 export const ModalOverlay = styled('div')(
   () => css`
@@ -16,19 +17,28 @@ export const ModalOverlay = styled('div')(
 export const ModalRoot = styled('div', {
   shouldForwardProp: prop => prop !== 'open',
 })<{ open: boolean }>(
-  ({ open }) => css`
+  ({ theme, open }) => css`
     position: absolute;
-    left: 25%;
-    right: 25%;
-    top: 25%;
+    left: 0;
+    right: 0;
+    top: 0;
     background-color: white;
     padding: 16px 32px 32px 32px;
 
-    ${open &&
-    `
+    ${
+      /** TODO: Do we still need this? Is it doing anything? seems to do nothing on mac? */
+      open &&
+      `
       overflow-y: hidden;
       max-height: 100vh;
-      `}
+      `
+    }
+
+    ${theme.breakpoints.up('tablet')} {
+      left: 25%;
+      right: 25%;
+      top: 25%;
+    }
   `,
 )
 
@@ -48,5 +58,13 @@ export const CloseButton = styled('button')(
 export const CloseIcon = styled('img')(
   () => css`
     width: 32px;
+  `,
+)
+
+export const ModalHeader = styled(Typography)(
+  ({ theme }) => css`
+    ${theme.breakpoints.down('tablet')} {
+      font-size: 32px;
+    }
   `,
 )

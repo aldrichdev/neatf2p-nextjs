@@ -19,8 +19,11 @@
   src: url('/fonts/SourceSansPro-Regular.ttf');
 }
 
+/* TODO: Test this on Windows to see if it fixes the horizontal jump when opening 
+the rename or password update modals. */
 html {
-  overflow-y: scroll;
+  margin-left: calc(100vw - 100%);
+  margin-right: 0;
 }
 
 body {

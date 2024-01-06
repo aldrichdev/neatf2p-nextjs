@@ -9,6 +9,7 @@ import { GameAccountsTableProps } from './GameAccountsTable.types'
 import { RenameAccountModal } from '@organisms/RenameAccountModal'
 import { PasswordModal } from '@organisms/PasswordModal'
 import { StyledTableCell } from '@atoms/StyledTableCell'
+import { BodyText } from '@atoms/BodyText'
 
 const GameAccountsTable = (props: GameAccountsTableProps) => {
   const { user } = props
@@ -47,11 +48,13 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
 
   if (isLoading) {
     return <Spinner />
+  } else if (accounts && accounts.length < 1) {
+    return <BodyText variant='body'>You don't have any accounts right now. Why not create one?</BodyText>
   }
 
   return (
     <AccountTableContainer component={Paper}>
-      <AccountTable sx={{ minWidth: 650 }} aria-label='simple table'>
+      <AccountTable aria-label='simple table'>
         <TableHead>
           <TableRow>
             <StyledTableCell align='right' bold>
