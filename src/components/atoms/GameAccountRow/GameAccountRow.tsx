@@ -1,8 +1,7 @@
-import { TableRow } from '@mui/material'
-import { AccountTableCell } from '@organisms/GameAccountsTable/GameAccountsTable.styled'
+import { Button, TableRow } from '@mui/material'
+import { StyledTableCell } from '@atoms/StyledTableCell'
 import { GameAccountRowProps } from './GameAccountRow.types'
-import { TableButton } from '@atoms/TableButton/TableButton'
-import { getFullDateStringFromMillis } from '@helpers/date/date'
+import { getPrettyDateStringFromMillis } from '@helpers/date/date'
 
 const GameAccountRow = (props: GameAccountRowProps) => {
   const { account, showRenameModal, showPasswordModal } = props
@@ -20,23 +19,23 @@ const GameAccountRow = (props: GameAccountRowProps) => {
   return (
     <>
       <TableRow key={account.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-        <AccountTableCell component='th' scope='row'>
+        <StyledTableCell component='th' scope='row'>
           {account.id}
-        </AccountTableCell>
-        <AccountTableCell align='right'>{account.username}</AccountTableCell>
-        <AccountTableCell align='right'>{account.combat}</AccountTableCell>
-        <AccountTableCell align='right'>{getFullDateStringFromMillis(account.creation_date)}</AccountTableCell>
-        <AccountTableCell align='right'>{getFullDateStringFromMillis(account.login_date)}</AccountTableCell>
-        <AccountTableCell align='right'>
-          <TableButton variant='contained' onClick={handleRename}>
+        </StyledTableCell>
+        <StyledTableCell align='right'>{account.username}</StyledTableCell>
+        <StyledTableCell align='right'>{account.combat}</StyledTableCell>
+        <StyledTableCell align='right'>{getPrettyDateStringFromMillis(account.creation_date)}</StyledTableCell>
+        <StyledTableCell align='right'>{getPrettyDateStringFromMillis(account.login_date)}</StyledTableCell>
+        <StyledTableCell align='right'>
+          <Button variant='contained' onClick={handleRename}>
             Rename
-          </TableButton>
-        </AccountTableCell>
-        <AccountTableCell align='right'>
-          <TableButton variant='contained' onClick={handleUpdatePassword}>
+          </Button>
+        </StyledTableCell>
+        <StyledTableCell align='right'>
+          <Button variant='contained' onClick={handleUpdatePassword}>
             Update
-          </TableButton>
-        </AccountTableCell>
+          </Button>
+        </StyledTableCell>
       </TableRow>
     </>
   )

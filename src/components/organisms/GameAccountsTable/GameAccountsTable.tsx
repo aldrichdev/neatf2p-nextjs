@@ -3,11 +3,12 @@ import { Spinner } from '@molecules/Spinner'
 import { TableBody, TableHead, TableRow, Paper } from '@mui/material'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { AccountTable, AccountTableCell, AccountTableContainer } from './GameAccountsTable.styled'
+import { AccountTable, AccountTableContainer } from './GameAccountsTable.styled'
 import { GameAccountRow } from '@atoms/GameAccountRow'
 import { GameAccountsTableProps } from './GameAccountsTable.types'
-import { RenameAccountModal } from '@molecules/RenameAccountModal'
-import { PasswordModal } from '@molecules/PasswordModal'
+import { RenameAccountModal } from '@organisms/RenameAccountModal'
+import { PasswordModal } from '@organisms/PasswordModal'
+import { StyledTableCell } from '@atoms/StyledTableCell'
 
 const GameAccountsTable = (props: GameAccountsTableProps) => {
   const { user } = props
@@ -53,27 +54,27 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
       <AccountTable sx={{ minWidth: 650 }} aria-label='simple table'>
         <TableHead>
           <TableRow>
-            <AccountTableCell align='right' bold>
+            <StyledTableCell align='right' bold>
               Id
-            </AccountTableCell>
-            <AccountTableCell align='right' bold>
+            </StyledTableCell>
+            <StyledTableCell align='right' bold>
               Account Name
-            </AccountTableCell>
-            <AccountTableCell align='right' bold>
+            </StyledTableCell>
+            <StyledTableCell align='right' bold>
               Combat Level
-            </AccountTableCell>
-            <AccountTableCell align='right' bold>
+            </StyledTableCell>
+            <StyledTableCell align='right' bold>
               Date Created
-            </AccountTableCell>
-            <AccountTableCell align='right' bold>
+            </StyledTableCell>
+            <StyledTableCell align='right' bold>
               Last Login
-            </AccountTableCell>
-            <AccountTableCell align='right' bold>
+            </StyledTableCell>
+            <StyledTableCell align='right' bold>
               Rename?
-            </AccountTableCell>
-            <AccountTableCell align='right' bold>
+            </StyledTableCell>
+            <StyledTableCell align='right' bold>
               Password
-            </AccountTableCell>
+            </StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>

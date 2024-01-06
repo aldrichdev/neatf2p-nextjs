@@ -1,4 +1,3 @@
-import { Field } from '@atoms/Field'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
@@ -14,14 +13,22 @@ export const ModalOverlay = styled('div')(
   `,
 )
 
-export const ModalRoot = styled('div')(
-  () => css`
+export const ModalRoot = styled('div', {
+  shouldForwardProp: prop => prop !== 'open',
+})<{ open: boolean }>(
+  ({ open }) => css`
     position: absolute;
     left: 25%;
     right: 25%;
     top: 25%;
     background-color: white;
     padding: 16px 32px 32px 32px;
+
+    ${open &&
+    `
+      overflow-y: hidden;
+      max-height: 100vh;
+      `}
   `,
 )
 
@@ -41,17 +48,5 @@ export const CloseButton = styled('button')(
 export const CloseIcon = styled('img')(
   () => css`
     width: 32px;
-  `,
-)
-
-export const Warning = styled('span')(
-  () => css`
-    color: red;
-  `,
-)
-
-export const RenameFormField = styled(Field)(
-  () => css`
-    flex-basis: 100%;
   `,
 )
