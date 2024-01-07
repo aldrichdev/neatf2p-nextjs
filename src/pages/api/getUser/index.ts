@@ -1,17 +1,17 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { queryWebsiteDatabase } from '@helpers/db'
-import { NewsPost } from '@globalTypes/NewsPost'
+import { queryDatabase } from '@helpers/db'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { UserDataRow } from '@globalTypes/Database/Users/UserDataRow'
+import { User } from '@globalTypes/User'
 
-const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   const { user } = req.query
   const query = `SELECT id, emailAddress, username, password, passwordSalt, lastLogin, isAdmin
     FROM users
     WHERE emailAddress = '${user}' OR username = '${user}'`
 
   try {
-    const response: UserDataRow[] | ErrorResult = await queryWebsiteDatabase(query)
+    const response: UserDataRow[] | ErrorResult = await queryDatabase('website', query)
 
     if (response instanceof Array) {
       res.statusCode = 200

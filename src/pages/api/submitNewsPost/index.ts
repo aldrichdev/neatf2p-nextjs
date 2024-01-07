@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { manipulateWebsiteData, isOkPacket } from '@helpers/db'
+import { queryDatabase, isOkPacket } from '@helpers/db'
 import { NewsPost } from '@globalTypes/NewsPost'
 import { OkPacket } from 'mysql'
 import { cleanInputString } from '@helpers/string/stringUtils'
@@ -10,13 +10,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
     const insertImageQuery = `INSERT INTO images (image, alt) VALUES ('${req.body?.image}', '${cleanInputString(
       req.body?.alt,
     )}')`
-    const insertImageResponse: OkPacket | ErrorResult = await manipulateWebsiteData(insertImageQuery)
+    const insertImageResponse: OkPacket | ErrorResult = await queryDatabase('website', insertImageQuery)
     const insertedImageId = isOkPacket(insertImageResponse) && insertImageResponse?.insertId
 
     // Next, build the insertNewsPost command and execute, then return results.
     const insertNewsPostQuery = `INSERT INTO newsPosts (image, title, datePosted, body) VALUES (${insertedImageId}, 
       '${cleanInputString(req.body?.title)}', '${req.body?.datePosted}', '${cleanInputString(req.body?.body)}')`
-    const insertNewsPostResponse: OkPacket | ErrorResult = await manipulateWebsiteData(insertNewsPostQuery)
+    const insertNewsPostResponse: OkPacket | ErrorResult = await queryDatabase('website', insertNewsPostQuery)
 
     if (!isOkPacket(insertNewsPostResponse)) {
       throw new Error(insertNewsPostResponse?.error?.toString())

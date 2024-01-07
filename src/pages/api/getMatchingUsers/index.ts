@@ -1,6 +1,6 @@
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { UserDataRow } from '@globalTypes/Database/Users/UserDataRow'
-import { queryWebsiteDatabase } from '@helpers/db'
+import { queryDatabase } from '@helpers/db'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 interface Props {
@@ -14,7 +14,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Props>) => {
     WHERE emailAddress = '${email}' OR username = '${username}'`
 
   try {
-    const response: UserDataRow[] | ErrorResult = await queryWebsiteDatabase(query)
+    const response: UserDataRow[] | ErrorResult = await queryDatabase('website', query)
 
     if (response instanceof Array) {
       res.statusCode = 200

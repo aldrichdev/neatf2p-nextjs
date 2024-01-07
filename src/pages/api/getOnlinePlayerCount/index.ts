@@ -1,5 +1,5 @@
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
-import { queryGameDatabase } from '@helpers/db'
+import { queryDatabase } from '@helpers/db'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 interface Props {
@@ -14,7 +14,7 @@ interface RowDataPacket {
 const handler = async (req: NextApiRequest, res: NextApiResponse<Props>) => {
   try {
     const query = `SELECT COUNT(id) FROM players WHERE ONLINE = 1`
-    const response = await queryGameDatabase<RowDataPacket[] | ErrorResult>(query)
+    const response = await queryDatabase<RowDataPacket[] | ErrorResult>('game', query)
 
     if (!Array.isArray(response)) {
       throw new Error(response?.error?.toString())

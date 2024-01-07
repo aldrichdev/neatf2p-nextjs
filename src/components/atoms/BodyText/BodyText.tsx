@@ -5,8 +5,12 @@ import { css } from '@mui/system'
 export const BodyText = styled(Typography, {
   shouldForwardProp: prop => !['topMargin', 'textAlign'].includes(prop.toString()),
 })<{ topMargin?: number; textAlign?: 'left' | 'center' | 'right' }>(
-  ({ topMargin, textAlign }) => css`
+  ({ theme, topMargin, textAlign }) => css`
     margin-top: ${topMargin || 20}px;
-    text-align: ${textAlign || 'center'};
+    text-align: center;
+
+    ${theme.breakpoints.up('tablet')} {
+      text-align: ${textAlign || 'left'};
+    }
   `,
 )

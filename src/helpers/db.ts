@@ -26,32 +26,12 @@ const websiteDB = mysql({
   },
 })
 
-// TODO: Refactor these query functions so the caller can pass a reference to the database (maybe via a string),
-// that way we only need 1 query function
-export const queryGameDatabase = async <T>(sqlStatement: string) => {
-  try {
-    const results = await gameDB.query<T>(sqlStatement, [])
-    await gameDB.end()
-    return results
-  } catch (error) {
-    return { error }
-  }
-}
+export const queryDatabase = async <T>(databaseType: 'website' | 'game', sqlStatement: string) => {
+  const database = databaseType === 'website' ? websiteDB : gameDB
 
-export const queryWebsiteDatabase = async (sqlStatement: string) => {
   try {
-    const results = await websiteDB.query<Array<any>>(sqlStatement, [])
-    await websiteDB.end()
-    return results
-  } catch (error) {
-    return { error }
-  }
-}
-
-export const manipulateWebsiteData = async (sqlStatement: string) => {
-  try {
-    const results = await websiteDB.query<OkPacket>(sqlStatement, [])
-    await websiteDB.end()
+    const results = await database.query<T>(sqlStatement, [])
+    await database.end()
     return results
   } catch (error) {
     return { error }

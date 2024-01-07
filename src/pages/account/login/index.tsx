@@ -1,5 +1,7 @@
 import { FormEvent, useState, ChangeEvent } from 'react'
-import { Button, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
+import { styled } from '@mui/material/styles'
+import { css } from '@mui/system'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { Form } from '@atoms/Form'
 import { BodyText } from '@atoms/BodyText'
@@ -11,26 +13,34 @@ import bcrypt from 'bcryptjs'
 import { User } from '@globalTypes/User'
 import useAuthentication from '@hooks/useAuthentication'
 import { redirectTo } from '@helpers/window'
+import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
+import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
+import { UserExists, UserIsLoggedIn } from '@helpers/users/users'
+import { FormButton } from '@atoms/FormButton/FormButton'
+
+const ForgotPasswordBlock = styled(BodyText)(
+  () => css`
+    flex-basis: 100%;
+    font-family: Source Sans Pro;
+    font-size: 16px;
+  `,
+)
+
+const ForgotPasswordLink = styled(HoverUnderlineLink)(
+  () => css`
+    color: black;
+  `,
+)
 
 const AccountLoginPage = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('')
   const [password, setPassword] = useState('')
   const [validationError, setValidationError] = useState('')
   const user = useAuthentication()
-  const userIsLoggedIn = user?.id > 0
+  const userIsLoggedIn = UserIsLoggedIn(user)
 
   if (userIsLoggedIn) {
-    return (
-      <ContentBlock>
-        <Typography variant='h2'>Login</Typography>
-        <BodyText textAlign='center'>
-          <Typography variant='body' component='span'>
-            You are already logged in. You can visit your
-            <InlineLink href='/account'>Account page</InlineLink>.
-          </Typography>
-        </BodyText>
-      </ContentBlock>
-    )
+    return <AlreadyLoggedIn />
   }
 
   const handleUsernameOrEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -50,8 +60,7 @@ const AccountLoginPage = () => {
         const result = response?.data
 
         // First thing would be to confirm the user exists.
-        const userExists = result?.id > 0
-        if (!userExists) {
+        if (!UserExists(result)) {
           setValidationError('Username or email does not exist.')
           return
         }
@@ -59,7 +68,14 @@ const AccountLoginPage = () => {
         // Next would be to make sure the password is right
         const hashedPassword = result?.password
         const passwordSalt = result?.passwordSalt
-        const currentPasswordHashed = bcrypt.hashSync(password, passwordSalt)
+        let currentPasswordHashed = ''
+
+        try {
+          currentPasswordHashed = bcrypt.hashSync(password, passwordSalt)
+        } catch (e) {
+          setValidationError(`An error occurred. ${e}. Please notify the admin.`)
+          return
+        }
 
         if (hashedPassword !== currentPasswordHashed) {
           setValidationError('Password is incorrect.')
@@ -84,7 +100,6 @@ const AccountLoginPage = () => {
         axios
           .post('/api/updateLastLogin', {
             userId: user.id,
-            currentDate: new Date(),
           })
           .then(() => {
             // Take user to homepage. `AccountWidget` will indicate login was successful.
@@ -120,9 +135,12 @@ const AccountLoginPage = () => {
           onChange={handlePasswordChange}
         />
         <FieldValidationError>{validationError}</FieldValidationError>
-        <Button variant='contained' type='submit'>
+        <ForgotPasswordBlock variant='body' topMargin={20} textAlign='left'>
+          <ForgotPasswordLink href='/account/login/forgot-password'>Forgot Password?</ForgotPasswordLink>
+        </ForgotPasswordBlock>
+        <FormButton variant='contained' type='submit'>
           Log In
-        </Button>
+        </FormButton>
       </Form>
       <BodyText variant='body' topMargin={40} textAlign='left'>
         <span>New around here?</span>

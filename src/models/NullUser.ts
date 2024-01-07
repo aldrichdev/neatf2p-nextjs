@@ -1,6 +1,6 @@
 export const NullUser = {
-  id: 0,
-  username: 'null',
+  id: 'NULL',
+  username: 'NULL',
   emailAddress: 'null@gmail.com',
   lastLogin: new Date(),
   isAdmin: false,

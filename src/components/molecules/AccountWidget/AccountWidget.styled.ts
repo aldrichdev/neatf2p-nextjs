@@ -6,6 +6,7 @@ import { css } from '@mui/system'
 export const AccountArea = styled('div')(
   ({ theme }) => css`
     display: flex;
+    color: black;
     align-items: center;
     gap: 10px;
     font-family: Saros;
