@@ -5,7 +5,7 @@ import ListItem from '@mui/material/ListItem'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
 
 export const NewsPostList = styled(List)(
-  ({ theme }) => css`
+  () => css`
     hr:last-child {
       display: none;
     }

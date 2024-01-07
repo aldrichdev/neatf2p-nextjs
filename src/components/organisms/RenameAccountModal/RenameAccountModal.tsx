@@ -4,7 +4,6 @@ import { Warning } from './RenameAccountModal.styled'
 import axios from 'axios'
 import { Modal } from '@molecules/Modal'
 import { Field } from '@atoms/Field'
-import { BodyText } from '@atoms/BodyText'
 
 type RenameAccountModalProps = {
   account: PlayerDataRow

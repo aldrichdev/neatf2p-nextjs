@@ -7,7 +7,6 @@ import { AccountTable, AccountTableContainer, MobileBodyText } from './GameAccou
 import { GameAccountsTableProps } from './GameAccountsTableMobile.types'
 import { RenameAccountModal } from '@organisms/RenameAccountModal'
 import { PasswordModal } from '@organisms/PasswordModal'
-import { BodyText } from '@atoms/BodyText'
 import { GameAccountRowMobile } from '@atoms/GameAccountRowMobile'
 import { getPrettyDateStringFromMillis } from '@helpers/date/date'
 
