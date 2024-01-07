@@ -3,7 +3,7 @@ import { Spinner } from '@molecules/Spinner'
 import { TableBody, TableHead, TableRow, Paper } from '@mui/material'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { AccountTable, AccountTableContainer } from './GameAccountsTable.styled'
+import { AccountTable, AccountTableContainer, TabletDestkopBodyText } from './GameAccountsTable.styled'
 import { GameAccountRow } from '@atoms/GameAccountRow'
 import { GameAccountsTableProps } from './GameAccountsTable.types'
 import { RenameAccountModal } from '@organisms/RenameAccountModal'
@@ -49,7 +49,11 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
   if (isLoading) {
     return <Spinner />
   } else if (accounts && accounts.length < 1) {
-    return <BodyText variant='body'>You don't have any accounts right now. Why not create one?</BodyText>
+    return (
+      <TabletDestkopBodyText variant='body'>
+        You don&apos;t have any accounts right now. Why not create one?
+      </TabletDestkopBodyText>
+    )
   }
 
   return (

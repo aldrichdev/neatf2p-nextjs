@@ -1,3 +1,4 @@
+import { BodyText } from '@atoms/BodyText'
 import { Table, TableContainer, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
@@ -16,10 +17,6 @@ export const AccountTableContainer = styled(TableContainer, {
   ({ theme }) => css`
     display: none;
     margin-top: 40px;
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
 
     ${theme.breakpoints.up('tablet')} {
       display: block;
@@ -32,10 +29,15 @@ export const AccountTable = styled(Table, {
 })(
   () => css`
     font-family: Source Sans Pro;
+  `,
+)
 
-    & .MuiTableRow-root:last-child td {
-      border-left: 1px solid black;
-      border-right: 1px solid black;
+export const TabletDestkopBodyText = styled(BodyText)(
+  ({ theme }) => css`
+    display: none;
+
+    ${theme.breakpoints.up('tablet')} {
+      display: block;
     }
   `,
 )

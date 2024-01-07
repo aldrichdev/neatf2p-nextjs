@@ -11,7 +11,7 @@ const ResetPasswordSuccessPage = () => {
     <ContentBlock>
       <Typography variant='h2'>Reset Successful</Typography>
       <BodyText variant='body' textAlign='center'>
-        Your password was reset successfully.
+        Your password was reset successfully.{' '}
         {!UserIsLoggedIn(user) && (
           <>
             You can now

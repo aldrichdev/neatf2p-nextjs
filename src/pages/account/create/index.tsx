@@ -138,58 +138,56 @@ const CreateAccountPage = () => {
   }
 
   return (
-    <div>
-      <ContentBlock>
-        <Typography variant='h2'>Create Account</Typography>
-        <BodyText variant='body' textAlign='left'>
-          By creating a website account, you can add or rename game accounts, update passwords, and some other nifty
-          things.
-        </BodyText>
-        <Form onSubmit={handleAccountCreation}>
-          <Field
-            required
-            id='email'
-            label='Email'
-            type='email'
-            variant='standard'
-            onChange={handleEmailChange}
-            inputProps={{ maxLength: 100 }}
-          />
-          <Field
-            required
-            id='username'
-            label='Username'
-            variant='standard'
-            onChange={handleUsernameChange}
-            inputProps={{ maxLength: 100 }}
-          />
-          <Field
-            required
-            id='password'
-            label='Password'
-            type='password'
-            variant='standard'
-            onChange={handlePasswordChange}
-          />
-          <Field
-            required
-            id='confirmPassword'
-            label='Confirm Password'
-            type='password'
-            variant='standard'
-            onChange={handleConfirmPasswordChange}
-          />
-          <FieldValidationError>{validationError}</FieldValidationError>
-          <FormButton variant='contained' type='submit' disabled={!!validationError}>
-            Submit
-          </FormButton>
-        </Form>
-        <BodyText variant='body' topMargin={40} textAlign='left'>
-          <span>Already have an account?</span>
-          <InlineLink href='/account/login'>Log in.</InlineLink>
-        </BodyText>
-      </ContentBlock>
-    </div>
+    <ContentBlock>
+      <Typography variant='h2'>Create Account</Typography>
+      <BodyText variant='body' textAlign='left'>
+        By creating a website account, you can add or rename game accounts, update passwords, and some other nifty
+        things.
+      </BodyText>
+      <Form onSubmit={handleAccountCreation}>
+        <Field
+          required
+          id='email'
+          label='Email'
+          type='email'
+          variant='standard'
+          onChange={handleEmailChange}
+          inputProps={{ maxLength: 100 }}
+        />
+        <Field
+          required
+          id='username'
+          label='Username'
+          variant='standard'
+          onChange={handleUsernameChange}
+          inputProps={{ maxLength: 100 }}
+        />
+        <Field
+          required
+          id='password'
+          label='Password'
+          type='password'
+          variant='standard'
+          onChange={handlePasswordChange}
+        />
+        <Field
+          required
+          id='confirmPassword'
+          label='Confirm Password'
+          type='password'
+          variant='standard'
+          onChange={handleConfirmPasswordChange}
+        />
+        <FieldValidationError>{validationError}</FieldValidationError>
+        <FormButton variant='contained' type='submit' disabled={!!validationError}>
+          Submit
+        </FormButton>
+      </Form>
+      <BodyText variant='body' topMargin={40} textAlign='left'>
+        <span>Already have an account?</span>
+        <InlineLink href='/account/login'>Log in.</InlineLink>
+      </BodyText>
+    </ContentBlock>
   )
 }
 

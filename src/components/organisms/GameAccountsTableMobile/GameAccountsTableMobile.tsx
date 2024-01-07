@@ -3,7 +3,7 @@ import { Spinner } from '@molecules/Spinner'
 import { TableBody, Paper, Button } from '@mui/material'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { AccountTable, AccountTableContainer } from './GameAccountsTableMobile.styled'
+import { AccountTable, AccountTableContainer, MobileBodyText } from './GameAccountsTableMobile.styled'
 import { GameAccountsTableProps } from './GameAccountsTableMobile.types'
 import { RenameAccountModal } from '@organisms/RenameAccountModal'
 import { PasswordModal } from '@organisms/PasswordModal'
@@ -11,6 +11,7 @@ import { BodyText } from '@atoms/BodyText'
 import { GameAccountRowMobile } from '@atoms/GameAccountRowMobile'
 import { getPrettyDateStringFromMillis } from '@helpers/date/date'
 
+// TODO: Refactor `GameAccountsTable` and `GameAccountsTableMobile` so they share code.
 const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
   const { user } = props
   const [isLoading, setIsLoading] = useState(true)
@@ -58,41 +59,30 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
   if (isLoading) {
     return <Spinner />
   } else if (accounts && accounts.length < 1) {
-    return <BodyText variant='body'>You don't have any accounts right now. Why not create one?</BodyText>
+    return (
+      <MobileBodyText variant='body'>You don&apos;t have any accounts right now. Why not create one?</MobileBodyText>
+    )
   }
 
   return (
     <AccountTableContainer component={Paper}>
       {accounts?.map(account => (
-        <AccountTable aria-label='simple table'>
+        <AccountTable aria-label='simple table' key={`mobile-${account.id}`}>
           <TableBody>
-            <GameAccountRowMobile key={account.id} account={account} rowLabel='Id' rowValue={account.id} />
+            <GameAccountRowMobile account={account} rowLabel='Id' rowValue={account.id} />
+            <GameAccountRowMobile account={account} rowLabel='Account Name' rowValue={account.username} />
+            <GameAccountRowMobile account={account} rowLabel='Combat Level' rowValue={account.combat} />
             <GameAccountRowMobile
-              key={account.id}
-              account={account}
-              rowLabel='Account Name'
-              rowValue={account.username}
-            />
-            <GameAccountRowMobile
-              key={account.id}
-              account={account}
-              rowLabel='Combat Level'
-              rowValue={account.combat}
-            />
-            <GameAccountRowMobile
-              key={account.id}
               account={account}
               rowLabel='Date Created'
               rowValue={getPrettyDateStringFromMillis(account.creation_date)}
             />
             <GameAccountRowMobile
-              key={account.id}
               account={account}
               rowLabel='Last Login'
               rowValue={getPrettyDateStringFromMillis(account.login_date)}
             />
             <GameAccountRowMobile
-              key={account.id}
               account={account}
               rowLabel='Rename?'
               rowValue={
@@ -102,7 +92,6 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
               }
             />
             <GameAccountRowMobile
-              key={account.id}
               account={account}
               rowLabel='Password'
               rowValue={

@@ -12,20 +12,23 @@ const GameAccountRow = (props: GameAccountRowProps) => {
   }
 
   const handleUpdatePassword = () => {
-    console.log('update password requested')
     showPasswordModal(true, account)
   }
 
   return (
     <>
-      <TableRow key={account.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+      <TableRow>
         <StyledTableCell component='th' scope='row'>
           {account.id}
         </StyledTableCell>
         <StyledTableCell align='right'>{account.username}</StyledTableCell>
         <StyledTableCell align='right'>{account.combat}</StyledTableCell>
-        <StyledTableCell align='right'>{getPrettyDateStringFromMillis(account.creation_date)}</StyledTableCell>
-        <StyledTableCell align='right'>{getPrettyDateStringFromMillis(account.login_date)}</StyledTableCell>
+        <StyledTableCell align='right'>
+          {account.creation_date === 0 ? '-' : getPrettyDateStringFromMillis(account.creation_date)}
+        </StyledTableCell>
+        <StyledTableCell align='right'>
+          {account.login_date === 0 ? '-' : getPrettyDateStringFromMillis(account.login_date)}
+        </StyledTableCell>
         <StyledTableCell align='right'>
           <Button variant='contained' onClick={handleRename}>
             Rename

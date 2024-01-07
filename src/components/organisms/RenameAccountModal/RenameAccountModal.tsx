@@ -4,6 +4,7 @@ import { Warning } from './RenameAccountModal.styled'
 import axios from 'axios'
 import { Modal } from '@molecules/Modal'
 import { Field } from '@atoms/Field'
+import { BodyText } from '@atoms/BodyText'
 
 type RenameAccountModalProps = {
   account: PlayerDataRow
@@ -80,8 +81,12 @@ const RenameAccountModal = (props: RenameAccountModalProps) => {
       body={
         playerAlreadyRenamed ? (
           <>
-            You have already renamed your character ({account.username}) once, so you cannot rename again. If you think
-            this is a mistake, please contact the admin directly over Discord private message.
+            <p>
+              {' '}
+              You have already renamed your character ({account.username}) once, so you cannot rename again. If you
+              think this is a mistake, please contact the admin directly over Discord private message.
+            </p>
+            <p>Your previous name was {account.former_name}.</p>
           </>
         ) : (
           <>

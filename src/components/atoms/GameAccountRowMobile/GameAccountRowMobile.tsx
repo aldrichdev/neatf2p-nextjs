@@ -3,12 +3,11 @@ import { StyledTableCell } from '@atoms/StyledTableCell'
 import { GameAccountRowMobileProps } from './GameAccountRowMobile.types'
 
 const GameAccountRowMobile = (props: GameAccountRowMobileProps) => {
-  const { account, rowLabel, rowValue } = props
+  const { rowLabel, rowValue } = props
 
-  // TODO: Determine if key is needed below
   return (
     <>
-      <TableRow key={account.id}>
+      <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
         <StyledTableCell align='right' bold>
           {rowLabel}
         </StyledTableCell>
