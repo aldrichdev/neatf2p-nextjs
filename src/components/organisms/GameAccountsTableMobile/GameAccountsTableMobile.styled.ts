@@ -1,5 +1,5 @@
 import { BodyText } from '@atoms/BodyText'
-import { Table, TableContainer, Typography } from '@mui/material'
+import { Table, TableContainer } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 

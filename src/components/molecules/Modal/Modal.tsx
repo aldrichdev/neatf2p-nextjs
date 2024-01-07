@@ -1,5 +1,4 @@
 import { BodyText } from '@atoms/BodyText'
-import { Typography } from '@mui/material'
 import { CloseBar, CloseButton, CloseIcon, ModalHeader, ModalOverlay, ModalRoot } from './Modal.styled'
 import { Form } from '@atoms/Form'
 import { FormButton } from '@atoms/FormButton/FormButton'

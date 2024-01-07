@@ -1,4 +1,4 @@
-import { FormEvent, Ref, RefObject } from 'react'
+import { FormEvent } from 'react'
 
 export type ModalProps = {
   open: boolean

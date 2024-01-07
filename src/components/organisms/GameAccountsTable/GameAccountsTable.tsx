@@ -9,7 +9,6 @@ import { GameAccountsTableProps } from './GameAccountsTable.types'
 import { RenameAccountModal } from '@organisms/RenameAccountModal'
 import { PasswordModal } from '@organisms/PasswordModal'
 import { StyledTableCell } from '@atoms/StyledTableCell'
-import { BodyText } from '@atoms/BodyText'
 
 const GameAccountsTable = (props: GameAccountsTableProps) => {
   const { user } = props
