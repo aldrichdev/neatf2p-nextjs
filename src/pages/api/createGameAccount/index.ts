@@ -5,7 +5,6 @@ import { handleUpdate } from '@helpers/apiHandler'
 const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   const { accountName, password, websiteAccountId, userIp } = req.body
   const creationDateMillis = Math.round(new Date().getTime() / 1000)
-  console.log('websiteAccountId in handler', websiteAccountId)
 
   const query = `INSERT INTO players (username, pass, creation_date, creation_ip, websiteUserId)
     VALUES ('${accountName}', '${password}', ${creationDateMillis}, '${userIp}', '${websiteAccountId}')`

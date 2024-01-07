@@ -68,7 +68,14 @@ const AccountLoginPage = () => {
         // Next would be to make sure the password is right
         const hashedPassword = result?.password
         const passwordSalt = result?.passwordSalt
-        const currentPasswordHashed = bcrypt.hashSync(password, passwordSalt)
+        let currentPasswordHashed = ''
+
+        try {
+          currentPasswordHashed = bcrypt.hashSync(password, passwordSalt)
+        } catch (e) {
+          setValidationError(`An error occurred. ${e}. Please notify the admin.`)
+          return
+        }
 
         if (hashedPassword !== currentPasswordHashed) {
           setValidationError('Password is incorrect.')

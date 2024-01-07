@@ -1,9 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
 import axios from 'axios'
-import bcrypt from 'bcryptjs'
 import { Field } from '@atoms/Field'
 import { Modal } from '@molecules/Modal'
+import { hashPassword } from '@helpers/password'
 
 type PasswordModalProps = {
   account: PlayerDataRow
@@ -48,15 +48,12 @@ const PasswordModal = (props: PasswordModalProps) => {
     }
 
     // Hash new password.
-    // Note: Core Framework code requires hashed passwords to begin with `$2y` or it is not considered valid.
-    const newPasswordSalt = bcrypt.genSaltSync()
-    const hashedNewPassword = bcrypt.hashSync(newPassword, newPasswordSalt)
-    const hashedNewPasswordFixedForCf = hashedNewPassword.replace('$2a', '$2y')
+    const { hashedPassword } = hashPassword(newPassword, true)
 
     axios
       .post('/api/updateGameAccountPassword', {
         accountId: account.id,
-        newPassword: hashedNewPasswordFixedForCf,
+        newPassword: hashedPassword,
       })
       .then(response => {
         if (typeof response?.data === 'number') {

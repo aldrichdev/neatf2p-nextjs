@@ -8,13 +8,14 @@ import { UserIsLoggedIn } from '@helpers/users/users'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { GameAccountsTableMobile } from '@organisms/GameAccountsTableMobile'
 import { redirectTo } from '@helpers/window'
+import { NotLoggedIn } from '@molecules/NotLoggedIn'
 
 const GameAccountsPage = () => {
   const user = useAuthentication()
   const isLoggedIn = UserIsLoggedIn(user)
 
   if (!isLoggedIn) {
-    return <UnauthenticatedWarning />
+    return <NotLoggedIn />
   }
 
   const handleCreateAccount = () => {

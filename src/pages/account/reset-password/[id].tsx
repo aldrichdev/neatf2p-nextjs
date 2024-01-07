@@ -9,6 +9,7 @@ import axios from 'axios'
 import { FieldValidationError } from '@atoms/FieldValidationError'
 import { redirectTo } from '@helpers/window'
 import { FormButton } from '@atoms/FormButton/FormButton'
+import { hashPassword } from '@helpers/password'
 
 const ResetPassword = () => {
   const { query } = useRouter()
@@ -37,15 +38,15 @@ const ResetPassword = () => {
     }
 
     // Hash new password
-    const newPasswordSalt = bcrypt.genSaltSync()
-    const hashedNewPassword = bcrypt.hashSync(newPassword, newPasswordSalt)
+    const { hashedPassword, passwordSalt } = hashPassword(newPassword)
+    console.log('passwordSalt', passwordSalt)
 
     // Update the user's password
     axios
       .post('/api/updateWebsiteUserPassword', {
         userId: accountId,
-        newPassword: hashedNewPassword,
-        newPasswordSalt,
+        newPassword: hashedPassword,
+        newPasswordSalt: passwordSalt,
       })
       .then(response => {
         if (typeof response?.data === 'number') {

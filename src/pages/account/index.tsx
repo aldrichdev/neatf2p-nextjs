@@ -39,7 +39,8 @@ const AccountPage = () => {
       <Typography variant='h2'>Hiya, {user?.username}!</Typography>
       <BodyText variant='body'>
         Welcome to your account page. Here, you can modify your website account, create game (RSC) accounts, rename game
-        accounts and update passwords.
+        accounts and update passwords. (You can&apos;t update your website account right now, but that will be
+        implemented soon!)
       </BodyText>
       <AccountNavigationContainer>
         <AccountNavigationButton
@@ -48,6 +49,7 @@ const AccountPage = () => {
           aria-haspopup='true'
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
+          disabled
         >
           Manage Website Account
         </AccountNavigationButton>
