@@ -4,11 +4,12 @@ import { OkPacket } from 'mysql'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { User } from '@globalTypes/User'
 
-/** Helper for updating website records. */
-export const handleUpdate = async (
+/** Helper for manipulating (UPDATEing or INSERTing) database records. */
+export const handleManipulate = async (
   databaseType: 'website' | 'game',
   sqlQuery: string,
   res: NextApiResponse<User>,
+  returnLastInsertedId?: boolean,
 ): Promise<void> => {
   try {
     const queryResponse: OkPacket | ErrorResult = await queryDatabase(databaseType, sqlQuery)
@@ -26,7 +27,7 @@ export const handleUpdate = async (
     // Return a JSON result indicating success
     res.statusCode = 200
     res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify(queryResponse?.affectedRows))
+    res.end(JSON.stringify(returnLastInsertedId ? queryResponse?.insertId : queryResponse?.affectedRows))
   } catch (error) {
     console.log('An error occurred in the API handler: ', error)
     res.statusCode = 500

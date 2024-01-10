@@ -3,8 +3,8 @@ import { User } from '@globalTypes/User'
 import { handleManipulate } from '@helpers/apiHandler'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
-  const { accountId, currentName, newName } = req.body
-  const query = `UPDATE players SET former_name = '${currentName}', username = '${newName}' WHERE id = ${accountId}`
+  const { playerId } = req.body
+  const query = `INSERT INTO curstats VALUES (${playerId}, 1, 1, 1, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)`
 
   return handleManipulate('game', query, res)
 }
