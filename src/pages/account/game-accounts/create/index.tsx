@@ -67,7 +67,17 @@ const CreateGameAccount = () => {
         })
         .then(response => {
           if (typeof response?.data === 'number') {
-            redirectTo(`/account/game-accounts/create/success?accountName=${accountName}`)
+            // Now we need to create the curstats record.
+            // New accounts are not playable without this.
+            axios
+              .post('/api/createCurstatsRecord', {
+                playerId: response?.data,
+              })
+              .then(response => {
+                if (typeof response?.data === 'number') {
+                  redirectTo(`/account/game-accounts/create/success?accountName=${accountName}`)
+                }
+              })
           }
         })
         .catch((error: { response: { data: string } }) => {
