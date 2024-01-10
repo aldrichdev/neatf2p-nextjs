@@ -1,16 +1,18 @@
 import { useState } from 'react'
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
-import { InlineLink } from '@atoms/InlineLink'
 import { Typography } from '@mui/material'
 import useAuthentication from '@hooks/useAuthentication'
 import { AccountNavigationContainer, AccountNavigationButton, AccountNavigationItem } from '@styledPages/Account.styled'
 import Menu from '@mui/material/Menu'
 import { UserIsLoggedIn } from '@helpers/users/users'
+import { NotLoggedIn } from '@molecules/NotLoggedIn'
+import { Spinner } from '@molecules/Spinner'
 
 const AccountPage = () => {
-  const user = useAuthentication()
+  const [loading, setLoading] = useState(true)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const user = useAuthentication(setLoading)
   const open = Boolean(anchorEl)
   const isLoggedIn = UserIsLoggedIn(user)
 
@@ -22,16 +24,12 @@ const AccountPage = () => {
     setAnchorEl(null)
   }
 
+  if (loading) {
+    return <Spinner />
+  }
+
   if (!isLoggedIn) {
-    return (
-      <ContentBlock>
-        <Typography variant='h2'>Account</Typography>
-        <BodyText variant='body'>
-          You are not currently logged in. Please visit the <InlineLink href='/account/login'>Login page</InlineLink> to
-          log in.
-        </BodyText>
-      </ContentBlock>
-    )
+    return <NotLoggedIn />
   }
 
   return (

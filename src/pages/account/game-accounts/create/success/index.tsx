@@ -6,11 +6,18 @@ import { useRouter } from 'next/router'
 import useAuthentication from '@hooks/useAuthentication'
 import { UserIsLoggedIn } from '@helpers/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
+import { useState } from 'react'
+import { Spinner } from '@molecules/Spinner'
 
 const CreateAccountSuccessPage = () => {
+  const [loading, setLoading] = useState(true)
   const { query } = useRouter()
-  const user = useAuthentication()
+  const user = useAuthentication(setLoading)
   const accountName = query['accountName']
+
+  if (loading) {
+    return <Spinner />
+  }
 
   if (!UserIsLoggedIn(user)) {
     return <NotLoggedIn />

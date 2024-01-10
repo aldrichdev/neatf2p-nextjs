@@ -17,12 +17,14 @@ import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
 import { UserExists, UserIsLoggedIn } from '@helpers/users/users'
 import { FormButton } from '@atoms/FormButton/FormButton'
+import { Spinner } from '@molecules/Spinner'
 
 const ForgotPasswordBlock = styled(BodyText)(
   () => css`
     flex-basis: 100%;
     font-family: Source Sans Pro;
     font-size: 16px;
+    text-align: left;
   `,
 )
 
@@ -33,11 +35,16 @@ const ForgotPasswordLink = styled(HoverUnderlineLink)(
 )
 
 const AccountLoginPage = () => {
+  const [loading, setLoading] = useState(true)
   const [usernameOrEmail, setUsernameOrEmail] = useState('')
   const [password, setPassword] = useState('')
   const [validationError, setValidationError] = useState('')
-  const user = useAuthentication()
+  const user = useAuthentication(setLoading)
   const userIsLoggedIn = UserIsLoggedIn(user)
+
+  if (loading) {
+    return <Spinner />
+  }
 
   if (userIsLoggedIn) {
     return <AlreadyLoggedIn />
