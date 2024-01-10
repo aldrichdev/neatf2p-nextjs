@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 /** `setLoading` should be provided whenever this hook is used on a page that
- * returns different JSX based on wehther the user is logged in, is an admin, or
+ * returns different JSX based on whether the user is logged in, is an admin, or
  * any other data associated with the user. This prevents the wrong text being
  * shown on the screen for a brief moment.
  */

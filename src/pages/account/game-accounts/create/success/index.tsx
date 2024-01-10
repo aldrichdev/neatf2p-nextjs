@@ -23,13 +23,13 @@ const CreateAccountSuccessPage = () => {
     return <NotLoggedIn />
   }
 
-  if (accountName?.length && accountName?.length < 1) {
+  if (!accountName || accountName?.length < 1) {
     // Something went wrong...
     return (
       <ContentBlock>
         <Typography variant='h2'>Oops...</Typography>
         <BodyText variant='body' textAlign='center'>
-          Something went wrong... your game account name is {accountName}. Please report this to the admin.
+          Something went wrong... your game account name is empty. Please report this to the admin.
         </BodyText>
       </ContentBlock>
     )
