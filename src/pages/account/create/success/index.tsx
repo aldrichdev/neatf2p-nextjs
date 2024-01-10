@@ -3,9 +3,16 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { BodyText } from '@atoms/BodyText'
 import { InlineLink } from '@atoms/InlineLink'
 import useAuthentication from '@hooks/useAuthentication'
+import { Spinner } from '@molecules/Spinner'
+import { useState } from 'react'
 
 const CreateAccountSuccessPage = () => {
-  const user = useAuthentication()
+  const [loading, setLoading] = useState(true)
+  const user = useAuthentication(setLoading)
+
+  if (loading) {
+    return <Spinner />
+  }
 
   if (user?.id === 'NULL') {
     // Something went wrong...

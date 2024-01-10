@@ -40,5 +40,6 @@ export const Username = styled(InlineLink, {
 export const AccountAreaLink = styled(HoverUnderlineLink)(
   () => css`
     color: unset;
+    font-size: 20px;
   `,
 )

@@ -5,14 +5,16 @@ import { StyledForm, Field, SubmitArea, SubmitButton, SubmitMessage, FieldInfo }
 import Typography from '@mui/material/Typography'
 import { ContentBlock } from '@atoms/ContentBlock'
 import useAuthentication from '@hooks/useAuthentication'
+import { Spinner } from '@molecules/Spinner'
 
 const NewsPostForm = () => {
+  const [loading, setLoading] = useState(true)
   const [image, setImage] = useState<string>('')
   const [alt, setAlt] = useState<string>('')
   const [title, setTitle] = useState<string>('')
   const [body, setBody] = useState<string>('')
   const [submitResult, setSubmitResult] = useState<{ answer: string; code: string }>()
-  const user = useAuthentication()
+  const user = useAuthentication(setLoading)
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -62,6 +64,10 @@ const NewsPostForm = () => {
           code: 'red',
         })
       })
+  }
+
+  if (loading) {
+    return <Spinner />
   }
 
   if (!user?.isAdmin) {

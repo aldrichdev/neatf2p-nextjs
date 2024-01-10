@@ -7,8 +7,8 @@ const NotLoggedIn = () => (
   <ContentBlock>
     <Typography variant='h2'>Access Denied</Typography>
     <BodyText variant='body' textAlign='center'>
-      You are not logged in. This action is only available to users that are logged in. You can visit the{' '}
-      <InlineLink href='/account/login'>Login page</InlineLink>.
+      You are not currently logged in. Please visit the <InlineLink href='/account/login'>Login page</InlineLink> to log
+      in.
     </BodyText>
   </ContentBlock>
 )

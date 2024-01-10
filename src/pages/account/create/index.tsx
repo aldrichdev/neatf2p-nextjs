@@ -14,8 +14,11 @@ import useAuthentication from '@hooks/useAuthentication'
 import { redirectTo } from '@helpers/window'
 import { UserExists } from '@helpers/users/users'
 import { FormButton } from '@atoms/FormButton/FormButton'
+import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
+import { Spinner } from '@molecules/Spinner'
 
 const CreateAccountPage = () => {
+  const [loading, setLoading] = useState(true)
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -23,7 +26,7 @@ const CreateAccountPage = () => {
   const [validationError, setValidationError] = useState('')
   const [existingUsernames, setExistingUsernames] = useState<string[]>([])
   const [existingEmailAddresses, setExistingEmailAddresses] = useState<string[]>([])
-  const user = useAuthentication()
+  const user = useAuthentication(setLoading)
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value)
@@ -121,6 +124,10 @@ const CreateAccountPage = () => {
       .catch((error: string) => error)
   }
 
+  if (loading) {
+    return <Spinner />
+  }
+
   if (existingEmailAddresses?.length < 1 || existingUsernames?.length < 1) {
     fetchExistingUserInfo()
   }
@@ -128,12 +135,7 @@ const CreateAccountPage = () => {
   if (UserExists(user)) {
     // Logged-in users should not see this page
     return (
-      <ContentBlock>
-        <Typography variant='h2'>Already Logged In</Typography>
-        <BodyText variant='body' textAlign='center'>
-          You already have an account! If you wish to create a new one, please log out first.
-        </BodyText>
-      </ContentBlock>
+      <AlreadyLoggedIn message='You already have an account! If you wish to create a new one, please log out first.' />
     )
   }
 

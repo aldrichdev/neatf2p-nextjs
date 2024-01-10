@@ -13,11 +13,17 @@ import { UserExists, UserIsLoggedIn } from '@helpers/users/users'
 import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
 import emailjs from '@emailjs/browser'
 import { FormButton } from '@atoms/FormButton/FormButton'
+import { Spinner } from '@molecules/Spinner'
 
 const ForgotPasswordPage = () => {
+  const [loading, setLoading] = useState(true)
   const [email, setEmail] = useState('')
-  const user = useAuthentication()
+  const user = useAuthentication(setLoading)
   const userIsLoggedIn = UserIsLoggedIn(user)
+
+  if (loading) {
+    return <Spinner />
+  }
 
   if (userIsLoggedIn) {
     return <AlreadyLoggedIn />

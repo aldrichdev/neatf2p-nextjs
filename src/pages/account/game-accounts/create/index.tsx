@@ -13,14 +13,16 @@ import { hashPassword } from '@helpers/password'
 import useAuthentication from '@hooks/useAuthentication'
 import { UserIsLoggedIn } from '@helpers/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
+import { Spinner } from '@molecules/Spinner'
 
 const CreateGameAccount = () => {
-  const user = useAuthentication()
+  const [loading, setLoading] = useState(true)
   const [accountName, setAccountName] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [validationError, setValidationError] = useState('')
   const [currentAccountNames, setCurrentAccountNames] = useState('')
+  const user = useAuthentication(setLoading)
 
   const handleAccountNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setAccountName(event.target.value)
@@ -94,6 +96,10 @@ const CreateGameAccount = () => {
         setCurrentAccountNames(allAccountNames)
       })
       .catch((error: string) => error)
+  }
+
+  if (loading) {
+    return <Spinner />
   }
 
   if (!UserIsLoggedIn(user)) {

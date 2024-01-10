@@ -7,6 +7,7 @@ import { UserIsLoggedIn } from '@helpers/users/users'
 
 const ResetPasswordSuccessPage = () => {
   const user = useAuthentication()
+
   return (
     <ContentBlock>
       <Typography variant='h2'>Reset Successful</Typography>
