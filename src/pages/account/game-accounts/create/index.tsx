@@ -41,7 +41,30 @@ const CreateGameAccount = () => {
 
   const handleGameAccountCreation = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const cleanedAccountName = accountName.trim()
+
+    // Check if name is empty
+    if (accountName.replace(/_/g, ' ').trim().length < 1) {
+      setValidationError('You cannot have an account name with only spaces.')
+      return
+    }
+
+    // Only allow game account names with letters, numbers, underscores and spaces.
+    const validUsernameMatches = accountName.match(/^[a-zA-Z0-9_ ]+$/g)
+    if (!validUsernameMatches || !validUsernameMatches?.[0]) {
+      setValidationError('Your account name can only have letters, numbers, underscores and spaces.')
+      return
+    }
+
+    // Look for any bad or undesired words in names
+    const bannedWords = ['admin', 'administrato', 'moderator', 'fuck', 'fag', 'retard', 'nigge', 'nigga']
+    if (bannedWords.some(word => accountName.toLowerCase().includes(word))) {
+      setValidationError('Your account name has been determined to be offensive or misleading. Please try another one.')
+      return
+    }
+
+    // Replace underscores with spaces in username. RSC+ signup does this.
+    // Underscores are translated as spaces on login, but the account name cannot have underscores in the database.
+    const sanitizedAccountName = accountName.replace(/_/g, ' ').trim()
 
     // Confirm passwords match
     if (password != confirmPassword) {
@@ -49,8 +72,8 @@ const CreateGameAccount = () => {
       return
     }
 
-    // Check if account name already exists
-    if (currentAccountNames.includes(cleanedAccountName)) {
+    // Check if account name already exists. Check with both values in lower case.
+    if (currentAccountNames.includes(sanitizedAccountName.toLowerCase())) {
       setValidationError('Account name already exists.')
       return
     }
@@ -62,7 +85,7 @@ const CreateGameAccount = () => {
       // Create account
       axios
         .post('/api/createGameAccount', {
-          accountName,
+          accountName: sanitizedAccountName,
           password: hashedPassword,
           websiteAccountId: user?.id,
           userIp: response?.data?.ip,
@@ -92,7 +115,7 @@ const CreateGameAccount = () => {
     axios
       .get(`/api/getCurrentGameAccountNames`)
       .then(response => {
-        const allAccountNames = response?.data?.map((info: PlayerDataRow) => info.username)
+        const allAccountNames = response?.data?.map((info: PlayerDataRow) => info.username.toLowerCase())
         setCurrentAccountNames(allAccountNames)
       })
       .catch((error: string) => error)
