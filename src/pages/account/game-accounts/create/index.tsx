@@ -22,6 +22,7 @@ const CreateGameAccount = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [validationError, setValidationError] = useState('')
   const [currentAccountNames, setCurrentAccountNames] = useState('')
+  const [submitDisabled, setSubmitDisabled] = useState(false)
   const user = useAuthentication(setLoading)
 
   const handleAccountNameChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -41,9 +42,11 @@ const CreateGameAccount = () => {
 
   const handleGameAccountCreation = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setSubmitDisabled(true)
 
     // Check if name is empty
     if (accountName.replace(/_/g, ' ').trim().length < 1) {
+      setSubmitDisabled(false)
       setValidationError('You cannot have an account name with only spaces.')
       return
     }
@@ -51,6 +54,7 @@ const CreateGameAccount = () => {
     // Only allow game account names with letters, numbers, underscores and spaces.
     const validUsernameMatches = accountName.match(/^[a-zA-Z0-9_ ]+$/g)
     if (!validUsernameMatches || !validUsernameMatches?.[0]) {
+      setSubmitDisabled(false)
       setValidationError('Your account name can only have letters, numbers, underscores and spaces.')
       return
     }
@@ -58,6 +62,7 @@ const CreateGameAccount = () => {
     // Look for any bad or undesired words in names
     const bannedWords = ['admin', 'administrato', 'moderator', 'fuck', 'fag', 'retard', 'nigge', 'nigga']
     if (bannedWords.some(word => accountName.toLowerCase().includes(word))) {
+      setSubmitDisabled(false)
       setValidationError('Your account name has been determined to be offensive or misleading. Please try another one.')
       return
     }
@@ -68,47 +73,60 @@ const CreateGameAccount = () => {
 
     // Confirm passwords match
     if (password != confirmPassword) {
+      setSubmitDisabled(false)
       setValidationError('Passwords do not match.')
       return
     }
 
     // Check if account name already exists. Check with both values in lower case.
     if (currentAccountNames.includes(sanitizedAccountName.toLowerCase())) {
+      setSubmitDisabled(false)
       setValidationError('Account name already exists.')
       return
     }
 
-    axios.get('https://api.ipify.org/?format=json').then(response => {
-      // Hash password
-      const { hashedPassword } = hashPassword(password, true)
+    axios
+      .get('https://api.ipify.org/?format=json')
+      .then(response => {
+        // Hash password
+        const { hashedPassword } = hashPassword(password, true)
 
-      // Create account
-      axios
-        .post('/api/createGameAccount', {
-          accountName: sanitizedAccountName,
-          password: hashedPassword,
-          websiteAccountId: user?.id,
-          userIp: response?.data?.ip,
-        })
-        .then(response => {
-          if (typeof response?.data === 'number') {
-            // Now we need to create the curstats record.
-            // New accounts are not playable without this.
-            axios
-              .post('/api/createCurstatsRecord', {
-                playerId: response?.data,
-              })
-              .then(response => {
-                if (typeof response?.data === 'number') {
-                  redirectTo(`/account/game-accounts/create/success?accountName=${accountName}`)
-                }
-              })
-          }
-        })
-        .catch((error: { response: { data: string } }) => {
-          setValidationError(error.response.data)
-        })
-    })
+        // Create account
+        axios
+          .post('/api/createGameAccount', {
+            accountName: sanitizedAccountName,
+            password: hashedPassword,
+            websiteAccountId: user?.id,
+            userIp: response?.data?.ip,
+          })
+          .then(response => {
+            if (typeof response?.data === 'number') {
+              // Now we need to create the curstats record.
+              // New accounts are not playable without this.
+              axios
+                .post('/api/createCurstatsRecord', {
+                  playerId: response?.data,
+                })
+                .then(response => {
+                  if (typeof response?.data === 'number') {
+                    redirectTo(`/account/game-accounts/create/success?accountName=${accountName}`)
+                  }
+                })
+                .catch((error: { response: { data: string } }) => {
+                  setSubmitDisabled(false)
+                  setValidationError(error.response.data)
+                })
+            }
+          })
+          .catch((error: { response: { data: string } }) => {
+            setSubmitDisabled(false)
+            setValidationError(error.response.data)
+          })
+      })
+      .catch((error: { response: { data: string } }) => {
+        setSubmitDisabled(false)
+        setValidationError(error.response.data)
+      })
   }
 
   const fetchCurrentAccountNames = () => {
@@ -167,7 +185,7 @@ const CreateGameAccount = () => {
           onChange={handleConfirmPasswordChange}
         />
         <FieldValidationError>{validationError}</FieldValidationError>
-        <FormButton variant='contained' type='submit'>
+        <FormButton variant='contained' type='submit' disabled={submitDisabled}>
           Submit
         </FormButton>
       </Form>
