@@ -14,6 +14,7 @@ import useAuthentication from '@hooks/useAuthentication'
 import { UserIsLoggedIn } from '@helpers/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { Spinner } from '@molecules/Spinner'
+import { gameAccountPasswordIsValid, passwordIsValid } from '@helpers/string/stringUtils'
 
 const CreateGameAccount = () => {
   const [loading, setLoading] = useState(true)
@@ -69,6 +70,11 @@ const CreateGameAccount = () => {
     // Confirm passwords match
     if (password != confirmPassword) {
       setValidationError('Passwords do not match.')
+      return
+    }
+
+    if (!gameAccountPasswordIsValid(password)) {
+      setValidationError('Game account passwords can only have letters, numbers and underscores.')
       return
     }
 

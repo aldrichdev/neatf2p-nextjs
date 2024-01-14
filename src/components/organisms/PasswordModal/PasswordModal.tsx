@@ -4,6 +4,7 @@ import axios from 'axios'
 import { Field } from '@atoms/Field'
 import { Modal } from '@molecules/Modal'
 import { hashPassword } from '@helpers/password'
+import { gameAccountPasswordIsValid } from '@helpers/string/stringUtils'
 
 type PasswordModalProps = {
   account: PlayerDataRow
@@ -44,6 +45,12 @@ const PasswordModal = (props: PasswordModalProps) => {
     // Make sure passwords match
     if (newPassword !== confirmNewPassword) {
       setValidationError('Passwords must match.')
+      return
+    }
+
+    // Make sure password is valid
+    if (!gameAccountPasswordIsValid(newPassword)) {
+      setValidationError('Game account passwords can only have letters, numbers and underscores.')
       return
     }
 
