@@ -14,7 +14,7 @@ import useAuthentication from '@hooks/useAuthentication'
 import { UserIsLoggedIn } from '@helpers/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { Spinner } from '@molecules/Spinner'
-import { gameAccountPasswordIsValid, passwordIsValid } from '@helpers/string/stringUtils'
+import { gameAccountPasswordIsValid } from '@helpers/string/stringUtils'
 
 const CreateGameAccount = () => {
   const [loading, setLoading] = useState(true)
