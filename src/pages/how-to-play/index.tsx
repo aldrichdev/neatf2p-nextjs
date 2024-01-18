@@ -10,7 +10,7 @@ const HowToPlay = () => (
       <Link href='https://discord.gg/wd67zUxPXn' target='_blank'>
         Discord
       </Link>{' '}
-      and check the <strong>#alpha-testing-info</strong> for connection info!
+      and check the <strong>#alpha-testing-info</strong> channel for connection info!
     </Typography>
   </ContentBlock>
 )
