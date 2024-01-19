@@ -36,6 +36,10 @@ const MainNavigation = () => {
       return true
     }
 
+    if (linkPath === '/hiscores' && asPath.startsWith('/hiscores')) {
+      return true
+    }
+
     return linkPath === asPath
   }
 

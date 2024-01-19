@@ -57,7 +57,7 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
 
   return (
     <AccountTableContainer component={Paper}>
-      <AccountTable aria-label='simple table'>
+      <AccountTable aria-label='Game Accounts Table'>
         <TableHead>
           <TableRow>
             <StyledTableCell align='right' bold>
