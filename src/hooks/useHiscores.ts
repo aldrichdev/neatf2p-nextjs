@@ -6,27 +6,24 @@ import { useEffect, useState } from 'react'
 const useHiscores = (hiscoreType: HiscoreType) => {
   const [hiscores, setHiscores] = useState<HiscoreDataRow[] | undefined>(undefined)
 
-  function hasKey<O>(obj: O, key: PropertyKey): key is keyof O {
-    return key in obj
-  }
-
   const compareHiscores = (a: HiscoreDataRow, b: HiscoreDataRow) => {
-    let fieldName = ''
+    type HiscoreDataRowKey = keyof typeof a
+    let fieldName: HiscoreDataRowKey
 
     switch (hiscoreType) {
       case 'Overall':
         fieldName = 'skill_total'
         break
       default:
-        fieldName = hiscoreType.toLowerCase()
+        fieldName = hiscoreType.toLowerCase() as HiscoreDataRowKey
         break
     }
 
-    if (hasKey(a, fieldName) && hasKey(b, fieldName) && a[fieldName] > b[fieldName]) {
+    if (a[fieldName] > b[fieldName]) {
       return -1
     }
 
-    if (hasKey(a, fieldName) && hasKey(b, fieldName) && a[fieldName] < b[fieldName]) {
+    if (a[fieldName] < b[fieldName]) {
       return 1
     }
 
@@ -41,6 +38,7 @@ const useHiscores = (hiscoreType: HiscoreType) => {
         setHiscores(sortedHiscores)
       })
       .catch((error: string) => error)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return hiscores
