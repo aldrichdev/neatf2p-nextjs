@@ -41,7 +41,6 @@ const ForgotPasswordPage = () => {
       .then(async response => {
         const result = response?.data
         const userExists = UserExists(result)
-        console.log('email for user', result?.id, ' : ', result?.emailAddress)
 
         if (userExists) {
           // Send an email with a reset link.

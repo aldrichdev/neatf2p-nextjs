@@ -38,7 +38,6 @@ const ResetPassword = () => {
 
     // Hash new password
     const { hashedPassword, passwordSalt } = hashPassword(newPassword)
-    console.log('passwordSalt', passwordSalt)
 
     // Update the user's password
     axios
