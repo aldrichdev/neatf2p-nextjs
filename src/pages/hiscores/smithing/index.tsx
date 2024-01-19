@@ -22,10 +22,6 @@ const Hiscores = () => {
     return <Spinner />
   }
 
-  if (isLoading || !hiscores) {
-    return <Spinner />
-  }
-
   return (
     <ContentBlock topMargin={20} isWide>
       <Typography variant='h2'>{hiscoreType} Hiscores</Typography>
