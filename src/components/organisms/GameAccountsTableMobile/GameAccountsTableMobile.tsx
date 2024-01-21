@@ -1,50 +1,32 @@
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
 import { Spinner } from '@molecules/Spinner'
 import { TableBody, Paper, Button } from '@mui/material'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { AccountTable, AccountTableContainer, MobileBodyText } from './GameAccountsTableMobile.styled'
-import { GameAccountsTableProps } from './GameAccountsTableMobile.types'
+import { GameAccountsTableProps } from '@organisms/GameAccountsTable/GameAccountsTable.types'
 import { RenameAccountModal } from '@organisms/RenameAccountModal'
 import { PasswordModal } from '@organisms/PasswordModal'
 import { GameAccountRowMobile } from '@atoms/GameAccountRowMobile'
 import { getPrettyDateStringFromMillis } from '@helpers/date/date'
+import useGameAccounts from '@hooks/useGameAccounts'
 
-// TODO: Refactor `GameAccountsTable` and `GameAccountsTableMobile` so they share code.
 const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
-  const { user } = props
+  const {
+    user,
+    activeAccount,
+    renameModalVisible,
+    passwordModalVisible,
+    setRenameModalVisible,
+    setPasswordModalVisible,
+    showRenameModal,
+    showPasswordModal,
+  } = props
   const [isLoading, setIsLoading] = useState(true)
-  const [activeAccount, setActiveAccount] = useState<PlayerDataRow>()
-  const [renameModalVisible, setRenameModalVisible] = useState(false)
-  const [passwordModalVisible, setPasswordModalVisible] = useState(false)
-  const [accounts, setAccounts] = useState<PlayerDataRow[] | undefined>(undefined)
+  const accounts = useGameAccounts(user?.id)
 
   useEffect(() => {
-    const fetchGameAccounts = () => {
-      axios
-        .get(`/api/getGameAccountsForUser?userId=${user?.id}`)
-        .then(response => {
-          setAccounts(response.data)
-          setIsLoading(false)
-        })
-        .catch((error: string) => console.log(error))
-    }
-
-    if (accounts === undefined) {
-      fetchGameAccounts()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const showRenameModal = (visible: boolean, account: PlayerDataRow) => {
-    setRenameModalVisible(true)
-    setActiveAccount(account)
-  }
-
-  const showPasswordModal = (visible: boolean, account: PlayerDataRow) => {
-    setPasswordModalVisible(true)
-    setActiveAccount(account)
-  }
+    if (accounts) setIsLoading(false)
+  }, [accounts])
 
   const handleRename = (account: PlayerDataRow) => {
     // Show a modal which handles the rename

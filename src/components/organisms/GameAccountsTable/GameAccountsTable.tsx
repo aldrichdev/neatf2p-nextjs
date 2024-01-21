@@ -1,7 +1,5 @@
-import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
 import { Spinner } from '@molecules/Spinner'
 import { TableBody, TableHead, TableRow, Paper } from '@mui/material'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { AccountTable, AccountTableContainer, TabletDestkopBodyText } from './GameAccountsTable.styled'
 import { GameAccountRow } from '@atoms/GameAccountRow'
@@ -9,41 +7,25 @@ import { GameAccountsTableProps } from './GameAccountsTable.types'
 import { RenameAccountModal } from '@organisms/RenameAccountModal'
 import { PasswordModal } from '@organisms/PasswordModal'
 import { StyledTableCell } from '@atoms/StyledTableCell'
+import useGameAccounts from '@hooks/useGameAccounts'
 
 const GameAccountsTable = (props: GameAccountsTableProps) => {
-  const { user } = props
+  const {
+    user,
+    activeAccount,
+    renameModalVisible,
+    passwordModalVisible,
+    setRenameModalVisible,
+    setPasswordModalVisible,
+    showRenameModal,
+    showPasswordModal,
+  } = props
   const [isLoading, setIsLoading] = useState(true)
-  const [activeAccount, setActiveAccount] = useState<PlayerDataRow>()
-  const [renameModalVisible, setRenameModalVisible] = useState(false)
-  const [passwordModalVisible, setPasswordModalVisible] = useState(false)
-  const [accounts, setAccounts] = useState<PlayerDataRow[] | undefined>(undefined)
+  const accounts = useGameAccounts(user?.id)
 
   useEffect(() => {
-    const fetchGameAccounts = () => {
-      axios
-        .get(`/api/getGameAccountsForUser?userId=${user?.id}`)
-        .then(response => {
-          setAccounts(response.data)
-          setIsLoading(false)
-        })
-        .catch((error: string) => console.log(error))
-    }
-
-    if (accounts === undefined) {
-      fetchGameAccounts()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const showRenameModal = (visible: boolean, account: PlayerDataRow) => {
-    setRenameModalVisible(true)
-    setActiveAccount(account)
-  }
-
-  const showPasswordModal = (visible: boolean, account: PlayerDataRow) => {
-    setPasswordModalVisible(true)
-    setActiveAccount(account)
-  }
+    if (accounts) setIsLoading(false)
+  }, [accounts])
 
   if (isLoading) {
     return <Spinner />
