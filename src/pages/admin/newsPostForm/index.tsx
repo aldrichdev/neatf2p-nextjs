@@ -3,9 +3,9 @@ import axios from 'axios'
 import { convertBlobToBase64String } from '@helpers/base64'
 import { StyledForm, Field, SubmitArea, SubmitButton, SubmitMessage, FieldInfo } from '@styledPages/NewsPostForm.styled'
 import Typography from '@mui/material/Typography'
-import { ContentBlock } from '@atoms/ContentBlock'
 import useAuthentication from '@hooks/useAuthentication'
 import { Spinner } from '@molecules/Spinner'
+import { MustBeAdminBlock } from '@molecules/MustBeAdminBlock'
 
 const NewsPostForm = () => {
   const [loading, setLoading] = useState(true)
@@ -71,11 +71,7 @@ const NewsPostForm = () => {
   }
 
   if (!user?.isAdmin) {
-    return (
-      <ContentBlock>
-        <Typography variant='body'>You must be an administrator to perform that action.</Typography>
-      </ContentBlock>
-    )
+    return <MustBeAdminBlock />
   }
 
   return (
