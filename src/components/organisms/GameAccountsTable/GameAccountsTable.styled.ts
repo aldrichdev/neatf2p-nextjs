@@ -1,15 +1,7 @@
 import { BodyText } from '@atoms/BodyText'
-import { Table, TableContainer, Typography } from '@mui/material'
+import { Table, TableContainer } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
-
-export const MobileHelpText = styled(Typography)(
-  ({ theme }) => css`
-    ${theme.breakpoints.up('tablet')} {
-      display: none;
-    }
-  `,
-)
 
 export const AccountTableContainer = styled(TableContainer, {
   shouldForwardProp: prop => prop !== 'component',
@@ -25,14 +17,14 @@ export const AccountTableContainer = styled(TableContainer, {
 )
 
 export const AccountTable = styled(Table, {
-  shouldForwardProp: prop => !['sx', 'aria-label'].includes(prop.toString()),
+  shouldForwardProp: prop => !['aria-label'].includes(prop.toString()),
 })(
   () => css`
     font-family: Source Sans Pro;
   `,
 )
 
-export const TabletDestkopBodyText = styled(BodyText)(
+export const TabletDesktopBodyText = styled(BodyText)(
   ({ theme }) => css`
     display: none;
 
