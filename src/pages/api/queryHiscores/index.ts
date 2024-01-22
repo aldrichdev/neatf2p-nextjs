@@ -9,7 +9,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   e.prayer AS 'prayerxp', cs.magic, e.magic AS 'magicxp', cs.cooking, e.cooking AS 'cookingxp', cs.woodcut,
   e.woodcut AS 'woodcutxp', cs.fishing, e.fishing AS 'fishingxp', cs.firemaking, e.firemaking AS 'firemakingxp', cs.crafting,
   e.crafting AS 'craftingxp', cs.smithing, e.smithing AS 'smithingxp', cs.mining,
-  e.mining AS 'miningxp' FROM curstats cs JOIN players p ON p.id = cs.playerID
+  e.mining AS 'miningxp' FROM maxstats cs JOIN players p ON p.id = cs.playerID
   JOIN experience e ON e.playerID = p.id WHERE p.group_id != 0`
 
   return handleQuery<HiscoreDataRow>('game', query, res)

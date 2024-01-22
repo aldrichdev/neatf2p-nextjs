@@ -1,29 +1,31 @@
 import { HiscoreDataRow } from '@globalTypes/Database/HiscoreDataRow'
+import { HiscoresSortField } from '@globalTypes/Database/HiscoresSortField'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
+import { getTotalExp } from '@helpers/hiscores/hiscoresUtils'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
 const useHiscores = (hiscoreType: HiscoreType) => {
   const [hiscores, setHiscores] = useState<HiscoreDataRow[] | undefined>(undefined)
 
-  const compareHiscores = (a: HiscoreDataRow, b: HiscoreDataRow) => {
-    type HiscoreDataRowKey = keyof typeof a
-    let fieldName: HiscoreDataRowKey
+  const compareHiscores = (playerOne: HiscoreDataRow, playerTwo: HiscoreDataRow) => {
+    type HiscoreSortKey = keyof HiscoresSortField
+    let fieldName: HiscoreSortKey
 
     switch (hiscoreType) {
       case 'Overall':
         fieldName = 'skill_total'
         break
       default:
-        fieldName = hiscoreType.toLowerCase() as HiscoreDataRowKey
+        fieldName = `${hiscoreType.toLowerCase()}xp` as keyof HiscoresSortField
         break
     }
 
-    if (a[fieldName] > b[fieldName]) {
+    if (playerOne[fieldName] > playerTwo[fieldName]) {
       return -1
     }
 
-    if (a[fieldName] < b[fieldName]) {
+    if (playerOne[fieldName] < playerTwo[fieldName]) {
       return 1
     }
 
@@ -34,12 +36,24 @@ const useHiscores = (hiscoreType: HiscoreType) => {
     axios
       .get('/api/queryHiscores')
       .then(response => {
-        const sortedHiscores = (response?.data as HiscoreDataRow[]).sort(compareHiscores)
+        const sortedHiscores = (response?.data as HiscoreDataRow[])
+          .filter(hiscoreRow => {
+            // Omit hiscore records with baseline experience
+            switch (hiscoreType) {
+              case 'Overall':
+                return getTotalExp(hiscoreRow) > 4000
+              case 'Hits':
+                return hiscoreRow.hitsxp > 4000
+              default:
+                return hiscoreRow[`${hiscoreType.toLowerCase()}xp` as keyof HiscoresSortField] > 0
+            }
+          })
+          .sort(compareHiscores)
         setHiscores(sortedHiscores)
       })
       .catch((error: string) => error)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [hiscoreType])
 
   return hiscores
 }

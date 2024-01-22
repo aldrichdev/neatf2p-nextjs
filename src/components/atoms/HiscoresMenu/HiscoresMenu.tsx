@@ -1,61 +1,32 @@
-import Link from 'next/link'
-import { HiscoresMenuItemList, HiscoresMenuItem } from '@styledPages/hiscores.styled'
+import { HiscoresMenuItemList } from '@styledPages/hiscores.styled'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
+import { HiscoresMenuItem } from '@atoms/HiscoresMenuItem'
 
 type HiscoresMenuProps = {
   hiscoreType: HiscoreType
+  buttonOnClick: (hiscoreType: HiscoreType) => void
 }
 
 const HiscoresMenu = (props: HiscoresMenuProps) => {
-  const { hiscoreType } = props
+  const { hiscoreType, buttonOnClick } = props
 
   return (
     <HiscoresMenuItemList>
-      <HiscoresMenuItem>
-        {hiscoreType === 'Overall' ? hiscoreType : <Link href='/hiscores'>Overall</Link>}
-      </HiscoresMenuItem>
-      <HiscoresMenuItem>
-        {hiscoreType === 'Attack' ? hiscoreType : <Link href='/hiscores/attack'>Attack</Link>}
-      </HiscoresMenuItem>
-      <HiscoresMenuItem>
-        {hiscoreType === 'Defense' ? hiscoreType : <Link href='/hiscores/defense'>Defense</Link>}
-      </HiscoresMenuItem>
-      <HiscoresMenuItem>
-        {hiscoreType === 'Strength' ? hiscoreType : <Link href='/hiscores/strength'>Strength</Link>}
-      </HiscoresMenuItem>
-      <HiscoresMenuItem>
-        {hiscoreType === 'Hits' ? hiscoreType : <Link href='/hiscores/hits'>Hits</Link>}
-      </HiscoresMenuItem>
-      <HiscoresMenuItem>
-        {hiscoreType === 'Ranged' ? hiscoreType : <Link href='/hiscores/ranged'>Ranged</Link>}
-      </HiscoresMenuItem>
-      <HiscoresMenuItem>
-        {hiscoreType === 'Prayer' ? hiscoreType : <Link href='/hiscores/prayer'>Prayer</Link>}
-      </HiscoresMenuItem>
-      <HiscoresMenuItem>
-        {hiscoreType === 'Magic' ? hiscoreType : <Link href='/hiscores/magic'>Magic</Link>}
-      </HiscoresMenuItem>
-      <HiscoresMenuItem>
-        {hiscoreType === 'Cooking' ? hiscoreType : <Link href='/hiscores/cooking'>Cooking</Link>}
-      </HiscoresMenuItem>
-      <HiscoresMenuItem>
-        {hiscoreType === 'Woodcut' ? hiscoreType : <Link href='/hiscores/woodcut'>Woodcut</Link>}
-      </HiscoresMenuItem>
-      <HiscoresMenuItem>
-        {hiscoreType === 'Fishing' ? hiscoreType : <Link href='/hiscores/fishing'>Fishing</Link>}
-      </HiscoresMenuItem>
-      <HiscoresMenuItem>
-        {hiscoreType === 'Firemaking' ? hiscoreType : <Link href='/hiscores/firemaking'>Firemaking</Link>}
-      </HiscoresMenuItem>
-      <HiscoresMenuItem>
-        {hiscoreType === 'Crafting' ? hiscoreType : <Link href='/hiscores/crafting'>Crafting</Link>}
-      </HiscoresMenuItem>
-      <HiscoresMenuItem>
-        {hiscoreType === 'Smithing' ? hiscoreType : <Link href='/hiscores/smithing'>Smithing</Link>}
-      </HiscoresMenuItem>
-      <HiscoresMenuItem>
-        {hiscoreType === 'Mining' ? hiscoreType : <Link href='/hiscores/mining'>Mining</Link>}
-      </HiscoresMenuItem>
+      <HiscoresMenuItem menuItemLabel='Overall' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
+      <HiscoresMenuItem menuItemLabel='Attack' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
+      <HiscoresMenuItem menuItemLabel='Defense' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
+      <HiscoresMenuItem menuItemLabel='Strength' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
+      <HiscoresMenuItem menuItemLabel='Hits' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
+      <HiscoresMenuItem menuItemLabel='Ranged' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
+      <HiscoresMenuItem menuItemLabel='Prayer' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
+      <HiscoresMenuItem menuItemLabel='Magic' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
+      <HiscoresMenuItem menuItemLabel='Cooking' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
+      <HiscoresMenuItem menuItemLabel='Woodcut' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
+      <HiscoresMenuItem menuItemLabel='Fishing' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
+      <HiscoresMenuItem menuItemLabel='Firemaking' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
+      <HiscoresMenuItem menuItemLabel='Crafting' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
+      <HiscoresMenuItem menuItemLabel='Smithing' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
+      <HiscoresMenuItem menuItemLabel='Mining' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
     </HiscoresMenuItemList>
   )
 }

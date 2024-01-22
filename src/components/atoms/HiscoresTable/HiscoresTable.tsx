@@ -1,6 +1,8 @@
 import { HiscoreDataRow } from '@globalTypes/Database/HiscoreDataRow'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
-import { TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Paper } from '@mui/material'
+import { TableContainer, TableBody, TableHead, TableRow, TableCell, Paper } from '@mui/material'
+import { StyledTable } from './HiscoresTable.styled'
+import { getTotalExp } from '@helpers/hiscores/hiscoresUtils'
 
 type HiscoresTableProps = {
   hiscores: HiscoreDataRow[]
@@ -47,28 +49,13 @@ const HiscoresTable = (props: HiscoresTableProps) => {
 
   const convertXP = (skillXP: number) => {
     // Open RSC Core Framework experience numbers are 4 times what the actual RS exp number is.
-    return skillXP / 4
+    return Math.round(skillXP / 4).toLocaleString()
   }
 
   const getHiscoreSkillXP = (hiscore: HiscoreDataRow) => {
     switch (hiscoreType) {
       case 'Overall':
-        return (
-          hiscore.attackxp +
-          hiscore.defensexp +
-          hiscore.strengthxp +
-          hiscore.hitsxp +
-          hiscore.rangedxp +
-          hiscore.prayerxp +
-          hiscore.magicxp +
-          hiscore.cookingxp +
-          hiscore.woodcutxp +
-          hiscore.fishingxp +
-          hiscore.firemakingxp +
-          hiscore.craftingxp +
-          hiscore.smithingxp +
-          hiscore.miningxp
-        )
+        return getTotalExp(hiscore)
       case 'Attack':
         return hiscore.attackxp
       case 'Defense':
@@ -102,21 +89,13 @@ const HiscoresTable = (props: HiscoresTableProps) => {
 
   return (
     <TableContainer component={Paper}>
-      <Table aria-label={`${hiscoreType} Hiscores Table`}>
+      <StyledTable aria-label={`${hiscoreType} Hiscores Table`}>
         <TableHead>
           <TableRow>
-            <TableCell align='right' sx={{ fontWeight: 700 }}>
-              Rank
-            </TableCell>
-            <TableCell align='right' sx={{ fontWeight: 700 }}>
-              Name
-            </TableCell>
-            <TableCell align='right' sx={{ fontWeight: 700 }}>
-              {hiscoreType}
-            </TableCell>
-            <TableCell align='right' sx={{ fontWeight: 700 }}>
-              EXP
-            </TableCell>
+            <TableCell sx={{ fontWeight: 700 }}>Rank</TableCell>
+            <TableCell sx={{ fontWeight: 700 }}>Name</TableCell>
+            <TableCell sx={{ fontWeight: 700 }}>{hiscoreType}</TableCell>
+            <TableCell sx={{ fontWeight: 700 }}>EXP</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -125,13 +104,13 @@ const HiscoresTable = (props: HiscoresTableProps) => {
               <TableCell component='th' scope='row'>
                 {index + 1}
               </TableCell>
-              <TableCell align='right'>{hiscoreRow.username}</TableCell>
-              <TableCell align='right'>{getHiscoreValue(hiscoreRow)}</TableCell>
-              <TableCell align='right'>{convertXP(getHiscoreSkillXP(hiscoreRow))}</TableCell>
+              <TableCell>{hiscoreRow.username}</TableCell>
+              <TableCell>{getHiscoreValue(hiscoreRow)}</TableCell>
+              <TableCell>{convertXP(getHiscoreSkillXP(hiscoreRow))}</TableCell>
             </TableRow>
           ))}
         </TableBody>
-      </Table>
+      </StyledTable>
     </TableContainer>
   )
 }

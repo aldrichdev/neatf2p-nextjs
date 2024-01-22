@@ -56,6 +56,15 @@ let theme = createTheme({
           },
         },
         textPrimary: {
+          color: 'green',
+          fontFamily: 'Source Sans Pro',
+          textTransform: 'none',
+          textAlign: 'left',
+          padding: 0,
+          justifyContent: 'flex-start',
+          fontSize: '16px',
+          lineHeight: 2,
+
           '&:hover': {
             color: 'darkgreen',
             backgroundColor: 'transparent',
