@@ -94,7 +94,7 @@ const HiscoresTable = (props: HiscoresTableProps) => {
           <TableRow>
             <TableCell sx={{ fontWeight: 700 }}>Rank</TableCell>
             <TableCell sx={{ fontWeight: 700 }}>Name</TableCell>
-            <TableCell sx={{ fontWeight: 700 }}>{hiscoreType}</TableCell>
+            <TableCell sx={{ fontWeight: 700 }}>Level</TableCell>
             <TableCell sx={{ fontWeight: 700 }}>EXP</TableCell>
           </TableRow>
         </TableHead>

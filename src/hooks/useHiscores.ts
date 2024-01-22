@@ -17,7 +17,7 @@ const useHiscores = (hiscoreType: HiscoreType) => {
         fieldName = 'skill_total'
         break
       default:
-        fieldName = `${hiscoreType.toLowerCase()}xp` as keyof HiscoresSortField
+        fieldName = `${hiscoreType.toLowerCase()}xp` as HiscoreSortKey
         break
     }
 

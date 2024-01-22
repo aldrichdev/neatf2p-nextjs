@@ -17,7 +17,7 @@ export const AccountTableContainer = styled(TableContainer, {
 )
 
 export const AccountTable = styled(Table, {
-  shouldForwardProp: prop => !['sx', 'aria-label'].includes(prop.toString()),
+  shouldForwardProp: prop => !['aria-label'].includes(prop.toString()),
 })(
   () => css`
     font-family: Source Sans Pro;
