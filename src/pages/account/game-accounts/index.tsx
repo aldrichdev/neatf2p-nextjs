@@ -10,9 +10,13 @@ import { redirectTo } from '@helpers/window'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { useState } from 'react'
 import { Spinner } from '@molecules/Spinner'
+import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
 
 const GameAccountsPage = () => {
   const [loading, setLoading] = useState(true)
+  const [activeAccount, setActiveAccount] = useState<PlayerDataRow>()
+  const [renameModalVisible, setRenameModalVisible] = useState(false)
+  const [passwordModalVisible, setPasswordModalVisible] = useState(false)
   const user = useAuthentication(setLoading)
   const isLoggedIn = UserIsLoggedIn(user)
 
@@ -22,6 +26,16 @@ const GameAccountsPage = () => {
 
   if (!isLoggedIn) {
     return <NotLoggedIn />
+  }
+
+  const showRenameModal = (visible: boolean, account: PlayerDataRow) => {
+    setRenameModalVisible(true)
+    setActiveAccount(account)
+  }
+
+  const showPasswordModal = (visible: boolean, account: PlayerDataRow) => {
+    setPasswordModalVisible(true)
+    setActiveAccount(account)
   }
 
   const handleCreateAccount = () => {
@@ -35,8 +49,26 @@ const GameAccountsPage = () => {
         Here, you can view your current game accounts, create new ones, rename them, and update passwords. All times
         shown are in your local timezone.
       </BodyText>
-      <GameAccountsTable user={user} />
-      <GameAccountsTableMobile user={user} />
+      <GameAccountsTable
+        user={user}
+        activeAccount={activeAccount}
+        renameModalVisible={renameModalVisible}
+        passwordModalVisible={passwordModalVisible}
+        setRenameModalVisible={setRenameModalVisible}
+        setPasswordModalVisible={setPasswordModalVisible}
+        showRenameModal={showRenameModal}
+        showPasswordModal={showPasswordModal}
+      />
+      <GameAccountsTableMobile
+        user={user}
+        activeAccount={activeAccount}
+        renameModalVisible={renameModalVisible}
+        passwordModalVisible={passwordModalVisible}
+        setRenameModalVisible={setRenameModalVisible}
+        setPasswordModalVisible={setPasswordModalVisible}
+        showRenameModal={showRenameModal}
+        showPasswordModal={showPasswordModal}
+      />
       <FormButton variant='contained' onClick={handleCreateAccount}>
         Create Account
       </FormButton>
