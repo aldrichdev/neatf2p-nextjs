@@ -22,11 +22,11 @@ export const getPrettyDateString = (date: Date) => {
   const year = date.getFullYear()
 
   // Add time, not in military
-  const hours = date.getHours() - 12
+  const hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours()
   const minutes = date.getMinutes()
   const period = date.getHours() >= 12 ? 'PM' : 'AM'
 
-  return `${month} ${day}, ${year} ${hours}:${minutes < 10 ? '0' : ''}${minutes} ${period}`
+  return `${month} ${day}, ${year} ${hours === 0 ? 12 : hours}:${minutes < 10 ? '0' : ''}${minutes} ${period}`
 }
 
 export const getPrettyDateStringFromISOString = (dateString: string) => {
