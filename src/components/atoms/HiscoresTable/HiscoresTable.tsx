@@ -88,7 +88,7 @@ const HiscoresTable = (props: HiscoresTableProps) => {
   }
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{ minHeight: '1000px' }}>
       <StyledTable aria-label={`${hiscoreType} Hiscores Table`}>
         <TableHead>
           <TableRow>

@@ -23,7 +23,7 @@ const NewsPostListItem = (props: NewsPostItemProps) => {
           secondary={
             <>
               <Typography variant='body'>{getPrettyDateStringFromISOString(newsPost.datePosted)}</Typography>
-              <Typography variant='body' color='black'>
+              <Typography variant='body' color='black' component='span'>
                 <ReadMore linkHref={`/news/post/${newsPost.id}`}>{newsPost.body}</ReadMore>
               </Typography>
             </>

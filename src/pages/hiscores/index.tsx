@@ -3,12 +3,12 @@ import { Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { BodyText } from '@atoms/BodyText'
 import { HiscoresPageContainer } from '@styledPages/hiscores.styled'
-import { Spinner } from '@molecules/Spinner'
 import { HiscoresTable } from '@atoms/HiscoresTable'
 import { HiscoresMenu } from '@atoms/HiscoresMenu'
 import useHiscores from '@hooks/useHiscores'
 import { HiscoreTypes, HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { useRouter } from 'next/router'
+import { Spinner } from '@molecules/Spinner'
 
 const Hiscores = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -16,19 +16,23 @@ const Hiscores = () => {
   const { query } = router
   const isHiscoreType = (x: any): x is HiscoreType => HiscoreTypes.includes(x)
   const [hiscoreType, setHiscoreType] = useState<HiscoreType>('Overall')
+  console.log('hiscores page renders') // it is rendering too much! ALSO, useHiscores runs before we can setIsLoading(true)
+  // in that 2nd useEffect
   const hiscores = useHiscores(hiscoreType)
+  // what if we only changed hiscores when hiscoreType changes?
 
   useEffect(() => {
     if (hiscores) setIsLoading(false)
   }, [hiscores])
 
   useEffect(() => {
+    console.log('hiscore type changed, set isLoading true')
+    setIsLoading(true)
+  }, [hiscoreType])
+
+  useEffect(() => {
     setHiscoreType(isHiscoreType(query?.skill) ? query?.skill : 'Overall')
   }, [query])
-
-  if (isLoading || !hiscores) {
-    return <Spinner />
-  }
 
   return (
     <ContentBlock topMargin={20}>
@@ -38,7 +42,11 @@ const Hiscores = () => {
       </BodyText>
       <HiscoresPageContainer>
         <HiscoresMenu hiscoreType={hiscoreType} buttonOnClick={setHiscoreType} />
-        <HiscoresTable hiscores={hiscores} hiscoreType={hiscoreType} />
+        {isLoading || !hiscores ? (
+          <Spinner hiscores />
+        ) : (
+          <HiscoresTable hiscores={hiscores} hiscoreType={hiscoreType} />
+        )}
       </HiscoresPageContainer>
     </ContentBlock>
   )
