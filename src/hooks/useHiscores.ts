@@ -6,6 +6,7 @@ import axios from 'axios'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 const useHiscores = (hiscoreType: HiscoreType, setIsLoading: Dispatch<SetStateAction<boolean>>) => {
+  const [rawHiscores, setRawHiscores] = useState<HiscoreDataRow[] | undefined>(undefined)
   const [hiscores, setHiscores] = useState<HiscoreDataRow[] | undefined>(undefined)
 
   const compareHiscores = (playerOne: HiscoreDataRow, playerTwo: HiscoreDataRow) => {
@@ -35,29 +36,35 @@ const useHiscores = (hiscoreType: HiscoreType, setIsLoading: Dispatch<SetStateAc
   useEffect(() => {
     setIsLoading(true)
 
+    // Query the data once
     axios
       .get('/api/queryHiscores')
       .then(response => {
-        const sortedHiscores = (response?.data as HiscoreDataRow[])
-          .filter(hiscoreRow => {
-            // Omit hiscore records with baseline experience
-            switch (hiscoreType) {
-              case 'Overall':
-                return getTotalExp(hiscoreRow) > 4000
-              case 'Hits':
-                return hiscoreRow.hitsxp > 4000
-              default:
-                return hiscoreRow[`${hiscoreType.toLowerCase()}xp` as keyof HiscoresSortField] > 0
-            }
-          })
-          .sort(compareHiscores)
-
-        setHiscores(sortedHiscores)
-        setIsLoading(false)
+        setRawHiscores(response?.data as HiscoreDataRow[])
       })
-      .catch((error: string) => error)
+      .catch((error: string) => console.log(`Error querying hiscores: ${error}`))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hiscoreType])
+  }, [])
+
+  useEffect(() => {
+    const sortedHiscores = rawHiscores
+      ?.filter(hiscoreRow => {
+        // Omit hiscore records with baseline experience
+        switch (hiscoreType) {
+          case 'Overall':
+            return getTotalExp(hiscoreRow) > 4000
+          case 'Hits':
+            return hiscoreRow.hitsxp > 4000
+          default:
+            return hiscoreRow[`${hiscoreType.toLowerCase()}xp` as keyof HiscoresSortField] > 0
+        }
+      })
+      .sort(compareHiscores)
+
+    setHiscores(sortedHiscores)
+    setIsLoading(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hiscoreType, rawHiscores])
 
   return hiscores
 }
