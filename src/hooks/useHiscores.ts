@@ -3,9 +3,9 @@ import { HiscoresSortField } from '@globalTypes/Database/HiscoresSortField'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { getTotalExp } from '@helpers/hiscores/hiscoresUtils'
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
-const useHiscores = (hiscoreType: HiscoreType) => {
+const useHiscores = (hiscoreType: HiscoreType, setIsLoading: Dispatch<SetStateAction<boolean>>) => {
   const [hiscores, setHiscores] = useState<HiscoreDataRow[] | undefined>(undefined)
 
   const compareHiscores = (playerOne: HiscoreDataRow, playerTwo: HiscoreDataRow) => {
@@ -33,6 +33,8 @@ const useHiscores = (hiscoreType: HiscoreType) => {
   }
 
   useEffect(() => {
+    setIsLoading(true)
+
     axios
       .get('/api/queryHiscores')
       .then(response => {
@@ -49,7 +51,9 @@ const useHiscores = (hiscoreType: HiscoreType) => {
             }
           })
           .sort(compareHiscores)
+
         setHiscores(sortedHiscores)
+        setIsLoading(false)
       })
       .catch((error: string) => error)
     // eslint-disable-next-line react-hooks/exhaustive-deps

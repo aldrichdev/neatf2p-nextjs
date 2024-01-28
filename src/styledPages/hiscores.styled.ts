@@ -18,7 +18,9 @@ export const HiscoresPageContainer = styled('div')(
 
 export const HiscoresMenuItemList = styled('ul')(
   ({ theme }) => css`
-    padding: 0;
+    background-color: rgba(218, 165, 32, 0.8);
+    border: 2px solid rgb(160, 82, 45);
+    padding: 10px 16px;
     margin: 0;
     width: 100%;
 

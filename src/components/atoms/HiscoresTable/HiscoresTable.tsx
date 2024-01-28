@@ -1,7 +1,7 @@
 import { HiscoreDataRow } from '@globalTypes/Database/HiscoreDataRow'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
-import { TableContainer, TableBody, TableHead, TableRow, TableCell, Paper } from '@mui/material'
-import { StyledTable } from './HiscoresTable.styled'
+import { TableContainer, TableBody, TableHead, TableRow, Paper } from '@mui/material'
+import { StyledTable, StyledTableCell } from './HiscoresTable.styled'
 import { getTotalExp } from '@helpers/hiscores/hiscoresUtils'
 
 type HiscoresTableProps = {
@@ -88,25 +88,25 @@ const HiscoresTable = (props: HiscoresTableProps) => {
   }
 
   return (
-    <TableContainer component={Paper} sx={{ minHeight: '1000px' }}>
+    <TableContainer component={Paper} sx={{ minHeight: '1000px', boxShadow: 'none' }}>
       <StyledTable aria-label={`${hiscoreType} Hiscores Table`}>
         <TableHead>
           <TableRow>
-            <TableCell sx={{ fontWeight: 700 }}>Rank</TableCell>
-            <TableCell sx={{ fontWeight: 700 }}>Name</TableCell>
-            <TableCell sx={{ fontWeight: 700 }}>Level</TableCell>
-            <TableCell sx={{ fontWeight: 700 }}>EXP</TableCell>
+            <StyledTableCell sx={{ fontWeight: 700 }}>Rank</StyledTableCell>
+            <StyledTableCell sx={{ fontWeight: 700 }}>Name</StyledTableCell>
+            <StyledTableCell sx={{ fontWeight: 700 }}>Level</StyledTableCell>
+            <StyledTableCell sx={{ fontWeight: 700 }}>EXP</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {hiscores?.map((hiscoreRow, index) => (
             <TableRow key={hiscoreRow.username}>
-              <TableCell component='th' scope='row'>
+              <StyledTableCell component='th' scope='row'>
                 {index + 1}
-              </TableCell>
-              <TableCell>{hiscoreRow.username}</TableCell>
-              <TableCell>{getHiscoreValue(hiscoreRow)}</TableCell>
-              <TableCell>{convertXP(getHiscoreSkillXP(hiscoreRow))}</TableCell>
+              </StyledTableCell>
+              <StyledTableCell>{hiscoreRow.username}</StyledTableCell>
+              <StyledTableCell>{getHiscoreValue(hiscoreRow)}</StyledTableCell>
+              <StyledTableCell>{convertXP(getHiscoreSkillXP(hiscoreRow))}</StyledTableCell>
             </TableRow>
           ))}
         </TableBody>

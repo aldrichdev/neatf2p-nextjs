@@ -16,19 +16,7 @@ const Hiscores = () => {
   const { query } = router
   const isHiscoreType = (x: any): x is HiscoreType => HiscoreTypes.includes(x)
   const [hiscoreType, setHiscoreType] = useState<HiscoreType>('Overall')
-  console.log('hiscores page renders') // it is rendering too much! ALSO, useHiscores runs before we can setIsLoading(true)
-  // in that 2nd useEffect
-  const hiscores = useHiscores(hiscoreType)
-  // what if we only changed hiscores when hiscoreType changes?
-
-  useEffect(() => {
-    if (hiscores) setIsLoading(false)
-  }, [hiscores])
-
-  useEffect(() => {
-    console.log('hiscore type changed, set isLoading true')
-    setIsLoading(true)
-  }, [hiscoreType])
+  const hiscores = useHiscores(hiscoreType, setIsLoading)
 
   useEffect(() => {
     setHiscoreType(isHiscoreType(query?.skill) ? query?.skill : 'Overall')

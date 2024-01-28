@@ -16,15 +16,24 @@ export const MenuItem = styled('li')(
 export const CurrentMenuItemLabel = styled('span')(
   // Should match `textPrimary` styles in theme.ts
   () => css`
-    font-family: Source Sans Pro;
+    font-family: Verdana;
     font-size: 16px;
     line-height: 2;
+    font-size: 18px;
+    color: blue;
   `,
 )
 
 export const MenuItemButton = styled(Button)(
   ({ theme }) => css`
+    font-family: Verdana;
+    color: black;
+    font-size: 18px;
     justify-content: center;
+
+    :hover {
+      color: #2055da;
+    }
 
     ${theme.breakpoints.up('mobile')} {
       justify-content: flex-start;
