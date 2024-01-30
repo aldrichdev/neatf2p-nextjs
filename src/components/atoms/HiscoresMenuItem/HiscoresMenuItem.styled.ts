@@ -30,9 +30,8 @@ export const HiscoreMenuSkillIcon = styled('img')(
 export const CurrentMenuItemLabel = styled('span')(
   () => css`
     font-family: Verdana;
-    font-size: 16px;
-    line-height: 2;
     font-size: 18px;
+    line-height: 2;
     color: blue;
   `,
 )
