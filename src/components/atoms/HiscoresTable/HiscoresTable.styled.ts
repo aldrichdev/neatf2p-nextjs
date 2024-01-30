@@ -1,8 +1,28 @@
-import { Table, TableCell } from '@mui/material'
+import { PaperTypeMap, Table, TableCell, TableContainer, TableContainerProps, TableRow } from '@mui/material'
+import { OverridableComponent } from '@mui/material/OverridableComponent'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
-export const StyledTable = styled(Table, {
+type ExtendedTableContainerProps = TableContainerProps & {
+  component: OverridableComponent<PaperTypeMap<NonNullable<unknown>, 'div'>>
+}
+
+export const HiscoreTableContainer = styled(TableContainer)<ExtendedTableContainerProps>(
+  ({ theme }) => css`
+    box-shadow: none;
+
+    ${theme.breakpoints.up('tablet')} {
+      flex-basis: calc(70% - 36px);
+    }
+
+    ${theme.breakpoints.up('desktop')} {
+      min-height: 1000px;
+      width: 100%;
+    }
+  `,
+)
+
+export const HiscoreTable = styled(Table, {
   shouldForwardProp: prop => !['aria-label'].includes(prop.toString()),
 })(
   () => css`
@@ -12,14 +32,33 @@ export const StyledTable = styled(Table, {
   `,
 )
 
-export const StyledTableCell = styled(TableCell)(
+export const HiscoresTableRow = styled(TableRow)(
+  () => css`
+    border: 1px solid black;
+  `,
+)
+
+export const HiscoreTableCell = styled(TableCell)(
   ({ theme }) => css`
     font-weight: 400;
-    border: 1px solid black;
     padding: 8px;
+    border: 0;
+    border-right: 1px solid black;
 
     ${theme.breakpoints.up('tablet')} {
       padding: 16px;
+    }
+  `,
+)
+
+export const HiscoreUsername = styled('a')(
+  () => css`
+    color: black;
+    text-decoration: none;
+
+    :hover {
+      text-decoration: underline;
+      cursor: pointer;
     }
   `,
 )

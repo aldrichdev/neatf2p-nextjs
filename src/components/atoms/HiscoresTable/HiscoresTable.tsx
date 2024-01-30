@@ -1,7 +1,13 @@
 import { HiscoreDataRow } from '@globalTypes/Database/HiscoreDataRow'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
-import { TableContainer, TableBody, TableHead, TableRow, Paper } from '@mui/material'
-import { StyledTable, StyledTableCell } from './HiscoresTable.styled'
+import { TableBody, TableHead, Paper } from '@mui/material'
+import {
+  HiscoreTable,
+  HiscoreTableCell,
+  HiscoreTableContainer,
+  HiscoreUsername,
+  HiscoresTableRow,
+} from './HiscoresTable.styled'
 import { getTotalExp } from '@helpers/hiscores/hiscoresUtils'
 
 type HiscoresTableProps = {
@@ -88,30 +94,34 @@ const HiscoresTable = (props: HiscoresTableProps) => {
   }
 
   return (
-    <TableContainer component={Paper} sx={{ minHeight: '1000px', boxShadow: 'none' }}>
-      <StyledTable aria-label={`${hiscoreType} Hiscores Table`}>
+    <HiscoreTableContainer component={Paper}>
+      <HiscoreTable aria-label={`${hiscoreType} Hiscores Table`}>
         <TableHead>
-          <TableRow>
-            <StyledTableCell sx={{ fontWeight: 700 }}>Rank</StyledTableCell>
-            <StyledTableCell sx={{ fontWeight: 700 }}>Name</StyledTableCell>
-            <StyledTableCell sx={{ fontWeight: 700 }}>Level</StyledTableCell>
-            <StyledTableCell sx={{ fontWeight: 700 }}>EXP</StyledTableCell>
-          </TableRow>
+          <HiscoresTableRow>
+            <HiscoreTableCell sx={{ fontWeight: 700 }}>Rank</HiscoreTableCell>
+            <HiscoreTableCell sx={{ fontWeight: 700 }}>Name</HiscoreTableCell>
+            <HiscoreTableCell sx={{ fontWeight: 700 }}>Level</HiscoreTableCell>
+            <HiscoreTableCell sx={{ fontWeight: 700 }}>EXP</HiscoreTableCell>
+          </HiscoresTableRow>
         </TableHead>
         <TableBody>
           {hiscores?.map((hiscoreRow, index) => (
-            <TableRow key={hiscoreRow.username}>
-              <StyledTableCell component='th' scope='row'>
+            <HiscoresTableRow key={hiscoreRow.username}>
+              <HiscoreTableCell component='th' scope='row'>
                 {index + 1}
-              </StyledTableCell>
-              <StyledTableCell>{hiscoreRow.username}</StyledTableCell>
-              <StyledTableCell>{getHiscoreValue(hiscoreRow)}</StyledTableCell>
-              <StyledTableCell>{convertXP(getHiscoreSkillXP(hiscoreRow))}</StyledTableCell>
-            </TableRow>
+              </HiscoreTableCell>
+              <HiscoreTableCell>
+                <HiscoreUsername href={`/hiscores/player/${hiscoreRow.username}`}>
+                  {hiscoreRow.username}
+                </HiscoreUsername>
+              </HiscoreTableCell>
+              <HiscoreTableCell>{getHiscoreValue(hiscoreRow)}</HiscoreTableCell>
+              <HiscoreTableCell>{convertXP(getHiscoreSkillXP(hiscoreRow))}</HiscoreTableCell>
+            </HiscoresTableRow>
           ))}
         </TableBody>
-      </StyledTable>
-    </TableContainer>
+      </HiscoreTable>
+    </HiscoreTableContainer>
   )
 }
 

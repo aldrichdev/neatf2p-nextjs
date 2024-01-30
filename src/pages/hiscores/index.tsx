@@ -9,6 +9,7 @@ import useHiscores from '@hooks/useHiscores'
 import { HiscoreTypes, HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { useRouter } from 'next/router'
 import { Spinner } from '@molecules/Spinner'
+import { PlayerLookup } from '@molecules/PlayerLookup'
 
 const Hiscores = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -23,7 +24,7 @@ const Hiscores = () => {
   }, [query])
 
   return (
-    <ContentBlock topMargin={20}>
+    <ContentBlock topMargin={20} isWide>
       <Typography variant='h2'>{hiscoreType} Hiscores</Typography>
       <BodyText variant='body' textAlign='center'>
         Below are the current <strong>alpha</strong> {hiscoreType} hiscores.
@@ -35,6 +36,7 @@ const Hiscores = () => {
         ) : (
           <HiscoresTable hiscores={hiscores} hiscoreType={hiscoreType} />
         )}
+        <PlayerLookup />
       </HiscoresPageContainer>
     </ContentBlock>
   )
