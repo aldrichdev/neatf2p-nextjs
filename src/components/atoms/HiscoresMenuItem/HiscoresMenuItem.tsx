@@ -1,16 +1,29 @@
-import { MenuItem, CurrentMenuItemLabel, MenuItemButton } from './HiscoresMenuItem.styled'
+import {
+  MenuItem,
+  CurrentMenuItemLabel,
+  MenuItemButton,
+  HiscoreSkill,
+  HiscoreMenuSkillIcon,
+} from './HiscoresMenuItem.styled'
 import { HiscoresMenuItemProps } from './HiscoresMenuItem.types'
 
 const HiscoresMenuItem = (props: HiscoresMenuItemProps) => {
   const { menuItemLabel, hiscoreType, buttonOnClick } = props
+
   return (
     <MenuItem>
       {hiscoreType === menuItemLabel ? (
-        <CurrentMenuItemLabel>{hiscoreType}</CurrentMenuItemLabel>
+        <HiscoreSkill>
+          <HiscoreMenuSkillIcon src={`/img/skills/${hiscoreType}.png`} alt='' />
+          <CurrentMenuItemLabel>{hiscoreType}</CurrentMenuItemLabel>
+        </HiscoreSkill>
       ) : (
-        <MenuItemButton variant='text' onClick={() => buttonOnClick(menuItemLabel)}>
-          {menuItemLabel}
-        </MenuItemButton>
+        <HiscoreSkill>
+          <HiscoreMenuSkillIcon src={`/img/skills/${menuItemLabel}.png`} alt='' />
+          <MenuItemButton variant='text' onClick={() => buttonOnClick(menuItemLabel)}>
+            {menuItemLabel}
+          </MenuItemButton>
+        </HiscoreSkill>
       )}
     </MenuItem>
   )

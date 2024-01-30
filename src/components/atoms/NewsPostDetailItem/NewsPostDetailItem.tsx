@@ -22,7 +22,9 @@ const NewsPostDetailItem = (props: NewsPostItemProps) => {
       <NewsPostDetailImage src={getNewsPostImageUrl(newsPost.image)} alt={newsPost.alt} />
       <NewsPostDetailDate variant='body'>{getPrettyDateStringFromISOString(newsPost.datePosted)}</NewsPostDetailDate>
       <NewsPostDetailAuthor variant='body'>Beast Fable</NewsPostDetailAuthor>
-      <NewsPostDetailBody variant='body'>{parse(newsPost.body)}</NewsPostDetailBody>
+      <NewsPostDetailBody variant='body' component='span'>
+        {parse(newsPost.body)}
+      </NewsPostDetailBody>
     </NewsPostDetailContainer>
   )
 }
