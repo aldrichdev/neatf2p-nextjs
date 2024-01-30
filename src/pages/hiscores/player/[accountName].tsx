@@ -69,7 +69,6 @@ const PlayerHiscore = () => {
   useEffect(() => {
     setIsLoading(true)
 
-    // Query the data once
     axios
       .post('/api/getPlayerHiscore', {
         username: accountName,
@@ -78,14 +77,14 @@ const PlayerHiscore = () => {
         setHiscoresData(response?.data as HiscoreDataRow[])
         setIsLoading(false)
       })
-      .catch((error: string) => console.log(`Error querying hiscores: ${error}`))
+      .catch((error: string) => console.log(`Error getting player hiscore: ${error}`))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query.accountName])
 
   useEffect(() => {
-    const playerHiscoreRowArray: PlayerHiscoreRow[] = []
     if (!hiscoresData) return
 
+    const playerHiscoreRowArray: PlayerHiscoreRow[] = []
     playerHiscoreRowArray.push(getPlayerHiscoreRow('Overall'))
     playerHiscoreRowArray.push(getPlayerHiscoreRow('Attack'))
     playerHiscoreRowArray.push(getPlayerHiscoreRow('Defense'))

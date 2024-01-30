@@ -1,11 +1,7 @@
-import { PaperTypeMap, Table, TableCell, TableContainer, TableContainerProps, TableRow } from '@mui/material'
-import { OverridableComponent } from '@mui/material/OverridableComponent'
+import { ExtendedTableContainerProps } from '@globalTypes/MUI/ExtendedTableContainerProps'
+import { Table, TableCell, TableContainer, TableRow } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
-
-type ExtendedTableContainerProps = TableContainerProps & {
-  component: OverridableComponent<PaperTypeMap<NonNullable<unknown>, 'div'>>
-}
 
 export const HiscoreTableContainer = styled(TableContainer)<ExtendedTableContainerProps>(
   ({ theme }) => css`

@@ -1,4 +1,4 @@
-import { ExtendedTypographyProps } from '@globalTypes/MUI/ExtendTypographyProps'
+import { ExtendedTypographyProps } from '@globalTypes/MUI/ExtendedTypographyProps'
 import { Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'

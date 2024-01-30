@@ -28,7 +28,6 @@ export const HiscoreMenuSkillIcon = styled('img')(
   `,
 )
 export const CurrentMenuItemLabel = styled('span')(
-  // Should match `textPrimary` styles in theme.ts
   () => css`
     font-family: Verdana;
     font-size: 16px;
