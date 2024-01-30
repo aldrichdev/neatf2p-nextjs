@@ -1,12 +1,17 @@
 import { useState } from 'react'
 import { convertBlobToBase64String, convertBase64StringToBlob } from '@helpers/base64'
+import useAuthentication from '@hooks/useAuthentication'
+import { Spinner } from '@molecules/Spinner'
+import { MustBeAdminBlock } from '@molecules/MustBeAdminBlock'
 
 // This is just a test page to see how uploading images from Next.js could work. [F2P-4]
 // Mostly taken from https://codesandbox.io/s/thyb0?file=/pages/index.js:738-1088 and various SO posts
 const UploadPage = () => {
+  const [loading, setLoading] = useState(true)
   const [, setImage] = useState<string | Blob>('')
   const [createObjectURL, setCreateObjectURL] = useState('')
   const [convertedBlobUrl, setConvertedBlobUrl] = useState('')
+  const user = useAuthentication(setLoading)
 
   const uploadToClient = (event: any) => {
     if (event.target.files && event.target.files[0]) {
@@ -35,6 +40,14 @@ const UploadPage = () => {
       console.log('URL.createObjectURL(i)', URL.createObjectURL(i))
       setCreateObjectURL(URL.createObjectURL(i))
     }
+  }
+
+  if (loading) {
+    return <Spinner />
+  }
+
+  if (!user?.isAdmin) {
+    return <MustBeAdminBlock />
   }
 
   return (
