@@ -5,6 +5,7 @@ import { OnlinePlayers } from '@organisms/OnlinePlayers'
 import { NewsAndUpdates } from '@organisms/NewsAndUpdates'
 import Link from 'next/link'
 import DiscordLogo from 'public/img/discord-512.webp'
+import { DiscordLink } from '@atoms/DiscordLink'
 
 const Homepage = () => (
   <div>
@@ -21,9 +22,9 @@ const Homepage = () => (
     <ContentBlock isWide>
       <Typography variant='h2'>Join the Community</Typography>
       <SectionBody variant='body'>Click the button below to join our Discord server.</SectionBody>
-      <Link href='https://discord.gg/wd67zUxPXn' target='_blank'>
+      <DiscordLink>
         <DiscordIcon src={DiscordLogo.src} alt='Join our Discord Server' />
-      </Link>
+      </DiscordLink>
     </ContentBlock>
   </div>
 )

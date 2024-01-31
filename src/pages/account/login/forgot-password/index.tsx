@@ -14,6 +14,7 @@ import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
 import emailjs from '@emailjs/browser'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { Spinner } from '@molecules/Spinner'
+import { DiscordLink } from '@atoms/DiscordLink'
 
 const ForgotPasswordPage = () => {
   const [loading, setLoading] = useState(true)
@@ -63,9 +64,7 @@ const ForgotPasswordPage = () => {
       <BodyText variant='body' textAlign='left'>
         Forgotten your password? Enter your email below and we will send you a password reset link. If you have
         forgotten your username and email as well, please contact an administrator in{' '}
-        <Link href='https://discord.gg/wd67zUxPXn' target='_blank'>
-          Neat F2P&apos;s Discord server
-        </Link>
+        <DiscordLink>Neat F2P&apos;s Discord server</DiscordLink>
         {''}.
       </BodyText>
       <Form onSubmit={handleRequest}>

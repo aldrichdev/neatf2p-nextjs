@@ -1,17 +1,15 @@
 import { Typography } from '@mui/material'
-import Link from 'next/link'
 import { ContentBlock } from '@atoms/ContentBlock'
+import { BodyText } from '@atoms/BodyText'
+import { DiscordLink } from '@atoms/DiscordLink'
 
 const HowToPlay = () => (
   <ContentBlock topMargin={20}>
-    <Typography variant='body'>
-      Neat F2P has not yet officially launched. However, we are currently in an alpha testing phase (until January
-      28th). If you would like to try out the alpha, please join our{' '}
-      <Link href='https://discord.gg/wd67zUxPXn' target='_blank'>
-        Discord
-      </Link>{' '}
-      and check the <strong>#alpha-testing-info</strong> channel for connection info!
-    </Typography>
+    <Typography variant='h2'>Coming Soon</Typography>
+    <BodyText variant='body'>
+      Neat F2P has not yet launched. Please keep checking our <DiscordLink /> for more info on when it will be ready to
+      play.
+    </BodyText>
   </ContentBlock>
 )
 

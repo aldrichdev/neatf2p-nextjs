@@ -1,7 +1,6 @@
 import { Typography } from '@mui/material'
-import { Paragraph } from '@styledPages/About.styled'
+import { Feature, FeatureList, Paragraph } from '@styledPages/About.styled'
 import { ContentBlock } from '@atoms/ContentBlock'
-import Link from 'next/link'
 
 const About = () => (
   <ContentBlock>
@@ -16,9 +15,21 @@ const About = () => (
       You&apos;ll find that some items which are considered F2P, but were only accessible in members lands, will be
       unobtainable. In this way, Neat F2P provides a unique RSC experience that we have never seen!
     </Paragraph>
-    <Paragraph variant='body'>
-      So, <Link href='/how-to-play'>jump in today</Link> and experience what a F2P-only economy can be!
-    </Paragraph>
+    <FeatureList>
+      <Feature>Based on Open RSC&apos;s Core Framework with Few or No Added Changes</Feature>
+      <Feature>Open Source (Game & Website) Forever</Feature>
+      <Feature>F2P Mode Enabled (Forever) - Only F2P Areas, Features, Items, Quests, Spells, Prayers, Etc.</Feature>
+      <Feature>1x EXP Rates</Feature>
+      <Feature>1 Page Bank (Authentic F2P Behavior)</Feature>
+      <Feature>Play with RSC+ Client and WinRune (Web Client In Discovery)</Feature>
+      <Feature>Skip Tutorial Option Enabled</Feature>
+      <Feature>Max 2 Characters Logged In At Once</Feature>
+      <Feature>No QOL - Straight RSC</Feature>
+      <Feature>No Global Chat or Kill Feed</Feature>
+      <Feature>No Transfers From Other Servers</Feature>
+      <Feature>No Cheating</Feature>
+      <Feature>Aiming for a Spring 2024 Release</Feature>
+    </FeatureList>
   </ContentBlock>
 )
 

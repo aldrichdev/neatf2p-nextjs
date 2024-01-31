@@ -31,3 +31,8 @@ button {
   border: none;
   background-color: transparent;
 }
+
+:root {
+  --gold-bg-color: rgba(218, 165, 32, 0.8);
+  --gold-border-color: rgb(160, 82, 45);
+}
