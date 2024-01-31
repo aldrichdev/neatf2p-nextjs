@@ -1,6 +1,5 @@
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
-import { Typography } from '@mui/material'
 import useAuthentication from '@hooks/useAuthentication'
 import { GameAccountsTable } from '@organisms/GameAccountsTable'
 import { UserIsLoggedIn } from '@helpers/users/users'
@@ -11,6 +10,7 @@ import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { useState } from 'react'
 import { Spinner } from '@molecules/Spinner'
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
+import { PageHeading } from '@atoms/PageHeading'
 
 const GameAccountsPage = () => {
   const [loading, setLoading] = useState(true)
@@ -44,8 +44,8 @@ const GameAccountsPage = () => {
 
   return (
     <ContentBlock isWide>
-      <Typography variant='h2'>Game Accounts</Typography>
-      <BodyText variant='body'>
+      <PageHeading>Game Accounts</PageHeading>
+      <BodyText variant='body' textAlign='center'>
         Here, you can view your current game accounts, create new ones, rename them, and update passwords. All times
         shown are in your local timezone.
       </BodyText>

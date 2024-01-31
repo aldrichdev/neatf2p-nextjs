@@ -46,7 +46,7 @@ export const PlayerNameField = styled(Field)(
 
 export const LookupSubmitButton = styled(FormButton)(
   ({ theme }) => css`
-    background-color: #2055da;
+    background-color: var(--faded-blue-bg-color);
     margin-top: 20px;
 
     :hover {

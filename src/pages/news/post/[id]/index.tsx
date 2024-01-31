@@ -37,7 +37,7 @@ const NewsPostDetail = () => {
   if (!newsPost?.title) return null
 
   return (
-    <ContentBlock topMargin={20}>
+    <ContentBlock>
       <NewsPostDetailItem newsPost={newsPost} />
     </ContentBlock>
   )

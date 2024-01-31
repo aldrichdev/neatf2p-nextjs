@@ -7,8 +7,6 @@ export const AccountTableContainer = styled(TableContainer, {
   shouldForwardProp: prop => prop !== 'component',
 })<{ component: any }>(
   ({ theme }) => css`
-    margin-top: 40px;
-
     ${theme.breakpoints.up('tablet')} {
       display: none;
     }

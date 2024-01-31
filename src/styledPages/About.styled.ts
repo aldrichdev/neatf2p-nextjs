@@ -1,9 +1,5 @@
 import { css, styled } from '@mui/material/styles'
-import Typography from '@mui/material/Typography'
 
-export const Paragraph = styled(Typography)`
-  margin-top: 20px;
-`
 export const FeatureList = styled('ul')(
   () => css`
     font-family: Saros;

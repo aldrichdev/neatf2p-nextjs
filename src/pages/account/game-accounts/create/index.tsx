@@ -6,7 +6,6 @@ import { Form } from '@atoms/Form'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
 import { redirectTo } from '@helpers/window'
-import { Typography } from '@mui/material'
 import axios from 'axios'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { hashPassword } from '@helpers/password'
@@ -15,6 +14,7 @@ import { UserIsLoggedIn } from '@helpers/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { Spinner } from '@molecules/Spinner'
 import { gameAccountPasswordIsValid } from '@helpers/string/stringUtils'
+import { PageHeading } from '@atoms/PageHeading'
 
 const CreateGameAccount = () => {
   const [loading, setLoading] = useState(true)
@@ -183,7 +183,7 @@ const CreateGameAccount = () => {
 
   return (
     <ContentBlock>
-      <Typography variant='h2'>Create Game Account</Typography>
+      <PageHeading>Create Game Account</PageHeading>
       <BodyText variant='body' textAlign='left'>
         Game account names must be 12 characters or less. You are allowed spaces within your name, but any spaces at the
         start or end of your name will be removed upon account creation.

@@ -1,11 +1,11 @@
-import { styled } from '@mui/material/styles'
-import Typography from '@mui/material/Typography'
+import { css, styled } from '@mui/material/styles'
 
-export const SectionBody = styled(Typography)`
-  margin-top: 1.25rem;
-`
+export const DiscordButtonContainer = styled('div')(
+  () => css`
+    margin-top: 40px;
+  `,
+)
 
 export const DiscordIcon = styled('img')`
-  margin-top: 1rem;
   width: 150px;
 `

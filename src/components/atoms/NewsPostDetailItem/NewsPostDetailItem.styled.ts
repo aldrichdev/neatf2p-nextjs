@@ -9,12 +9,6 @@ export const NewsPostDetailContainer = styled('div')(
   `,
 )
 
-export const PageHeading = styled(Typography)(
-  () => css`
-    text-align: center;
-  `,
-)
-
 export const NewsPostTitle = styled(Typography)(
   () => css`
     margin-top: 20px;
@@ -49,10 +43,11 @@ export const NewsPostDetailAuthor = styled(Typography)(
 
 export const NewsPostDetailBody = styled(Typography)<ExtendedTypographyProps>(
   ({ theme }) => css`
-    margin-top: 20px;
+    display: block;
+    margin: 20px 0 0;
 
     ${theme.breakpoints.up('tablet')} {
-      margin-top: 40px;
+      margin: 40px 0 0;
     }
   `,
 )

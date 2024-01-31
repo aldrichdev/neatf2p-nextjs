@@ -1,5 +1,7 @@
 import { BodyText } from '@atoms/BodyText'
+import { Callout } from '@atoms/Callout'
 import { ContentBlock } from '@atoms/ContentBlock'
+import { PageHeading } from '@atoms/PageHeading'
 import { PlayerHiscoreTable } from '@atoms/PlayerHiscoreTable'
 import { HiscoreDataRow } from '@globalTypes/Database/HiscoreDataRow'
 import { HiscoresSortField } from '@globalTypes/Database/HiscoresSortField'
@@ -7,7 +9,6 @@ import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { PlayerHiscoreRow } from '@globalTypes/Hiscores/PlayerHiscoreRow'
 import { convertExp, getTotalExp } from '@helpers/hiscores/hiscoresUtils'
 import { Spinner } from '@molecules/Spinner'
-import { Typography } from '@mui/material'
 import { BackToHiscoresLink, PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
 import axios from 'axios'
 import { useRouter } from 'next/router'
@@ -110,8 +111,8 @@ const PlayerHiscore = () => {
   }
 
   return (
-    <ContentBlock topMargin={20}>
-      <Typography variant='h2'>{accountName}</Typography>
+    <ContentBlock>
+      <PageHeading>{accountName ? accountName.toString() : 'Unknown Player'}</PageHeading>
       {typeof accountName !== 'string' ||
       !playerHiscores ||
       !hiscoresData?.find(hiscoreDataRow => hiscoreDataRow.username === accountName) ? (
@@ -119,9 +120,17 @@ const PlayerHiscore = () => {
           No hiscore found for this player.
         </BodyText>
       ) : (
-        <PlayerHiscoreTableContainer>
-          <PlayerHiscoreTable accountName={accountName} playerHiscores={playerHiscores} />
-        </PlayerHiscoreTableContainer>
+        <>
+          <Callout>
+            <span>
+              This is an <strong>alpha tester</strong> account. These are temporary and will not be accessible in the
+              full game.
+            </span>
+          </Callout>
+          <PlayerHiscoreTableContainer>
+            <PlayerHiscoreTable accountName={accountName} playerHiscores={playerHiscores} />
+          </PlayerHiscoreTableContainer>
+        </>
       )}
       <BackToHiscoresLink href='/hiscores'>{'<'} Return to Hiscores</BackToHiscoresLink>
     </ContentBlock>

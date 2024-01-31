@@ -1,7 +1,5 @@
 import { ContentBlock } from '@atoms/ContentBlock'
-import { Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { BodyText } from '@atoms/BodyText'
 import { HiscoresPageContainer } from '@styledPages/hiscores.styled'
 import { HiscoresTable } from '@atoms/HiscoresTable'
 import { HiscoresMenu } from '@atoms/HiscoresMenu'
@@ -10,6 +8,8 @@ import { HiscoreTypes, HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { useRouter } from 'next/router'
 import { Spinner } from '@molecules/Spinner'
 import { PlayerLookup } from '@molecules/PlayerLookup'
+import { PageHeading } from '@atoms/PageHeading'
+import { Callout } from '@atoms/Callout'
 
 const Hiscores = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -24,11 +24,14 @@ const Hiscores = () => {
   }, [query])
 
   return (
-    <ContentBlock topMargin={20} isWide>
-      <Typography variant='h2'>{hiscoreType} Hiscores</Typography>
-      <BodyText variant='body' textAlign='center'>
-        Below are the current <strong>alpha</strong> {hiscoreType} hiscores.
-      </BodyText>
+    <ContentBlock isWide>
+      <PageHeading>{`${hiscoreType} Hiscores`}</PageHeading>
+      <Callout>
+        <span>
+          Hiscores currently show <strong>alpha tester</strong> accounts. These are temporary and will not be accessible
+          in the full game.
+        </span>
+      </Callout>
       <HiscoresPageContainer>
         <HiscoresMenu hiscoreType={hiscoreType} buttonOnClick={setHiscoreType} />
         {isLoading || !hiscores ? (

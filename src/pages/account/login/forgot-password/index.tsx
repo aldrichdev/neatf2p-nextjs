@@ -1,5 +1,4 @@
 import { FormEvent, useState, ChangeEvent } from 'react'
-import { Typography } from '@mui/material'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { Form } from '@atoms/Form'
 import { BodyText } from '@atoms/BodyText'
@@ -8,13 +7,13 @@ import { InlineLink } from '@atoms/InlineLink'
 import axios from 'axios'
 import useAuthentication from '@hooks/useAuthentication'
 import { redirectTo } from '@helpers/window'
-import Link from 'next/link'
 import { UserExists, UserIsLoggedIn } from '@helpers/users/users'
 import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
 import emailjs from '@emailjs/browser'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { Spinner } from '@molecules/Spinner'
 import { DiscordLink } from '@atoms/DiscordLink'
+import { PageHeading } from '@atoms/PageHeading'
 
 const ForgotPasswordPage = () => {
   const [loading, setLoading] = useState(true)
@@ -60,7 +59,7 @@ const ForgotPasswordPage = () => {
 
   return (
     <ContentBlock>
-      <Typography variant='h2'>Forgot Password</Typography>
+      <PageHeading>Forgot Password</PageHeading>
       <BodyText variant='body' textAlign='left'>
         Forgotten your password? Enter your email below and we will send you a password reset link. If you have
         forgotten your username and email as well, please contact an administrator in{' '}
