@@ -24,7 +24,7 @@ const Homepage = () => (
     <ContentBlock isWide topMargin={40}>
       <NewsAndUpdates heading='Latest News & Updates' limit={3} showViewAllButton />
     </ContentBlock>
-    <ContentBlock topMargin={40} isWide>
+    <ContentBlock isWide topMargin={40}>
       <PageHeading>Join the Community</PageHeading>
       <BodyText variant='body' textAlign='center'>
         Click the button below to join our Discord server.

@@ -6,10 +6,7 @@ export const FeatureList = styled('ul')(
     font-size: 20px;
     background-color: var(--gold-bg-color);
     border: 2px dashed var(--gold-border-color);
-    padding-top: 16px;
-    padding-bottom: 16px;
-    padding-left: 56px; /* 40px for bullet + 8px */
-    padding-right: 16px;
+    padding: 16px 16px 16px 56px; /* Right: 40px for bullet points + 16px */
   `,
 )
 
