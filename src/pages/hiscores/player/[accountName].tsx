@@ -18,7 +18,10 @@ const PlayerHiscore = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [hiscoresData, setHiscoresData] = useState<HiscoreDataRow[] | undefined>()
   const [playerHiscores, setPlayerHiscores] = useState<PlayerHiscoreRow[] | undefined>()
-  const accountName = query.accountName
+  const accountName = query.accountName as string
+
+  const isMatchingUser = (hiscoreDataRow: HiscoreDataRow) =>
+    hiscoreDataRow.username.toLowerCase() === accountName.toLowerCase()
 
   const getRank = (hiscoreType: HiscoreType) => {
     // Order hiscoresData by hiscoreType descending
@@ -28,14 +31,14 @@ const PlayerHiscore = () => {
     )
 
     // Then get the index of the current player in that sorted list (and if 0-based, add 1), that's the rank.
-    const rank = sortedHiscoresData?.findIndex(hiscoreDataRow => hiscoreDataRow.username === accountName)
+    const rank = sortedHiscoresData?.findIndex(isMatchingUser)
     if (rank === undefined) return 0
 
     return rank + 1
   }
 
   const getLevel = (hiscoreType: HiscoreType) => {
-    const playerHiscore = hiscoresData?.find(hiscoreDataRow => hiscoreDataRow.username === accountName)
+    const playerHiscore = hiscoresData?.find(isMatchingUser)
     const propName = hiscoreType === 'Overall' ? 'skill_total' : hiscoreType.toLowerCase()
 
     if (!playerHiscore) return 0
@@ -44,7 +47,7 @@ const PlayerHiscore = () => {
   }
 
   const getExp = (hiscoreType: HiscoreType) => {
-    const playerHiscore = hiscoresData?.find(hiscoreDataRow => hiscoreDataRow.username === accountName)
+    const playerHiscore = hiscoresData?.find(isMatchingUser)
 
     if (!playerHiscore) return '0'
 
@@ -69,9 +72,11 @@ const PlayerHiscore = () => {
   useEffect(() => {
     setIsLoading(true)
 
+    if (!accountName) return
+
     axios
       .post('/api/getPlayerHiscore', {
-        username: accountName,
+        username: accountName.toLowerCase(),
       })
       .then(response => {
         setHiscoresData(response?.data as HiscoreDataRow[])
@@ -79,7 +84,7 @@ const PlayerHiscore = () => {
       })
       .catch((error: string) => console.log(`Error getting player hiscore: ${error}`))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query.accountName])
+  }, [accountName])
 
   useEffect(() => {
     if (!hiscoresData) return
@@ -112,9 +117,7 @@ const PlayerHiscore = () => {
   return (
     <ContentBlock topMargin={20}>
       <Typography variant='h2'>{accountName}</Typography>
-      {typeof accountName !== 'string' ||
-      !playerHiscores ||
-      !hiscoresData?.find(hiscoreDataRow => hiscoreDataRow.username === accountName) ? (
+      {typeof accountName !== 'string' || !playerHiscores || !hiscoresData?.find(isMatchingUser) ? (
         <BodyText variant='body' textAlign='center'>
           No hiscore found for this player.
         </BodyText>

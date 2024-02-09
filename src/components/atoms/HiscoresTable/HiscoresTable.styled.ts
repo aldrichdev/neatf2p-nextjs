@@ -29,8 +29,13 @@ export const HiscoreTable = styled(Table, {
 )
 
 export const HiscoresTableRow = styled(TableRow)(
-  () => css`
-    border: 1px solid black;
+  ({ theme }) => css`
+    border-bottom: 1px solid black;
+    font-size: 14px;
+
+    ${theme.breakpoints.up('tablet')} {
+      font-size: 16px;
+    }
   `,
 )
 
@@ -39,7 +44,10 @@ export const HiscoreTableCell = styled(TableCell)(
     font-weight: 400;
     padding: 8px;
     border: 0;
-    border-right: 1px solid black;
+
+    &:not(:last-child) {
+      border-right: 1px solid black;
+    }
 
     ${theme.breakpoints.up('tablet')} {
       padding: 16px;
