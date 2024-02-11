@@ -1,10 +1,14 @@
-import { Box } from './Callout.styled'
+import { CalloutContainer, CalloutContent } from './Callout.styled'
 import { CalloutProps } from './Callout.types'
 
 const Callout = (props: CalloutProps) => {
-  const { children } = props
+  const { variant, children } = props
 
-  return <Box>{children}</Box>
+  return (
+    <CalloutContainer variant={variant}>
+      <CalloutContent>{children}</CalloutContent>
+    </CalloutContainer>
+  )
 }
 
 export default Callout

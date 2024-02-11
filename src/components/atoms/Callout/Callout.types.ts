@@ -1,3 +1,8 @@
+import { ReactNode } from 'react'
+
+export type CalloutVariants = 'info' | 'warning'
+
 export type CalloutProps = {
-  children: string | string[] | JSX.Element
+  variant: CalloutVariants
+  children: ReactNode
 }

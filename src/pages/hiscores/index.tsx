@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import { Spinner } from '@molecules/Spinner'
 import { PlayerLookup } from '@molecules/PlayerLookup'
 import { PageHeading } from '@atoms/PageHeading'
-import { Callout } from '@atoms/Callout'
+import { TextBanner } from '@atoms/TextBanner'
 
 const Hiscores = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -26,12 +26,12 @@ const Hiscores = () => {
   return (
     <ContentBlock isWide>
       <PageHeading>{`${hiscoreType} Hiscores`}</PageHeading>
-      <Callout>
+      <TextBanner>
         <span>
           Hiscores currently show <strong>alpha tester</strong> accounts. These are temporary and will not be accessible
           in the full game.
         </span>
-      </Callout>
+      </TextBanner>
       <HiscoresPageContainer>
         <HiscoresMenu hiscoreType={hiscoreType} buttonOnClick={setHiscoreType} />
         {isLoading || !hiscores ? (
