@@ -45,10 +45,8 @@ export const handleManipulate = async (
       throw new Error(response?.error?.toString())
     }
 
-    if (response?.affectedRows !== 1) {
-      throw new Error(
-        `No rows, or too many rows, affected! Affected Rows: ${response.affectedRows}. Response: ${response}`,
-      )
+    if (response?.affectedRows < 1) {
+      throw new Error(`No rows affected. Affected Rows: ${response.affectedRows}. Response: ${response}`)
     }
 
     // Return a JSON result indicating success
