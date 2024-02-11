@@ -1,5 +1,5 @@
 import { ContentBlock } from '@atoms/ContentBlock'
-import { DiscordButtonContainer, DiscordIcon, YouTubeVideo, YouTubeVideoContainer } from '@styledPages/Homepage.styled'
+import { DiscordButtonContainer, DiscordIcon, YouTubeVideo } from '@styledPages/Homepage.styled'
 import { OnlinePlayers } from '@organisms/OnlinePlayers'
 import { NewsAndUpdates } from '@organisms/NewsAndUpdates'
 import Link from 'next/link'
