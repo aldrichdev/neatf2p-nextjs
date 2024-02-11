@@ -1,24 +1,43 @@
 import { useState } from 'react'
 import axios from 'axios'
 import { convertBlobToBase64String } from '@helpers/base64'
-import { StyledForm, Field, SubmitArea, SubmitButton, SubmitMessage, FieldInfo } from '@styledPages/NewsPostForm.styled'
+import {
+  StyledForm,
+  SubmitArea,
+  SubmitButton,
+  SubmitMessage,
+  VisuallyHiddenInput,
+  PreviewImage,
+  FileUploadButton,
+  ImageArea,
+  ImageLabel,
+  ImageHelperText,
+  ImageButtonContainer,
+  ClearButton,
+} from '@styledPages/NewsPostForm.styled'
 import useAuthentication from '@hooks/useAuthentication'
 import { Spinner } from '@molecules/Spinner'
 import { MustBeAdminBlock } from '@molecules/MustBeAdminBlock'
 import { PageHeading } from '@atoms/PageHeading'
+import { Field } from '@atoms/Field'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload'
+import { ContentBlock } from '@atoms/ContentBlock'
 
 const NewsPostForm = () => {
   const [loading, setLoading] = useState(true)
   const [image, setImage] = useState<string>('')
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string>()
   const [alt, setAlt] = useState<string>('')
   const [title, setTitle] = useState<string>('')
   const [body, setBody] = useState<string>('')
+  const [submitDisabled, setSubmitDisabled] = useState(false)
   const [submitResult, setSubmitResult] = useState<{ answer: string; code: string }>()
   const user = useAuthentication(setLoading)
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const i = event.target.files[0]
+      setImagePreviewUrl(URL.createObjectURL(i))
       convertBlobToBase64String(i, (base64: string) => {
         setImage(base64)
       })
@@ -33,13 +52,18 @@ const NewsPostForm = () => {
     setTitle(event.target.value)
   }
 
-  // Is there not an easier way to do this without every field needing its own function to set state?
   const handleBodyChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setBody(event.target.value)
   }
 
+  const handleClearButtonClick = () => {
+    setImage('')
+    setImagePreviewUrl('')
+  }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setSubmitDisabled(true)
     sendDataToApi(image, alt, title, body)
   }
 
@@ -55,7 +79,7 @@ const NewsPostForm = () => {
       .then(response => {
         setSubmitResult({
           answer: response?.data,
-          code: response?.data?.includes('SUCCESS') ? 'green' : 'red',
+          code: response?.data?.includes('Success') ? 'green' : 'red',
         })
       })
       .catch((error: { response: { data: string } }) => {
@@ -77,30 +101,45 @@ const NewsPostForm = () => {
   return (
     <>
       <PageHeading>Submit a News Post</PageHeading>
-      <StyledForm onSubmit={handleSubmit}>
-        <Field>
-          <label htmlFor='imageSrc'>Image</label>
-          <FieldInfo>(Optional; if not provided, a placeholder image will be displayed next to the post)</FieldInfo>
-          <input type='file' id='imageSrc' onChange={handleImageChange} />
-        </Field>
-        <Field>
-          <label htmlFor='imageAlt'>Alt Text</label>
-          <input type='string' id='imageAlt' onChange={handleAltChange} />
-        </Field>
-        <Field>
-          <label htmlFor='postTitle'>Title</label>
-          <input type='string' id='postTitle' onChange={handleTitleChange} required />
-        </Field>
-        <Field>
-          <label htmlFor='postBody'>Body</label>
-          <FieldInfo>(You can enter HTML tags here for links and other things)</FieldInfo>
-          <textarea id='postBody' rows={10} cols={70} onChange={handleBodyChange} required />
-        </Field>
-        <SubmitArea>
-          <SubmitButton type='submit'>Submit</SubmitButton>
+      <ContentBlock isWide topMargin={40}>
+        <StyledForm onSubmit={handleSubmit}>
+          <ImageArea>
+            <ImageLabel>Image</ImageLabel>
+            <ImageHelperText>
+              Optional. If not provided, a placeholder image will be displayed next to the post.
+            </ImageHelperText>
+            <ImageButtonContainer>
+              <FileUploadButton component='label' variant='contained' startIcon={<CloudUploadIcon />}>
+                Upload file
+                <VisuallyHiddenInput type='file' onChange={handleImageChange} />
+              </FileUploadButton>
+              {imagePreviewUrl && (
+                <ClearButton variant='outlined' onClick={handleClearButtonClick}>
+                  Clear
+                </ClearButton>
+              )}
+            </ImageButtonContainer>
+            <PreviewImage src={imagePreviewUrl} alt='' />
+          </ImageArea>
+          <Field id='imageAlt' label='Alt Text' variant='outlined' onChange={handleAltChange} />
+          <Field id='postTitle' label='Title' variant='outlined' onChange={handleTitleChange} required />
+          <Field
+            id='postBody'
+            label='Body'
+            variant='outlined'
+            helperText='You can enter HTML tags here for links and other things'
+            onChange={handleBodyChange}
+            multiline
+            required
+          />
+          <SubmitArea>
+            <SubmitButton variant='contained' type='submit' disabled={submitDisabled}>
+              Submit
+            </SubmitButton>
+          </SubmitArea>
           <SubmitMessage color={submitResult?.code}>{submitResult?.answer}</SubmitMessage>
-        </SubmitArea>
-      </StyledForm>
+        </StyledForm>
+      </ContentBlock>
     </>
   )
 }

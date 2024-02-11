@@ -27,7 +27,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
     // Return a JSON result indicating success
     res.statusCode = 200
     res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify(`SUCCESS: Created news post with ID ${insertedNewsPostId}!`))
+    res.end(JSON.stringify(`Success! Created news post with ID ${insertedNewsPostId}.`))
   } catch (error) {
     console.log('An error occurred in the submitNewsPost API: ', error)
     res.statusCode = 500
