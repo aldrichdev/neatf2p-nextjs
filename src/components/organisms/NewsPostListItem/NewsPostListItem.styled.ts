@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 import ListItem from '@mui/material/ListItem'
-import { Typography } from '@mui/material'
+import { ListItemAvatar, Typography } from '@mui/material'
 import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 import Link from 'next/link'
 
@@ -34,9 +34,22 @@ export const NewsPostTitleLink = styled(HoverUnderlineLink)`
   width: fit-content;
 `
 
-export const NewsPostImage = styled('img')(
+export const NewsPostAvatar = styled(ListItemAvatar)(
   ({ theme }) => css`
-    width: 100%;
+    text-align: center;
+
+    ${theme.breakpoints.up('tablet')} {
+      text-align: left;
+    }
+  `,
+)
+
+export const NewsPostImage = styled('img', {
+  shouldForwardProp: prop => prop !== 'isPlaceholder',
+})<{ isPlaceholder: boolean }>(
+  ({ theme, isPlaceholder }) => css`
+    width: 60%;
+    border-radius: ${isPlaceholder ? '50%' : 0};
 
     ${theme.breakpoints.up('tablet')} {
       width: 85px;

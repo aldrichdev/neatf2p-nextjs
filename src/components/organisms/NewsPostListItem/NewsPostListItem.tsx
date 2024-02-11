@@ -5,6 +5,7 @@ import {
   NewsPostImage,
   NewsPostTitle,
   NewsPostAvatarLink,
+  NewsPostAvatar,
 } from './NewsPostListItem.styled'
 import { NewsPostItemProps } from '@globalTypes/NewsPostItemProps'
 import { getPrettyDateStringFromISOString } from '@helpers/date/date'
@@ -14,14 +15,19 @@ import { getNewsPostImageUrl } from '@helpers/imageUtils'
 const NewsPostListItem = (props: NewsPostItemProps) => {
   const { newsPost } = props
   const newsPostUrl = `/news/post/${newsPost.id}`
+  const newsPostImage = getNewsPostImageUrl(newsPost.image)
 
   return (
     <div>
       <NewsPostLi alignItems='flex-start'>
         <NewsPostAvatarLink href={newsPostUrl}>
-          <ListItemAvatar>
-            <NewsPostImage src={getNewsPostImageUrl(newsPost.image)} alt={newsPost.alt} />
-          </ListItemAvatar>
+          <NewsPostAvatar>
+            <NewsPostImage
+              src={newsPostImage}
+              alt={newsPost.alt}
+              isPlaceholder={newsPostImage === '/img/NewsImagePlaceholder.png'}
+            />
+          </NewsPostAvatar>
         </NewsPostAvatarLink>
         <ListItemText
           primary={
