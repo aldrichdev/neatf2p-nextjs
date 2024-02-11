@@ -1,10 +1,10 @@
-import { Typography } from '@mui/material'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { BodyText } from '@atoms/BodyText'
 import { InlineLink } from '@atoms/InlineLink'
 import useAuthentication from '@hooks/useAuthentication'
 import { Spinner } from '@molecules/Spinner'
 import { useState } from 'react'
+import { PageHeading } from '@atoms/PageHeading'
 
 const CreateAccountSuccessPage = () => {
   const [loading, setLoading] = useState(true)
@@ -18,7 +18,7 @@ const CreateAccountSuccessPage = () => {
     // Something went wrong...
     return (
       <ContentBlock>
-        <Typography variant='h2'>Oops...</Typography>
+        <PageHeading>Oops...</PageHeading>
         <BodyText variant='body' textAlign='center'>
           Something went wrong... you are now {user?.username}! Tell all your friends, then try logging in again, or
           notify the admin
@@ -29,7 +29,7 @@ const CreateAccountSuccessPage = () => {
 
   return (
     <ContentBlock>
-      <Typography variant='h2'>Success</Typography>
+      <PageHeading>Success</PageHeading>
       <BodyText variant='body' textAlign='center'>
         Your account, {user?.username}, has been created! You can now view your
         <InlineLink href='/account'>Account page</InlineLink>.

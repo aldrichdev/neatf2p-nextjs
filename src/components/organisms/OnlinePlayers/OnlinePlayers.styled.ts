@@ -8,7 +8,7 @@ export const PlayersOnlineBox = styled('div')`
 
 export const PlayersOnlineMessage = styled('p')(
   ({ theme }) => css`
-    font-family: Helvetica;
+    font-family: Verdana;
     font-size: 20px;
     text-align: center;
     margin: 20px 0;
