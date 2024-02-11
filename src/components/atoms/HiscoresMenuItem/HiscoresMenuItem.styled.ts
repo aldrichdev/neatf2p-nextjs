@@ -44,7 +44,7 @@ export const MenuItemButton = styled(Button)(
     justify-content: flex-start;
 
     :hover {
-      color: #2055da;
+      color: var(--faded-blue-bg-color);
     }
 
     ${theme.breakpoints.up('mobile')} {

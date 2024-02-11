@@ -95,14 +95,9 @@ theme = createTheme(theme, {
     },
     h2: {
       fontWeight: '600',
-      fontSize: '30px',
-      lineHeight: '30px',
+      fontSize: '36px',
+      lineHeight: '36px',
       fontFamily: 'Vinque',
-
-      [theme.breakpoints.up('tablet')]: {
-        fontSize: '36px',
-        lineHeight: '36px',
-      },
 
       [theme.breakpoints.up('desktop')]: {
         fontSize: '50px',

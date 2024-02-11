@@ -30,6 +30,6 @@ export const Logo = styled('img')(
 
 export const PaddedContainer = styled('div')(
   () => css`
-    padding: 20px;
+    padding: 40px 20px 60px;
   `,
 )

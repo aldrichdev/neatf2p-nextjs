@@ -1,7 +1,7 @@
-import { Typography } from '@mui/material'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { BodyText } from '@atoms/BodyText'
 import { InlineLink } from '@atoms/InlineLink'
+import { PageHeading } from '@atoms/PageHeading'
 
 type AlreadyLoggedInProps = {
   message?: JSX.Element | string
@@ -12,7 +12,7 @@ const AlreadyLoggedIn = (props: AlreadyLoggedInProps) => {
 
   return (
     <ContentBlock>
-      <Typography variant='h2'>Already Logged In</Typography>
+      <PageHeading>Already Logged In</PageHeading>
       <BodyText variant='body' textAlign='center'>
         {message || (
           <>

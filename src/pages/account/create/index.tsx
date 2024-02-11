@@ -1,5 +1,4 @@
 import { FormEvent, ChangeEvent, useState } from 'react'
-import { Typography } from '@mui/material'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { Form } from '@atoms/Form'
 import { BodyText } from '@atoms/BodyText'
@@ -16,6 +15,8 @@ import { UserExists } from '@helpers/users/users'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
 import { Spinner } from '@molecules/Spinner'
+import { PageHeading } from '@atoms/PageHeading'
+import { Callout } from '@atoms/Callout'
 
 const CreateAccountPage = () => {
   const [loading, setLoading] = useState(true)
@@ -141,11 +142,16 @@ const CreateAccountPage = () => {
 
   return (
     <ContentBlock>
-      <Typography variant='h2'>Create Account</Typography>
+      <PageHeading>Create Account</PageHeading>
       <BodyText variant='body' textAlign='left'>
         By creating a website account, you can add or rename game accounts, update passwords, and some other nifty
         things.
       </BodyText>
+      <Callout variant='warning'>
+        <strong>Note:</strong> The account you are creating on this page is NOT a game account, it is an account for the
+        website. Once you log into the site, you will be able to create game accounts that you can log into the server
+        with.
+      </Callout>
       <Form onSubmit={handleAccountCreation}>
         <Field
           required

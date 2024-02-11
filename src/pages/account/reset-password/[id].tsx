@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-import { Typography } from '@mui/material'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { Form } from '@atoms/Form'
 import { Field } from '@atoms/Field'
@@ -9,6 +8,7 @@ import { FieldValidationError } from '@atoms/FieldValidationError'
 import { redirectTo } from '@helpers/window'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { hashPassword } from '@helpers/password'
+import { PageHeading } from '@atoms/PageHeading'
 
 const ResetPassword = () => {
   const { query } = useRouter()
@@ -60,7 +60,7 @@ const ResetPassword = () => {
 
   return (
     <ContentBlock>
-      <Typography variant='h2'>Reset Your Password</Typography>
+      <PageHeading>Reset Your Password</PageHeading>
       <Form onSubmit={handleRequest}>
         <Field
           required
