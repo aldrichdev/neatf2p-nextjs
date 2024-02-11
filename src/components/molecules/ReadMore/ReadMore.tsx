@@ -8,7 +8,7 @@ interface ReadMoreProps {
 
 const ReadMore = (props: ReadMoreProps) => {
   const { linkHref, children } = props
-  console.log('children.slice(0, 300)', children.slice(0, 300))
+
   return (
     <Text>
       {children.length > 300 ? (
