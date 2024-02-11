@@ -1,9 +1,9 @@
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 import ListItem from '@mui/material/ListItem'
-import ListItemAvatar from '@mui/material/ListItemAvatar'
 import { Typography } from '@mui/material'
 import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
+import Link from 'next/link'
 
 export const NewsPostLi = styled(ListItem)(
   ({ theme }) => css`
@@ -17,7 +17,7 @@ export const NewsPostLi = styled(ListItem)(
   `,
 )
 
-export const NewsPostAvatar = styled(ListItemAvatar)(
+export const NewsPostAvatarLink = styled(Link)(
   ({ theme }) => css`
     width: 100%;
 

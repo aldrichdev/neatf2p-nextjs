@@ -1,5 +1,5 @@
 import { ContentBlock } from '@atoms/ContentBlock'
-import { DiscordButtonContainer, DiscordIcon } from '@styledPages/Homepage.styled'
+import { DiscordButtonContainer, DiscordIcon, YouTubeVideo } from '@styledPages/Homepage.styled'
 import { OnlinePlayers } from '@organisms/OnlinePlayers'
 import { NewsAndUpdates } from '@organisms/NewsAndUpdates'
 import Link from 'next/link'
@@ -20,6 +20,14 @@ const Homepage = () => (
         experience, featuring a F2P-only world and economy to explore and enjoy. For more information, check out the{' '}
         <Link href='/about'>About page</Link>.
       </BodyText>
+    </ContentBlock>
+    <ContentBlock isWide topMargin={40}>
+      <YouTubeVideo
+        src='https://www.youtube.com/embed/eOvPDYAxavg?si=e6uvjtidaQ8PXb9V&vq=hd1080&rel=0'
+        title='YouTube video player'
+        allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+        allowFullScreen
+      ></YouTubeVideo>
     </ContentBlock>
     <ContentBlock isWide topMargin={40}>
       <NewsAndUpdates heading='Latest News & Updates' limit={3} showViewAllButton />

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { convertBlobToBase64String } from '@helpers/base64'
 import {
@@ -14,11 +14,17 @@ import {
   ImageHelperText,
   ImageButtonContainer,
   ClearButton,
+  PreviewButtonContainer,
+  ForHtmlOutput,
 } from '@styledPages/NewsPostForm.styled'
 import useAuthentication from '@hooks/useAuthentication'
 import { Spinner } from '@molecules/Spinner'
 import { MustBeAdminBlock } from '@molecules/MustBeAdminBlock'
 import { PageHeading } from '@atoms/PageHeading'
+import ReactMarkdown from 'react-markdown'
+import { Modal } from '@molecules/Modal'
+import { Button } from '@mui/material'
+import { NewsPostTitle } from '@organisms/NewsPostListItem/NewsPostListItem.styled'
 import { Field } from '@atoms/Field'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { ContentBlock } from '@atoms/ContentBlock'
@@ -30,6 +36,8 @@ const NewsPostForm = () => {
   const [alt, setAlt] = useState<string>('')
   const [title, setTitle] = useState<string>('')
   const [body, setBody] = useState<string>('')
+  const [bodyHtml, setBodyHtml] = useState<string>('')
+  const [previewModalIsOpen, setPreviewModalIsOpen] = useState(false)
   const [submitDisabled, setSubmitDisabled] = useState(false)
   const [submitResult, setSubmitResult] = useState<{ answer: string; code: string }>()
   const user = useAuthentication(setLoading)
@@ -61,10 +69,18 @@ const NewsPostForm = () => {
     setImagePreviewUrl('')
   }
 
+  const handlePreviewClick = () => {
+    setPreviewModalIsOpen(true)
+  }
+
+  const handlePreviewModalClose = () => {
+    setPreviewModalIsOpen(false)
+  }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setSubmitDisabled(true)
-    sendDataToApi(image, alt, title, body)
+    sendDataToApi(image, alt, title, bodyHtml)
   }
 
   const sendDataToApi = (imageBase64: string, alt: string, title: string, body: string) => {
@@ -89,6 +105,14 @@ const NewsPostForm = () => {
         })
       })
   }
+
+  useEffect(() => {
+    const el = document.querySelector('.news-post-body-markdown-html')
+    if (el) {
+      const mdHTML = el.innerHTML
+      setBodyHtml(mdHTML)
+    }
+  }, [body])
 
   if (loading) {
     return <Spinner />
@@ -127,10 +151,29 @@ const NewsPostForm = () => {
             id='postBody'
             label='Body'
             variant='outlined'
-            helperText='You can enter HTML tags here for links and other things'
+            helperText='Supports markdown'
             onChange={handleBodyChange}
             multiline
             required
+          />
+          <ForHtmlOutput>
+            <ReactMarkdown className='news-post-body-markdown-html'>{body}</ReactMarkdown>
+          </ForHtmlOutput>
+          <PreviewButtonContainer>
+            <Button variant='outlined' onClick={handlePreviewClick} disabled={!body}>
+              Preview
+            </Button>
+          </PreviewButtonContainer>
+          <Modal
+            open={previewModalIsOpen}
+            handleClose={handlePreviewModalClose}
+            heading='Preview'
+            body={
+              <>
+                <NewsPostTitle variant='body'>{title}</NewsPostTitle>
+                <ReactMarkdown className='news-post-body-markdown'>{body}</ReactMarkdown>
+              </>
+            }
           />
           <SubmitArea>
             <SubmitButton variant='contained' type='submit' disabled={submitDisabled}>
