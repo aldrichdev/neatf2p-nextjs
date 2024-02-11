@@ -1,5 +1,11 @@
-import { ListItemText, Typography, Divider } from '@mui/material'
-import { NewsPostLi, NewsPostAvatar, NewsPostTitleLink, NewsPostImage, NewsPostTitle } from './NewsPostListItem.styled'
+import { ListItemText, Typography, Divider, ListItemAvatar } from '@mui/material'
+import {
+  NewsPostLi,
+  NewsPostTitleLink,
+  NewsPostImage,
+  NewsPostTitle,
+  NewsPostAvatarLink,
+} from './NewsPostListItem.styled'
 import { NewsPostItemProps } from '@globalTypes/NewsPostItemProps'
 import { getPrettyDateStringFromISOString } from '@helpers/date/date'
 import ReadMore from '@molecules/ReadMore/ReadMore'
@@ -7,16 +13,19 @@ import { getNewsPostImageUrl } from '@helpers/imageUtils'
 
 const NewsPostListItem = (props: NewsPostItemProps) => {
   const { newsPost } = props
+  const newsPostUrl = `/news/post/${newsPost.id}`
 
   return (
     <div>
       <NewsPostLi alignItems='flex-start'>
-        <NewsPostAvatar>
-          <NewsPostImage src={getNewsPostImageUrl(newsPost.image)} alt={newsPost.alt} />
-        </NewsPostAvatar>
+        <NewsPostAvatarLink href={newsPostUrl}>
+          <ListItemAvatar>
+            <NewsPostImage src={getNewsPostImageUrl(newsPost.image)} alt={newsPost.alt} />
+          </ListItemAvatar>
+        </NewsPostAvatarLink>
         <ListItemText
           primary={
-            <NewsPostTitleLink href={`/news/post/${newsPost.id}`}>
+            <NewsPostTitleLink href={newsPostUrl}>
               <NewsPostTitle variant='body'>{newsPost.title}</NewsPostTitle>
             </NewsPostTitleLink>
           }
@@ -24,7 +33,7 @@ const NewsPostListItem = (props: NewsPostItemProps) => {
             <>
               <Typography variant='body'>{getPrettyDateStringFromISOString(newsPost.datePosted)}</Typography>
               <Typography variant='body' color='black' component='span'>
-                <ReadMore linkHref={`/news/post/${newsPost.id}`}>{newsPost.body}</ReadMore>
+                <ReadMore linkHref={newsPostUrl}>{newsPost.body}</ReadMore>
               </Typography>
             </>
           }
