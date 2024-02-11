@@ -7,11 +7,17 @@ type SpinnerProps = {
 }
 
 const HiscoresLoading = styled('div')(
-  () => css`
+  ({ theme }) => css`
     display: flex;
+    flex-basis: 100%;
     align-items: flex-start;
+    justify-content: center;
     margin: 0 auto;
     min-height: 1000px;
+
+    ${theme.breakpoints.up('tablet')} {
+      flex-basis: auto;
+    }
   `,
 )
 

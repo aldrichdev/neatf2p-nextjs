@@ -1,6 +1,13 @@
-import { TableContainer, TableBody, TableHead, Paper } from '@mui/material'
+import { TableContainer, Paper } from '@mui/material'
 import { HiscoreTable, HiscoreTableCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
-import { ExperienceCell, HiscoreSkillIcon, HiscoreSkillTableCell, HiscoreTableRow } from './PlayerHiscoreTable.styled'
+import {
+  ExperienceCell,
+  HiscoreSkillIcon,
+  HiscoreSkillTableCell,
+  HiscoreTableRow,
+  PlayerHiscoreTableBody,
+  PlayerHiscoreTableHead,
+} from './PlayerHiscoreTable.styled'
 import { PlayerHiscoreRow } from '@globalTypes/Hiscores/PlayerHiscoreRow'
 
 type HiscoreTableProps = {
@@ -14,15 +21,15 @@ const PlayerHiscoreTable = (props: HiscoreTableProps) => {
   return (
     <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
       <HiscoreTable aria-label={`${accountName} Hiscore Table`}>
-        <TableHead>
+        <PlayerHiscoreTableHead>
           <HiscoreTableRow>
             <HiscoreTableCell sx={{ fontWeight: 700 }}>Skill</HiscoreTableCell>
             <HiscoreTableCell sx={{ fontWeight: 700 }}>Rank</HiscoreTableCell>
             <HiscoreTableCell sx={{ fontWeight: 700 }}>Level</HiscoreTableCell>
             <HiscoreTableCell sx={{ fontWeight: 700 }}>EXP</HiscoreTableCell>
           </HiscoreTableRow>
-        </TableHead>
-        <TableBody>
+        </PlayerHiscoreTableHead>
+        <PlayerHiscoreTableBody>
           {playerHiscores.map(playerHiscoreRow => (
             <HiscoreTableRow key={playerHiscoreRow.skill}>
               <HiscoreSkillTableCell>
@@ -34,7 +41,7 @@ const PlayerHiscoreTable = (props: HiscoreTableProps) => {
               <ExperienceCell>{playerHiscoreRow.exp}</ExperienceCell>
             </HiscoreTableRow>
           ))}
-        </TableBody>
+        </PlayerHiscoreTableBody>
       </HiscoreTable>
     </TableContainer>
   )

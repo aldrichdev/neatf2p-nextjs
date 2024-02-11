@@ -1,11 +1,33 @@
 import { HiscoreTableCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
-import { TableCell, TableRow } from '@mui/material'
+import { TableBody, TableCell, TableHead, TableRow } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
 export const HiscoreTableRow = styled(TableRow)(
+  ({ theme }) => css`
+    display: grid;
+    grid-template-columns: 30% 20% 20% 30%;
+    font-size: 14px;
+
+    ${theme.breakpoints.up('tablet')} {
+      font-size: 16px;
+    }
+  `,
+)
+
+export const PlayerHiscoreTableHead = styled(TableHead)(
   () => css`
-    border: 1px solid black;
+    .MuiTableRow-root {
+      border-bottom: 1px solid black;
+    }
+  `,
+)
+
+export const PlayerHiscoreTableBody = styled(TableBody)(
+  () => css`
+    .MuiTableRow-root:not(:last-child) {
+      border-bottom: 1px solid black;
+    }
   `,
 )
 
