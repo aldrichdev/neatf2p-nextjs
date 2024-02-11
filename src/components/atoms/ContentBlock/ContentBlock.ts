@@ -5,7 +5,7 @@ export const ContentBlock = styled('div', {
 })<{ isWide?: boolean; topMargin?: number }>(
   ({ isWide, topMargin }) => `
     max-width: ${isWide ? '1200px' : '800px'};
-    margin: ${typeof topMargin === 'number' ? topMargin : 40}px auto;
+    margin: ${typeof topMargin === 'number' ? topMargin : 0}px auto;
     text-align: center;
   `,
 )

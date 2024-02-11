@@ -6,6 +6,7 @@ import { NewsPostList, ViewAllNewsLink } from './NewsAndUpdates.styled'
 import { NewsPost } from '@globalTypes/NewsPost'
 import { NewsPostListItem } from '@organisms/NewsPostListItem'
 import { Spinner } from '@molecules/Spinner'
+import { PageHeading } from '@atoms/PageHeading'
 
 interface NewsAndUpdatesProps {
   heading: string
@@ -44,7 +45,7 @@ const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
 
   return (
     <ContentBlock isWide>
-      <Typography variant='h2'>{heading}</Typography>
+      <PageHeading>{heading}</PageHeading>
       <NewsPostList disablePadding>
         {newsPosts.map((newsPost: NewsPost) => (
           <NewsPostListItem key={newsPost.id} newsPost={newsPost} />

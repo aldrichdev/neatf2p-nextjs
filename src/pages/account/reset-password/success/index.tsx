@@ -1,16 +1,16 @@
-import { Typography } from '@mui/material'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { BodyText } from '@atoms/BodyText'
 import { InlineLink } from '@atoms/InlineLink'
 import useAuthentication from '@hooks/useAuthentication'
 import { UserIsLoggedIn } from '@helpers/users/users'
+import { PageHeading } from '@atoms/PageHeading'
 
 const ResetPasswordSuccessPage = () => {
   const user = useAuthentication()
 
   return (
     <ContentBlock>
-      <Typography variant='h2'>Reset Successful</Typography>
+      <PageHeading>Reset Successful</PageHeading>
       <BodyText variant='body' textAlign='center'>
         Your password was reset successfully.{' '}
         {!UserIsLoggedIn(user) && (

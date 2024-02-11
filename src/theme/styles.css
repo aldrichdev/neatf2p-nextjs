@@ -1,3 +1,22 @@
+:root {
+  --gold-bg-color: rgba(218, 165, 32, 0.8);
+  --gold-border-color: rgb(160, 82, 45);
+  --faded-blue-bg-color: #2055da;
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  color: #800080;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}
+
 @font-face {
   font-family: 'Vinque';
   font-style: normal;
@@ -17,17 +36,4 @@
   font-style: normal;
   font-weight: normal;
   src: url('/fonts/SourceSansPro-Regular.ttf');
-}
-
-body {
-  margin: 0;
-}
-
-a {
-  color: #800080;
-}
-
-button {
-  border: none;
-  background-color: transparent;
 }
