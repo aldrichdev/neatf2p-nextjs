@@ -1,10 +1,10 @@
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
-import { Typography } from '@mui/material'
+import { PageHeading } from '@atoms/PageHeading'
 
 const MustBeAdminBlock = () => (
   <ContentBlock>
-    <Typography variant='h2'>Nice Try</Typography>
+    <PageHeading>Nice Try</PageHeading>
     <BodyText variant='body' textAlign='center'>
       You must be an administrator to perform that action.
     </BodyText>

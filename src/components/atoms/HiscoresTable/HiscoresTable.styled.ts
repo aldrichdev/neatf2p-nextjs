@@ -23,14 +23,19 @@ export const HiscoreTable = styled(Table, {
 })(
   () => css`
     font-family: Verdana;
-    background-color: rgba(218, 165, 32, 0.8);
-    border: 2px solid rgb(160, 82, 45);
+    background-color: var(--gold-bg-color);
+    border: 2px solid var(--gold-border-color);
   `,
 )
 
 export const HiscoresTableRow = styled(TableRow)(
-  () => css`
-    border: 1px solid black;
+  ({ theme }) => css`
+    border-bottom: 1px solid black;
+    font-size: 14px;
+
+    ${theme.breakpoints.up('tablet')} {
+      font-size: 16px;
+    }
   `,
 )
 
@@ -39,7 +44,10 @@ export const HiscoreTableCell = styled(TableCell)(
     font-weight: 400;
     padding: 8px;
     border: 0;
-    border-right: 1px solid black;
+
+    &:not(:last-child) {
+      border-right: 1px solid black;
+    }
 
     ${theme.breakpoints.up('tablet')} {
       padding: 16px;

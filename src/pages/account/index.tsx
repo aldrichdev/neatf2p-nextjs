@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
-import { Typography } from '@mui/material'
 import useAuthentication from '@hooks/useAuthentication'
 import { AccountNavigationContainer, AccountNavigationButton, AccountNavigationItem } from '@styledPages/Account.styled'
 import Menu from '@mui/material/Menu'
 import { UserIsLoggedIn } from '@helpers/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { Spinner } from '@molecules/Spinner'
+import { PageHeading } from '@atoms/PageHeading'
 
 const AccountPage = () => {
   const [loading, setLoading] = useState(true)
@@ -34,8 +34,8 @@ const AccountPage = () => {
 
   return (
     <ContentBlock>
-      <Typography variant='h2'>Hiya, {user?.username}!</Typography>
-      <BodyText variant='body'>
+      <PageHeading>Hiya, {user?.username}!</PageHeading>
+      <BodyText variant='body' textAlign='center'>
         Welcome to your account page. Here, you can modify your website account, create game (RSC) accounts, rename game
         accounts and update passwords. (You can&apos;t update your website account right now, but that will be
         implemented soon!)

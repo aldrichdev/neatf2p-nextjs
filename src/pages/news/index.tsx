@@ -2,7 +2,7 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { NewsAndUpdates } from '@organisms/NewsAndUpdates'
 
 const News = () => (
-  <ContentBlock topMargin={20}>
+  <ContentBlock>
     <NewsAndUpdates heading='News' />
   </ContentBlock>
 )

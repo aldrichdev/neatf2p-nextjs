@@ -2,10 +2,10 @@ import { useState } from 'react'
 import axios from 'axios'
 import { convertBlobToBase64String } from '@helpers/base64'
 import { StyledForm, Field, SubmitArea, SubmitButton, SubmitMessage, FieldInfo } from '@styledPages/NewsPostForm.styled'
-import Typography from '@mui/material/Typography'
 import useAuthentication from '@hooks/useAuthentication'
 import { Spinner } from '@molecules/Spinner'
 import { MustBeAdminBlock } from '@molecules/MustBeAdminBlock'
+import { PageHeading } from '@atoms/PageHeading'
 
 const NewsPostForm = () => {
   const [loading, setLoading] = useState(true)
@@ -76,7 +76,7 @@ const NewsPostForm = () => {
 
   return (
     <>
-      <Typography variant='h2'>Submit a News Post</Typography>
+      <PageHeading>Submit a News Post</PageHeading>
       <StyledForm onSubmit={handleSubmit}>
         <Field>
           <label htmlFor='imageSrc'>Image</label>

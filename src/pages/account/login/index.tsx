@@ -1,5 +1,4 @@
 import { FormEvent, useState, ChangeEvent } from 'react'
-import { Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 import { ContentBlock } from '@atoms/ContentBlock'
@@ -18,6 +17,7 @@ import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
 import { UserExists, UserIsLoggedIn } from '@helpers/users/users'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { Spinner } from '@molecules/Spinner'
+import { PageHeading } from '@atoms/PageHeading'
 
 const ForgotPasswordBlock = styled(BodyText)(
   () => css`
@@ -121,7 +121,7 @@ const AccountLoginPage = () => {
 
   return (
     <ContentBlock>
-      <Typography variant='h2'>Login</Typography>
+      <PageHeading>Login</PageHeading>
       <BodyText variant='body' textAlign='left'>
         Log in to your website account below.
       </BodyText>

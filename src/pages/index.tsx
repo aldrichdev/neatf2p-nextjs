@@ -1,29 +1,39 @@
-import Typography from '@mui/material/Typography'
 import { ContentBlock } from '@atoms/ContentBlock'
-import { SectionBody, DiscordIcon } from '@styledPages/Homepage.styled'
+import { DiscordButtonContainer, DiscordIcon } from '@styledPages/Homepage.styled'
 import { OnlinePlayers } from '@organisms/OnlinePlayers'
 import { NewsAndUpdates } from '@organisms/NewsAndUpdates'
 import Link from 'next/link'
 import DiscordLogo from 'public/img/discord-512.webp'
+import { DiscordLink } from '@atoms/DiscordLink'
+import { PageHeading } from '@atoms/PageHeading'
+import { BodyText } from '@atoms/BodyText'
 
 const Homepage = () => (
   <div>
-    <OnlinePlayers />
     <ContentBlock isWide>
-      <Typography variant='h2'>Welcome back to 2003</Typography>
-      <SectionBody variant='body'>
+      <OnlinePlayers />
+    </ContentBlock>
+    <ContentBlock isWide topMargin={40}>
+      <PageHeading>Welcome back to 2003</PageHeading>
+      <BodyText variant='body' textAlign='center'>
         Neat F2P is an <em>upcoming</em> RuneScape Classic private server that aims to provide you with an RS1 F2P
         experience, featuring a F2P-only world and economy to explore and enjoy. For more information, check out the{' '}
         <Link href='/about'>About page</Link>.
-      </SectionBody>
+      </BodyText>
     </ContentBlock>
-    <NewsAndUpdates heading='Latest News & Updates' limit={3} showViewAllButton />
-    <ContentBlock isWide>
-      <Typography variant='h2'>Join the Community</Typography>
-      <SectionBody variant='body'>Click the button below to join our Discord server.</SectionBody>
-      <Link href='https://discord.gg/wd67zUxPXn' target='_blank'>
-        <DiscordIcon src={DiscordLogo.src} alt='Join our Discord Server' />
-      </Link>
+    <ContentBlock isWide topMargin={40}>
+      <NewsAndUpdates heading='Latest News & Updates' limit={3} showViewAllButton />
+    </ContentBlock>
+    <ContentBlock isWide topMargin={40}>
+      <PageHeading>Join the Community</PageHeading>
+      <BodyText variant='body' textAlign='center'>
+        Click the button below to join our Discord server.
+      </BodyText>
+      <DiscordButtonContainer>
+        <DiscordLink>
+          <DiscordIcon src={DiscordLogo.src} alt='Join our Discord Server' />
+        </DiscordLink>
+      </DiscordButtonContainer>
     </ContentBlock>
   </div>
 )
