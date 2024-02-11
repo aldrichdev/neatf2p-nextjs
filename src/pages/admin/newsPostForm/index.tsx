@@ -42,6 +42,11 @@ const NewsPostForm = () => {
   const [submitResult, setSubmitResult] = useState<{ answer: string; code: string }>()
   const user = useAuthentication(setLoading)
 
+  if (previewModalIsOpen) {
+    // Prevent scrolling
+    document.body.style.overflow = 'hidden'
+  }
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const i = event.target.files[0]
@@ -75,6 +80,7 @@ const NewsPostForm = () => {
 
   const handlePreviewModalClose = () => {
     setPreviewModalIsOpen(false)
+    document.body.style.overflow = 'unset'
   }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
