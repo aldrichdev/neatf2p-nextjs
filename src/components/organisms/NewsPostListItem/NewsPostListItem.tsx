@@ -1,4 +1,4 @@
-import { ListItemText, Typography, Divider, ListItemAvatar } from '@mui/material'
+import { ListItemText, Typography, Divider } from '@mui/material'
 import {
   NewsPostLi,
   NewsPostTitleLink,
