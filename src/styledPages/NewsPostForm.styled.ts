@@ -22,6 +22,21 @@ export const FieldInfo = styled('span')`
   font-size: 12px;
 `
 
+export const ForHtmlOutput = styled('div')(
+  () => css`
+    display: none;
+  `,
+)
+
+export const PreviewButtonContainer = styled('div')(
+  () => css`
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 20px;
+  `,
+)
+
 export const SubmitArea = styled('div')(
   () => css`
     display: flex;
