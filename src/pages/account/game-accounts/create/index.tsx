@@ -92,13 +92,13 @@ const CreateGameAccount = () => {
       return
     }
 
-    axios.get('https://api.ipify.org/?format=json').then(response => {
-      // Hash password
-      const { hashedPassword } = hashPassword(password, true)
+    // Hash password
+    const { hashedPassword } = hashPassword(password, true)
 
+    axios.get('https://api.ipify.org/?format=json').then(response => {
       // Create account
       axios
-        .post('/api/createPlayersRecord', {
+        .post('/api/createPlayerRecord', {
           accountName: sanitizedAccountName,
           password: hashedPassword,
           websiteAccountId: user?.id,
@@ -109,41 +109,13 @@ const CreateGameAccount = () => {
             const playerId = response?.data
 
             // Now we need to create the other records. New accounts are not playable without these.
-            // TODO: Look into refactoring this so we don't need to chain 5 API calls and just have 1 API call
-            // that handles it all.
             axios
-              .post('/api/createCurstatsRecord', {
+              .post('/api/createPlayerSkillRecords', {
                 playerId,
               })
               .then(response => {
                 if (typeof response?.data === 'number') {
-                  // Now create experience record
-                  axios
-                    .post('/api/createExperienceRecord', {
-                      playerId,
-                    })
-                    .then(response => {
-                      if (typeof response?.data === 'number') {
-                        // Now create maxstats record
-                        axios
-                          .post('/api/createMaxstatsRecord', {
-                            playerId,
-                          })
-                          .then(response => {
-                            if (typeof response?.data === 'number') {
-                              redirectTo(`/account/game-accounts/create/success?accountName=${accountName}`)
-                            }
-                          })
-                          .catch((error: { response: { data: string } }) => {
-                            setSubmitDisabled(false)
-                            setValidationError(error.response.data)
-                          })
-                      }
-                    })
-                    .catch((error: { response: { data: string } }) => {
-                      setSubmitDisabled(false)
-                      setValidationError(error.response.data)
-                    })
+                  redirectTo(`/account/game-accounts/create/success?accountName=${accountName}`)
                 }
               })
               .catch((error: { response: { data: string } }) => {
