@@ -101,7 +101,7 @@ const NewsPostForm = () => {
   return (
     <>
       <PageHeading>Submit a News Post</PageHeading>
-      <ContentBlock isWide topMargin={40}>
+      <ContentBlock topMargin={40}>
         <StyledForm onSubmit={handleSubmit}>
           <ImageArea>
             <ImageLabel>Image</ImageLabel>
