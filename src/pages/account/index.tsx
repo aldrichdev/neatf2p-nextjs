@@ -37,8 +37,7 @@ const AccountPage = () => {
       <PageHeading>Hiya, {user?.username}!</PageHeading>
       <BodyText variant='body' textAlign='center'>
         Welcome to your account page. Here, you can modify your website account, create game (RSC) accounts, rename game
-        accounts and update passwords. (You can&apos;t update your website account right now, but that will be
-        implemented soon!)
+        accounts and update passwords.
       </BodyText>
       <AccountNavigationContainer>
         <AccountNavigationButton
@@ -47,7 +46,6 @@ const AccountPage = () => {
           aria-haspopup='true'
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
-          disabled
         >
           Manage Website Account
         </AccountNavigationButton>
@@ -66,7 +64,7 @@ const AccountPage = () => {
           <AccountNavigationItem href='/account/change-username' onClick={handleClose}>
             Change username
           </AccountNavigationItem>
-          <AccountNavigationItem href='/account/change-username' onClick={handleClose}>
+          <AccountNavigationItem href='/account/change-password' onClick={handleClose}>
             Change password
           </AccountNavigationItem>
         </Menu>
