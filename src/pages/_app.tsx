@@ -18,12 +18,15 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>NeatF2P :: A Wholesome RSC Experience</title>
+        <title>Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
         <meta
           name='description'
-          content='NeatF2P is an upcoming RSC private server that is F2P-only (no members) and is 100% free.'
+          content='Neat F2P is an upcoming Runescape Classic (RSC) private server that is F2P only (no members) and is 100% free.'
         />
-        <meta key='keywords' content='neatf2p, neat f2p, f2p, rsc f2p' />
+        <meta
+          key='keywords'
+          content='neatf2p, neat f2p, f2p, f2p neat, rsc f2p, f2p rsc, rscf2p, f2prsc, runescapeclassic, runescape classic, rs classic, runescape classic f2p'
+        />
       </Head>
       <ThemeProvider theme={theme}>
         <Container>
