@@ -36,7 +36,7 @@ export const AccountNavigationItem = styled(Link)(
     text-decoration: none;
 
     &:hover {
-      background-color: rgba(0, 128, 0, 0.25);
+      background-color: var(--faded-green-bg-color);
     }
   `,
 )

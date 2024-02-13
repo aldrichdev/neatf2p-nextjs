@@ -9,7 +9,7 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import emailjs from '@emailjs/browser'
 import { Form } from '@atoms/Form'
 import { redirectTo } from '@helpers/window'
-import { FieldValidationError } from '@atoms/FieldValidationError'
+import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 
 const ChangeEmailPage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -65,7 +65,7 @@ const ChangeEmailPage = () => {
           variant='standard'
           onChange={handleNewEmailChange}
         />
-        <FieldValidationError>{formValidationError}</FieldValidationError>
+        <FieldValidationMessage>{formValidationError}</FieldValidationMessage>
         <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
           Submit
         </FormButton>

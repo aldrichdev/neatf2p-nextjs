@@ -6,7 +6,7 @@ import { Form } from '@atoms/Form'
 import { BodyText } from '@atoms/BodyText'
 import { Field } from '@atoms/Field'
 import { InlineLink } from '@atoms/InlineLink'
-import { FieldValidationError } from '@atoms/FieldValidationError'
+import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import axios from 'axios'
 import bcrypt from 'bcryptjs'
 import { User } from '@globalTypes/User'
@@ -141,7 +141,7 @@ const AccountLoginPage = () => {
           variant='standard'
           onChange={handlePasswordChange}
         />
-        <FieldValidationError>{validationError}</FieldValidationError>
+        <FieldValidationMessage>{validationError}</FieldValidationMessage>
         <ForgotPasswordBlock variant='body' topMargin={20} textAlign='left'>
           <ForgotPasswordLink href='/account/login/forgot-password'>Forgot Password?</ForgotPasswordLink>
         </ForgotPasswordBlock>

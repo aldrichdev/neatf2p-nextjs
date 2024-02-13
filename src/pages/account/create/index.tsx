@@ -4,7 +4,7 @@ import { Form } from '@atoms/Form'
 import { BodyText } from '@atoms/BodyText'
 import { InlineLink } from '@atoms/InlineLink'
 import { Field } from '@atoms/Field'
-import { FieldValidationError } from '@atoms/FieldValidationError'
+import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import bcrypt from 'bcryptjs'
 import axios from 'axios'
 import { User } from '@globalTypes/User'
@@ -186,7 +186,7 @@ const CreateAccountPage = () => {
           variant='standard'
           onChange={handleConfirmPasswordChange}
         />
-        <FieldValidationError>{validationError}</FieldValidationError>
+        <FieldValidationMessage>{validationError}</FieldValidationMessage>
         <FormButton variant='contained' type='submit' disabled={!!validationError}>
           Submit
         </FormButton>

@@ -4,7 +4,7 @@ import { Form } from '@atoms/Form'
 import { Field } from '@atoms/Field'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import axios from 'axios'
-import { FieldValidationError } from '@atoms/FieldValidationError'
+import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { redirectTo } from '@helpers/window'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { hashPassword } from '@helpers/password'
@@ -78,7 +78,7 @@ const ResetPassword = () => {
           onChange={handleConfirmNewPasswordChange}
           type='password'
         />
-        <FieldValidationError>{validationError}</FieldValidationError>
+        <FieldValidationMessage>{validationError}</FieldValidationMessage>
         <FormButton variant='contained' type='submit'>
           Submit
         </FormButton>
