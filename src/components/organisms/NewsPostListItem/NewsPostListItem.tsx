@@ -6,6 +6,7 @@ import {
   NewsPostTitle,
   NewsPostAvatarLink,
   NewsPostAvatar,
+  NewsPostBody,
 } from './NewsPostListItem.styled'
 import { NewsPostItemProps } from '@globalTypes/NewsPostItemProps'
 import { getPrettyDateStringFromISOString } from '@helpers/date/date'
@@ -38,9 +39,9 @@ const NewsPostListItem = (props: NewsPostItemProps) => {
           secondary={
             <>
               <Typography variant='body'>{getPrettyDateStringFromISOString(newsPost.datePosted)}</Typography>
-              <Typography variant='body' color='black' component='span'>
+              <NewsPostBody variant='body' color='black' component='span'>
                 <ReadMore linkHref={newsPostUrl}>{newsPost.body}</ReadMore>
-              </Typography>
+              </NewsPostBody>
             </>
           }
           secondaryTypographyProps={{ component: 'div' }}
