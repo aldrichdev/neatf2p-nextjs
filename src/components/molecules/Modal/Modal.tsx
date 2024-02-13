@@ -2,7 +2,7 @@ import { BodyText } from '@atoms/BodyText'
 import { CloseBar, CloseButton, CloseIcon, ModalHeader, ModalOverlay, ModalRoot } from './Modal.styled'
 import { Form } from '@atoms/Form'
 import { FormButton } from '@atoms/FormButton/FormButton'
-import { FieldValidationError } from '@atoms/FieldValidationError'
+import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { FormButtonGroup } from '@atoms/FormButtonGroup/FormButtonGroup'
 import { ModalProps } from './Modal.types'
 
@@ -37,7 +37,7 @@ const Modal = (props: ModalProps) => {
           <>
             <Form onSubmit={handleSubmit}>
               {renderFields()}
-              <FieldValidationError>{formValidationError}</FieldValidationError>
+              <FieldValidationMessage>{formValidationError}</FieldValidationMessage>
               <FormButtonGroup>
                 <FormButton variant='contained' type='submit'>
                   Submit

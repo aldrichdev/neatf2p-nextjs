@@ -64,7 +64,7 @@ export const NewsPostTitle = styled(Typography)`
 
 export const NewsPostBody = styled(Typography)<ExtendedTypographyProps>(
   () => css`
-    p:first-child {
+    p:first-of-type {
       margin-top: 0;
     }
 

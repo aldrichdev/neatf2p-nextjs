@@ -8,7 +8,7 @@ import { Spinner } from '@molecules/Spinner'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { Form } from '@atoms/Form'
 import { redirectTo } from '@helpers/window'
-import { FieldValidationError } from '@atoms/FieldValidationError'
+import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { BannedText } from 'src/data/BannedText'
 import axios from 'axios'
 
@@ -83,7 +83,7 @@ const ChangeUsernamePage = () => {
           onChange={handleNewUsernameChange}
           inputProps={{ maxLength: 25 }}
         />
-        <FieldValidationError>{formValidationError}</FieldValidationError>
+        <FieldValidationMessage>{formValidationError}</FieldValidationMessage>
         <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
           Submit
         </FormButton>

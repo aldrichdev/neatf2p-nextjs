@@ -1,8 +1,10 @@
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
-export const Form = styled('form')(
-  ({ theme }) => css`
+export const Form = styled('form', {
+  shouldForwardProp: prop => prop !== 'desktopWidth',
+})<{ desktopWidth?: string }>(
+  ({ theme, desktopWidth }) => css`
     margin-top: 20px;
     font-family: Source Sans Pro;
     display: flex;
@@ -10,7 +12,7 @@ export const Form = styled('form')(
     width: 100%;
 
     ${theme.breakpoints.up('desktop')} {
-      width: 40%;
+      width: ${desktopWidth || '40%'};
     }
   `,
 )

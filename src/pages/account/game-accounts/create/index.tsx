@@ -1,7 +1,7 @@
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { Field } from '@atoms/Field'
-import { FieldValidationError } from '@atoms/FieldValidationError'
+import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { Form } from '@atoms/Form'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
@@ -186,7 +186,7 @@ const CreateGameAccount = () => {
           variant='standard'
           onChange={handleConfirmPasswordChange}
         />
-        <FieldValidationError>{validationError}</FieldValidationError>
+        <FieldValidationMessage>{validationError}</FieldValidationMessage>
         <FormButton variant='contained' type='submit' disabled={submitDisabled}>
           Submit
         </FormButton>
