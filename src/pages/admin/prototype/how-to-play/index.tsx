@@ -39,9 +39,12 @@ const HowToPlay = () => {
       <PageHeading>How To Play</PageHeading>
       <BodyText variant='body' textAlign='center'>
         To play Neat F2P, you can use WinRune or RSC+. <strong>You need Java!</strong> If you do not have Java installed
-        or are not sure, install it before continuing. WinRune is a 2003-authentic Windows client for playing the game,
-        and shows original adverts. RSC+ is a custom client that provides extra features on top of RSC. We are working
-        on a web client - stay tuned.
+        or are not sure,{' '}
+        <Link href='https://www.java.com/en/download/help/download_options.html' target='_blank'>
+          install it
+        </Link>{' '}
+        before continuing. WinRune is a 2003-authentic Windows client for playing the game, and shows original adverts.
+        RSC+ is a custom client that provides extra features on top of RSC. We are working on a web client - stay tuned.
       </BodyText>
       <ContentBlock topMargin={40}>
         <PlayButtonsContainer>
@@ -66,9 +69,11 @@ const HowToPlay = () => {
                   . To install it, unzip the download to your computer, then open <strong>rscplus_console.exe</strong>.
                   This creates a <strong>worlds</strong> folder in the root of the directory, which you will need for
                   the next step. Once RSC+ has fully launched, close it. Next, download the{' '}
-                  <Link href='/downloads/05_Neat F2P.ini'>Neat F2P world file</Link>. Put this file in the{' '}
-                  <strong>worlds</strong> folder previously mentioned. Finally, launch RSC+ and select the{' '}
-                  <strong>Neat F2P</strong> world.
+                  <Link href='/downloads/05_Neat F2P.ini' target='_blank' download>
+                    Neat F2P world file
+                  </Link>
+                  . Put this file in the <strong>worlds</strong> folder previously mentioned. Finally, launch RSC+ and
+                  select the <strong>Neat F2P</strong> world.
                 </BodyText>
                 <BodyText variant='body'>
                   If you are having trouble with the above steps, take a look at this video provided by Logg, the
