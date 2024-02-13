@@ -4,6 +4,7 @@ import ListItem from '@mui/material/ListItem'
 import { ListItemAvatar, Typography } from '@mui/material'
 import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 import Link from 'next/link'
+import { ExtendedTypographyProps } from '@globalTypes/MUI/ExtendedTypographyProps'
 
 export const NewsPostLi = styled(ListItem)(
   ({ theme }) => css`
@@ -28,12 +29,6 @@ export const NewsPostAvatarLink = styled(Link)(
   `,
 )
 
-export const NewsPostTitleLink = styled(HoverUnderlineLink)`
-  color: unset;
-  display: block;
-  width: fit-content;
-`
-
 export const NewsPostAvatar = styled(ListItemAvatar)(
   ({ theme }) => css`
     text-align: center;
@@ -57,6 +52,24 @@ export const NewsPostImage = styled('img', {
   `,
 )
 
+export const NewsPostTitleLink = styled(HoverUnderlineLink)`
+  color: unset;
+  display: block;
+  width: fit-content;
+`
+
 export const NewsPostTitle = styled(Typography)`
   font-weight: 600;
 `
+
+export const NewsPostBody = styled(Typography)<ExtendedTypographyProps>(
+  () => css`
+    p:first-child {
+      margin-top: 0;
+    }
+
+    p:last-of-type {
+      margin-bottom: 0;
+    }
+  `,
+)
