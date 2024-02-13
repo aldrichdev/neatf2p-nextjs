@@ -3,9 +3,9 @@ import { handleManipulate } from '@helpers/apiHandler'
 import { User } from '@globalTypes/User'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
-  const { userId, newPassword, newPasswordSalt } = req.body
+  const { userId, newEmail } = req.body
   const now = new Date().toISOString()
-  const query = `UPDATE users SET password = '${newPassword}', passwordSalt = '${newPasswordSalt}', dateModified = '${now}' WHERE id = '${userId}'`
+  const query = `UPDATE users SET emailAddress = '${newEmail}', dateModified = '${now}' WHERE id = '${userId}'`
 
   return handleManipulate('website', query, res)
 }

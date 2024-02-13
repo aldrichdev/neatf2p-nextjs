@@ -15,6 +15,7 @@ import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { Spinner } from '@molecules/Spinner'
 import { gameAccountPasswordIsValid } from '@helpers/string/stringUtils'
 import { PageHeading } from '@atoms/PageHeading'
+import { BannedText } from 'src/data/BannedText'
 
 const CreateGameAccount = () => {
   const [loading, setLoading] = useState(true)
@@ -61,8 +62,7 @@ const CreateGameAccount = () => {
     }
 
     // Look for any bad or undesired words in names
-    const bannedWords = ['admin', 'administrato', 'moderator', 'fuck', 'fag', 'retard', 'nigge', 'nigga']
-    if (bannedWords.some(word => accountName.toLowerCase().includes(word))) {
+    if (BannedText.some(text => accountName.toLowerCase().includes(text))) {
       setSubmitDisabled(false)
       setValidationError('Your account name has been determined to be offensive or misleading. Please try another one.')
       return

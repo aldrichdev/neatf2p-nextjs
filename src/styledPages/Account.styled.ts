@@ -34,5 +34,9 @@ export const AccountNavigationItem = styled(Link)(
     padding: 16px;
     text-align: left;
     text-decoration: none;
+
+    &:hover {
+      background-color: rgba(0, 128, 0, 0.25);
+    }
   `,
 )
