@@ -1,5 +1,5 @@
 import { ContentBlock } from '@atoms/ContentBlock'
-import { DiscordButtonContainer, DiscordIcon, YouTubeVideo } from '@styledPages/Homepage.styled'
+import { DiscordButtonContainer, DiscordIcon } from '@styledPages/Homepage.styled'
 import { OnlinePlayers } from '@organisms/OnlinePlayers'
 import { NewsAndUpdates } from '@organisms/NewsAndUpdates'
 import Link from 'next/link'
@@ -7,6 +7,7 @@ import DiscordLogo from 'public/img/discord-512.webp'
 import { DiscordLink } from '@atoms/DiscordLink'
 import { PageHeading } from '@atoms/PageHeading'
 import { BodyText } from '@atoms/BodyText'
+import { YouTubeVideo } from '@atoms/YouTubeVideo'
 
 const Homepage = () => (
   <div>
@@ -22,12 +23,7 @@ const Homepage = () => (
       </BodyText>
     </ContentBlock>
     <ContentBlock isWide topMargin={40}>
-      <YouTubeVideo
-        src='https://www.youtube.com/embed/eOvPDYAxavg?si=e6uvjtidaQ8PXb9V&vq=hd1080&rel=0'
-        title='YouTube video player'
-        allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-        allowFullScreen
-      ></YouTubeVideo>
+      <YouTubeVideo embedUrl='https://www.youtube.com/embed/eOvPDYAxavg?si=e6uvjtidaQ8PXb9V' />
     </ContentBlock>
     <ContentBlock isWide topMargin={40}>
       <NewsAndUpdates heading='Latest News & Updates' limit={3} showViewAllButton />
