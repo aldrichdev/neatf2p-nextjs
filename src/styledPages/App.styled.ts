@@ -2,14 +2,15 @@ import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 import Link from 'next/link'
 
-export const Container = styled('div')(
-  ({ theme }) => css`
-    background-color: white;
-    border-radius: 0px;
+export const Container = styled('div')<{ isWebClient?: boolean }>(
+  ({ theme, isWebClient }) => css`
+    background-color: ${isWebClient ? 'black' : 'white'};
+    ${isWebClient && `width: 600px;`}
     position: relative;
+    height: 100vh;
 
-    ${theme.breakpoints.up('desktop')} {
-      border-radius: 40px;
+    ${theme.breakpoints.up('tablet')} {
+      width: auto;
     }
   `,
 )
