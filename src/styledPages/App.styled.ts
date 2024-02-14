@@ -2,7 +2,9 @@ import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 import Link from 'next/link'
 
-export const Container = styled('div')<{ isWebClient?: boolean }>(
+export const Container = styled('div', {
+  shouldForwardProp: prop => prop !== 'isWebClient',
+})<{ isWebClient?: boolean }>(
   ({ theme, isWebClient }) => css`
     background-color: ${isWebClient ? 'black' : 'white'};
     ${isWebClient && `width: 600px;`}
@@ -29,8 +31,11 @@ export const Logo = styled('img')(
   `,
 )
 
-export const PaddedContainer = styled('div')(
-  () => css`
+export const PaddedContainer = styled('div', {
+  shouldForwardProp: prop => prop !== 'isWebClient',
+})<{ isWebClient?: boolean }>(
+  ({ isWebClient }) => css`
     padding: 40px 20px 60px;
+    background-color: ${isWebClient ? 'black' : 'white'};
   `,
 )

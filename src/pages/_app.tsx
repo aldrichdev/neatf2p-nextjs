@@ -41,7 +41,7 @@ export default function App({ Component, pageProps }: AppProps) {
             </picture>
           </HomepageLink>
           <MainNavigation />
-          <PaddedContainer>
+          <PaddedContainer isWebClient={isWebclientPage}>
             <Component {...pageProps} />
           </PaddedContainer>
         </Container>
