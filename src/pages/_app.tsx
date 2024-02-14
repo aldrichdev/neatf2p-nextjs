@@ -30,6 +30,7 @@ export default function App({ Component, pageProps }: AppProps) {
           key='keywords'
           content='neatf2p, neat f2p, f2p, f2p neat, rsc f2p, f2p rsc, rscf2p, f2prsc, runescapeclassic, runescape classic, rs classic, runescape classic f2p'
         />
+        <meta http-equiv='Content-Security-Policy' content='upgrade-insecure-requests'></meta>
       </Head>
       <ThemeProvider theme={theme}>
         <Container isWebClient={isWebclientPage}>
