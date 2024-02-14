@@ -6,7 +6,7 @@ const Webclient = () => {
 
   return (
     <WebclientIframe
-      src={`/client/index.html#free,${gameServerHost},43494,65537,${gameServerRsaPublicKey},true`}
+      src={`http://73.3.138.22:8000/client/index.html#free,${gameServerHost},43494,65537,${gameServerRsaPublicKey},true`}
       height='352px'
       width='513px'
     ></WebclientIframe>
