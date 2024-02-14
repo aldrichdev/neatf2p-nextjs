@@ -2,7 +2,9 @@ import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 import Link from 'next/link'
 
-export const BannerLink = styled(Link)<{ bannerPlacement?: 'top' | 'bottom' }>(
+export const BannerLink = styled(Link, {
+  shouldForwardProp: prop => prop !== 'bannerPlacement',
+})<{ bannerPlacement?: 'top' | 'bottom' }>(
   ({ bannerPlacement }) => css`
     display: block;
     ${bannerPlacement === 'top' && `margin-bottom: 40px;`}

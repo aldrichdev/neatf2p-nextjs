@@ -6,7 +6,7 @@ const port =
   !process.env.MARIADB_PORT || isNaN(parseInt(process.env.MARIADB_PORT)) ? 3306 : parseInt(process.env.MARIADB_PORT)
 
 const sqlServerSettings = {
-  host: process.env.MARIADB_HOST,
+  host: process.env.NEXT_PUBLIC_GAME_SERVER_HOST,
   port,
   user: process.env.MARIADB_USER,
   password: process.env.MARIADB_PASSWORD,
