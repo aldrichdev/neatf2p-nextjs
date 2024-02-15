@@ -40,16 +40,13 @@ const HowToPlay = () => {
       <ContentBlock topMargin={40} isWide>
         <ThreeColumnLayout>
           <ClientButton href='/downloads/NeatF2P.exe'>
-            <ClientButtonImage src='/img/buttons/htp-button-work/play-with-winrune-1.png' alt='Play with WinRune' />
+            <ClientButtonImage src='/img/buttons/play-with-winrune.png' alt='Play with WinRune' />
           </ClientButton>
           <ClientButton href='/admin/prototype/how-to-play/rscplus'>
-            <ClientButtonImage src='/img/buttons/htp-button-work/play-with-rscplus-2.png' alt='Play with RSC+' />
+            <ClientButtonImage src='/img/buttons/play-with-rscplus.png' alt='Play with RSC+' />
           </ClientButton>
           <ClientButton href='/webclient'>
-            <ClientButtonImage
-              src='/img/buttons/htp-button-work/play-with-webclient-2.png'
-              alt='Play wikth Webclient'
-            />
+            <ClientButtonImage src='/img/buttons/play-with-webclient.png' alt='Play wikth Webclient' />
           </ClientButton>
           <ClientRemarks>
             Fastest way to get in game, older mechanics, shorter AFK timer, requires Windows, nostalgic interface
