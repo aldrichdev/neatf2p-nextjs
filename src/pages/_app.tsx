@@ -9,9 +9,12 @@ import { AccountWidget } from '@molecules/AccountWidget'
 import useAuthentication from '@hooks/useAuthentication'
 import emailjs from '@emailjs/browser'
 import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 export default function App({ Component, pageProps }: AppProps) {
   const user = useAuthentication()
+  const router = useRouter()
+  const isWebclientPage = router.asPath === '/webclient'
 
   useEffect(() => emailjs.init('NnydzXPqox79rXZ4M'), [])
 
@@ -29,16 +32,16 @@ export default function App({ Component, pageProps }: AppProps) {
         />
       </Head>
       <ThemeProvider theme={theme}>
-        <Container>
+        <Container isWebClient={isWebclientPage}>
           <AccountWidget user={user} />
           <HomepageLink href='/'>
             <picture>
               <source media='(max-width: 600px)' srcSet='/img/MobileHeaderImage.png' />
-              <Logo src='/img/HeaderImage.png' alt='Neat F2P' />
+              <Logo src={isWebclientPage ? '/img/WebclientHeaderImage.png' : '/img/HeaderImage.png'} alt='Neat F2P' />
             </picture>
           </HomepageLink>
           <MainNavigation />
-          <PaddedContainer>
+          <PaddedContainer isWebClient={isWebclientPage}>
             <Component {...pageProps} />
           </PaddedContainer>
         </Container>
