@@ -1,3 +1,4 @@
+import { BackToLink } from '@atoms/BackToLink/BackToLink'
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
@@ -9,7 +10,7 @@ import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { PlayerHiscoreRow } from '@globalTypes/Hiscores/PlayerHiscoreRow'
 import { convertExp, getTotalExp } from '@helpers/hiscores/hiscoresUtils'
 import { Spinner } from '@molecules/Spinner'
-import { BackToHiscoresLink, PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
+import { PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -135,7 +136,7 @@ const PlayerHiscore = () => {
           </PlayerHiscoreTableContainer>
         </>
       )}
-      <BackToHiscoresLink href='/hiscores'>{'<'} Return to Hiscores</BackToHiscoresLink>
+      <BackToLink href='/hiscores'>{'<'} Return to Hiscores</BackToLink>
     </ContentBlock>
   )
 }
