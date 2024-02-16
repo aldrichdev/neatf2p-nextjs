@@ -6,7 +6,7 @@ const YouTubeVideo = (props: YouTubeVideoProps) => {
 
   return (
     <YouTubeVideoIframe
-      src={`${embedUrl}&vq=hd1080&rel=0`}
+      src={`${embedUrl}&rel=0`}
       title='YouTube video player'
       allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
       allowFullScreen

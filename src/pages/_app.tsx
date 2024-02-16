@@ -10,6 +10,7 @@ import useAuthentication from '@hooks/useAuthentication'
 import emailjs from '@emailjs/browser'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { Footer } from '@molecules/Footer'
 
 export default function App({ Component, pageProps }: AppProps) {
   const user = useAuthentication()
@@ -44,6 +45,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <PaddedContainer isWebClient={isWebclientPage}>
             <Component {...pageProps} />
           </PaddedContainer>
+          <Footer />
         </Container>
       </ThemeProvider>
     </>
