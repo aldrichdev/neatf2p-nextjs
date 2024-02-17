@@ -20,13 +20,13 @@ export const FooterElement = styled('footer')(
         top: 400px;
       }
       25% {
-        top: 300px;
+        top: 100px;
       }
       50% {
         top: 100px;
       }
       75% {
-        top: 300px;
+        top: 100px;
       }
       100% {
         top: 400px;
@@ -104,7 +104,7 @@ export const EasterEgg = styled('img')(
       left: 200px;
       top: 400px;
       animation-name: PopUp;
-      animation-duration: 10s;
+      animation-duration: 5s;
     }
   `,
 )

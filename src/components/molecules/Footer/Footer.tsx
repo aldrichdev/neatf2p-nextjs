@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   EasterEgg,
   FooterElement,
@@ -11,10 +11,20 @@ import {
 
 const Footer = () => {
   const [showEasterEgg, setShowEasterEgg] = useState(false)
+  const [randomEasterEgg, setRandomEasterEgg] = useState<{ src: string; alt: string }>()
 
   const handleFooterHover = () => {
     setShowEasterEgg(true)
   }
+
+  useEffect(() => {
+    const easterEggs = [
+      { src: '/img/FooterEasterEgg.png', alt: 'Bruh, do you even mine?' },
+      { src: '/img/FooterEasterEgg2.png', alt: 'Selling strength pots 1k ea' },
+    ]
+
+    setRandomEasterEgg(easterEggs[Math.floor(Math.random() * easterEggs.length)])
+  }, [])
 
   return (
     <FooterElement onMouseEnter={handleFooterHover}>
@@ -42,7 +52,7 @@ const Footer = () => {
           </FooterLink>
         </FooterNavigationItem>
       </FooterNavigation>
-      {showEasterEgg && <EasterEgg src='/img/FooterEasterEgg.png' alt='Bruh, do you even mine?' />}
+      {showEasterEgg && !!randomEasterEgg && <EasterEgg src={randomEasterEgg.src} alt={randomEasterEgg.alt} />}
     </FooterElement>
   )
 }
