@@ -19,6 +19,7 @@ const GameAccountsPage = () => {
   const [passwordModalVisible, setPasswordModalVisible] = useState(false)
   const user = useAuthentication(setLoading)
   const isLoggedIn = UserIsLoggedIn(user)
+  const creationsDisabled = process.env.NEXT_PUBLIC_GAME_ACCOUNTS_DISABLE_CREATION === 'true'
 
   if (loading) {
     return <Spinner />
@@ -69,7 +70,12 @@ const GameAccountsPage = () => {
         showRenameModal={showRenameModal}
         showPasswordModal={showPasswordModal}
       />
-      <FormButton variant='contained' onClick={handleCreateAccount}>
+      {creationsDisabled && (
+        <BodyText variant='body' textAlign='center'>
+          Game account creations are temporarily disabled until further notice.
+        </BodyText>
+      )}
+      <FormButton variant='contained' onClick={handleCreateAccount} disabled={creationsDisabled}>
         Create Account
       </FormButton>
     </ContentBlock>
