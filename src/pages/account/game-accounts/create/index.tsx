@@ -145,6 +145,17 @@ const CreateGameAccount = () => {
     return <Spinner />
   }
 
+  if (true) {
+    return (
+      <ContentBlock>
+        <PageHeading>Temporarily Disabled</PageHeading>
+        <BodyText variant='body' textAlign='center'>
+          Game account creations are temporarily disabled until further notice.
+        </BodyText>
+      </ContentBlock>
+    )
+  }
+
   if (!UserIsLoggedIn(user)) {
     return <NotLoggedIn />
   }
@@ -156,7 +167,7 @@ const CreateGameAccount = () => {
   return (
     <ContentBlock>
       <PageHeading>Create Game Account</PageHeading>
-      <BodyText variant='body' textAlign='left'>
+      <BodyText variant='body'>
         Game account names must be 12 characters or less. You are allowed spaces within your name, but any spaces at the
         start or end of your name will be removed upon account creation.
       </BodyText>

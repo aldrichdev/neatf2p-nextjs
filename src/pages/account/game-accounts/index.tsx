@@ -69,7 +69,10 @@ const GameAccountsPage = () => {
         showRenameModal={showRenameModal}
         showPasswordModal={showPasswordModal}
       />
-      <FormButton variant='contained' onClick={handleCreateAccount}>
+      <BodyText variant='body' textAlign='center'>
+        Game account creations are temporarily disabled until further notice.
+      </BodyText>
+      <FormButton variant='contained' onClick={handleCreateAccount} disabled>
         Create Account
       </FormButton>
     </ContentBlock>
