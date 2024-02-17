@@ -20,7 +20,7 @@ const Footer = () => {
   useEffect(() => {
     const easterEggs = [
       { src: '/img/FooterEasterEgg.png', alt: 'Bruh, do you even mine?' },
-      { src: '/img/FooterEasterEgg2.png', alt: 'Selling strength pots 1k ea' },
+      { src: '/img/FooterEasterEgg2.png', alt: 'Selling strength pots' },
     ]
 
     setRandomEasterEgg(easterEggs[Math.floor(Math.random() * easterEggs.length)])

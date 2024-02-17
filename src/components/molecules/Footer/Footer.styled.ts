@@ -31,10 +31,6 @@ export const FooterElement = styled('footer')(
       100% {
         top: 400px;
       }
-
-      ${theme.breakpoints.up('tablet')} {
-        padding: 80px;
-      }
     }
 
     ${theme.breakpoints.up('tablet')} {
