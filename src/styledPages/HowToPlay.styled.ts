@@ -1,55 +1,81 @@
-import { Button } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
+import Link from 'next/link'
 
-export const PlayButtonsContainer = styled('div')(
-  () => css`
+export const ThreeColumnLayout = styled('div')(
+  ({ theme }) => css`
     font-family: Saros;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    justify-content: space-between;
-  `,
-)
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 30px;
 
-export const WinRuneButton = styled(Button)(
-  () => css`
-    background-color: var(--faded-blue-bg-color);
-    flex-basis: 100%;
-    font-weight: 700;
-    height: 50px;
-    width: 220px;
-
-    &:hover {
-      background-color: darkblue;
+    ${theme.breakpoints.up('tablet')} {
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 0;
     }
   `,
 )
 
-export const RSCPlusContainer = styled('div')(
-  () => css`
-    flex-basis: 100%;
+export const ClientButton = styled(Link)(
+  ({ theme }) => css`
+    width: 266px;
+    font-weight: 700;
+    justify-self: center;
     display: flex;
-    flex-wrap: wrap;
+    border: 3px solid transparent;
+
+    &:hover,
+    focus {
+      border-color: goldenrod;
+    }
+
+    ${theme.breakpoints.up('tablet')} {
+      width: 206px;
+    }
+
+    ${theme.breakpoints.up('desktop')} {
+      width: 266px;
+    }
   `,
 )
 
-export const RSCPlusButton = styled(Button)(
-  () => css`
-    background-color: crimson;
-    font-weight: 700;
-    flex-basis: 100%;
-    height: 50px;
+export const ClientButtonImage = styled('img')(
+  ({ theme }) => css`
+    width: 266px;
 
-    &:hover {
-      background-color: darkred;
+    ${theme.breakpoints.up('tablet')} {
+      width: 206px;
+    }
+
+    ${theme.breakpoints.up('desktop')} {
+      width: 266px;
+    }
+  `,
+)
+
+export const ClientRemarks = styled('p')(
+  ({ theme }) => css`
+    display: none;
+
+    ${theme.breakpoints.up('tablet')} {
+      display: block;
+      width: 206px;
+      justify-self: center;
+    }
+
+    ${theme.breakpoints.up('desktop')} {
+      width: 266px;
     }
   `,
 )
 
 export const RSCPlusInfo = styled('div')(
-  () => css`
-    flex-basis: 100%;
+  ({ theme }) => css`
+    margin: 0 auto;
     text-align: left;
+
+    ${theme.breakpoints.up('tablet')} {
+      width: 600px;
+    }
   `,
 )
