@@ -145,7 +145,7 @@ const CreateGameAccount = () => {
     return <Spinner />
   }
 
-  if (true) {
+  if (process.env.NEXT_PUBLIC_GAME_ACCOUNTS_DISABLE_CREATION === 'true') {
     return (
       <ContentBlock>
         <PageHeading>Temporarily Disabled</PageHeading>
