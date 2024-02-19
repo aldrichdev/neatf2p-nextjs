@@ -1,7 +1,7 @@
 import { HiscoreDataRow } from '@globalTypes/Database/HiscoreDataRow'
 import { HiscoresSortField } from '@globalTypes/Database/HiscoresSortField'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
-import { getTotalExp } from '@helpers/hiscores/hiscoresUtils'
+import { isNotBaselineExp } from '@helpers/hiscores/hiscoresUtils'
 import axios from 'axios'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
@@ -47,18 +47,9 @@ const useHiscores = (hiscoreType: HiscoreType, setIsLoading: Dispatch<SetStateAc
   }, [])
 
   useEffect(() => {
+    const propName = hiscoreType === 'Overall' ? 'skill_total' : `${hiscoreType.toLowerCase()}xp`
     const sortedHiscores = rawHiscores
-      ?.filter(hiscoreRow => {
-        // Omit hiscore records with baseline experience
-        switch (hiscoreType) {
-          case 'Overall':
-            return getTotalExp(hiscoreRow) > 4000
-          case 'Hits':
-            return hiscoreRow.hitsxp > 4000
-          default:
-            return hiscoreRow[`${hiscoreType.toLowerCase()}xp` as keyof HiscoresSortField] > 0
-        }
-      })
+      ?.filter(hiscoreRow => isNotBaselineExp(hiscoreRow, propName))
       .sort(compareHiscores)
 
     setHiscores(sortedHiscores)

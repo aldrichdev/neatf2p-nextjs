@@ -1,4 +1,5 @@
 import { HiscoreTableCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
+import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 import { TableBody, TableCell, TableHead, TableRow } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
@@ -55,6 +56,12 @@ export const HiscoreSkillIcon = styled('img')(
       margin-right: 8px;
       background-color: transparent;
     }
+  `,
+)
+
+export const SkillLink = styled(HoverUnderlineLink)(
+  () => css`
+    color: black;
   `,
 )
 

@@ -10,17 +10,31 @@ import { Spinner } from '@molecules/Spinner'
 import { PlayerLookup } from '@molecules/PlayerLookup'
 import { PageHeading } from '@atoms/PageHeading'
 import { TextBanner } from '@atoms/TextBanner'
+import { push } from '@helpers/router'
 
 const Hiscores = () => {
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
   const { query } = router
-  const isHiscoreType = (x: any): x is HiscoreType => HiscoreTypes.includes(x)
+  const [hiscoresPage, setHiscoresPage] = useState(1)
+  const isHiscoreType = (x: string): x is HiscoreType => HiscoreTypes.includes(x as HiscoreType)
   const [hiscoreType, setHiscoreType] = useState<HiscoreType>('Overall')
   const hiscores = useHiscores(hiscoreType, setIsLoading)
 
+  const handleMenuItemClick = (hiscoreType: HiscoreType) => {
+    setHiscoreType(hiscoreType)
+    setHiscoresPage(1)
+    router.query.page = '1'
+    router.query.skill = hiscoreType
+    push(router, '/hiscores', router.query)
+  }
+
   useEffect(() => {
-    setHiscoreType(isHiscoreType(query?.skill) ? query?.skill : 'Overall')
+    if (query.skill) {
+      setHiscoreType(typeof query.skill === 'string' && isHiscoreType(query.skill) ? query.skill : 'Overall')
+    } else {
+      setHiscoreType('Overall')
+    }
   }, [query])
 
   return (
@@ -33,11 +47,16 @@ const Hiscores = () => {
         </span>
       </TextBanner>
       <HiscoresPageContainer>
-        <HiscoresMenu hiscoreType={hiscoreType} buttonOnClick={setHiscoreType} />
+        <HiscoresMenu hiscoreType={hiscoreType} buttonOnClick={handleMenuItemClick} />
         {isLoading || !hiscores ? (
           <Spinner hiscores />
         ) : (
-          <HiscoresTable hiscores={hiscores} hiscoreType={hiscoreType} />
+          <HiscoresTable
+            hiscores={hiscores}
+            hiscoreType={hiscoreType}
+            page={query.page ? Number(query.page) : hiscoresPage}
+            setPage={setHiscoresPage}
+          />
         )}
         <PlayerLookup />
       </HiscoresPageContainer>
