@@ -7,6 +7,7 @@ import {
   HiscoreTableRow,
   PlayerHiscoreTableBody,
   PlayerHiscoreTableHead,
+  SkillLink,
 } from './PlayerHiscoreTable.styled'
 import { PlayerHiscoreRow } from '@globalTypes/Hiscores/PlayerHiscoreRow'
 
@@ -34,7 +35,7 @@ const PlayerHiscoreTable = (props: HiscoreTableProps) => {
             <HiscoreTableRow key={playerHiscoreRow.skill}>
               <HiscoreSkillTableCell>
                 <HiscoreSkillIcon src={`/img/skills/${playerHiscoreRow.skill}.png`} alt='' />
-                <span>{playerHiscoreRow.skill}</span>
+                <SkillLink href={`/hiscores?skill=${playerHiscoreRow.skill}`}>{playerHiscoreRow.skill}</SkillLink>
               </HiscoreSkillTableCell>
               <HiscoreTableCell>{playerHiscoreRow.rank === 0 ? '--' : playerHiscoreRow.rank}</HiscoreTableCell>
               <HiscoreTableCell>{playerHiscoreRow.level}</HiscoreTableCell>

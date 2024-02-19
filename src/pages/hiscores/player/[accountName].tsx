@@ -8,7 +8,7 @@ import { HiscoreDataRow } from '@globalTypes/Database/HiscoreDataRow'
 import { HiscoresSortField } from '@globalTypes/Database/HiscoresSortField'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { PlayerHiscoreRow } from '@globalTypes/Hiscores/PlayerHiscoreRow'
-import { convertExp, getTotalExp } from '@helpers/hiscores/hiscoresUtils'
+import { convertExp, getTotalExp, isNotBaselineExp } from '@helpers/hiscores/hiscoresUtils'
 import { Spinner } from '@molecules/Spinner'
 import { PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
 import axios from 'axios'
@@ -28,9 +28,9 @@ const PlayerHiscore = () => {
   const getRank = (hiscoreType: HiscoreType) => {
     // Order hiscoresData by hiscoreType descending
     const propName = hiscoreType === 'Overall' ? 'skill_total' : `${hiscoreType.toLowerCase()}xp`
-    const sortedHiscoresData = hiscoresData?.sort(
-      (obj1, obj2) => obj2[propName as keyof HiscoresSortField] - obj1[propName as keyof HiscoresSortField],
-    )
+    const sortedHiscoresData = hiscoresData
+      ?.sort((obj1, obj2) => obj2[propName as keyof HiscoresSortField] - obj1[propName as keyof HiscoresSortField])
+      .filter(hiscore => isNotBaselineExp(hiscore, propName))
 
     // Then get the index of the current player in that sorted list (and if 0-based, add 1), that's the rank.
     const rank = sortedHiscoresData?.findIndex(isMatchingUser)

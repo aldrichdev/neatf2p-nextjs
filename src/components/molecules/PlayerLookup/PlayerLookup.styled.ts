@@ -47,14 +47,14 @@ export const PlayerNameField = styled(Field)(
 export const LookupSubmitButton = styled(FormButton)(
   ({ theme }) => css`
     background-color: var(--faded-blue-bg-color);
-    margin-top: 20px;
+    margin: 20px 0 12px;
 
     :hover {
       background-color: darkblue;
     }
 
     ${theme.breakpoints.up('tablet')} {
-      margin-top: 40px;
+      margin: 40px 0 35px;
     }
   `,
 )
