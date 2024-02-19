@@ -69,10 +69,6 @@ export const HiscoreTableCell = styled(TableCell)(
 export const HiscoreUsername = styled(HoverUnderlineLink)(
   () => css`
     color: black;
-
-    :hover {
-      cursor: pointer;
-    }
   `,
 )
 
