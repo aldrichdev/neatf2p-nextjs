@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Field } from '@atoms/Field'
 import { Modal } from '@molecules/Modal'
 import { hashPassword } from '@helpers/password'
-import { gameAccountPasswordIsValid } from '@helpers/string/stringUtils'
+import { sanitizeRunescapePassword } from '@helpers/string/stringUtils'
 
 type PasswordModalProps = {
   account: PlayerDataRow
@@ -48,14 +48,11 @@ const PasswordModal = (props: PasswordModalProps) => {
       return
     }
 
-    // Make sure password is valid
-    if (!gameAccountPasswordIsValid(newPassword)) {
-      setValidationError('Game account passwords can only have letters, numbers and underscores.')
-      return
-    }
+    // Fix password so RSC recognizes it
+    const fixedPassword = sanitizeRunescapePassword(newPassword)
 
     // Hash new password.
-    const { hashedPassword } = hashPassword(newPassword, true)
+    const { hashedPassword } = hashPassword(fixedPassword, true)
 
     axios
       .post('/api/updateGameAccountPassword', {
@@ -88,8 +85,20 @@ const PasswordModal = (props: PasswordModalProps) => {
       renderFields={() => (
         <>
           <Field type='text' label='Account' value={account.username} disabled />
-          <Field type='password' label='New Password' required onChange={handleNewPasswordChange} />
-          <Field type='password' label='Confirm New Password' required onChange={handleConfirmNewPasswordChange} />
+          <Field
+            type='password'
+            label='New Password'
+            required
+            onChange={handleNewPasswordChange}
+            inputProps={{ maxLength: 20 }}
+          />
+          <Field
+            type='password'
+            label='Confirm New Password'
+            required
+            onChange={handleConfirmNewPasswordChange}
+            inputProps={{ maxLength: 20 }}
+          />
         </>
       )}
       formValidationError={validationError}

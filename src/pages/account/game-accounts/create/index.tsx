@@ -13,9 +13,9 @@ import useAuthentication from '@hooks/useAuthentication'
 import { UserIsLoggedIn } from '@helpers/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { Spinner } from '@molecules/Spinner'
-import { gameAccountPasswordIsValid } from '@helpers/string/stringUtils'
 import { PageHeading } from '@atoms/PageHeading'
 import { BannedText } from 'src/data/BannedText'
+import { sanitizeRunescapePassword } from '@helpers/string/stringUtils'
 
 const CreateGameAccount = () => {
   const [loading, setLoading] = useState(true)
@@ -79,12 +79,6 @@ const CreateGameAccount = () => {
       return
     }
 
-    if (!gameAccountPasswordIsValid(password)) {
-      setSubmitDisabled(false)
-      setValidationError('Game account passwords can only have letters, numbers and underscores.')
-      return
-    }
-
     // Check if account name already exists. Check with both values in lower case.
     if (currentAccountNames.includes(sanitizedAccountName.toLowerCase())) {
       setSubmitDisabled(false)
@@ -92,8 +86,11 @@ const CreateGameAccount = () => {
       return
     }
 
+    // Fix password so RSC recognizes it
+    const fixedPassword = sanitizeRunescapePassword(password)
+
     // Hash password
-    const { hashedPassword } = hashPassword(password, true)
+    const { hashedPassword } = hashPassword(fixedPassword, true)
 
     axios.get('https://api.ipify.org/?format=json').then(response => {
       // Create account
@@ -188,6 +185,7 @@ const CreateGameAccount = () => {
           type='password'
           variant='standard'
           onChange={handlePasswordChange}
+          inputProps={{ maxLength: 20 }}
         />
         <Field
           required
@@ -196,6 +194,7 @@ const CreateGameAccount = () => {
           type='password'
           variant='standard'
           onChange={handleConfirmPasswordChange}
+          inputProps={{ maxLength: 20 }}
         />
         <FieldValidationMessage>{validationError}</FieldValidationMessage>
         <FormButton variant='contained' type='submit' disabled={submitDisabled}>
