@@ -30,7 +30,7 @@ const RscPlusInfoPage = () => {
       </BodyText>
       <ContentBlock topMargin={40}>
         <YouTubeVideo embedUrl='https://www.youtube.com/embed/a4aD-PL6WK0?si=_sVgn5vyC16QXzSt' />
-        <BackToLink href='/admin/prototype/how-to-play'>{'<'} Back to How to Play page</BackToLink>
+        <BackToLink href='/how-to-play'>{'<'} Back to How to Play page</BackToLink>
       </ContentBlock>
     </ContentBlock>
   )

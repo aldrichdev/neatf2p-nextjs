@@ -3,7 +3,6 @@ import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
 import { PlayerHiscoreTable } from '@atoms/PlayerHiscoreTable'
-import { TextBanner } from '@atoms/TextBanner'
 import { HiscoreDataRow } from '@globalTypes/Database/HiscoreDataRow'
 import { HiscoresSortField } from '@globalTypes/Database/HiscoresSortField'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
@@ -124,17 +123,9 @@ const PlayerHiscore = () => {
           No hiscore found for this player.
         </BodyText>
       ) : (
-        <>
-          <TextBanner>
-            <span>
-              This is an <strong>alpha tester</strong> account. These are temporary and will not be accessible in the
-              full game.
-            </span>
-          </TextBanner>
-          <PlayerHiscoreTableContainer>
-            <PlayerHiscoreTable accountName={accountName} playerHiscores={playerHiscores} />
-          </PlayerHiscoreTableContainer>
-        </>
+        <PlayerHiscoreTableContainer>
+          <PlayerHiscoreTable accountName={accountName} playerHiscores={playerHiscores} />
+        </PlayerHiscoreTableContainer>
       )}
       <BackToLink href='/hiscores'>{'<'} Return to Hiscores</BackToLink>
     </ContentBlock>

@@ -40,6 +40,10 @@ const MainNavigation = () => {
       return true
     }
 
+    if (linkPath === '/how-to-play' && asPath.startsWith('/how-to-play')) {
+      return true
+    }
+
     return linkPath === asPath
   }
 
