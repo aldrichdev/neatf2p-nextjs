@@ -29,9 +29,11 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
 
   if (isLoading) {
     return <Spinner />
+  } else if (process.env.NEXT_PUBLIC_GAME_ACCOUNTS_DISABLE_CREATION === 'true') {
+    return null
   } else if (accounts && accounts.length < 1) {
     return (
-      <TabletDesktopBodyText variant='body'>
+      <TabletDesktopBodyText variant='body' textAlign='center'>
         You don&apos;t have any accounts right now. Why not create one?
       </TabletDesktopBodyText>
     )
