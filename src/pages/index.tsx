@@ -23,7 +23,11 @@ const Homepage = () => (
       </BodyText>
     </ContentBlock>
     <ContentBlock isWide topMargin={40}>
-      <YouTubeVideo embedUrl='https://www.youtube.com/embed/eOvPDYAxavg?si=e6uvjtidaQ8PXb9V' />
+      <YouTubeVideo
+        embedUrl='https://www.youtube.com/embed/hWOOOmBKhRE?si=pTXUfElWW5sgu-tU'
+        desktopWidth='75%'
+        desktopHeight='500px'
+      />
     </ContentBlock>
     <ContentBlock isWide topMargin={40}>
       <NewsAndUpdates heading='Latest News & Updates' limit={3} showViewAllButton />
