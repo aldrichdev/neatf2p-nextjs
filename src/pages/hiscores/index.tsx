@@ -9,7 +9,6 @@ import { useRouter } from 'next/router'
 import { Spinner } from '@molecules/Spinner'
 import { PlayerLookup } from '@molecules/PlayerLookup'
 import { PageHeading } from '@atoms/PageHeading'
-import { TextBanner } from '@atoms/TextBanner'
 import { push } from '@helpers/router'
 
 const Hiscores = () => {
@@ -40,12 +39,6 @@ const Hiscores = () => {
   return (
     <ContentBlock isWide>
       <PageHeading>{`${hiscoreType} Hiscores`}</PageHeading>
-      <TextBanner>
-        <span>
-          Hiscores currently show <strong>alpha tester</strong> accounts. These are temporary and will not be accessible
-          in the full game.
-        </span>
-      </TextBanner>
       <HiscoresPageContainer>
         <HiscoresMenu hiscoreType={hiscoreType} buttonOnClick={handleMenuItemClick} />
         {isLoading || !hiscores ? (

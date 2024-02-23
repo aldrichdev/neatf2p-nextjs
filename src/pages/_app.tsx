@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
         <meta
           name='description'
-          content='Neat F2P is an upcoming Runescape Classic (RSC) private server that is F2P only (no members) and is 100% free.'
+          content='Neat F2P is a Runescape Classic (RSC) private server that is F2P only (no members) and is 100% free.'
         />
         <meta
           key='keywords'
@@ -45,7 +45,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <PaddedContainer isWebClient={isWebclientPage}>
             <Component {...pageProps} />
           </PaddedContainer>
-          <Footer />
+          {!isWebclientPage && <Footer />}
         </Container>
       </ThemeProvider>
     </>

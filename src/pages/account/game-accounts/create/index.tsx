@@ -82,7 +82,7 @@ const CreateGameAccount = () => {
     // Check if account name already exists. Check with both values in lower case.
     if (currentAccountNames.includes(sanitizedAccountName.toLowerCase())) {
       setSubmitDisabled(false)
-      setValidationError('Account name already exists.')
+      setValidationError('Account name already exists. Please choose another one.')
       return
     }
 

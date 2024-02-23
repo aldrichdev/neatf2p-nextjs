@@ -5,18 +5,13 @@ import { Button, FormControlLabel } from '@mui/material'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { HideAdsFormGroup } from '@styledPages/Webclient.styled'
 import { useState } from 'react'
-import useAuthentication from '@hooks/useAuthentication'
-import { Spinner } from '@molecules/Spinner'
-import { MustBeAdminBlock } from '@molecules/MustBeAdminBlock'
 import { Modal } from '@molecules/Modal'
 import Link from 'next/link'
 
 const WebclientPage = () => {
-  const [isLoading, setIsLoading] = useState(true)
   const [hideAds, setHideAds] = useState(false)
   const [hideRunescapeBanners, setHideRunescapeBanners] = useState(false)
   const [showHelpModal, setShowHelpModal] = useState(false)
-  const user = useAuthentication(setIsLoading)
   const gameServerHost = process.env.NEXT_PUBLIC_GAME_SERVER_HOST
   const gameServerRsaPublicKey = process.env.NEXT_PUBLIC_GAME_SERVER_RSA_PUBLIC_KEY
   const webclientUrl = `https://${gameServerHost}/index.html#free,${gameServerHost},43494,65537,${gameServerRsaPublicKey},true`
@@ -36,15 +31,6 @@ const WebclientPage = () => {
   const handleHelpModalClose = () => {
     setShowHelpModal(false)
     document.body.style.overflow = 'unset'
-  }
-
-  if (isLoading) {
-    return <Spinner />
-  }
-
-  // TODO: Remove this and isLoading/user logic when ready for launch
-  if (!user.isAdmin) {
-    return <MustBeAdminBlock textColor='white' />
   }
 
   if (showHelpModal) {

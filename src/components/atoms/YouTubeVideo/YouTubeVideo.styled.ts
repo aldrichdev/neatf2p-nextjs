@@ -1,8 +1,8 @@
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
-export const YouTubeVideoIframe = styled('iframe')(
-  ({ theme }) => css`
+export const YouTubeVideoIframe = styled('iframe')<{ desktopWidth?: string; desktopHeight?: string }>(
+  ({ theme, desktopWidth, desktopHeight }) => css`
     border: 0;
     width: 100%;
     height: 188px;
@@ -12,7 +12,8 @@ export const YouTubeVideoIframe = styled('iframe')(
     }
 
     ${theme.breakpoints.up('desktop')} {
-      height: 600px;
+      width: ${desktopWidth || '100%'};
+      height: ${desktopHeight || '600px'};
     }
   `,
 )

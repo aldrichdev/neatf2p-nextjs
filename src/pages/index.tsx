@@ -17,13 +17,17 @@ const Homepage = () => (
     <ContentBlock isWide topMargin={40}>
       <PageHeading>Welcome back to 2003</PageHeading>
       <BodyText variant='body' textAlign='center'>
-        Neat F2P is an <em>upcoming</em> RuneScape Classic private server that aims to provide you with an RS1 F2P
-        experience, featuring a F2P-only world and economy to explore and enjoy. For more information, check out the{' '}
+        Neat F2P is a RuneScape Classic private server that aims to provide you with an RS1 F2P experience, featuring a
+        F2P-only world and economy to explore and enjoy. For more information, check out the{' '}
         <Link href='/about'>About page</Link>.
       </BodyText>
     </ContentBlock>
     <ContentBlock isWide topMargin={40}>
-      <YouTubeVideo embedUrl='https://www.youtube.com/embed/eOvPDYAxavg?si=e6uvjtidaQ8PXb9V' />
+      <YouTubeVideo
+        embedUrl='https://www.youtube.com/embed/hWOOOmBKhRE?si=pTXUfElWW5sgu-tU'
+        desktopWidth='75%'
+        desktopHeight='500px'
+      />
     </ContentBlock>
     <ContentBlock isWide topMargin={40}>
       <NewsAndUpdates heading='Latest News & Updates' limit={3} showViewAllButton />
