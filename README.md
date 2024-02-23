@@ -1,14 +1,15 @@
 # neatf2p-nextjs
 
-The source code for the [Neat F2P website](https://neatf2p-nextjs.vercel.app/).
+The source code for the [Neat F2P website](https://www.neatf2p.com/).
 
 ## Requirements
 
-- Node 16+
+- Node 16
 
 ## Setup
 
-Copy `.env.dist` to `.env` and fill in empty values.
+1. Copy `.env.dist` to `.env` and fill in empty values.
+2. Run `npm run dev` to run the server locally. It will be available at `localhost:3000`.
 
 ## Appendix
 
