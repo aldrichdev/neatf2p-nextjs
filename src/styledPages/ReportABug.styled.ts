@@ -22,7 +22,7 @@ export const BugTypeMenuItem = styled(MenuItem)(
       background-color: var(--faded-green-bg-color);
     }
 
-    &.Mui-selected {
+    &&.Mui-selected {
       background-color: lightgray;
 
       &:hover {
