@@ -92,9 +92,6 @@ const PlayerHiscore = () => {
 
     const playerHiscoreRowArray: PlayerHiscoreRow[] = []
     playerHiscoreRowArray.push(getPlayerHiscoreRow('Overall'))
-    playerHiscoreRowArray.push(getPlayerHiscoreRow('Attack'))
-    playerHiscoreRowArray.push(getPlayerHiscoreRow('Defense'))
-    playerHiscoreRowArray.push(getPlayerHiscoreRow('Strength'))
     playerHiscoreRowArray.push(getPlayerHiscoreRow('Hits'))
     playerHiscoreRowArray.push(getPlayerHiscoreRow('Ranged'))
     playerHiscoreRowArray.push(getPlayerHiscoreRow('Prayer'))

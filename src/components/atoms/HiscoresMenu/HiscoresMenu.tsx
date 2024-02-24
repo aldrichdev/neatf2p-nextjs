@@ -13,9 +13,6 @@ const HiscoresMenu = (props: HiscoresMenuProps) => {
   return (
     <HiscoresMenuItemList>
       <HiscoresMenuItem menuItemLabel='Overall' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
-      <HiscoresMenuItem menuItemLabel='Attack' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
-      <HiscoresMenuItem menuItemLabel='Defense' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
-      <HiscoresMenuItem menuItemLabel='Strength' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
       <HiscoresMenuItem menuItemLabel='Hits' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
       <HiscoresMenuItem menuItemLabel='Ranged' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />
       <HiscoresMenuItem menuItemLabel='Prayer' hiscoreType={hiscoreType} buttonOnClick={buttonOnClick} />

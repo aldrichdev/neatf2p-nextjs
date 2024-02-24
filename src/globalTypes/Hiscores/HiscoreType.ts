@@ -1,8 +1,5 @@
 export const HiscoreTypes = [
   'Overall',
-  'Attack',
-  'Defense',
-  'Strength',
   'Hits',
   'Ranged',
   'Prayer',
