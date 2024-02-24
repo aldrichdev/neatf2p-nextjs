@@ -11,9 +11,9 @@ import useAuthentication from '@hooks/useAuthentication'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { Spinner } from '@molecules/Spinner'
 import { InputLabel, Select, SelectChangeEvent } from '@mui/material'
-import { BugTypeDropdown, BugTypeMenuItem } from '@styledPages/ReportABug.styled'
+import { BugTypeDropdown, BugTypeMenuItem, IssuesLink } from '@styledPages/ReportABug.styled'
 import { Octokit } from 'octokit'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, ReactNode, useState } from 'react'
 
 const BugReportsPage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -21,7 +21,7 @@ const BugReportsPage = () => {
   const [bugDescription, setBugDescription] = useState('')
   const [bugType, setBugType] = useState<BugType>('Game')
   const [buttonDisabled, setButtonDisabled] = useState(false)
-  const [validationMessage, setValidationMessage] = useState('')
+  const [validationMessage, setValidationMessage] = useState<ReactNode>(<></>)
   const [validationMessageColor, setValidationMessageColor] = useState('')
   const user = useAuthentication(setIsLoading)
 
@@ -41,7 +41,9 @@ const BugReportsPage = () => {
     event.preventDefault()
     setButtonDisabled(true)
 
+    const repoOwner = 'aldrichdev'
     const repo = bugType === 'Game' ? 'Neat-F2P' : 'neatf2p-nextjs'
+    const issuesPageUrl = `https://github.com/${repoOwner}/${repo}/issues`
 
     const octokit = new Octokit({
       auth: process.env.NEXT_PUBLIC_GITHUB_API_TOKEN,
@@ -49,24 +51,32 @@ const BugReportsPage = () => {
 
     // Send to GitHub
     octokit
-      .request(`POST /repos/aldrichdev/${repo}/issues`, {
-        owner: 'aldrichdev',
+      .request(`POST /repos/${repoOwner}/${repo}/issues`, {
+        owner: repoOwner,
         repo,
         title: bugTitle,
         body: `Reported by ${user.username}: \r\n \r\n ${bugDescription}`,
-        assignees: ['aldrichdev'],
+        assignees: [repoOwner],
         labels: ['bug'],
         headers: {
           'X-GitHub-Api-Version': '2022-11-28',
         },
       })
       .then(() => {
-        setValidationMessage('Your bug report has been submitted successfully!')
+        setValidationMessage(
+          <p>
+            Your bug report has been submitted successfully! You can see it here:{' '}
+            <IssuesLink href={issuesPageUrl} target='_blank'>
+              {issuesPageUrl}
+            </IssuesLink>
+            .
+          </p>,
+        )
         setValidationMessageColor('green')
       })
       .catch(error => {
         setValidationMessage(
-          `An error occurred. The bug was not submitted. Please contact the administrator. Message: ${error}`,
+          <p>An error occurred. The bug was not submitted. Please contact the administrator. Message: {error}</p>,
         )
         setValidationMessageColor('red')
       })

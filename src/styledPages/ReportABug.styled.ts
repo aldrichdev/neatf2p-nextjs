@@ -1,6 +1,7 @@
 import { FormControl, MenuItem } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
+import Link from 'next/link'
 
 export const BugTypeDropdown = styled(FormControl)(
   () => css`
@@ -33,5 +34,11 @@ export const BugTypeMenuItem = styled(MenuItem)(
     &:focus {
       background-color: lightgray;
     }
+  `,
+)
+
+export const IssuesLink = styled(Link)(
+  () => css`
+    color: green;
   `,
 )
