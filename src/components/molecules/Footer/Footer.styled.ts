@@ -90,17 +90,18 @@ export const FooterLink = styled(HoverUnderlineLink)(
   `,
 )
 
-export const EasterEgg = styled('img')(
-  ({ theme }) => css`
+export const EasterEgg = styled('img')<{ position: 'left' | 'right'; animationDurationSeconds: number }>(
+  ({ theme, position, animationDurationSeconds }) => css`
     display: none;
 
     ${theme.breakpoints.up('tablet')} {
       display: block;
       position: absolute;
-      left: 200px;
+      ${position === 'left' && 'left: 200px;'}
+      ${position === 'right' && 'right: 200px;'}
       top: 400px;
       animation-name: PopUp;
-      animation-duration: 5s;
+      animation-duration: ${animationDurationSeconds}s;
     }
   `,
 )

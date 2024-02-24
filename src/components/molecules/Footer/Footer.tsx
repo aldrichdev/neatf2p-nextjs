@@ -8,23 +8,34 @@ import {
   Logo,
   VerticalDivider,
 } from './Footer.styled'
+import { EasterEggObject } from './Footer.types'
 
 const Footer = () => {
   const [showEasterEgg, setShowEasterEgg] = useState(false)
-  const [randomEasterEgg, setRandomEasterEgg] = useState<{ src: string; alt: string }>()
+  const [randomEasterEgg, setRandomEasterEgg] = useState<EasterEggObject>()
+  const animationDurationSeconds = 5
 
   const handleFooterHover = () => {
-    setShowEasterEgg(true)
+    if (showEasterEgg === false) {
+      setShowEasterEgg(true)
+      setTimeout(
+        () => {
+          setShowEasterEgg(false)
+        },
+        (animationDurationSeconds - 0.5) * 1000,
+      )
+    }
   }
 
   useEffect(() => {
-    const easterEggs = [
-      { src: '/img/FooterEasterEgg.png', alt: 'Bruh, do you even mine?' },
-      { src: '/img/FooterEasterEgg2.png', alt: 'Selling strength pots' },
+    const easterEggs: EasterEggObject[] = [
+      { src: '/img/FooterEasterEgg.png', alt: 'Bruh, do you even mine?', position: 'left' },
+      { src: '/img/FooterEasterEgg2.png', alt: 'Selling strength pots', position: 'right' },
+      { src: '/img/FooterEasterEgg3.png', alt: 'Selling rare black lobster 1200gp', position: 'left' },
     ]
 
     setRandomEasterEgg(easterEggs[Math.floor(Math.random() * easterEggs.length)])
-  }, [])
+  }, [showEasterEgg])
 
   return (
     <FooterElement onMouseEnter={handleFooterHover}>
@@ -52,7 +63,14 @@ const Footer = () => {
           </FooterLink>
         </FooterNavigationItem>
       </FooterNavigation>
-      {showEasterEgg && !!randomEasterEgg && <EasterEgg src={randomEasterEgg.src} alt={randomEasterEgg.alt} />}
+      {showEasterEgg && !!randomEasterEgg && (
+        <EasterEgg
+          src={randomEasterEgg.src}
+          alt={randomEasterEgg.alt}
+          position={randomEasterEgg.position}
+          animationDurationSeconds={animationDurationSeconds}
+        />
+      )}
     </FooterElement>
   )
 }
