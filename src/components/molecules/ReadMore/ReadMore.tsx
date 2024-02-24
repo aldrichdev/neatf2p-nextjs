@@ -13,8 +13,8 @@ const ReadMore = (props: ReadMoreProps) => {
     <Text>
       {children.length > 300 ? (
         <>
-          {parse(`${children.slice(0, 300)}...`)} &nbsp;
-          <ReadMoreLink href={linkHref}>Read More</ReadMoreLink>
+          {parse(`${children.slice(0, 300)}...`)}
+          <ReadMoreLink href={linkHref}>Read post {'>>'}</ReadMoreLink>
         </>
       ) : (
         parse(children)
