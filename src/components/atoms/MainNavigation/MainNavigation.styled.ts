@@ -30,8 +30,8 @@ export const NavLink = styled(Link, {
     color: white;
     text-decoration: none;
     border: 2px solid;
-    border-color: ${isActive ? '#800080' : 'green'};
-    background-color: ${isActive ? '#800080' : 'green'};
+    border-color: ${isActive ? 'purple' : 'green'};
+    background-color: ${isActive ? 'purple' : 'green'};
     border-radius: 20px;
     padding: 8px;
 
