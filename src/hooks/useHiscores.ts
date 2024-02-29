@@ -1,7 +1,7 @@
 import { HiscoreDataRow } from '@globalTypes/Database/HiscoreDataRow'
 import { HiscoresSortField } from '@globalTypes/Database/HiscoresSortField'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
-import { isNotBaselineExp } from '@helpers/hiscores/hiscoresUtils'
+import { getTotalExp, isNotBaselineExp } from '@helpers/hiscores/hiscoresUtils'
 import axios from 'axios'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
@@ -28,6 +28,17 @@ const useHiscores = (hiscoreType: HiscoreType, setIsLoading: Dispatch<SetStateAc
 
     if (playerOne[fieldName] < playerTwo[fieldName]) {
       return 1
+    }
+
+    if (playerOne[fieldName] === playerTwo[fieldName] && fieldName === 'skill_total') {
+      // If this is Overall, we need to compare total EXP and give the tie breaker to the player with more EXP.
+      if (getTotalExp(playerOne) > getTotalExp(playerTwo)) {
+        return -1
+      }
+
+      if (getTotalExp(playerOne) < getTotalExp(playerTwo)) {
+        return 1
+      }
     }
 
     return 0
