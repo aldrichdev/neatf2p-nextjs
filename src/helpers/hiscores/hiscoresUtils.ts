@@ -54,5 +54,16 @@ export const compareHiscores = (hiscoreType: HiscoreType, playerOne: HiscoreData
     return 1
   }
 
+  if (playerOne[fieldName] === playerTwo[fieldName] && fieldName === 'skill_total') {
+    // If this is Overall, we need to compare total EXP and give the tie breaker to the player with more EXP.
+    if (getTotalExp(playerOne) > getTotalExp(playerTwo)) {
+      return -1
+    }
+
+    if (getTotalExp(playerOne) < getTotalExp(playerTwo)) {
+      return 1
+    }
+  }
+
   return 0
 }
