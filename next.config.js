@@ -7,7 +7,7 @@ const nextConfig = {
         source: '/api/:path*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'false' },
-          { key: 'Access-Control-Allow-Origin', value: process.env.APP_URL },
+          { key: 'Access-Control-Allow-Origin', value: process.env.APP_URL || '' },
           { key: 'Access-Control-Allow-Methods', value: 'GET, POST' },
           {
             key: 'Access-Control-Allow-Headers',
