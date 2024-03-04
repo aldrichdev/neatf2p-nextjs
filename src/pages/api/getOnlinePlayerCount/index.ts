@@ -13,12 +13,8 @@ interface RowDataPacket {
 /** Note: `req` variable is unused, but removing it will throw an error, `res.setHeader is not a function`. */
 const handler = async (req: NextApiRequest, res: NextApiResponse<Props>) => {
   // Block requests from non-app sources
-  console.log('process.env.NEXT_PUBLIC_API_SECRET', process.env.NEXT_PUBLIC_API_SECRET)
-
   if (process.env.NEXT_PUBLIC_API_SECRET) {
     const secretHeader = req.headers[process.env.NEXT_PUBLIC_API_SECRET]
-    console.log('req.headers', req.headers)
-    console.log('secretHeader', secretHeader)
 
     if (!secretHeader) {
       res.statusCode = 401
