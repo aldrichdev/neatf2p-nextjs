@@ -3,12 +3,12 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { Form } from '@atoms/Form'
 import { Field } from '@atoms/Field'
 import { ChangeEvent, FormEvent, useState } from 'react'
-import axios from 'axios'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { redirectTo } from '@helpers/window'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { hashPassword } from '@helpers/password'
 import { PageHeading } from '@atoms/PageHeading'
+import { sendApiRequest } from '@helpers/api/apiUtils'
 
 const ResetPassword = () => {
   const { query } = useRouter()
@@ -40,22 +40,20 @@ const ResetPassword = () => {
     const { hashedPassword, passwordSalt } = hashPassword(newPassword)
 
     // Update the user's password
-    axios
-      .post('/api/updateWebsiteUserPassword', {
-        userId: accountId,
-        newPassword: hashedPassword,
-        newPasswordSalt: passwordSalt,
-      })
-      .then(response => {
-        if (typeof response?.data === 'number') {
-          // Reset was successful - redirect to success page
-          redirectTo('/account/reset-password/success')
-        } else {
-          const errorMessage = `Non-number response type in reset-password/id: ${response?.data}`
-          console.log(errorMessage)
-          setValidationError(`Something went wrong. Please try again later. Error: ${errorMessage}`)
-        }
-      })
+    sendApiRequest('POST', '/api/updateWebsiteUserPassword', {
+      userId: accountId,
+      newPassword: hashedPassword,
+      newPasswordSalt: passwordSalt,
+    }).then(response => {
+      if (typeof response?.data === 'number') {
+        // Reset was successful - redirect to success page
+        redirectTo('/account/reset-password/success')
+      } else {
+        const errorMessage = `Non-number response type in reset-password/id: ${response?.data}`
+        console.log(errorMessage)
+        setValidationError(`Something went wrong. Please try again later. Error: ${errorMessage}`)
+      }
+    })
   }
 
   return (

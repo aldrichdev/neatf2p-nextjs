@@ -6,7 +6,6 @@ import { Form } from '@atoms/Form'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
 import { redirectTo } from '@helpers/window'
-import axios from 'axios'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { hashPassword } from '@helpers/password'
 import useAuthentication from '@hooks/useAuthentication'
@@ -16,6 +15,8 @@ import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
 import { BannedText } from 'src/data/BannedText'
 import { sanitizeRunescapePassword } from '@helpers/string/stringUtils'
+import { sendApiRequest } from '@helpers/api/apiUtils'
+import axios from 'axios'
 
 const CreateGameAccount = () => {
   const [loading, setLoading] = useState(true)
@@ -94,22 +95,20 @@ const CreateGameAccount = () => {
 
     axios.get('https://api.ipify.org/?format=json').then(response => {
       // Create account
-      axios
-        .post('/api/createPlayerRecord', {
-          accountName: sanitizedAccountName,
-          password: hashedPassword,
-          websiteAccountId: user?.id,
-          userIp: response?.data?.ip,
-        })
+      sendApiRequest('POST', '/api/createPlayerRecord', {
+        accountName: sanitizedAccountName,
+        password: hashedPassword,
+        websiteAccountId: user?.id,
+        userIp: response?.data?.ip,
+      })
         .then(response => {
           if (typeof response?.data === 'number') {
             const playerId = response?.data
 
             // Now we need to create the other records. New accounts are not playable without these.
-            axios
-              .post('/api/createPlayerSkillRecords', {
-                playerId,
-              })
+            sendApiRequest('POST', '/api/createPlayerSkillRecords', {
+              playerId,
+            })
               .then(response => {
                 if (typeof response?.data === 'number') {
                   redirectTo(`/account/game-accounts/create/success?accountName=${accountName}`)
@@ -129,8 +128,7 @@ const CreateGameAccount = () => {
   }
 
   const fetchCurrentAccountNames = () => {
-    axios
-      .get(`/api/getCurrentGameAccountNames`)
+    sendApiRequest('GET', '/api/getCurrentGameAccountNames')
       .then(response => {
         const allAccountNames = response?.data?.map((info: PlayerDataRow) => info.username.toLowerCase())
         setCurrentAccountNames(allAccountNames)

@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Typography } from '@mui/material'
 import { ContentBlock } from '@atoms/ContentBlock'
@@ -7,6 +6,7 @@ import { NewsPost } from '@globalTypes/NewsPost'
 import { NewsPostListItem } from '@organisms/NewsPostListItem'
 import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
+import { sendApiRequest } from '@helpers/api/apiUtils'
 
 interface NewsAndUpdatesProps {
   heading: string
@@ -22,8 +22,7 @@ const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
 
   useEffect(() => {
     const fetchNewsPosts = () => {
-      axios
-        .get(`/api/getNewsPosts${limit ? `?limit=${limit}` : ''}`)
+      sendApiRequest('GET', `/api/getNewsPosts${limit ? `?limit=${limit}` : ''}`)
         .then(response => {
           setNewsPosts(response.data)
           setIsLoading(false)

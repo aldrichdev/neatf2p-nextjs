@@ -1,9 +1,9 @@
 import { AccountArea, Username, AccountAreaLink } from './AccountWidget.styled'
 import { Typography } from '@mui/material'
-import axios from 'axios'
 import { User } from '@globalTypes/User'
 import { redirectTo } from '@helpers/window'
 import { UserIsLoggedIn } from '@helpers/users/users'
+import { sendApiRequest } from '@helpers/api/apiUtils'
 
 interface AccountWidgetProps {
   user: User
@@ -14,8 +14,7 @@ const AccountWidget = (props: AccountWidgetProps) => {
   const isLoggedIn = UserIsLoggedIn(user)
 
   const handleLogout = () => {
-    axios
-      .get('/api/ironLogout')
+    sendApiRequest('GET', '/api/ironLogout')
       .then(() => {
         redirectTo('/')
       })

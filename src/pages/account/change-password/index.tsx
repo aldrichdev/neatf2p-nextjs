@@ -10,7 +10,7 @@ import { Form } from '@atoms/Form'
 import { redirectTo } from '@helpers/window'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { hashPassword } from '@helpers/password'
-import axios from 'axios'
+import { sendApiRequest } from '@helpers/api/apiUtils'
 
 const ChangePasswordPage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -45,22 +45,20 @@ const ChangePasswordPage = () => {
     const { hashedPassword, passwordSalt } = hashPassword(newPassword)
 
     // Update the user's password
-    axios
-      .post('/api/updateWebsiteUserPassword', {
-        userId: user.id,
-        newPassword: hashedPassword,
-        newPasswordSalt: passwordSalt,
-      })
-      .then(response => {
-        if (typeof response?.data === 'number') {
-          // Reset was successful - redirect to success page
-          redirectTo('/account/change-password/success')
-        } else {
-          const errorMessage = `Non-number response type in change-password: ${response?.data}`
-          console.log(errorMessage)
-          setFormValidationError(`Something went wrong. Please try again later. Error: ${errorMessage}`)
-        }
-      })
+    sendApiRequest('POST', '/api/updateWebsiteUserPassword', {
+      userId: user.id,
+      newPassword: hashedPassword,
+      newPasswordSalt: passwordSalt,
+    }).then(response => {
+      if (typeof response?.data === 'number') {
+        // Reset was successful - redirect to success page
+        redirectTo('/account/change-password/success')
+      } else {
+        const errorMessage = `Non-number response type in change-password: ${response?.data}`
+        console.log(errorMessage)
+        setFormValidationError(`Something went wrong. Please try again later. Error: ${errorMessage}`)
+      }
+    })
   }
 
   if (isLoading) {

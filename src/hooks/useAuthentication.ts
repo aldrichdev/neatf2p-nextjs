@@ -1,6 +1,6 @@
 import { User } from '@globalTypes/User'
+import { sendApiRequest } from '@helpers/api/apiUtils'
 import { NullUser } from '@models/NullUser'
-import axios from 'axios'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 /** `setLoading` should be provided whenever this hook is used on a page that
@@ -13,8 +13,7 @@ const useAuthentication = (setLoading?: Dispatch<SetStateAction<boolean>>) => {
 
   useEffect(() => {
     const fetchLoginStatus = () => {
-      axios
-        .get('/api/ironUser')
+      sendApiRequest('GET', '/api/ironUser')
         .then(response => {
           setUser(response?.data)
           setLoading?.(false)

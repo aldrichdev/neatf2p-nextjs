@@ -6,7 +6,6 @@ import { InlineLink } from '@atoms/InlineLink'
 import { Field } from '@atoms/Field'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import bcrypt from 'bcryptjs'
-import axios from 'axios'
 import { User } from '@globalTypes/User'
 import { UserIdentityInfo } from '@globalTypes/Database/Users/UserIdentityInfo'
 import useAuthentication from '@hooks/useAuthentication'
@@ -17,6 +16,7 @@ import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
 import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
 import { Callout } from '@atoms/Callout'
+import { sendApiRequest } from '@helpers/api/apiUtils'
 
 const CreateAccountPage = () => {
   const [loading, setLoading] = useState(true)
@@ -71,14 +71,13 @@ const CreateAccountPage = () => {
     const now = new Date()
 
     // Create account
-    axios
-      .post('/api/createUserAccount', {
-        email,
-        username,
-        password: hashedPassword,
-        passwordSalt,
-        currentDate: now,
-      })
+    sendApiRequest('POST', '/api/createUserAccount', {
+      email,
+      username,
+      password: hashedPassword,
+      passwordSalt,
+      currentDate: now,
+    })
       .then(response => {
         if (typeof response?.data === 'string') {
           const user: User = {
@@ -90,8 +89,7 @@ const CreateAccountPage = () => {
           }
 
           // Log in the new user.
-          axios
-            .post('/api/ironLogin', { ...user })
+          sendApiRequest('POST', '/api/ironLogin', { ...user })
             .then(response => {
               if (response?.status !== 200) {
                 setValidationError(
@@ -113,8 +111,7 @@ const CreateAccountPage = () => {
   }
 
   const fetchExistingUserInfo = () => {
-    axios
-      .get(`/api/getExistingUserInfo`)
+    sendApiRequest('GET', '/api/getExistingUserInfo')
       .then(response => {
         const allEmailAddresses = response?.data?.map((info: UserIdentityInfo) => info.emailAddress)
         setExistingEmailAddresses(allEmailAddresses)

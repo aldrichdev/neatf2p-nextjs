@@ -1,7 +1,7 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { PlayersOnlineBox, PlayersOnlineMessage, OnlineCount } from './OnlinePlayers.styled'
 import { Spinner } from '@molecules/Spinner'
+import { sendApiRequest } from '@helpers/api/apiUtils'
 
 const OnlinePlayers = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -10,8 +10,7 @@ const OnlinePlayers = () => {
 
   useEffect(() => {
     const fetchOnlinePlayerCount = () => {
-      axios
-        .get('/api/getOnlinePlayerCount')
+      sendApiRequest('GET', '/api/getOnlinePlayerCount')
         .then(response => {
           setPlayerCount(response.data)
           setIsLoading(false)
