@@ -1,10 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
-import axios from 'axios'
 import { Field } from '@atoms/Field'
 import { Modal } from '@molecules/Modal'
 import { hashPassword } from '@helpers/password'
 import { sanitizeRunescapePassword } from '@helpers/string/stringUtils'
+import { sendApiRequest } from '@helpers/api/apiUtils'
 
 type PasswordModalProps = {
   account: PlayerDataRow
@@ -54,22 +54,20 @@ const PasswordModal = (props: PasswordModalProps) => {
     // Hash new password.
     const { hashedPassword } = hashPassword(fixedPassword, true)
 
-    axios
-      .post('/api/updateGameAccountPassword', {
-        accountId: account.id,
-        newPassword: hashedPassword,
-      })
-      .then(response => {
-        if (typeof response?.data === 'number') {
-          setSuccessMessage('Your password has been updated successfully! This window will now close...')
-          setTimeout(() => {
-            handleClose()
-          }, 3000)
-        } else {
-          const errorMessage = `Non-number response type in PasswordModal: ${response?.data}`
-          console.log(errorMessage)
-        }
-      })
+    sendApiRequest('POST', '/api/updateGameAccountPassword', {
+      accountId: account.id,
+      newPassword: hashedPassword,
+    }).then(response => {
+      if (typeof response?.data === 'number') {
+        setSuccessMessage('Your password has been updated successfully! This window will now close...')
+        setTimeout(() => {
+          handleClose()
+        }, 3000)
+      } else {
+        const errorMessage = `Non-number response type in PasswordModal: ${response?.data}`
+        console.log(errorMessage)
+      }
+    })
   }
 
   if (!open) return null

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import axios from 'axios'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { NewsPost } from '@globalTypes/NewsPost'
 import { NewsPostDetailItem } from '@atoms/NewsPostDetailItem'
 import { Spinner } from '@molecules/Spinner'
+import { sendApiRequest } from '@helpers/api/apiUtils'
 
 const NewsPostDetail = () => {
   const { query } = useRouter()
@@ -13,8 +13,7 @@ const NewsPostDetail = () => {
 
   useEffect(() => {
     const fetchNewsPost = () => {
-      axios
-        .get(`/api/getNewsPosts${query?.id ? `?id=${query.id}` : ''}`)
+      sendApiRequest('GET', `/api/getNewsPosts${query?.id ? `?id=${query.id}` : ''}`)
         .then(response => {
           if (response?.data?.length === 1) {
             setNewsPost(response.data[0])

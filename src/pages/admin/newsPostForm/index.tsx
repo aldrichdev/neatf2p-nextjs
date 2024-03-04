@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { convertBlobToBase64String } from '@helpers/base64'
 import {
   StyledForm,
@@ -28,6 +27,7 @@ import { NewsPostTitle } from '@organisms/NewsPostListItem/NewsPostListItem.styl
 import { Field } from '@atoms/Field'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { ContentBlock } from '@atoms/ContentBlock'
+import { sendApiRequest } from '@helpers/api/apiUtils'
 
 const NewsPostForm = () => {
   const [loading, setLoading] = useState(true)
@@ -90,14 +90,13 @@ const NewsPostForm = () => {
   }
 
   const sendDataToApi = (imageBase64: string, alt: string, title: string, body: string) => {
-    axios
-      .post('/api/submitNewsPost', {
-        image: imageBase64,
-        alt,
-        title,
-        datePosted: new Date(),
-        body,
-      })
+    sendApiRequest('POST', '/api/submitNewsPost', {
+      image: imageBase64,
+      alt,
+      title,
+      datePosted: new Date(),
+      body,
+    })
       .then(response => {
         setSubmitResult({
           answer: response?.data,

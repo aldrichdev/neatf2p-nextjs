@@ -10,7 +10,7 @@ import { Form } from '@atoms/Form'
 import { redirectTo } from '@helpers/window'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { BannedText } from 'src/data/BannedText'
-import axios from 'axios'
+import { sendApiRequest } from '@helpers/api/apiUtils'
 
 const ChangeUsernamePage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -48,19 +48,17 @@ const ChangeUsernamePage = () => {
     updatedUser.username = newUsername
 
     // Update iron user by logging out then in.
-    axios.get('/api/ironLogout').then(() => {
-      axios.post('/api/ironLogin', { ...updatedUser })
+    sendApiRequest('GET', '/api/ironLogout').then(() => {
+      sendApiRequest('POST', '/api/ironLogin', { ...updatedUser })
     })
 
     // Update username
-    axios
-      .post('/api/updateWebsiteUserUsername', {
-        userId: user.id,
-        newUsername,
-      })
-      .then(() => {
-        redirectTo('/account/change-username/success')
-      })
+    sendApiRequest('POST', '/api/updateWebsiteUserUsername', {
+      userId: user.id,
+      newUsername,
+    }).then(() => {
+      redirectTo('/account/change-username/success')
+    })
   }
 
   if (isLoading) {

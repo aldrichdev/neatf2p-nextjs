@@ -1,8 +1,8 @@
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
+import { sendApiRequest } from '@helpers/api/apiUtils'
 import { Spinner } from '@molecules/Spinner'
-import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -16,14 +16,12 @@ const ChangeEmailByIdPage = () => {
   useEffect(() => {
     if (!accountId || !newEmail) return
 
-    axios
-      .post('/api/updateWebsiteUserEmailAddress', {
-        userId: accountId,
-        newEmail,
-      })
-      .then(() => {
-        setIsLoading(false)
-      })
+    sendApiRequest('POST', '/api/updateWebsiteUserEmailAddress', {
+      userId: accountId,
+      newEmail,
+    }).then(() => {
+      setIsLoading(false)
+    })
   }, [accountId, newEmail])
 
   if (isLoading) {

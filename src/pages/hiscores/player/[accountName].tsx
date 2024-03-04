@@ -7,10 +7,10 @@ import { HiscoreDataRow } from '@globalTypes/Database/HiscoreDataRow'
 import { HiscoresSortField } from '@globalTypes/Database/HiscoresSortField'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { PlayerHiscoreRow } from '@globalTypes/Hiscores/PlayerHiscoreRow'
+import { sendApiRequest } from '@helpers/api/apiUtils'
 import { compareHiscores, convertExp, getTotalExp, isNotBaselineExp } from '@helpers/hiscores/hiscoresUtils'
 import { Spinner } from '@molecules/Spinner'
 import { PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
-import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
@@ -75,10 +75,9 @@ const PlayerHiscore = () => {
 
     if (!accountName) return
 
-    axios
-      .post('/api/getPlayerHiscore', {
-        username: accountName.toLowerCase(),
-      })
+    sendApiRequest('POST', '/api/getPlayerHiscore', {
+      username: accountName.toLowerCase(),
+    })
       .then(response => {
         setHiscoresData(response?.data as HiscoreDataRow[])
         setIsLoading(false)

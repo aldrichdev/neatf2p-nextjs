@@ -4,7 +4,6 @@ import { Form } from '@atoms/Form'
 import { BodyText } from '@atoms/BodyText'
 import { Field } from '@atoms/Field'
 import { InlineLink } from '@atoms/InlineLink'
-import axios from 'axios'
 import useAuthentication from '@hooks/useAuthentication'
 import { redirectTo } from '@helpers/window'
 import { UserExists, UserIsLoggedIn } from '@helpers/users/users'
@@ -14,6 +13,7 @@ import { FormButton } from '@atoms/FormButton/FormButton'
 import { Spinner } from '@molecules/Spinner'
 import { DiscordLink } from '@atoms/DiscordLink'
 import { PageHeading } from '@atoms/PageHeading'
+import { sendApiRequest } from '@helpers/api/apiUtils'
 
 const ForgotPasswordPage = () => {
   const [loading, setLoading] = useState(true)
@@ -36,8 +36,7 @@ const ForgotPasswordPage = () => {
   const handleRequest = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    axios
-      .get(`/api/getUser?user=${email}`)
+    sendApiRequest('GET', `/api/getUser?user=${email}`)
       .then(async response => {
         const result = response?.data
         const userExists = UserExists(result)

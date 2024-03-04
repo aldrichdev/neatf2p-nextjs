@@ -1,5 +1,5 @@
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
-import axios from 'axios'
+import { sendApiRequest } from '@helpers/api/apiUtils'
 import { useEffect, useState } from 'react'
 
 const useGameAccounts = (userId: string | undefined) => {
@@ -7,8 +7,7 @@ const useGameAccounts = (userId: string | undefined) => {
 
   useEffect(() => {
     const fetchGameAccounts = () => {
-      axios
-        .get(`/api/getGameAccountsForUser?userId=${userId}`)
+      sendApiRequest('GET', `/api/getGameAccountsForUser?userId=${userId}`)
         .then(response => {
           setAccounts(response.data)
         })

@@ -1,7 +1,7 @@
 import { HiscoreDataRow } from '@globalTypes/Database/HiscoreDataRow'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
+import { sendApiRequest } from '@helpers/api/apiUtils'
 import { compareHiscores, isNotBaselineExp } from '@helpers/hiscores/hiscoresUtils'
-import axios from 'axios'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 const useHiscores = (hiscoreType: HiscoreType, setIsLoading: Dispatch<SetStateAction<boolean>>) => {
@@ -12,8 +12,7 @@ const useHiscores = (hiscoreType: HiscoreType, setIsLoading: Dispatch<SetStateAc
     setIsLoading(true)
 
     // Query the data once
-    axios
-      .get('/api/queryHiscores')
+    sendApiRequest('GET', '/api/queryHiscores')
       .then(response => {
         setRawHiscores(response?.data as HiscoreDataRow[])
       })

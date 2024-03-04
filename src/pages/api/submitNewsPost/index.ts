@@ -6,6 +6,18 @@ import { cleanInputString } from '@helpers/string/stringUtils'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
+  // Block requests from non-app sources
+  if (process.env.NEXT_PUBLIC_API_SECRET) {
+    const secretHeader = req.headers[process.env.NEXT_PUBLIC_API_SECRET]
+
+    if (!secretHeader) {
+      res.statusCode = 401
+      res.setHeader('Content-Type', 'application/json')
+      res.end(JSON.stringify('Unauthorized'))
+      return
+    }
+  }
+
   try {
     const insertImageQuery = `INSERT INTO images (image, alt) VALUES ('${req.body?.image}', '${cleanInputString(
       req.body?.alt,

@@ -1,9 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
 import { Warning } from './RenameAccountModal.styled'
-import axios from 'axios'
 import { Modal } from '@molecules/Modal'
 import { Field } from '@atoms/Field'
+import { sendApiRequest } from '@helpers/api/apiUtils'
 
 type RenameAccountModalProps = {
   account: PlayerDataRow
@@ -49,25 +49,23 @@ const RenameAccountModal = (props: RenameAccountModalProps) => {
       return
     }
 
-    axios
-      .post('/api/updateGameAccountUsername', {
-        accountId: account.id,
-        currentName: account.username,
-        newName: newAccountName,
-      })
-      .then(response => {
-        if (typeof response?.data === 'number') {
-          setSuccessMessage('Your account has been renamed successfully! This page will now refresh.')
-          setTimeout(() => {
-            if (typeof window !== 'undefined') {
-              location.reload()
-            }
-          }, 3000)
-        } else {
-          const errorMessage = `Non-number response type in RenameAccountModal: ${response?.data}`
-          console.log(errorMessage)
-        }
-      })
+    sendApiRequest('POST', '/api/updateGameAccountUsername', {
+      accountId: account.id,
+      currentName: account.username,
+      newName: newAccountName,
+    }).then(response => {
+      if (typeof response?.data === 'number') {
+        setSuccessMessage('Your account has been renamed successfully! This page will now refresh.')
+        setTimeout(() => {
+          if (typeof window !== 'undefined') {
+            location.reload()
+          }
+        }, 3000)
+      } else {
+        const errorMessage = `Non-number response type in RenameAccountModal: ${response?.data}`
+        console.log(errorMessage)
+      }
+    })
   }
 
   if (!open) return null

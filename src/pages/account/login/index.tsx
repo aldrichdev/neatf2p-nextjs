@@ -7,7 +7,6 @@ import { BodyText } from '@atoms/BodyText'
 import { Field } from '@atoms/Field'
 import { InlineLink } from '@atoms/InlineLink'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
-import axios from 'axios'
 import bcrypt from 'bcryptjs'
 import { User } from '@globalTypes/User'
 import useAuthentication from '@hooks/useAuthentication'
@@ -18,6 +17,7 @@ import { UserExists, UserIsLoggedIn } from '@helpers/users/users'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
+import { sendApiRequest } from '@helpers/api/apiUtils'
 
 const ForgotPasswordBlock = styled(BodyText)(
   () => css`
@@ -61,8 +61,7 @@ const AccountLoginPage = () => {
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    axios
-      .get(`/api/getUser?user=${usernameOrEmail}`)
+    sendApiRequest('GET', `/api/getUser?user=${usernameOrEmail}`)
       .then(async response => {
         const result = response?.data
 
@@ -92,8 +91,7 @@ const AccountLoginPage = () => {
         // If we get this far, it's a match. Log them in and redirect to homepage
         const user: User = { ...result }
 
-        axios
-          .post('/api/ironLogin', { ...user })
+        sendApiRequest('POST', '/api/ironLogin', { ...user })
           .then(response => {
             if (response?.status !== 200) {
               setValidationError('An error occurred logging you in.')
@@ -104,10 +102,9 @@ const AccountLoginPage = () => {
           })
 
         // Update the user's lastLogin in the database.
-        axios
-          .post('/api/updateLastLogin', {
-            userId: user.id,
-          })
+        sendApiRequest('POST', '/api/updateLastLogin', {
+          userId: user.id,
+        })
           .then(() => {
             // Take user to homepage. `AccountWidget` will indicate login was successful.
             redirectTo('/')
