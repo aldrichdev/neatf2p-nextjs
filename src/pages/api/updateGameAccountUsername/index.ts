@@ -3,22 +3,10 @@ import { User } from '@globalTypes/User'
 import { handleManipulate } from '@helpers/api/apiHandler'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
-  // Block requests from non-app sources
-  if (process.env.NEXT_PUBLIC_API_SECRET) {
-    const secretHeader = req.headers[process.env.NEXT_PUBLIC_API_SECRET]
-
-    if (!secretHeader) {
-      res.statusCode = 401
-      res.setHeader('Content-Type', 'application/json')
-      res.end(JSON.stringify('Unauthorized'))
-      return
-    }
-  }
-
   const { accountId, currentName, newName } = req.body
-  const query = `UPDATE players SET former_name = '${currentName}', username = '${newName}' WHERE id = ${accountId}`
+  const query = `UPDATE players SET former_name = ?, username = ? WHERE id = ?`
 
-  return handleManipulate('game', query, res)
+  return handleManipulate('game', query, res, [currentName, newName, accountId])
 }
 
 export default handler

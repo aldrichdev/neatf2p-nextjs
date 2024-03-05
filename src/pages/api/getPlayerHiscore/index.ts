@@ -4,18 +4,6 @@ import { handleQuery } from '@helpers/api/apiHandler'
 import { HiscoreDataRow } from '@globalTypes/Database/HiscoreDataRow'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
-  // Block requests from non-app sources
-  if (process.env.NEXT_PUBLIC_API_SECRET) {
-    const secretHeader = req.headers[process.env.NEXT_PUBLIC_API_SECRET]
-
-    if (!secretHeader) {
-      res.statusCode = 401
-      res.setHeader('Content-Type', 'application/json')
-      res.end(JSON.stringify('Unauthorized'))
-      return
-    }
-  }
-
   const { username } = req.body
 
   if (!username) {

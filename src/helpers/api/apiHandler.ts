@@ -36,10 +36,11 @@ export const handleManipulate = async (
   databaseType: 'website' | 'game',
   sqlQuery: string,
   res: NextApiResponse<User>,
+  sqlParams?: string[] | Record<string, string>,
   returnLastInsertedId?: boolean,
 ): Promise<void> => {
   try {
-    const response: OkPacket | ErrorResult = await queryDatabase(databaseType, sqlQuery)
+    const response: OkPacket | ErrorResult = await queryDatabase(databaseType, sqlQuery, sqlParams)
 
     if (!isOkPacket(response)) {
       throw new Error(response?.error?.toString())
