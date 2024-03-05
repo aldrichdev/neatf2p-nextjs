@@ -8,25 +8,18 @@ interface Props {
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Props>) => {
-  // Block requests from non-app sources
-  if (process.env.NEXT_PUBLIC_API_SECRET) {
-    const secretHeader = req.headers[process.env.NEXT_PUBLIC_API_SECRET]
+  const { userId } = req.query
 
-    if (!secretHeader) {
-      res.statusCode = 401
-      res.setHeader('Content-Type', 'application/json')
-      res.end(JSON.stringify('Unauthorized'))
-      return
-    }
+  if (!userId || typeof userId !== 'string') {
+    return Promise.resolve()
   }
 
-  const { userId } = req.query
   const query = `SELECT id, username, former_name, pass, salt, combat, creation_date, login_date, banned
     FROM players
-    WHERE websiteUserId = '${userId}'`
+    WHERE websiteUserId = ?`
 
   try {
-    const response: PlayerDataRow[] | ErrorResult = await queryDatabase('game', query)
+    const response: PlayerDataRow[] | ErrorResult = await queryDatabase('game', query, [userId])
 
     if (response instanceof Array) {
       res.statusCode = 200

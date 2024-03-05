@@ -9,28 +9,19 @@ import { ErrorResult } from '@globalTypes/Database/ErrorResult'
  * `?id=n` - returns a single news post (in an array) by its unique ID
  */
 const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
-  // Block requests from non-app sources
-  if (process.env.NEXT_PUBLIC_API_SECRET) {
-    const secretHeader = req.headers[process.env.NEXT_PUBLIC_API_SECRET]
-
-    if (!secretHeader) {
-      res.statusCode = 401
-      res.setHeader('Content-Type', 'application/json')
-      res.end(JSON.stringify('Unauthorized'))
-      return
-    }
-  }
-
   try {
     const list: NewsPost[] = []
-    const limit = req?.query?.limit
     const id = req?.query?.id
+    const limit = req?.query?.limit
+    const hasId = id && typeof id === 'string' && !isNaN(Number(id))
+    const hasLimit = limit && typeof limit === 'string' && !isNaN(Number(limit))
+
     const query = `SELECT np.id, i.image, i.alt, np.title, np.datePosted, np.body
       FROM newsposts np
       LEFT OUTER JOIN images i ON np.image = i.id
-      ${id ? `WHERE np.id = ${id}` : ''}
+      ${hasId ? `WHERE np.id = ${Number(id)}` : ''}
       ORDER BY np.datePosted DESC
-      ${limit ? `LIMIT ${limit}` : ''}`
+      ${hasLimit ? `LIMIT ${Number(limit)}` : ''}`
 
     const response: Array<any> | ErrorResult = await queryDatabase('website', query)
 

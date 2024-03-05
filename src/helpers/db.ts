@@ -26,11 +26,15 @@ const websiteDB = mysql({
   },
 })
 
-export const queryDatabase = async <T>(databaseType: 'website' | 'game', sqlStatement: string) => {
+export const queryDatabase = async <T>(
+  databaseType: 'website' | 'game',
+  sqlStatement: string,
+  sqlParams?: string[] | Record<string, string>,
+) => {
   const database = databaseType === 'website' ? websiteDB : gameDB
 
   try {
-    const results = await database.query<T>(sqlStatement, [])
+    const results = await database.query<T>(sqlStatement, sqlParams)
     await database.end()
     return results
   } catch (error) {

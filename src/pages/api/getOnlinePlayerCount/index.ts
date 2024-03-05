@@ -12,18 +12,6 @@ interface RowDataPacket {
 
 /** Note: `req` variable is unused, but removing it will throw an error, `res.setHeader is not a function`. */
 const handler = async (req: NextApiRequest, res: NextApiResponse<Props>) => {
-  // Block requests from non-app sources
-  if (process.env.NEXT_PUBLIC_API_SECRET) {
-    const secretHeader = req.headers[process.env.NEXT_PUBLIC_API_SECRET]
-
-    if (!secretHeader) {
-      res.statusCode = 401
-      res.setHeader('Content-Type', 'application/json')
-      res.end(JSON.stringify('Unauthorized'))
-      return
-    }
-  }
-
   try {
     const query = `SELECT COUNT(id) FROM players WHERE ONLINE = 1`
     const response = await queryDatabase<RowDataPacket[] | ErrorResult>('game', query)
