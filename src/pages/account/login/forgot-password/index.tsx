@@ -36,7 +36,7 @@ const ForgotPasswordPage = () => {
   const handleRequest = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    sendApiRequest('GET', `/api/getUser?user=${email}`)
+    sendApiRequest('GET', `/api/getUser?usernameOrEmail=${email}`)
       .then(async response => {
         const result = response?.data
         const userExists = UserExists(result)

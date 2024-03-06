@@ -7,7 +7,6 @@ import { Field } from '@atoms/Field'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import bcrypt from 'bcryptjs'
 import { User } from '@globalTypes/User'
-import { UserIdentityInfo } from '@globalTypes/Database/Users/UserIdentityInfo'
 import useAuthentication from '@hooks/useAuthentication'
 import { redirectTo } from '@helpers/window'
 import { UserExists } from '@helpers/users/users'
@@ -25,8 +24,6 @@ const CreateAccountPage = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [validationError, setValidationError] = useState('')
-  const [existingUsernames, setExistingUsernames] = useState<string[]>([])
-  const [existingEmailAddresses, setExistingEmailAddresses] = useState<string[]>([])
   const user = useAuthentication(setLoading)
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -58,12 +55,6 @@ const CreateAccountPage = () => {
       return
     }
 
-    // Check if username or email exists
-    if (existingEmailAddresses.includes(email) || existingUsernames.includes(username)) {
-      setValidationError('Email or username already exists.')
-      return
-    }
-
     // Hash password
     const passwordSalt = bcrypt.genSaltSync()
     const hashedPassword = bcrypt.hashSync(password, passwordSalt)
@@ -79,7 +70,11 @@ const CreateAccountPage = () => {
       currentDate: now,
     })
       .then(response => {
-        if (typeof response?.data === 'string') {
+        console.log('create response:', response)
+        if (response?.status !== 200) {
+          // Display error to user (usually due to a taken email or username).
+          setValidationError(response?.data)
+        } else if (typeof response?.data === 'string') {
           const user: User = {
             id: response?.data,
             emailAddress: email,
@@ -96,8 +91,17 @@ const CreateAccountPage = () => {
                   `An error occurred logging you into the new account: HTTP ${response?.status}: ${response?.statusText}.`,
                 )
               } else {
-                // Redirect them to a page that shows they are logged in.
-                redirectTo('/account/create/success')
+                // Update the user's session and lastLogin in the database.
+                sendApiRequest('POST', '/api/updateWebsiteUserSession', {
+                  userId: user.id,
+                })
+                  .then(() => {
+                    // Redirect them to a page that shows they are logged in.
+                    redirectTo('/account/create/success')
+                  })
+                  .catch((error: { response: { data: string } }) => {
+                    setValidationError(`Couldn't update user session: ${error?.response?.data}`)
+                  })
               }
             })
             .catch((error: { response: { data: string } }) => {
@@ -110,24 +114,8 @@ const CreateAccountPage = () => {
       })
   }
 
-  const fetchExistingUserInfo = () => {
-    sendApiRequest('GET', '/api/getExistingUserInfo')
-      .then(response => {
-        const allEmailAddresses = response?.data?.map((info: UserIdentityInfo) => info.emailAddress)
-        setExistingEmailAddresses(allEmailAddresses)
-
-        const allUsernames = response?.data?.map((info: UserIdentityInfo) => info.username)
-        setExistingUsernames(allUsernames)
-      })
-      .catch((error: string) => error)
-  }
-
   if (loading) {
     return <Spinner />
-  }
-
-  if (existingEmailAddresses?.length < 1 || existingUsernames?.length < 1) {
-    fetchExistingUserInfo()
   }
 
   if (UserExists(user)) {

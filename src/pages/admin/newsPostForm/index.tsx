@@ -91,6 +91,7 @@ const NewsPostForm = () => {
 
   const sendDataToApi = (imageBase64: string, alt: string, title: string, body: string) => {
     sendApiRequest('POST', '/api/submitNewsPost', {
+      userId: user.id,
       image: imageBase64,
       alt,
       title,

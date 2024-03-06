@@ -5,15 +5,17 @@ import { Modal } from '@molecules/Modal'
 import { hashPassword } from '@helpers/password'
 import { sanitizeRunescapePassword } from '@helpers/string/stringUtils'
 import { sendApiRequest } from '@helpers/api/apiUtils'
+import { User } from '@globalTypes/User'
 
 type PasswordModalProps = {
   account: PlayerDataRow
   open: boolean
   setOpen: (open: boolean) => void
+  user: User | undefined
 }
 
 const PasswordModal = (props: PasswordModalProps) => {
-  const { account, open, setOpen } = props
+  const { account, open, setOpen, user } = props
   const [newPassword, setNewPassword] = useState<string>('')
   const [confirmNewPassword, setConfirmNewPassword] = useState<string>('')
   const [validationError, setValidationError] = useState('')
@@ -55,6 +57,7 @@ const PasswordModal = (props: PasswordModalProps) => {
     const { hashedPassword } = hashPassword(fixedPassword, true)
 
     sendApiRequest('POST', '/api/updateGameAccountPassword', {
+      userId: user?.id,
       accountId: account.id,
       newPassword: hashedPassword,
     }).then(response => {

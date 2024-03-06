@@ -1,5 +1,6 @@
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
+import { shouldBlockApiCall } from '@helpers/api/apiUtils'
 import { queryDatabase } from '@helpers/db'
 import { NextApiRequest, NextApiResponse } from 'next'
 
@@ -9,9 +10,20 @@ interface Props {
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Props>) => {
   const { userId } = req.query
+  const sessionCookie = req.cookies?.['neat-f2p-session']
 
   if (!userId || typeof userId !== 'string') {
-    return Promise.resolve()
+    res.statusCode = 400
+    res.setHeader('Content-Type', 'application/json')
+    res.end(JSON.stringify('Missing or malformed userId provided to getGameAccountsForUser.'))
+    return
+  }
+
+  if (await shouldBlockApiCall(userId, sessionCookie)) {
+    res.statusCode = 403
+    res.setHeader('Content-Type', 'application/json')
+    res.end(JSON.stringify(`Forbidden`))
+    return
   }
 
   const query = `SELECT id, username, former_name, pass, salt, combat, creation_date, login_date, banned

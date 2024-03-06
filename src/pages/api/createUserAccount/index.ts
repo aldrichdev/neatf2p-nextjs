@@ -11,8 +11,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   // Generate GUID for new user accounts
   const newGuid = uuidv4()
 
-  const insertUserQuery = `INSERT INTO users (id, emailAddress, username, password, passwordSalt, lastLogin, isAdmin, dateCreated)
-    VALUES (?, ?, ?, ?, ?, ?, '0', ?)`
+  const insertUserQuery = `INSERT INTO users (id, emailAddress, username, password, passwordSalt, 
+    lastLogin, isAdmin, dateCreated)
+    SELECT ?, ?, ?, ?, ?, ?, '0', ? FROM DUAL
+    WHERE NOT EXISTS (SELECT * FROM users WHERE emailAddress = ? OR username = ? LIMIT 1)`
 
   try {
     const insertUserResponse: OkPacket | ErrorResult = await queryDatabase('website', insertUserQuery, [
@@ -23,10 +25,22 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
       passwordSalt,
       currentDate,
       currentDate,
+      email,
+      username,
     ])
+    console.log('insertUserResponse', insertUserResponse)
 
     if (!isOkPacket(insertUserResponse)) {
-      throw new Error(insertUserResponse?.error?.toString())
+      res.statusCode = 500
+      res.setHeader('Content-Type', 'application/json')
+      res.end(
+        JSON.stringify(
+          insertUserResponse?.error
+            ? insertUserResponse.error.toString()
+            : 'An error occurred. The email address or username you chose may be taken. Please try a different one.',
+        ),
+      )
+      return
     }
 
     // Return a JSON result indicating success

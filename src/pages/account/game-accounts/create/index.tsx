@@ -96,6 +96,7 @@ const CreateGameAccount = () => {
     axios.get('https://api.ipify.org/?format=json').then(response => {
       // Create account
       sendApiRequest('POST', '/api/createPlayerRecord', {
+        userId: user.id,
         accountName: sanitizedAccountName,
         password: hashedPassword,
         websiteAccountId: user?.id,
@@ -107,6 +108,7 @@ const CreateGameAccount = () => {
 
             // Now we need to create the other records. New accounts are not playable without these.
             sendApiRequest('POST', '/api/createPlayerSkillRecords', {
+              userId: user.id,
               playerId,
             })
               .then(response => {
@@ -128,7 +130,7 @@ const CreateGameAccount = () => {
   }
 
   const fetchCurrentAccountNames = () => {
-    sendApiRequest('GET', '/api/getCurrentGameAccountNames')
+    sendApiRequest('GET', '/api/getCurrentGameAccountNames', undefined, { userid: user.id })
       .then(response => {
         const allAccountNames = response?.data?.map((info: PlayerDataRow) => info.username.toLowerCase())
         setCurrentAccountNames(allAccountNames)

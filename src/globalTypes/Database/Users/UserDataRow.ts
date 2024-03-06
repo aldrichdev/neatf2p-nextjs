@@ -4,6 +4,7 @@ export interface UserDataRow {
   username: string
   password: string
   passwordSalt: string
+  session: string
   lastLogin: string
   isAdmin: number
 }

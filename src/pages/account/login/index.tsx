@@ -61,7 +61,7 @@ const AccountLoginPage = () => {
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    sendApiRequest('GET', `/api/getUser?user=${usernameOrEmail}`)
+    sendApiRequest('GET', `/api/getUser?usernameOrEmail=${usernameOrEmail}`)
       .then(async response => {
         const result = response?.data?.[0]
 
@@ -95,22 +95,22 @@ const AccountLoginPage = () => {
           .then(response => {
             if (response?.status !== 200) {
               setValidationError('An error occurred logging you in.')
+            } else {
+              // Update the user's session and lastLogin in the database.
+              sendApiRequest('POST', '/api/updateWebsiteUserSession', {
+                userId: user.id,
+              })
+                .then(() => {
+                  // Take user to homepage. `AccountWidget` will indicate login was successful.
+                  redirectTo('/')
+                })
+                .catch((error: { response: { data: string } }) => {
+                  setValidationError(`Couldn't update user session: ${error?.response?.data}`)
+                })
             }
           })
           .catch((error: { response: { data: string } }) => {
             setValidationError(`An error occurred logging you in: ${error?.response?.data}`)
-          })
-
-        // Update the user's lastLogin in the database.
-        sendApiRequest('POST', '/api/updateLastLogin', {
-          userId: user.id,
-        })
-          .then(() => {
-            // Take user to homepage. `AccountWidget` will indicate login was successful.
-            redirectTo('/')
-          })
-          .catch((error: { response: { data: string } }) => {
-            setValidationError(`Couldn't set last login date: ${error?.response?.data}`)
           })
       })
       .catch((error: string) => error)
