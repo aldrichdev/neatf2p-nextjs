@@ -53,4 +53,6 @@ export const shouldBlockApiCall = async (userId: string, sessionCookie: string |
       console.log('An error occurred in shouldBlockApiCall calling checkWebsiteUserSession: ', error)
       return true
     })
+
+  return false
 }
