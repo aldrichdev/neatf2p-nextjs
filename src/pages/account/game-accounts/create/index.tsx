@@ -4,7 +4,6 @@ import { Field } from '@atoms/Field'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { Form } from '@atoms/Form'
 import { FormButton } from '@atoms/FormButton/FormButton'
-import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
 import { redirectTo } from '@helpers/window'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { hashPassword } from '@helpers/password'
@@ -24,7 +23,6 @@ const CreateGameAccount = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [validationError, setValidationError] = useState('')
-  const [currentAccountNames, setCurrentAccountNames] = useState('')
   const [submitDisabled, setSubmitDisabled] = useState(false)
   const user = useAuthentication(setLoading)
 
@@ -80,13 +78,6 @@ const CreateGameAccount = () => {
       return
     }
 
-    // Check if account name already exists. Check with both values in lower case.
-    if (currentAccountNames.includes(sanitizedAccountName.toLowerCase())) {
-      setSubmitDisabled(false)
-      setValidationError('Account name already exists. Please choose another one.')
-      return
-    }
-
     // Fix password so RSC recognizes it
     const fixedPassword = sanitizeRunescapePassword(password)
 
@@ -129,15 +120,6 @@ const CreateGameAccount = () => {
     })
   }
 
-  const fetchCurrentAccountNames = () => {
-    sendApiRequest('GET', '/api/getCurrentGameAccountNames', undefined, { userid: user.id })
-      .then(response => {
-        const allAccountNames = response?.data?.map((info: PlayerDataRow) => info.username.toLowerCase())
-        setCurrentAccountNames(allAccountNames)
-      })
-      .catch((error: string) => error)
-  }
-
   if (loading) {
     return <Spinner />
   }
@@ -155,10 +137,6 @@ const CreateGameAccount = () => {
 
   if (!UserIsLoggedIn(user)) {
     return <NotLoggedIn />
-  }
-
-  if (currentAccountNames?.length < 1) {
-    fetchCurrentAccountNames()
   }
 
   return (
