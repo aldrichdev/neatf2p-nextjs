@@ -11,6 +11,8 @@ import { redirectTo } from '@helpers/window'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { BannedText } from 'src/data/BannedText'
 import { sendApiRequest } from '@helpers/api/apiUtils'
+import { UserIsLoggedIn } from '@helpers/users/users'
+import { NotLoggedIn } from '@molecules/NotLoggedIn'
 
 const ChangeUsernamePage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -47,9 +49,13 @@ const ChangeUsernamePage = () => {
     const updatedUser = user
     updatedUser.username = newUsername
 
-    // Update iron user by logging out then in.
+    // Update iron user by logging out then in, and updating session info.
     sendApiRequest('GET', '/api/ironLogout').then(() => {
-      sendApiRequest('POST', '/api/ironLogin', { ...updatedUser })
+      sendApiRequest('POST', '/api/ironLogin', { ...updatedUser }).then(() => {
+        sendApiRequest('POST', '/api/updateWebsiteUserSession', {
+          userId: user.id,
+        })
+      })
     })
 
     // Update username
@@ -63,6 +69,10 @@ const ChangeUsernamePage = () => {
 
   if (isLoading) {
     return <Spinner />
+  }
+
+  if (!UserIsLoggedIn(user)) {
+    return <NotLoggedIn />
   }
 
   return (

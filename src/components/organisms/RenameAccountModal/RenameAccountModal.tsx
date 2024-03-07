@@ -4,15 +4,17 @@ import { Warning } from './RenameAccountModal.styled'
 import { Modal } from '@molecules/Modal'
 import { Field } from '@atoms/Field'
 import { sendApiRequest } from '@helpers/api/apiUtils'
+import { User } from '@globalTypes/User'
 
 type RenameAccountModalProps = {
   account: PlayerDataRow
   open: boolean
   setOpen: (open: boolean) => void
+  user: User | undefined
 }
 
 const RenameAccountModal = (props: RenameAccountModalProps) => {
-  const { account, open, setOpen } = props
+  const { account, open, setOpen, user } = props
   const [newName, setNewName] = useState<string>('')
   const [validationError, setValidationError] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
@@ -50,6 +52,7 @@ const RenameAccountModal = (props: RenameAccountModalProps) => {
     }
 
     sendApiRequest('POST', '/api/updateGameAccountUsername', {
+      userId: user?.id,
       accountId: account.id,
       currentName: account.username,
       newName: newAccountName,

@@ -12,10 +12,10 @@ export const handleQuery = async <T>(
   databaseType: 'website' | 'game',
   sqlQuery: string,
   res: NextApiResponse<User>,
+  sqlParams?: string[],
 ): Promise<void> => {
   try {
-    const response: T[] | ErrorResult = await queryDatabase(databaseType, sqlQuery)
-
+    const response: T[] | ErrorResult = await queryDatabase(databaseType, sqlQuery, sqlParams)
     if (response instanceof Array) {
       res.statusCode = 200
       res.setHeader('Content-Type', 'application/json')

@@ -5,13 +5,19 @@ import { UserDataRow } from '@globalTypes/Database/Users/UserDataRow'
 import { User } from '@globalTypes/User'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
-  const { user } = req.query
-  if (!user || typeof user !== 'string') return Promise.resolve()
+  const { usernameOrEmail } = req.query
+
+  if (!usernameOrEmail || typeof usernameOrEmail !== 'string') {
+    res.statusCode = 400
+    res.setHeader('Content-Type', 'application/json')
+    res.end(JSON.stringify('Missing or malformed usernameOrEmail provided to getUser.'))
+    return
+  }
 
   const query = `CALL GetUser(?)`
 
   try {
-    const response: UserDataRow[] | ErrorResult = await queryDatabase('website', query, [user])
+    const response: UserDataRow[] | ErrorResult = await queryDatabase('website', query, [usernameOrEmail])
 
     if (response instanceof Array) {
       res.statusCode = 200

@@ -7,7 +7,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   const { username } = req.body
 
   if (!username) {
-    return Promise.resolve()
+    res.statusCode = 400
+    res.setHeader('Content-Type', 'application/json')
+    res.end(JSON.stringify('Missing username provided to getPlayerHiscore.'))
+    return
   }
 
   const query = `SELECT p.username, p.skill_total, e.attack AS 'attackxp', e.defense AS 'defensexp', e.strength AS 'strengthxp',

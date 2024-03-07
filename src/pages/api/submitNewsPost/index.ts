@@ -3,9 +3,18 @@ import { queryDatabase, isOkPacket } from '@helpers/db'
 import { NewsPost } from '@globalTypes/NewsPost'
 import { OkPacket } from 'mysql'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
+import { shouldBlockApiCall } from '@helpers/api/apiUtils'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
-  const { image, alt, title, datePosted, body } = req.body
+  const { userId, image, alt, title, datePosted, body } = req.body
+  const sessionCookie = req.cookies?.['neat-f2p-session']
+
+  if (await shouldBlockApiCall(userId, sessionCookie)) {
+    res.statusCode = 403
+    res.setHeader('Content-Type', 'application/json')
+    res.end(JSON.stringify(`Forbidden`))
+    return
+  }
 
   try {
     const insertImageQuery = `INSERT INTO images (image, alt) VALUES (?, ?)`

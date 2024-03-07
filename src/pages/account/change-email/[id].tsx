@@ -2,6 +2,7 @@ import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
 import { sendApiRequest } from '@helpers/api/apiUtils'
+import useAuthentication from '@hooks/useAuthentication'
 import { Spinner } from '@molecules/Spinner'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -12,6 +13,7 @@ const ChangeEmailByIdPage = () => {
   const { query } = useRouter()
   const accountId = query?.id
   const newEmail = query?.email
+  const user = useAuthentication()
 
   useEffect(() => {
     if (!accountId || !newEmail) return
@@ -22,7 +24,7 @@ const ChangeEmailByIdPage = () => {
     }).then(() => {
       setIsLoading(false)
     })
-  }, [accountId, newEmail])
+  }, [accountId, newEmail, user.id])
 
   if (isLoading) {
     return <Spinner />

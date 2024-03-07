@@ -79,10 +79,20 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
         </TableBody>
       </AccountTable>
       {renameModalVisible && activeAccount && (
-        <RenameAccountModal account={activeAccount} open={renameModalVisible} setOpen={setRenameModalVisible} />
+        <RenameAccountModal
+          account={activeAccount}
+          open={renameModalVisible}
+          setOpen={setRenameModalVisible}
+          user={user}
+        />
       )}
       {passwordModalVisible && activeAccount && (
-        <PasswordModal account={activeAccount} open={passwordModalVisible} setOpen={setPasswordModalVisible} />
+        <PasswordModal
+          account={activeAccount}
+          open={passwordModalVisible}
+          setOpen={setPasswordModalVisible}
+          user={user}
+        />
       )}
     </AccountTableContainer>
   )
