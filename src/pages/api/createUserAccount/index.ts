@@ -28,7 +28,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
       email,
       username,
     ])
-    console.log('insertUserResponse', insertUserResponse)
 
     if (!isOkPacket(insertUserResponse)) {
       res.statusCode = 500

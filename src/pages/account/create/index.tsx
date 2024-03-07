@@ -70,7 +70,6 @@ const CreateAccountPage = () => {
       currentDate: now,
     })
       .then(response => {
-        console.log('create response:', response)
         if (response?.status !== 200) {
           // Display error to user (usually due to a taken email or username).
           setValidationError(response?.data)
