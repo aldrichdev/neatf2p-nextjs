@@ -11,14 +11,23 @@ export const sendApiRequest = (
   headers?: Record<string, string>,
 ) => {
   if (method === 'GET') {
-    return axios.get(endpointUrl, {
+    if (headers) {
+      return axios.get(endpointUrl, {
+        headers,
+      })
+    }
+
+    return axios.get(endpointUrl)
+  }
+
+  // TODO: If this fixes logout, try `headers ? { ... headers ... } : undefined` inline instead
+  if (headers) {
+    return axios.post(endpointUrl, body, {
       headers,
     })
   }
 
-  return axios.post(endpointUrl, body, {
-    headers,
-  })
+  return axios.post(endpointUrl, body)
 }
 
 export const shouldBlockApiCall = async (userId: string, sessionCookie: string | undefined) => {
