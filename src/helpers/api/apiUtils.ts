@@ -46,7 +46,6 @@ export const shouldBlockApiCall = async (userId: string, sessionCookie: string |
       } else {
         // Allow API call, and proceed as usual.
         console.log('Allowing api call')
-        return false
       }
     })
     .catch((error: string) => {
