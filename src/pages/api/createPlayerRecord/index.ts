@@ -16,14 +16,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   }
 
   const query = `INSERT INTO players (username, pass, creation_date, creation_ip, websiteUserId)
-    VALUES (?, ?, ?, ?, ?)`
+    SELECT ?, ?, ?, ?, ? FROM DUAL
+    WHERE NOT EXISTS (SELECT * FROM players WHERE username = ? LIMIT 1)`
 
   // Create the player record and return the new record ID.
   return handleManipulate(
     'game',
     query,
     res,
-    [accountName, password, creationDateMillis, userIp, websiteAccountId],
+    [accountName, password, creationDateMillis, userIp, websiteAccountId, accountName],
     true,
   )
 }

@@ -18,6 +18,7 @@ import { FormButton } from '@atoms/FormButton/FormButton'
 import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
 import { sendApiRequest } from '@helpers/api/apiUtils'
+import axios from 'axios'
 
 const ForgotPasswordBlock = styled(BodyText)(
   () => css`
@@ -96,17 +97,21 @@ const AccountLoginPage = () => {
             if (response?.status !== 200) {
               setValidationError('An error occurred logging you in.')
             } else {
-              // Update the user's session and lastLogin in the database.
-              sendApiRequest('POST', '/api/updateWebsiteUserSession', {
-                userId: user.id,
+              // We will now log IPs for website account logins, for security.
+              axios.get('https://api.ipify.org/?format=json').then(response => {
+                // Update the user's session, ip, and lastLogin in the database.
+                sendApiRequest('POST', '/api/updateWebsiteUserSession', {
+                  userId: user.id,
+                  userIp: response?.data?.ip,
+                })
+                  .then(() => {
+                    // Take user to homepage. `AccountWidget` will indicate login was successful.
+                    redirectTo('/')
+                  })
+                  .catch((error: { response: { data: string } }) => {
+                    setValidationError(`Couldn't update user session: ${error?.response?.data}`)
+                  })
               })
-                .then(() => {
-                  // Take user to homepage. `AccountWidget` will indicate login was successful.
-                  redirectTo('/')
-                })
-                .catch((error: { response: { data: string } }) => {
-                  setValidationError(`Couldn't update user session: ${error?.response?.data}`)
-                })
             }
           })
           .catch((error: { response: { data: string } }) => {
