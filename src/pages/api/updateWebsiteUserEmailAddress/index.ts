@@ -15,9 +15,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
     return
   }
 
-  const query = `UPDATE users SET emailAddress = ?, dateModified = ? WHERE id = ?`
+  const query = `UPDATE users SET emailAddress = ?, dateModified = ? WHERE id = ? 
+    AND NOT EXISTS (SELECT emailAddress FROM users WHERE emailAddress = ?)`
 
-  return handleManipulate('website', query, res, [newEmail, now, userId])
+  return handleManipulate('website', query, res, [newEmail, now, userId, newEmail])
 }
 
 export default handler
