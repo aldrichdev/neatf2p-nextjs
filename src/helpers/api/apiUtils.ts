@@ -20,7 +20,6 @@ export const sendApiRequest = (
     return axios.get(endpointUrl)
   }
 
-  // TODO: If this fixes logout, try `headers ? { ... headers ... } : undefined` inline instead
   if (headers) {
     return axios.post(endpointUrl, body, {
       headers,
@@ -31,8 +30,6 @@ export const sendApiRequest = (
 }
 
 export const shouldBlockApiCall = async (userId: string, sessionCookie: string | undefined) => {
-  let returnValue
-
   await axios
     .get(`${process.env.APP_URL}/api/checkWebsiteUserSession?userId=${userId}`, {
       headers: {
@@ -45,13 +42,15 @@ export const shouldBlockApiCall = async (userId: string, sessionCookie: string |
       if (typeof count !== 'number' || Number(count) < 1) {
         // No user found for current session - block API call.
         console.log('BLOCKING api call')
-        returnValue = true
+        return true
       } else {
         // Allow API call, and proceed as usual.
         console.log('Allowing api call')
-        returnValue = false
+        return false
       }
     })
-
-  return returnValue
+    .catch((error: string) => {
+      console.log('An error occurred in shouldBlockApiCall calling checkWebsiteUserSession: ', error)
+      return true
+    })
 }
