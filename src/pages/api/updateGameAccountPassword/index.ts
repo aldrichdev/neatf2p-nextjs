@@ -14,9 +14,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
     return
   }
 
-  const query = `UPDATE players SET pass = ? WHERE id = ?`
+  const query = `UPDATE players SET pass = ? WHERE id = ? AND websiteUserId = ?`
 
-  return handleManipulate('game', query, res, [newPassword, accountId])
+  return handleManipulate('game', query, res, [newPassword, accountId, userId])
 }
 
 export default handler
