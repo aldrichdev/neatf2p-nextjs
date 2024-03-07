@@ -30,6 +30,8 @@ export const sendApiRequest = (
 }
 
 export const shouldBlockApiCall = async (userId: string, sessionCookie: string | undefined) => {
+  let returnValue = false
+
   await axios
     .get(`${process.env.APP_URL}/api/checkWebsiteUserSession?userId=${userId}`, {
       headers: {
@@ -42,7 +44,7 @@ export const shouldBlockApiCall = async (userId: string, sessionCookie: string |
       if (typeof count !== 'number' || Number(count) < 1) {
         // No user found for current session - block API call.
         console.log('BLOCKING api call')
-        return true
+        returnValue = true
       } else {
         // Allow API call, and proceed as usual.
         console.log('Allowing api call')
@@ -50,8 +52,8 @@ export const shouldBlockApiCall = async (userId: string, sessionCookie: string |
     })
     .catch((error: string) => {
       console.log('An error occurred in shouldBlockApiCall calling checkWebsiteUserSession: ', error)
-      return true
+      returnValue = true
     })
 
-  return false
+  return returnValue
 }
