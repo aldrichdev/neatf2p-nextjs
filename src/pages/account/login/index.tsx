@@ -36,7 +36,7 @@ const ForgotPasswordLink = styled(HoverUnderlineLink)(
 
 const AccountLoginPage = () => {
   const [loading, setLoading] = useState(true)
-  const [usernameOrEmail, setUsernameOrEmail] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [validationError, setValidationError] = useState('')
   const user = useAuthentication(setLoading)
@@ -50,8 +50,8 @@ const AccountLoginPage = () => {
     return <AlreadyLoggedIn />
   }
 
-  const handleUsernameOrEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setUsernameOrEmail(event.target.value)
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value)
   }
 
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -61,13 +61,13 @@ const AccountLoginPage = () => {
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    sendApiRequest('GET', `/api/getUser?usernameOrEmail=${usernameOrEmail}`)
+    sendApiRequest('GET', `/api/getUser?email=${email}`)
       .then(async response => {
         const result = response?.data?.[0]
 
         // First thing would be to confirm the user exists.
         if (!UserExists(result)) {
-          setValidationError('Username or email does not exist.')
+          setValidationError('Email does not exist.')
           return
         }
 
@@ -123,13 +123,7 @@ const AccountLoginPage = () => {
         Log in to your website account below.
       </BodyText>
       <Form onSubmit={handleLogin}>
-        <Field
-          required
-          id='usernameOrEmail'
-          label='Username or Email'
-          variant='standard'
-          onChange={handleUsernameOrEmailChange}
-        />
+        <Field required id='email' label='Email' variant='standard' onChange={handleEmailChange} />
         <Field
           required
           id='password'
