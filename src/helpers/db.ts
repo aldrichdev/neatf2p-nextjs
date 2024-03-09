@@ -43,7 +43,5 @@ export const queryDatabase = async <T>(
 }
 
 export const isOkPacket = (o: any): o is OkPacket => {
-  return (
-    o && Object.prototype.hasOwnProperty.call(o, 'insertId') && typeof o.insertId === 'number' && o.affectedRows > 0
-  )
+  return o && Object.prototype.hasOwnProperty.call(o, 'insertId') && typeof o.insertId === 'number'
 }

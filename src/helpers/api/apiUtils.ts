@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { NextApiResponse } from 'next'
 
 /** This type comprises all the possible types of values in body properties. */
 type BodyValueType = string | number | string[] | undefined | boolean | Date
@@ -56,4 +57,11 @@ export const shouldBlockApiCall = async (userId: string, sessionCookie: string |
     })
 
   return returnValue
+}
+
+export const sendBadRequest = (res: NextApiResponse, errorMessage: string) => {
+  res.statusCode = 400
+  res.setHeader('Content-Type', 'application/json')
+  res.end(JSON.stringify(errorMessage))
+  return
 }

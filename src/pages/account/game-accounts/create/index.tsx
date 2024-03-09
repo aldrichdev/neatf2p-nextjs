@@ -12,7 +12,6 @@ import { UserIsLoggedIn } from '@helpers/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
-import { BannedText } from 'src/data/BannedText'
 import { sanitizeRunescapePassword } from '@helpers/string/stringUtils'
 import { sendApiRequest } from '@helpers/api/apiUtils'
 import axios from 'axios'
@@ -45,32 +44,6 @@ const CreateGameAccount = () => {
     event.preventDefault()
     setSubmitDisabled(true)
 
-    // Check if name is empty
-    if (accountName.replace(/_/g, ' ').trim().length < 1) {
-      setSubmitDisabled(false)
-      setValidationError('You cannot have an account name with only spaces.')
-      return
-    }
-
-    // Only allow game account names with letters, numbers, underscores and spaces.
-    const validUsernameMatches = accountName.match(/^[a-zA-Z0-9_ ]+$/g)
-    if (!validUsernameMatches || !validUsernameMatches?.[0]) {
-      setSubmitDisabled(false)
-      setValidationError('Your account name can only have letters, numbers, underscores and spaces.')
-      return
-    }
-
-    // Look for any bad or undesired words in names
-    if (BannedText.some(text => accountName.toLowerCase().includes(text))) {
-      setSubmitDisabled(false)
-      setValidationError('Your account name has been determined to be offensive or misleading. Please try another one.')
-      return
-    }
-
-    // Replace underscores with spaces in username. RSC+ signup does this.
-    // Underscores are translated as spaces on login, but the account name cannot have underscores in the database.
-    const sanitizedAccountName = accountName.replace(/_/g, ' ').trim()
-
     // Confirm passwords match
     if (password != confirmPassword) {
       setSubmitDisabled(false)
@@ -88,7 +61,7 @@ const CreateGameAccount = () => {
       // Create account
       sendApiRequest('POST', '/api/createPlayerRecord', {
         userId: user.id,
-        accountName: sanitizedAccountName,
+        accountName,
         password: hashedPassword,
         websiteAccountId: user?.id,
         userIp: response?.data?.ip,
