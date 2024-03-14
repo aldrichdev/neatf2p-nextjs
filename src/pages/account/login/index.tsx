@@ -40,6 +40,7 @@ const AccountLoginPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [validationError, setValidationError] = useState('')
+  const [buttonDisabled, setButtonDisabled] = useState(false)
   const user = useAuthentication(setLoading)
   const userIsLoggedIn = UserIsLoggedIn(user)
 
@@ -61,6 +62,7 @@ const AccountLoginPage = () => {
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setButtonDisabled(true)
 
     sendApiRequest('GET', `/api/getUser?email=${email}`)
       .then(async response => {
@@ -68,6 +70,7 @@ const AccountLoginPage = () => {
 
         // First thing would be to confirm the user exists.
         if (!UserExists(result)) {
+          setButtonDisabled(false)
           setValidationError('Email does not exist.')
           return
         }
@@ -80,11 +83,13 @@ const AccountLoginPage = () => {
         try {
           currentPasswordHashed = bcrypt.hashSync(password, passwordSalt)
         } catch (e) {
+          setButtonDisabled(false)
           setValidationError(`An error occurred. ${e}. Please notify the admin.`)
           return
         }
 
         if (hashedPassword !== currentPasswordHashed) {
+          setButtonDisabled(false)
           setValidationError('Password is incorrect.')
           return
         }
@@ -95,6 +100,7 @@ const AccountLoginPage = () => {
         sendApiRequest('POST', '/api/ironLogin', { ...user })
           .then(response => {
             if (response?.status !== 200) {
+              setButtonDisabled(false)
               setValidationError('An error occurred logging you in.')
             } else {
               // We will now log IPs for website account logins, for security.
@@ -109,12 +115,14 @@ const AccountLoginPage = () => {
                     redirectTo('/')
                   })
                   .catch((error: { response: { data: string } }) => {
+                    setButtonDisabled(false)
                     setValidationError(`Couldn't update user session: ${error?.response?.data}`)
                   })
               })
             }
           })
           .catch((error: { response: { data: string } }) => {
+            setButtonDisabled(false)
             setValidationError(`An error occurred logging you in: ${error?.response?.data}`)
           })
       })
@@ -141,7 +149,7 @@ const AccountLoginPage = () => {
         <ForgotPasswordBlock variant='body' topMargin={20} textAlign='left'>
           <ForgotPasswordLink href='/account/login/forgot-password'>Forgot Password?</ForgotPasswordLink>
         </ForgotPasswordBlock>
-        <FormButton variant='contained' type='submit'>
+        <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
           Log In
         </FormButton>
       </Form>

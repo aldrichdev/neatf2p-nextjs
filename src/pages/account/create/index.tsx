@@ -24,6 +24,7 @@ const CreateAccountPage = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [validationError, setValidationError] = useState('')
+  const [submitDisabled, setSubmitDisabled] = useState(false)
   const user = useAuthentication(setLoading)
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -48,9 +49,11 @@ const CreateAccountPage = () => {
 
   const handleAccountCreation = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setSubmitDisabled(true)
 
     // Confirm passwords match
     if (password != confirmPassword) {
+      setSubmitDisabled(false)
       setValidationError('Passwords do not match.')
       return
     }
@@ -72,6 +75,7 @@ const CreateAccountPage = () => {
       .then(response => {
         if (response?.status !== 200) {
           // Display error to user (usually due to a taken email or username).
+          setSubmitDisabled(false)
           setValidationError(response?.data)
         } else if (typeof response?.data === 'string') {
           const user: User = {
@@ -87,6 +91,7 @@ const CreateAccountPage = () => {
           sendApiRequest('POST', '/api/ironLogin', { ...user })
             .then(response => {
               if (response?.status !== 200) {
+                setSubmitDisabled(false)
                 setValidationError(
                   `An error occurred logging you into the new account: HTTP ${response?.status}: ${response?.statusText}.`,
                 )
@@ -100,16 +105,19 @@ const CreateAccountPage = () => {
                     redirectTo('/account/create/success')
                   })
                   .catch((error: { response: { data: string } }) => {
+                    setSubmitDisabled(false)
                     setValidationError(`Couldn't update user session: ${error?.response?.data}`)
                   })
               }
             })
             .catch((error: { response: { data: string } }) => {
+              setSubmitDisabled(false)
               setValidationError(`An error occurred logging you into the new account: ${error?.response?.data}`)
             })
         }
       })
       .catch((error: { response: { data: string } }) => {
+        setSubmitDisabled(false)
         setValidationError(error.response.data)
       })
   }
@@ -172,7 +180,7 @@ const CreateAccountPage = () => {
           onChange={handleConfirmPasswordChange}
         />
         <FieldValidationMessage>{validationError}</FieldValidationMessage>
-        <FormButton variant='contained' type='submit' disabled={!!validationError}>
+        <FormButton variant='contained' type='submit' disabled={submitDisabled}>
           Submit
         </FormButton>
       </Form>
