@@ -5,4 +5,5 @@ export type User = {
   emailAddress: string
   lastLogin: Date
   isAdmin: boolean
+  dateModified: string
 }

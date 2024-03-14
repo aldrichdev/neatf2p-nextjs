@@ -8,7 +8,6 @@ import useAuthentication from '@hooks/useAuthentication'
 import { redirectTo } from '@helpers/window'
 import { UserExists, UserIsLoggedIn } from '@helpers/users/users'
 import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
-import emailjs from '@emailjs/browser'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { Spinner } from '@molecules/Spinner'
 import { DiscordLink } from '@atoms/DiscordLink'
@@ -37,15 +36,17 @@ const ForgotPasswordPage = () => {
     event.preventDefault()
 
     sendApiRequest('GET', `/api/getUser?email=${email}`)
-      .then(async response => {
+      .then(response => {
         const result = response?.data
         const userExists = UserExists(result)
 
         if (userExists) {
-          // Send an email with a reset link.
-          await emailjs.send('service_6xpikef', 'template_t4tp3fq', {
-            recipient: result?.emailAddress,
-            websiteAccountId: result?.id,
+          // Persist reset token to user and reset email.
+          sendApiRequest('POST', '/api/addResetTokenAndSendEmail', {
+            userId: result.id,
+            recipientEmail: result.emailAddress,
+          }).catch(error => {
+            console.log(error)
           })
         }
 
@@ -61,7 +62,7 @@ const ForgotPasswordPage = () => {
       <PageHeading>Forgot Password</PageHeading>
       <BodyText variant='body' textAlign='left'>
         Forgotten your password? Enter your email below and we will send you a password reset link. If you have
-        forgotten your username and email as well, please contact an administrator in{' '}
+        forgotten your email as well, please contact an administrator in{' '}
         <DiscordLink>Neat F2P&apos;s Discord server</DiscordLink>
         {''}.
       </BodyText>
