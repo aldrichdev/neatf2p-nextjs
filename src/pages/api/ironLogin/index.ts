@@ -6,7 +6,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 export default withIronSessionApiRoute(loginRoute, sessionOptions)
 
 async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
-  const { id, username, emailAddress, lastLogin, isAdmin } = await req.body
+  const { id, username, emailAddress, lastLogin, isAdmin, dateModified } = await req.body
 
   try {
     const user: User = {
@@ -15,6 +15,7 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
       emailAddress,
       lastLogin,
       isAdmin,
+      dateModified,
     }
     req.session.user = user
     await req.session.save()
