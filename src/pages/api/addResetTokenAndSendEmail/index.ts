@@ -16,8 +16,6 @@ const rateLimit = new Ratelimit({
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { userId, recipientEmail } = req.body
   const ip = requestIp.getClientIp(req) || '127.0.0.1'
-  console.log('ip in addResetTokenAndSendEmail', ip)
-
   const { limit, reset, remaining } = await rateLimit.limit(ip)
 
   if (remaining === 0) {
