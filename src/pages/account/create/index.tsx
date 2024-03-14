@@ -80,6 +80,7 @@ const CreateAccountPage = () => {
             username,
             isAdmin: false,
             lastLogin: now,
+            dateModified: now.toString(),
           }
 
           // Log in the new user.
