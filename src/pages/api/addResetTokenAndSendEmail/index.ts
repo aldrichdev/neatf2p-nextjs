@@ -13,10 +13,6 @@ const rateLimit = new Ratelimit({
   limiter: Ratelimit.slidingWindow(5, '10s'),
 })
 
-export const config = {
-  runtime: 'edge',
-}
-
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { userId, recipientEmail } = req.body
   const ip = requestIp.getClientIp(req) || '127.0.0.1'
