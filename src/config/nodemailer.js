@@ -13,5 +13,4 @@ export const transporter = nodemailer.createTransport({
 
 export const mailOptions = {
   from: `Neat F2P Team <${email}>`,
-  to: email,
 }

@@ -11,7 +11,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   if (ResetTokenHasExpired(dateModifiedMillis)) {
     res.statusCode = 401
     res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify(`Unauthorized`))
+    res.end(JSON.stringify('Unauthorized'))
     return
   }
 
