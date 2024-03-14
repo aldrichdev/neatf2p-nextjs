@@ -17,12 +17,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   const query = `CALL GetUser(?)`
 
   try {
-    const response: UserDataRow[] | ErrorResult = await queryDatabase('website', query, [email])
+    const response: UserDataRow[][] | ErrorResult = await queryDatabase('website', query, [email])
 
     if (response instanceof Array) {
       res.statusCode = 200
       res.setHeader('Content-Type', 'application/json')
-      res.end(JSON.stringify(response?.[0]))
+      res.end(JSON.stringify(response?.[0]?.[0]))
     } else {
       throw new Error(response.error?.toString())
     }

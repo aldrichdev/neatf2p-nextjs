@@ -64,7 +64,7 @@ const AccountLoginPage = () => {
 
     sendApiRequest('GET', `/api/getUser?email=${email}`)
       .then(async response => {
-        const result = response?.data?.[0]
+        const result = response?.data
 
         // First thing would be to confirm the user exists.
         if (!UserExists(result)) {
