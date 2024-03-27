@@ -5,7 +5,7 @@ import { sendBadRequest, shouldBlockApiCall } from '@helpers/api/apiUtils'
 import { BannedText } from 'src/data/BannedText'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
-  const { userId, accountName, password, websiteAccountId, userIp } = req.body
+  const { userId, accountName, password, userIp } = req.body
   const creationDateMillis = Math.round(new Date().getTime() / 1000)
   const sessionCookie = req.cookies?.['neat-f2p-session']
 
@@ -26,11 +26,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   // Check if name is correct length
   if (cleanedAccountName.length < 1 || cleanedAccountName.length > 12) {
     return sendBadRequest(res, 'Account names must be 1-12 characters in length.')
-  }
-
-  // Check that user IDs match so the user cannot create game accounts for others
-  if (userId !== websiteAccountId) {
-    return sendBadRequest(res, 'You cannot associate game accounts with website accounts that are not your own.')
   }
 
   // Only allow game account names with letters, numbers, underscores and spaces.
@@ -55,7 +50,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
     'game',
     query,
     res,
-    [cleanedAccountName, password, creationDateMillis, userIp, websiteAccountId, cleanedAccountName],
+    [cleanedAccountName, password, creationDateMillis, userIp, userId, cleanedAccountName],
     'The account name you entered is currently taken. Please try another one.',
     true,
   )

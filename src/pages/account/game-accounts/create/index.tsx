@@ -63,7 +63,6 @@ const CreateGameAccount = () => {
         userId: user.id,
         accountName,
         password: hashedPassword,
-        websiteAccountId: user?.id,
         userIp: response?.data?.ip,
       })
         .then(response => {
