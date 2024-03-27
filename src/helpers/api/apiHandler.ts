@@ -37,6 +37,7 @@ export const handleManipulate = async (
   sqlQuery: string,
   res: NextApiResponse<User>,
   sqlParams?: string[] | Record<string, string>,
+  noRowsAffectedErrorMessage?: string,
   returnLastInsertedId?: boolean,
 ): Promise<void> => {
   try {
@@ -47,7 +48,7 @@ export const handleManipulate = async (
     }
 
     if (response?.affectedRows < 1) {
-      throw new Error(`No rows affected. Affected Rows: ${response.affectedRows}. Response: ${response}`)
+      throw new Error(noRowsAffectedErrorMessage || `No rows affected. Response: ${response}`)
     }
 
     // Return a JSON result indicating success
