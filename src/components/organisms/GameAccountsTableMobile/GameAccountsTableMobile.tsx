@@ -2,7 +2,7 @@ import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
 import { Spinner } from '@molecules/Spinner'
 import { TableBody, Paper, Button } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { AccountTable, AccountTableContainer, MobileBodyText } from './GameAccountsTableMobile.styled'
+import { AccountTable, AccountTableContainer, MobileBodyText, MobileSpinner } from './GameAccountsTableMobile.styled'
 import { GameAccountsTableProps } from '@organisms/GameAccountsTable/GameAccountsTable.types'
 import { RenameAccountModal } from '@organisms/RenameAccountModal'
 import { PasswordModal } from '@organisms/PasswordModal'
@@ -38,7 +38,11 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
   }
 
   if (isLoading) {
-    return <Spinner />
+    return (
+      <MobileSpinner>
+        <Spinner />
+      </MobileSpinner>
+    )
   } else if (accounts && accounts.length < 1) {
     return (
       <MobileBodyText variant='body'>You don&apos;t have any accounts right now. Why not create one?</MobileBodyText>

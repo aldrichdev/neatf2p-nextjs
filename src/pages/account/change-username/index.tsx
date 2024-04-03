@@ -10,7 +10,7 @@ import { Form } from '@atoms/Form'
 import { redirectTo } from '@helpers/window'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { BannedText } from 'src/data/BannedText'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { UserIsLoggedIn } from '@helpers/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 
@@ -62,9 +62,13 @@ const ChangeUsernamePage = () => {
     sendApiRequest('POST', '/api/updateWebsiteUserUsername', {
       userId: user.id,
       newUsername,
-    }).then(() => {
-      redirectTo('/account/change-username/success')
     })
+      .then(() => {
+        redirectTo('/account/change-username/success')
+      })
+      .catch((error: string) => {
+        handleForbiddenRedirect(error)
+      })
   }
 
   if (isLoading) {

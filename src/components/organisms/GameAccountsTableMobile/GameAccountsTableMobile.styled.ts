@@ -23,6 +23,16 @@ export const AccountTable = styled(Table, {
   `,
 )
 
+export const MobileSpinner = styled('div')(
+  ({ theme }) => css`
+    margin-top: 20px;
+
+    ${theme.breakpoints.up('mobile')} {
+      display: none;
+    }
+  `,
+)
+
 export const MobileBodyText = styled(BodyText)(
   ({ theme }) => css`
     ${theme.breakpoints.up('tablet')} {

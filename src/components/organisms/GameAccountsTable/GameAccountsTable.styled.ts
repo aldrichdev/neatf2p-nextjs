@@ -24,6 +24,17 @@ export const AccountTable = styled(Table, {
   `,
 )
 
+export const DesktopSpinner = styled('div')(
+  ({ theme }) => css`
+    display: none;
+
+    ${theme.breakpoints.up('tablet')} {
+      display: block;
+      margin-top: 20px;
+    }
+  `,
+)
+
 export const TabletDesktopBodyText = styled(BodyText)(
   ({ theme }) => css`
     display: none;

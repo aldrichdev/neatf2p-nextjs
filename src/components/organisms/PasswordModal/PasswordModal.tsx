@@ -4,7 +4,7 @@ import { Field } from '@atoms/Field'
 import { Modal } from '@molecules/Modal'
 import { hashPassword } from '@helpers/password'
 import { sanitizeRunescapePassword } from '@helpers/string/stringUtils'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { User } from '@globalTypes/User'
 
 type PasswordModalProps = {
@@ -60,17 +60,21 @@ const PasswordModal = (props: PasswordModalProps) => {
       userId: user?.id,
       accountId: account.id,
       newPassword: hashedPassword,
-    }).then(response => {
-      if (typeof response?.data === 'number') {
-        setSuccessMessage('Your password has been updated successfully! This window will now close...')
-        setTimeout(() => {
-          handleClose()
-        }, 3000)
-      } else {
-        const errorMessage = `Non-number response type in PasswordModal: ${response?.data}`
-        console.log(errorMessage)
-      }
     })
+      .then(response => {
+        if (typeof response?.data === 'number') {
+          setSuccessMessage('Your password has been updated successfully! This window will now close...')
+          setTimeout(() => {
+            handleClose()
+          }, 3000)
+        } else {
+          const errorMessage = `Non-number response type in PasswordModal: ${response?.data}`
+          console.log(errorMessage)
+        }
+      })
+      .catch((error: string) => {
+        handleForbiddenRedirect(error)
+      })
   }
 
   if (!open) return null

@@ -1,7 +1,7 @@
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import useAuthentication from '@hooks/useAuthentication'
 import { Spinner } from '@molecules/Spinner'
 import Link from 'next/link'
@@ -21,9 +21,13 @@ const ChangeEmailByIdPage = () => {
     sendApiRequest('POST', '/api/updateWebsiteUserEmailAddress', {
       userId: accountId,
       newEmail,
-    }).then(() => {
-      setIsLoading(false)
     })
+      .then(() => {
+        setIsLoading(false)
+      })
+      .catch((error: string) => {
+        handleForbiddenRedirect(error)
+      })
   }, [accountId, newEmail, user.id])
 
   if (isLoading) {

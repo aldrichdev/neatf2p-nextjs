@@ -1,7 +1,7 @@
 import { Spinner } from '@molecules/Spinner'
 import { TableBody, TableHead, TableRow, Paper } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { AccountTable, AccountTableContainer, TabletDesktopBodyText } from './GameAccountsTable.styled'
+import { AccountTable, AccountTableContainer, DesktopSpinner, TabletDesktopBodyText } from './GameAccountsTable.styled'
 import { GameAccountRow } from '@atoms/GameAccountRow'
 import { GameAccountsTableProps } from './GameAccountsTable.types'
 import { RenameAccountModal } from '@organisms/RenameAccountModal'
@@ -28,7 +28,11 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
   }, [accounts])
 
   if (isLoading) {
-    return <Spinner />
+    return (
+      <DesktopSpinner>
+        <Spinner />
+      </DesktopSpinner>
+    )
   } else if (process.env.NEXT_PUBLIC_GAME_ACCOUNTS_DISABLE_CREATION === 'true') {
     return null
   } else if (accounts && accounts.length < 1) {
