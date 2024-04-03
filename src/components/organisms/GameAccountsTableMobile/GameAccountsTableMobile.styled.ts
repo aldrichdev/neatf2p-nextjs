@@ -27,7 +27,7 @@ export const MobileSpinner = styled('div')(
   ({ theme }) => css`
     margin-top: 20px;
 
-    ${theme.breakpoints.up('mobile')} {
+    ${theme.breakpoints.up('tablet')} {
       display: none;
     }
   `,
