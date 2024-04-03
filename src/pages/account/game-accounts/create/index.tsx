@@ -82,6 +82,7 @@ const CreateGameAccount = () => {
               .catch((error: { response: { data: string } }) => {
                 setSubmitDisabled(false)
                 setValidationError(error.response.data)
+                handleForbiddenRedirect(error.response.data)
               })
           }
         })
