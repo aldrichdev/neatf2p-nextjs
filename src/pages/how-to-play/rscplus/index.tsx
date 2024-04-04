@@ -15,14 +15,17 @@ const RscPlusInfoPage = () => {
       <ContentBlock>
         <PageHeading>How to Play with RSC+</PageHeading>
         <BodyText variant='body'>
-          To play with RSC+, first install it if you haven&apos;t yet:{' '}
+          To play using RSC+, first install it if you haven&apos;t yet:{' '}
           <Link href='https://rsc.plus' target='_blank'>
             https://rsc.plus
           </Link>
-          . The following instructions will cover the Windows installation. To install RSC+, download it, then unzip the
-          download to your computer, and open <strong>rscplus_console.exe</strong>. This creates a{' '}
-          <strong>worlds</strong> folder in the root of the directory, which you will need for the next step. Once RSC+
-          has fully launched, close it. Next, download the{' '}
+          . The following instructions will cover the Windows installation, but note that RSC+ can be installed on any
+          operating system.
+        </BodyText>
+        <BodyText variant='body'>
+          To install RSC+, download it, then unzip the download to your computer, and open{' '}
+          <strong>rscplus_console.exe</strong>. This creates a <strong>worlds</strong> folder in the root of the
+          directory, which you will need for the next step. Once RSC+ has fully launched, close it. Next, download the{' '}
           <Link href='/downloads/05_Neat F2P.ini' target='_blank' download>
             Neat F2P world file
           </Link>
