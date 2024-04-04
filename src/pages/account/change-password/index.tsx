@@ -11,6 +11,7 @@ import { redirectTo } from '@helpers/window'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { hashPassword } from '@helpers/password'
 import { sendApiRequest } from '@helpers/api/apiUtils'
+import Head from 'next/head'
 
 const ChangePasswordPage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -66,32 +67,37 @@ const ChangePasswordPage = () => {
   }
 
   return (
-    <ContentBlock>
-      <PageHeading>Change Password</PageHeading>
-      <BodyText variant='body'>Please enter your new password below.</BodyText>
-      <Form onSubmit={handleSubmit}>
-        <Field
-          required
-          id='newPassword'
-          label='New Password'
-          type='password'
-          variant='standard'
-          onChange={handleNewPasswordChange}
-        />
-        <Field
-          required
-          id='confirmNewPassword'
-          label='Confirm New Password'
-          type='password'
-          variant='standard'
-          onChange={handleConfirmNewPasswordChange}
-        />
-        <FieldValidationMessage>{formValidationError}</FieldValidationMessage>
-        <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
-          Submit
-        </FormButton>
-      </Form>
-    </ContentBlock>
+    <>
+      <Head>
+        <title>Change Password | Neat F2P :: Nostalgia Reborn</title>
+      </Head>
+      <ContentBlock>
+        <PageHeading>Change Password</PageHeading>
+        <BodyText variant='body'>Please enter your new password below.</BodyText>
+        <Form onSubmit={handleSubmit}>
+          <Field
+            required
+            id='newPassword'
+            label='New Password'
+            type='password'
+            variant='standard'
+            onChange={handleNewPasswordChange}
+          />
+          <Field
+            required
+            id='confirmNewPassword'
+            label='Confirm New Password'
+            type='password'
+            variant='standard'
+            onChange={handleConfirmNewPasswordChange}
+          />
+          <FieldValidationMessage>{formValidationError}</FieldValidationMessage>
+          <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
+            Submit
+          </FormButton>
+        </Form>
+      </ContentBlock>
+    </>
   )
 }
 

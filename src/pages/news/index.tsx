@@ -1,10 +1,16 @@
 import { ContentBlock } from '@atoms/ContentBlock'
 import { NewsAndUpdates } from '@organisms/NewsAndUpdates'
+import Head from 'next/head'
 
 const News = () => (
-  <ContentBlock>
-    <NewsAndUpdates heading='News' />
-  </ContentBlock>
+  <>
+    <Head>
+      <title>News | Neat F2P :: Nostalgia Reborn</title>
+    </Head>
+    <ContentBlock>
+      <NewsAndUpdates heading='News' />
+    </ContentBlock>
+  </>
 )
 
 export default News

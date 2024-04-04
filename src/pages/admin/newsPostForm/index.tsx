@@ -28,6 +28,7 @@ import { Field } from '@atoms/Field'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { sendApiRequest } from '@helpers/api/apiUtils'
+import Head from 'next/head'
 
 const NewsPostForm = () => {
   const [loading, setLoading] = useState(true)
@@ -130,6 +131,9 @@ const NewsPostForm = () => {
 
   return (
     <>
+      <Head>
+        <title>Submit News Post | Neat F2P :: Nostalgia Reborn</title>
+      </Head>
       <PageHeading>Submit a News Post</PageHeading>
       <ContentBlock topMargin={40}>
         <StyledForm onSubmit={handleSubmit}>

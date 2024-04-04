@@ -13,6 +13,7 @@ import { User } from '@globalTypes/User'
 import { Spinner } from '@molecules/Spinner'
 import { BodyText } from '@atoms/BodyText'
 import { InlineLink } from '@atoms/InlineLink'
+import Head from 'next/head'
 
 const ResetPassword = () => {
   const { query } = useRouter()
@@ -108,31 +109,36 @@ const ResetPassword = () => {
   }
 
   return (
-    <ContentBlock>
-      <PageHeading>Reset Your Password</PageHeading>
-      <Form onSubmit={handleRequest}>
-        <Field
-          required
-          id='newPassword'
-          label='New Password'
-          variant='standard'
-          onChange={handleNewPasswordChange}
-          type='password'
-        />
-        <Field
-          required
-          id='confirmNewPassword'
-          label='Confirm New Password'
-          variant='standard'
-          onChange={handleConfirmNewPasswordChange}
-          type='password'
-        />
-        <FieldValidationMessage>{validationError}</FieldValidationMessage>
-        <FormButton variant='contained' type='submit'>
-          Submit
-        </FormButton>
-      </Form>
-    </ContentBlock>
+    <>
+      <Head>
+        <title>Reset Password | Neat F2P :: Nostalgia Reborn</title>
+      </Head>
+      <ContentBlock>
+        <PageHeading>Reset Your Password</PageHeading>
+        <Form onSubmit={handleRequest}>
+          <Field
+            required
+            id='newPassword'
+            label='New Password'
+            variant='standard'
+            onChange={handleNewPasswordChange}
+            type='password'
+          />
+          <Field
+            required
+            id='confirmNewPassword'
+            label='Confirm New Password'
+            variant='standard'
+            onChange={handleConfirmNewPasswordChange}
+            type='password'
+          />
+          <FieldValidationMessage>{validationError}</FieldValidationMessage>
+          <FormButton variant='contained' type='submit'>
+            Submit
+          </FormButton>
+        </Form>
+      </ContentBlock>
+    </>
   )
 }
 

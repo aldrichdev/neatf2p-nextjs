@@ -5,6 +5,7 @@ import useAuthentication from '@hooks/useAuthentication'
 import { Spinner } from '@molecules/Spinner'
 import { useState } from 'react'
 import { PageHeading } from '@atoms/PageHeading'
+import Head from 'next/head'
 
 const CreateAccountSuccessPage = () => {
   const [loading, setLoading] = useState(true)
@@ -28,13 +29,18 @@ const CreateAccountSuccessPage = () => {
   }
 
   return (
-    <ContentBlock>
-      <PageHeading>Success</PageHeading>
-      <BodyText variant='body' textAlign='center'>
-        Your account, {user?.username}, has been created! You can now view your
-        <InlineLink href='/account'>Account page</InlineLink>.
-      </BodyText>
-    </ContentBlock>
+    <>
+      <Head>
+        <title>Success | Neat F2P :: Nostalgia Reborn</title>
+      </Head>
+      <ContentBlock>
+        <PageHeading>Success</PageHeading>
+        <BodyText variant='body' textAlign='center'>
+          Your account, {user?.username}, has been created! You can now view your
+          <InlineLink href='/account'>Account page</InlineLink>.
+        </BodyText>
+      </ContentBlock>
+    </>
   )
 }
 

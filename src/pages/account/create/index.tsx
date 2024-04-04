@@ -16,6 +16,7 @@ import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
 import { Callout } from '@atoms/Callout'
 import { sendApiRequest } from '@helpers/api/apiUtils'
+import Head from 'next/head'
 
 const CreateAccountPage = () => {
   const [loading, setLoading] = useState(true)
@@ -134,61 +135,66 @@ const CreateAccountPage = () => {
   }
 
   return (
-    <ContentBlock>
-      <PageHeading>Create Account</PageHeading>
-      <BodyText variant='body' textAlign='left'>
-        By creating a website account, you can add or rename game accounts, update passwords, and some other nifty
-        things.
-      </BodyText>
-      <Callout variant='warning'>
-        <strong>Note:</strong> The account you are creating on this page is NOT a game account, it is an account for the
-        website. Once you log into the site, you will be able to create game accounts that you can log into the server
-        with.
-      </Callout>
-      <Form onSubmit={handleAccountCreation}>
-        <Field
-          required
-          id='email'
-          label='Email'
-          type='email'
-          variant='standard'
-          onChange={handleEmailChange}
-          inputProps={{ maxLength: 100 }}
-        />
-        <Field
-          required
-          id='username'
-          label='Username'
-          variant='standard'
-          onChange={handleUsernameChange}
-          inputProps={{ maxLength: 100 }}
-        />
-        <Field
-          required
-          id='password'
-          label='Password'
-          type='password'
-          variant='standard'
-          onChange={handlePasswordChange}
-        />
-        <Field
-          required
-          id='confirmPassword'
-          label='Confirm Password'
-          type='password'
-          variant='standard'
-          onChange={handleConfirmPasswordChange}
-        />
-        <FieldValidationMessage>{validationError}</FieldValidationMessage>
-        <FormButton variant='contained' type='submit' disabled={submitDisabled}>
-          Submit
-        </FormButton>
-      </Form>
-      <BodyText variant='body' topMargin={40} textAlign='left'>
-        <span>Already have an account?</span>
-        <InlineLink href='/account/login'>Log in.</InlineLink>
-      </BodyText>
-    </ContentBlock>
+    <>
+      <Head>
+        <title>Register | Neat F2P :: Nostalgia Reborn</title>
+      </Head>
+      <ContentBlock>
+        <PageHeading>Create Account</PageHeading>
+        <BodyText variant='body' textAlign='left'>
+          By creating a website account, you can add or rename game accounts, update passwords, and some other nifty
+          things.
+        </BodyText>
+        <Callout variant='warning'>
+          <strong>Note:</strong> The account you are creating on this page is NOT a game account, it is an account for
+          the website. Once you log into the site, you will be able to create game accounts that you can log into the
+          server with.
+        </Callout>
+        <Form onSubmit={handleAccountCreation}>
+          <Field
+            required
+            id='email'
+            label='Email'
+            type='email'
+            variant='standard'
+            onChange={handleEmailChange}
+            inputProps={{ maxLength: 100 }}
+          />
+          <Field
+            required
+            id='username'
+            label='Username'
+            variant='standard'
+            onChange={handleUsernameChange}
+            inputProps={{ maxLength: 100 }}
+          />
+          <Field
+            required
+            id='password'
+            label='Password'
+            type='password'
+            variant='standard'
+            onChange={handlePasswordChange}
+          />
+          <Field
+            required
+            id='confirmPassword'
+            label='Confirm Password'
+            type='password'
+            variant='standard'
+            onChange={handleConfirmPasswordChange}
+          />
+          <FieldValidationMessage>{validationError}</FieldValidationMessage>
+          <FormButton variant='contained' type='submit' disabled={submitDisabled}>
+            Submit
+          </FormButton>
+        </Form>
+        <BodyText variant='body' topMargin={40} textAlign='left'>
+          <span>Already have an account?</span>
+          <InlineLink href='/account/login'>Log in.</InlineLink>
+        </BodyText>
+      </ContentBlock>
+    </>
   )
 }
 

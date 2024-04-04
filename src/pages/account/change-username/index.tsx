@@ -13,6 +13,7 @@ import { BannedText } from 'src/data/BannedText'
 import { sendApiRequest } from '@helpers/api/apiUtils'
 import { UserIsLoggedIn } from '@helpers/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
+import Head from 'next/head'
 
 const ChangeUsernamePage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -76,27 +77,32 @@ const ChangeUsernamePage = () => {
   }
 
   return (
-    <ContentBlock>
-      <PageHeading>Change Username</PageHeading>
-      <BodyText variant='body'>
-        Enter your new username below. Remember that this only changes your website username, it does not affect your
-        game accounts.
-      </BodyText>
-      <Form onSubmit={handleSubmit}>
-        <Field
-          required
-          id='newUsername'
-          label='New Username'
-          variant='standard'
-          onChange={handleNewUsernameChange}
-          inputProps={{ maxLength: 25 }}
-        />
-        <FieldValidationMessage>{formValidationError}</FieldValidationMessage>
-        <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
-          Submit
-        </FormButton>
-      </Form>
-    </ContentBlock>
+    <>
+      <Head>
+        <title>Change Username | Neat F2P :: Nostalgia Reborn</title>
+      </Head>
+      <ContentBlock>
+        <PageHeading>Change Username</PageHeading>
+        <BodyText variant='body'>
+          Enter your new username below. Remember that this only changes your website username, it does not affect your
+          game accounts.
+        </BodyText>
+        <Form onSubmit={handleSubmit}>
+          <Field
+            required
+            id='newUsername'
+            label='New Username'
+            variant='standard'
+            onChange={handleNewUsernameChange}
+            inputProps={{ maxLength: 25 }}
+          />
+          <FieldValidationMessage>{formValidationError}</FieldValidationMessage>
+          <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
+            Submit
+          </FormButton>
+        </Form>
+      </ContentBlock>
+    </>
   )
 }
 

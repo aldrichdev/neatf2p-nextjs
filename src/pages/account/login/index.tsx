@@ -19,6 +19,7 @@ import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
 import { sendApiRequest } from '@helpers/api/apiUtils'
 import axios from 'axios'
+import Head from 'next/head'
 
 const ForgotPasswordBlock = styled(BodyText)(
   () => css`
@@ -130,34 +131,39 @@ const AccountLoginPage = () => {
   }
 
   return (
-    <ContentBlock>
-      <PageHeading>Login</PageHeading>
-      <BodyText variant='body' textAlign='left'>
-        Log in to your website account below.
-      </BodyText>
-      <Form onSubmit={handleLogin}>
-        <Field required id='email' label='Email' variant='standard' onChange={handleEmailChange} />
-        <Field
-          required
-          id='password'
-          label='Password'
-          type='password'
-          variant='standard'
-          onChange={handlePasswordChange}
-        />
-        <FieldValidationMessage>{validationError}</FieldValidationMessage>
-        <ForgotPasswordBlock variant='body' topMargin={20} textAlign='left'>
-          <ForgotPasswordLink href='/account/login/forgot-password'>Forgot Password?</ForgotPasswordLink>
-        </ForgotPasswordBlock>
-        <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
-          Log In
-        </FormButton>
-      </Form>
-      <BodyText variant='body' topMargin={40} textAlign='left'>
-        <span>New around here?</span>
-        <InlineLink href='/account/create'>Create a site account.</InlineLink>
-      </BodyText>
-    </ContentBlock>
+    <>
+      <Head>
+        <title>Login | Neat F2P :: Nostalgia Reborn</title>
+      </Head>
+      <ContentBlock>
+        <PageHeading>Login</PageHeading>
+        <BodyText variant='body' textAlign='left'>
+          Log in to your website account below.
+        </BodyText>
+        <Form onSubmit={handleLogin}>
+          <Field required id='email' label='Email' variant='standard' onChange={handleEmailChange} />
+          <Field
+            required
+            id='password'
+            label='Password'
+            type='password'
+            variant='standard'
+            onChange={handlePasswordChange}
+          />
+          <FieldValidationMessage>{validationError}</FieldValidationMessage>
+          <ForgotPasswordBlock variant='body' topMargin={20} textAlign='left'>
+            <ForgotPasswordLink href='/account/login/forgot-password'>Forgot Password?</ForgotPasswordLink>
+          </ForgotPasswordBlock>
+          <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
+            Log In
+          </FormButton>
+        </Form>
+        <BodyText variant='body' topMargin={40} textAlign='left'>
+          <span>New around here?</span>
+          <InlineLink href='/account/create'>Create a site account.</InlineLink>
+        </BodyText>
+      </ContentBlock>
+    </>
   )
 }
 

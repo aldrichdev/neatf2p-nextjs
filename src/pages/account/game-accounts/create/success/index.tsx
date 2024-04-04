@@ -8,6 +8,7 @@ import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { useState } from 'react'
 import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
+import Head from 'next/head'
 
 const CreateAccountSuccessPage = () => {
   const [loading, setLoading] = useState(true)
@@ -26,26 +27,36 @@ const CreateAccountSuccessPage = () => {
   if (!accountName || accountName?.length < 1) {
     // Something went wrong...
     return (
-      <ContentBlock>
-        <PageHeading>Oops...</PageHeading>
-        <BodyText variant='body' textAlign='center'>
-          Something went wrong... your game account name is empty. Please report this to the admin.
-        </BodyText>
-      </ContentBlock>
+      <>
+        <Head>
+          <title>Oops | Neat F2P :: Nostalgia Reborn</title>
+        </Head>
+        <ContentBlock>
+          <PageHeading>Oops...</PageHeading>
+          <BodyText variant='body' textAlign='center'>
+            Something went wrong... your game account name is empty. Please report this to the admin.
+          </BodyText>
+        </ContentBlock>
+      </>
     )
   }
 
   return (
-    <ContentBlock>
-      <PageHeading>Success</PageHeading>
-      <BodyText variant='body' textAlign='center'>
-        Your game account, <strong>{accountName}</strong>, has been created. You can now log in.
-      </BodyText>
-      <BodyText variant='body' textAlign='center'>
-        You may return to the
-        <InlineLink href='/account/game-accounts'>game accounts page</InlineLink>.
-      </BodyText>
-    </ContentBlock>
+    <>
+      <Head>
+        <title>Success | Neat F2P :: Nostalgia Reborn</title>
+      </Head>
+      <ContentBlock>
+        <PageHeading>Success</PageHeading>
+        <BodyText variant='body' textAlign='center'>
+          Your game account, <strong>{accountName}</strong>, has been created. You can now log in.
+        </BodyText>
+        <BodyText variant='body' textAlign='center'>
+          You may return to the
+          <InlineLink href='/account/game-accounts'>game accounts page</InlineLink>.
+        </BodyText>
+      </ContentBlock>
+    </>
   )
 }
 

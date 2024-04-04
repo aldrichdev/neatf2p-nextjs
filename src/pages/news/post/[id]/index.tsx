@@ -5,6 +5,7 @@ import { NewsPost } from '@globalTypes/NewsPost'
 import { NewsPostDetailItem } from '@atoms/NewsPostDetailItem'
 import { Spinner } from '@molecules/Spinner'
 import { sendApiRequest } from '@helpers/api/apiUtils'
+import Head from 'next/head'
 
 const NewsPostDetail = () => {
   const { query } = useRouter()
@@ -36,9 +37,14 @@ const NewsPostDetail = () => {
   if (!newsPost?.title) return null
 
   return (
-    <ContentBlock>
-      <NewsPostDetailItem newsPost={newsPost} />
-    </ContentBlock>
+    <>
+      <Head>
+        <title>{newsPost.title} | Neat F2P :: Nostalgia Reborn</title>
+      </Head>
+      <ContentBlock>
+        <NewsPostDetailItem newsPost={newsPost} />
+      </ContentBlock>
+    </>
   )
 }
 

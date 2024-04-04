@@ -11,6 +11,7 @@ import { useState } from 'react'
 import { Spinner } from '@molecules/Spinner'
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
 import { PageHeading } from '@atoms/PageHeading'
+import Head from 'next/head'
 
 const GameAccountsPage = () => {
   const [loading, setLoading] = useState(true)
@@ -44,41 +45,46 @@ const GameAccountsPage = () => {
   }
 
   return (
-    <ContentBlock isWide>
-      <PageHeading>Game Accounts</PageHeading>
-      <BodyText variant='body' textAlign='center'>
-        Here, you can view your current game accounts, create new ones, rename them, and update passwords. All times
-        shown are in your local timezone.
-      </BodyText>
-      <GameAccountsTable
-        user={user}
-        activeAccount={activeAccount}
-        renameModalVisible={renameModalVisible}
-        passwordModalVisible={passwordModalVisible}
-        setRenameModalVisible={setRenameModalVisible}
-        setPasswordModalVisible={setPasswordModalVisible}
-        showRenameModal={showRenameModal}
-        showPasswordModal={showPasswordModal}
-      />
-      <GameAccountsTableMobile
-        user={user}
-        activeAccount={activeAccount}
-        renameModalVisible={renameModalVisible}
-        passwordModalVisible={passwordModalVisible}
-        setRenameModalVisible={setRenameModalVisible}
-        setPasswordModalVisible={setPasswordModalVisible}
-        showRenameModal={showRenameModal}
-        showPasswordModal={showPasswordModal}
-      />
-      {creationsDisabled && (
+    <>
+      <Head>
+        <title>Game Accounts | Neat F2P :: Nostalgia Reborn</title>
+      </Head>
+      <ContentBlock isWide>
+        <PageHeading>Game Accounts</PageHeading>
         <BodyText variant='body' textAlign='center'>
-          Game account creations are temporarily disabled until further notice.
+          Here, you can view your current game accounts, create new ones, rename them, and update passwords. All times
+          shown are in your local timezone.
         </BodyText>
-      )}
-      <FormButton variant='contained' onClick={handleCreateAccount} disabled={creationsDisabled}>
-        Create Account
-      </FormButton>
-    </ContentBlock>
+        <GameAccountsTable
+          user={user}
+          activeAccount={activeAccount}
+          renameModalVisible={renameModalVisible}
+          passwordModalVisible={passwordModalVisible}
+          setRenameModalVisible={setRenameModalVisible}
+          setPasswordModalVisible={setPasswordModalVisible}
+          showRenameModal={showRenameModal}
+          showPasswordModal={showPasswordModal}
+        />
+        <GameAccountsTableMobile
+          user={user}
+          activeAccount={activeAccount}
+          renameModalVisible={renameModalVisible}
+          passwordModalVisible={passwordModalVisible}
+          setRenameModalVisible={setRenameModalVisible}
+          setPasswordModalVisible={setPasswordModalVisible}
+          showRenameModal={showRenameModal}
+          showPasswordModal={showPasswordModal}
+        />
+        {creationsDisabled && (
+          <BodyText variant='body' textAlign='center'>
+            Game account creations are temporarily disabled until further notice.
+          </BodyText>
+        )}
+        <FormButton variant='contained' onClick={handleCreateAccount} disabled={creationsDisabled}>
+          Create Account
+        </FormButton>
+      </ContentBlock>
+    </>
   )
 }
 export default GameAccountsPage
