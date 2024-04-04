@@ -16,6 +16,7 @@ import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
 import { Callout } from '@atoms/Callout'
 import { sendApiRequest } from '@helpers/api/apiUtils'
+import axios from 'axios'
 
 const CreateAccountPage = () => {
   const [loading, setLoading] = useState(true)
@@ -96,18 +97,21 @@ const CreateAccountPage = () => {
                   `An error occurred logging you into the new account: HTTP ${response?.status}: ${response?.statusText}.`,
                 )
               } else {
-                // Update the user's session and lastLogin in the database.
-                sendApiRequest('POST', '/api/updateWebsiteUserSession', {
-                  userId: user.id,
+                // Update the user's session, login IP and lastLogin in the database.
+                axios.get('https://api.ipify.org/?format=json').then(response => {
+                  sendApiRequest('POST', '/api/updateWebsiteUserSession', {
+                    userId: user.id,
+                    userIp: response?.data?.ip,
+                  })
+                    .then(() => {
+                      // Redirect them to a page that shows they are logged in.
+                      redirectTo('/account/create/success')
+                    })
+                    .catch((error: { response: { data: string } }) => {
+                      setSubmitDisabled(false)
+                      setValidationError(`Couldn't update user session: ${error?.response?.data}`)
+                    })
                 })
-                  .then(() => {
-                    // Redirect them to a page that shows they are logged in.
-                    redirectTo('/account/create/success')
-                  })
-                  .catch((error: { response: { data: string } }) => {
-                    setSubmitDisabled(false)
-                    setValidationError(`Couldn't update user session: ${error?.response?.data}`)
-                  })
               }
             })
             .catch((error: { response: { data: string } }) => {
