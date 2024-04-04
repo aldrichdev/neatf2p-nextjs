@@ -13,6 +13,8 @@ import { Spinner } from '@molecules/Spinner'
 import { DiscordLink } from '@atoms/DiscordLink'
 import { PageHeading } from '@atoms/PageHeading'
 import { sendApiRequest } from '@helpers/api/apiUtils'
+import Head from 'next/head'
+import { SharedBrowserTitle } from 'src/constants'
 
 const ForgotPasswordPage = () => {
   const [loading, setLoading] = useState(true)
@@ -58,25 +60,30 @@ const ForgotPasswordPage = () => {
   }
 
   return (
-    <ContentBlock>
-      <PageHeading>Forgot Password</PageHeading>
-      <BodyText variant='body' textAlign='left'>
-        Forgotten your password? Enter your email below and we will send you a password reset link. If you have
-        forgotten your email as well, please contact an administrator in{' '}
-        <DiscordLink>Neat F2P&apos;s Discord server</DiscordLink>
-        {''}.
-      </BodyText>
-      <Form onSubmit={handleRequest}>
-        <Field required id='email' label='Email' variant='standard' onChange={handleEmailChange} />
-        <FormButton variant='contained' type='submit'>
-          Submit
-        </FormButton>
-      </Form>
-      <BodyText variant='body' topMargin={40} textAlign='left'>
-        <span>Or, if you remember it,</span>
-        <InlineLink href='/account/login'>try logging in now.</InlineLink>
-      </BodyText>
-    </ContentBlock>
+    <>
+      <Head>
+        <title>Forgot Password | {SharedBrowserTitle}</title>
+      </Head>
+      <ContentBlock>
+        <PageHeading>Forgot Password</PageHeading>
+        <BodyText variant='body' textAlign='left'>
+          Forgotten your password? Enter your email below and we will send you a password reset link. If you have
+          forgotten your email as well, please contact an administrator in{' '}
+          <DiscordLink>Neat F2P&apos;s Discord server</DiscordLink>
+          {''}.
+        </BodyText>
+        <Form onSubmit={handleRequest}>
+          <Field required id='email' label='Email' variant='standard' onChange={handleEmailChange} />
+          <FormButton variant='contained' type='submit'>
+            Submit
+          </FormButton>
+        </Form>
+        <BodyText variant='body' topMargin={40} textAlign='left'>
+          <span>Or, if you remember it,</span>
+          <InlineLink href='/account/login'>try logging in now.</InlineLink>
+        </BodyText>
+      </ContentBlock>
+    </>
   )
 }
 

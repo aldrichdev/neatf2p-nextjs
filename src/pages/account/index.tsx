@@ -8,6 +8,8 @@ import { UserIsLoggedIn } from '@helpers/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
+import Head from 'next/head'
+import { SharedBrowserTitle } from 'src/constants'
 
 const AccountPage = () => {
   const [loading, setLoading] = useState(true)
@@ -33,44 +35,49 @@ const AccountPage = () => {
   }
 
   return (
-    <ContentBlock>
-      <PageHeading>Hiya, {user?.username}!</PageHeading>
-      <BodyText variant='body' textAlign='center'>
-        Welcome to your account page. Here, you can modify your website account, create game (RSC) accounts, rename game
-        accounts and update passwords.
-      </BodyText>
-      <AccountNavigationContainer>
-        <AccountNavigationButton
-          id='manage-website-account'
-          aria-controls={open ? 'basic-menu' : undefined}
-          aria-haspopup='true'
-          aria-expanded={open ? 'true' : undefined}
-          onClick={handleClick}
-        >
-          Manage Website Account
-        </AccountNavigationButton>
-        <Menu
-          id='manage-website-account-menu'
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            'aria-labelledby': 'manage-website-account',
-          }}
-        >
-          <AccountNavigationItem href='/account/change-email' onClick={handleClose}>
-            Change email address
-          </AccountNavigationItem>
-          <AccountNavigationItem href='/account/change-username' onClick={handleClose}>
-            Change username
-          </AccountNavigationItem>
-          <AccountNavigationItem href='/account/change-password' onClick={handleClose}>
-            Change password
-          </AccountNavigationItem>
-        </Menu>
-        <AccountNavigationButton href='/account/game-accounts'>Manage Game Accounts</AccountNavigationButton>
-      </AccountNavigationContainer>
-    </ContentBlock>
+    <>
+      <Head>
+        <title>Account | {SharedBrowserTitle}</title>
+      </Head>
+      <ContentBlock>
+        <PageHeading>Hiya, {user?.username}!</PageHeading>
+        <BodyText variant='body' textAlign='center'>
+          Welcome to your account page. Here, you can modify your website account, create game (RSC) accounts, rename
+          game accounts and update passwords.
+        </BodyText>
+        <AccountNavigationContainer>
+          <AccountNavigationButton
+            id='manage-website-account'
+            aria-controls={open ? 'basic-menu' : undefined}
+            aria-haspopup='true'
+            aria-expanded={open ? 'true' : undefined}
+            onClick={handleClick}
+          >
+            Manage Website Account
+          </AccountNavigationButton>
+          <Menu
+            id='manage-website-account-menu'
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'manage-website-account',
+            }}
+          >
+            <AccountNavigationItem href='/account/change-email' onClick={handleClose}>
+              Change email address
+            </AccountNavigationItem>
+            <AccountNavigationItem href='/account/change-username' onClick={handleClose}>
+              Change username
+            </AccountNavigationItem>
+            <AccountNavigationItem href='/account/change-password' onClick={handleClose}>
+              Change password
+            </AccountNavigationItem>
+          </Menu>
+          <AccountNavigationButton href='/account/game-accounts'>Manage Game Accounts</AccountNavigationButton>
+        </AccountNavigationContainer>
+      </ContentBlock>
+    </>
   )
 }
 export default AccountPage

@@ -7,6 +7,8 @@ import { HideAdsFormGroup } from '@styledPages/Webclient.styled'
 import { useState } from 'react'
 import { Modal } from '@molecules/Modal'
 import Link from 'next/link'
+import Head from 'next/head'
+import { SharedBrowserTitle } from 'src/constants'
 
 const WebclientPage = () => {
   const [hideAds, setHideAds] = useState(false)
@@ -39,38 +41,43 @@ const WebclientPage = () => {
   }
 
   return (
-    <ContentBlock>
-      {!hideAds && <WebclientBanner bannerType='Ad' bannerPlacement='top' />}
-      <Webclient url={webclientUrl} />
-      {!hideRunescapeBanners && <WebclientBanner bannerType='Runescape' bannerPlacement='bottom' />}
-      <HideAdsFormGroup>
-        <FormControlLabel control={<Checkbox color='success' onChange={handleHideAdsCheck} />} label='Hide Ads' />
-        <FormControlLabel
-          control={<Checkbox color='success' onChange={handleHideRunescapeBannersCheck} />}
-          label='Hide Runescape Banners'
+    <>
+      <Head>
+        <title>Web Client | {SharedBrowserTitle}</title>
+      </Head>
+      <ContentBlock>
+        {!hideAds && <WebclientBanner bannerType='Ad' bannerPlacement='top' />}
+        <Webclient url={webclientUrl} />
+        {!hideRunescapeBanners && <WebclientBanner bannerType='Runescape' bannerPlacement='bottom' />}
+        <HideAdsFormGroup>
+          <FormControlLabel control={<Checkbox color='success' onChange={handleHideAdsCheck} />} label='Hide Ads' />
+          <FormControlLabel
+            control={<Checkbox color='success' onChange={handleHideRunescapeBannersCheck} />}
+            label='Hide Runescape Banners'
+          />
+          <FormControlLabel
+            control={<Button variant='text' onClick={handleWebclientNotWorkingButtonClick} />}
+            label='Webclient Not Working?'
+          />
+        </HideAdsFormGroup>
+        <Modal
+          open={showHelpModal}
+          handleClose={handleHelpModalClose}
+          heading='Webclient Not Loading?'
+          body={
+            <p>
+              If the webclient is not loading, you need to accept a privacy warning first.{' '}
+              <Link href={webclientUrl} target='_blank'>
+                Click here
+              </Link>{' '}
+              and you will see a privacy warning. Click the <strong>Advanced</strong> button on the page and then click{' '}
+              <strong>Proceed to...</strong> to accept the privacy issue. The game client should then load. Close the
+              current tab and go back to the Neat webclient and refresh the page, and the client should load.
+            </p>
+          }
         />
-        <FormControlLabel
-          control={<Button variant='text' onClick={handleWebclientNotWorkingButtonClick} />}
-          label='Webclient Not Working?'
-        />
-      </HideAdsFormGroup>
-      <Modal
-        open={showHelpModal}
-        handleClose={handleHelpModalClose}
-        heading='Webclient Not Loading?'
-        body={
-          <p>
-            If the webclient is not loading, you need to accept a privacy warning first.{' '}
-            <Link href={webclientUrl} target='_blank'>
-              Click here
-            </Link>{' '}
-            and you will see a privacy warning. Click the <strong>Advanced</strong> button on the page and then click{' '}
-            <strong>Proceed to...</strong> to accept the privacy issue. The game client should then load. Close the
-            current tab and go back to the Neat webclient and refresh the page, and the client should load.
-          </p>
-        }
-      />
-    </ContentBlock>
+      </ContentBlock>
+    </>
   )
 }
 

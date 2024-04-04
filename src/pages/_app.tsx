@@ -11,6 +11,7 @@ import emailjs from '@emailjs/browser'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Footer } from '@molecules/Footer'
+import { SharedBrowserTitle } from 'src/constants'
 
 export default function App({ Component, pageProps }: AppProps) {
   const user = useAuthentication()
@@ -22,7 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
+        <title>{SharedBrowserTitle}</title>
         <meta
           name='description'
           content='Neat F2P is a Runescape Classic (RSC) private server that is F2P only (no members) and is 100% free.'

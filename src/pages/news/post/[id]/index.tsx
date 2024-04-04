@@ -5,6 +5,8 @@ import { NewsPost } from '@globalTypes/NewsPost'
 import { NewsPostDetailItem } from '@atoms/NewsPostDetailItem'
 import { Spinner } from '@molecules/Spinner'
 import { sendApiRequest } from '@helpers/api/apiUtils'
+import Head from 'next/head'
+import { SharedBrowserTitle } from 'src/constants'
 
 const NewsPostDetail = () => {
   const { query } = useRouter()
@@ -36,9 +38,16 @@ const NewsPostDetail = () => {
   if (!newsPost?.title) return null
 
   return (
-    <ContentBlock>
-      <NewsPostDetailItem newsPost={newsPost} />
-    </ContentBlock>
+    <>
+      <Head>
+        <title>
+          {newsPost.title} | {SharedBrowserTitle}
+        </title>
+      </Head>
+      <ContentBlock>
+        <NewsPostDetailItem newsPost={newsPost} />
+      </ContentBlock>
+    </>
   )
 }
 

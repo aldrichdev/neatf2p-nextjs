@@ -28,6 +28,8 @@ import { Field } from '@atoms/Field'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
+import Head from 'next/head'
+import { SharedBrowserTitle } from 'src/constants'
 
 const NewsPostForm = () => {
   const [loading, setLoading] = useState(true)
@@ -131,6 +133,9 @@ const NewsPostForm = () => {
 
   return (
     <>
+      <Head>
+        <title>Submit News Post | {SharedBrowserTitle}</title>
+      </Head>
       <PageHeading>Submit a News Post</PageHeading>
       <ContentBlock topMargin={40}>
         <StyledForm onSubmit={handleSubmit}>

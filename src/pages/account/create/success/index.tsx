@@ -5,6 +5,8 @@ import useAuthentication from '@hooks/useAuthentication'
 import { Spinner } from '@molecules/Spinner'
 import { useState } from 'react'
 import { PageHeading } from '@atoms/PageHeading'
+import Head from 'next/head'
+import { SharedBrowserTitle } from 'src/constants'
 
 const CreateAccountSuccessPage = () => {
   const [loading, setLoading] = useState(true)
@@ -28,13 +30,18 @@ const CreateAccountSuccessPage = () => {
   }
 
   return (
-    <ContentBlock>
-      <PageHeading>Success</PageHeading>
-      <BodyText variant='body' textAlign='center'>
-        Your account, <strong>{user?.username}</strong>, has been created! You can now view your
-        <InlineLink href='/account'>Account page</InlineLink>.
-      </BodyText>
-    </ContentBlock>
+    <>
+      <Head>
+        <title>Success | {SharedBrowserTitle}</title>
+      </Head>
+      <ContentBlock>
+        <PageHeading>Success</PageHeading>
+        <BodyText variant='body' textAlign='center'>
+          Your account, <strong>{user?.username}</strong>, has been created! You can now view your
+          <InlineLink href='/account'>Account page</InlineLink>.
+        </BodyText>
+      </ContentBlock>
+    </>
   )
 }
 

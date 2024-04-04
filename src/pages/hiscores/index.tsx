@@ -10,6 +10,8 @@ import { Spinner } from '@molecules/Spinner'
 import { PlayerLookup } from '@molecules/PlayerLookup'
 import { PageHeading } from '@atoms/PageHeading'
 import { push } from '@helpers/router'
+import Head from 'next/head'
+import { SharedBrowserTitle } from 'src/constants'
 
 const Hiscores = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -37,23 +39,28 @@ const Hiscores = () => {
   }, [query])
 
   return (
-    <ContentBlock isWide>
-      <PageHeading>{`${hiscoreType} Hiscores`}</PageHeading>
-      <HiscoresPageContainer>
-        <HiscoresMenu hiscoreType={hiscoreType} buttonOnClick={handleMenuItemClick} />
-        {isLoading || !hiscores ? (
-          <Spinner hiscores />
-        ) : (
-          <HiscoresTable
-            hiscores={hiscores}
-            hiscoreType={hiscoreType}
-            page={query.page ? Number(query.page) : hiscoresPage}
-            setPage={setHiscoresPage}
-          />
-        )}
-        <PlayerLookup />
-      </HiscoresPageContainer>
-    </ContentBlock>
+    <>
+      <Head>
+        <title>Hiscores | {SharedBrowserTitle}</title>
+      </Head>
+      <ContentBlock isWide>
+        <PageHeading>{`${hiscoreType} Hiscores`}</PageHeading>
+        <HiscoresPageContainer>
+          <HiscoresMenu hiscoreType={hiscoreType} buttonOnClick={handleMenuItemClick} />
+          {isLoading || !hiscores ? (
+            <Spinner hiscores />
+          ) : (
+            <HiscoresTable
+              hiscores={hiscores}
+              hiscoreType={hiscoreType}
+              page={query.page ? Number(query.page) : hiscoresPage}
+              setPage={setHiscoresPage}
+            />
+          )}
+          <PlayerLookup />
+        </HiscoresPageContainer>
+      </ContentBlock>
+    </>
   )
 }
 

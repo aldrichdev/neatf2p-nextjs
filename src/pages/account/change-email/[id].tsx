@@ -4,9 +4,11 @@ import { PageHeading } from '@atoms/PageHeading'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import useAuthentication from '@hooks/useAuthentication'
 import { Spinner } from '@molecules/Spinner'
+import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { SharedBrowserTitle } from 'src/constants'
 
 const ChangeEmailByIdPage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -35,12 +37,17 @@ const ChangeEmailByIdPage = () => {
   }
 
   return (
-    <ContentBlock>
-      <PageHeading>Update Complete</PageHeading>
-      <BodyText variant='body' textAlign='center'>
-        Your email has been updated. You can go back to your <Link href='/account'>account</Link> page.
-      </BodyText>
-    </ContentBlock>
+    <>
+      <Head>
+        <title>Change Email Address | {SharedBrowserTitle}</title>
+      </Head>
+      <ContentBlock>
+        <PageHeading>Update Complete</PageHeading>
+        <BodyText variant='body' textAlign='center'>
+          Your email has been updated. You can go back to your <Link href='/account'>account</Link> page.
+        </BodyText>
+      </ContentBlock>
+    </>
   )
 }
 

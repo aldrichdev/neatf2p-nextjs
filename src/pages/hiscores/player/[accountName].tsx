@@ -11,8 +11,10 @@ import { sendApiRequest } from '@helpers/api/apiUtils'
 import { compareHiscores, convertExp, getTotalExp, isNotBaselineExp } from '@helpers/hiscores/hiscoresUtils'
 import { Spinner } from '@molecules/Spinner'
 import { PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { SharedBrowserTitle } from 'src/constants'
 
 const PlayerHiscore = () => {
   const { query } = useRouter()
@@ -112,19 +114,26 @@ const PlayerHiscore = () => {
   }
 
   return (
-    <ContentBlock>
-      <PageHeading>{accountName ? accountName.toString() : 'Unknown Player'}</PageHeading>
-      {typeof accountName !== 'string' || !playerHiscores || !hiscoresData?.find(isMatchingUser) ? (
-        <BodyText variant='body' textAlign='center'>
-          No hiscore found for this player.
-        </BodyText>
-      ) : (
-        <PlayerHiscoreTableContainer>
-          <PlayerHiscoreTable accountName={accountName} playerHiscores={playerHiscores} />
-        </PlayerHiscoreTableContainer>
-      )}
-      <BackToLink href='/hiscores'>{'<'} Return to Hiscores</BackToLink>
-    </ContentBlock>
+    <>
+      <Head>
+        <title>
+          {accountName || 'Hiscore'} | {SharedBrowserTitle}
+        </title>
+      </Head>
+      <ContentBlock>
+        <PageHeading>{accountName ? accountName.toString() : 'Unknown Player'}</PageHeading>
+        {typeof accountName !== 'string' || !playerHiscores || !hiscoresData?.find(isMatchingUser) ? (
+          <BodyText variant='body' textAlign='center'>
+            No hiscore found for this player.
+          </BodyText>
+        ) : (
+          <PlayerHiscoreTableContainer>
+            <PlayerHiscoreTable accountName={accountName} playerHiscores={playerHiscores} />
+          </PlayerHiscoreTableContainer>
+        )}
+        <BackToLink href='/hiscores'>{'<'} Return to Hiscores</BackToLink>
+      </ContentBlock>
+    </>
   )
 }
 

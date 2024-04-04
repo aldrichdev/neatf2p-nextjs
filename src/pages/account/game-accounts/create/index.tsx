@@ -15,6 +15,8 @@ import { PageHeading } from '@atoms/PageHeading'
 import { sanitizeRunescapePassword } from '@helpers/string/stringUtils'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import axios from 'axios'
+import Head from 'next/head'
+import { SharedBrowserTitle } from 'src/constants'
 
 const CreateGameAccount = () => {
   const [loading, setLoading] = useState(true)
@@ -114,46 +116,51 @@ const CreateGameAccount = () => {
   }
 
   return (
-    <ContentBlock>
-      <PageHeading>Create Game Account</PageHeading>
-      <BodyText variant='body'>
-        Game account names must be 12 characters or less. You are allowed spaces within your name, but any spaces at the
-        start or end of your name will be removed upon account creation.
-      </BodyText>
-      <Form onSubmit={handleGameAccountCreation}>
-        <Field
-          required
-          id='account-name'
-          label='Account Name'
-          type='text'
-          variant='standard'
-          onChange={handleAccountNameChange}
-          inputProps={{ maxLength: 12 }}
-        />
-        <Field
-          required
-          id='password'
-          label='Password'
-          type='password'
-          variant='standard'
-          onChange={handlePasswordChange}
-          inputProps={{ maxLength: 20 }}
-        />
-        <Field
-          required
-          id='confirmPassword'
-          label='Confirm Password'
-          type='password'
-          variant='standard'
-          onChange={handleConfirmPasswordChange}
-          inputProps={{ maxLength: 20 }}
-        />
-        <FieldValidationMessage>{validationError}</FieldValidationMessage>
-        <FormButton variant='contained' type='submit' disabled={submitDisabled}>
-          Submit
-        </FormButton>
-      </Form>
-    </ContentBlock>
+    <>
+      <Head>
+        <title>Create Game Account | {SharedBrowserTitle}</title>
+      </Head>
+      <ContentBlock>
+        <PageHeading>Create Game Account</PageHeading>
+        <BodyText variant='body'>
+          Game account names must be 12 characters or less. You are allowed spaces within your name, but any spaces at
+          the start or end of your name will be removed upon account creation.
+        </BodyText>
+        <Form onSubmit={handleGameAccountCreation}>
+          <Field
+            required
+            id='account-name'
+            label='Account Name'
+            type='text'
+            variant='standard'
+            onChange={handleAccountNameChange}
+            inputProps={{ maxLength: 12 }}
+          />
+          <Field
+            required
+            id='password'
+            label='Password'
+            type='password'
+            variant='standard'
+            onChange={handlePasswordChange}
+            inputProps={{ maxLength: 20 }}
+          />
+          <Field
+            required
+            id='confirmPassword'
+            label='Confirm Password'
+            type='password'
+            variant='standard'
+            onChange={handleConfirmPasswordChange}
+            inputProps={{ maxLength: 20 }}
+          />
+          <FieldValidationMessage>{validationError}</FieldValidationMessage>
+          <FormButton variant='contained' type='submit' disabled={submitDisabled}>
+            Submit
+          </FormButton>
+        </Form>
+      </ContentBlock>
+    </>
   )
 }
 
