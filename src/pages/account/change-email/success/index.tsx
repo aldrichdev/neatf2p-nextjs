@@ -4,7 +4,6 @@ import { PageHeading } from '@atoms/PageHeading'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Head from 'next/head'
-import { SharedBrowserTitle } from 'src/constants'
 
 const ChangeEmailSuccessPage = () => {
   const router = useRouter()
@@ -14,7 +13,7 @@ const ChangeEmailSuccessPage = () => {
   return (
     <>
       <Head>
-        <title>Success | {SharedBrowserTitle}</title>
+        <title>Success | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
       </Head>
       <ContentBlock>
         <PageHeading>Check Your New Email</PageHeading>

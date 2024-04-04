@@ -4,13 +4,12 @@ import { PageHeading } from '@atoms/PageHeading'
 import { ThreeColumnLayout, ClientButton, ClientRemarks, ClientButtonImage } from '@styledPages/HowToPlay.styled'
 import Link from 'next/link'
 import Head from 'next/head'
-import { SharedBrowserTitle } from 'src/constants'
 
 const HowToPlay = () => {
   return (
     <>
       <Head>
-        <title>How to Play | {SharedBrowserTitle}</title>
+        <title>How to Play | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
       </Head>
       <ContentBlock isWide>
         <PageHeading>How To Play</PageHeading>

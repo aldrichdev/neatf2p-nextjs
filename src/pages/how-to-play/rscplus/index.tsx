@@ -5,13 +5,12 @@ import { YouTubeVideo } from '@atoms/YouTubeVideo'
 import { PageHeading } from '@atoms/PageHeading'
 import { BackToLink } from '@atoms/BackToLink/BackToLink'
 import Head from 'next/head'
-import { SharedBrowserTitle } from 'src/constants'
 
 const RscPlusInfoPage = () => {
   return (
     <>
       <Head>
-        <title>How to Play with RSC+ | {SharedBrowserTitle}</title>
+        <title>How to Play with RSC+ | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
       </Head>
       <ContentBlock>
         <PageHeading>How to Play with RSC+</PageHeading>

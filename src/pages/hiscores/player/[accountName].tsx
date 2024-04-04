@@ -14,7 +14,6 @@ import { PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { SharedBrowserTitle } from 'src/constants'
 
 const PlayerHiscore = () => {
   const { query } = useRouter()
@@ -116,9 +115,7 @@ const PlayerHiscore = () => {
   return (
     <>
       <Head>
-        <title>
-          {accountName || 'Hiscore'} | {SharedBrowserTitle}
-        </title>
+        <title>{accountName || 'Hiscore'} | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
       </Head>
       <ContentBlock>
         <PageHeading>{accountName ? accountName.toString() : 'Unknown Player'}</PageHeading>

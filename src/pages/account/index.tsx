@@ -9,7 +9,6 @@ import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
 import Head from 'next/head'
-import { SharedBrowserTitle } from 'src/constants'
 
 const AccountPage = () => {
   const [loading, setLoading] = useState(true)
@@ -37,7 +36,7 @@ const AccountPage = () => {
   return (
     <>
       <Head>
-        <title>Account | {SharedBrowserTitle}</title>
+        <title>Account | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
       </Head>
       <ContentBlock>
         <PageHeading>Hiya, {user?.username}!</PageHeading>

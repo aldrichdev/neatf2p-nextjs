@@ -14,7 +14,6 @@ import { DiscordLink } from '@atoms/DiscordLink'
 import { PageHeading } from '@atoms/PageHeading'
 import { sendApiRequest } from '@helpers/api/apiUtils'
 import Head from 'next/head'
-import { SharedBrowserTitle } from 'src/constants'
 
 const ForgotPasswordPage = () => {
   const [loading, setLoading] = useState(true)
@@ -62,7 +61,7 @@ const ForgotPasswordPage = () => {
   return (
     <>
       <Head>
-        <title>Forgot Password | {SharedBrowserTitle}</title>
+        <title>Forgot Password | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
       </Head>
       <ContentBlock>
         <PageHeading>Forgot Password</PageHeading>

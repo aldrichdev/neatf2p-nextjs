@@ -3,12 +3,11 @@ import { BodyText } from '@atoms/BodyText'
 import { PageHeading } from '@atoms/PageHeading'
 import Link from 'next/link'
 import Head from 'next/head'
-import { SharedBrowserTitle } from 'src/constants'
 
 const ChangeUsernameSuccessPage = () => (
   <>
     <Head>
-      <title>Success | {SharedBrowserTitle}</title>
+      <title>Success | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
     </Head>
     <ContentBlock>
       <PageHeading>Username Updated</PageHeading>

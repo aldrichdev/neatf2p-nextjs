@@ -12,7 +12,6 @@ import { Spinner } from '@molecules/Spinner'
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
 import { PageHeading } from '@atoms/PageHeading'
 import Head from 'next/head'
-import { SharedBrowserTitle } from 'src/constants'
 
 const GameAccountsPage = () => {
   const [loading, setLoading] = useState(true)
@@ -48,7 +47,7 @@ const GameAccountsPage = () => {
   return (
     <>
       <Head>
-        <title>Game Accounts | {SharedBrowserTitle}</title>
+        <title>Game Accounts | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
       </Head>
       <ContentBlock isWide>
         <PageHeading>Game Accounts</PageHeading>

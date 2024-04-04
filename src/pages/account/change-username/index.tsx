@@ -14,7 +14,6 @@ import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { UserIsLoggedIn } from '@helpers/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import Head from 'next/head'
-import { SharedBrowserTitle } from 'src/constants'
 
 const ChangeUsernamePage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -84,7 +83,7 @@ const ChangeUsernamePage = () => {
   return (
     <>
       <Head>
-        <title>Change Username | {SharedBrowserTitle}</title>
+        <title>Change Username | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
       </Head>
       <ContentBlock>
         <PageHeading>Change Username</PageHeading>

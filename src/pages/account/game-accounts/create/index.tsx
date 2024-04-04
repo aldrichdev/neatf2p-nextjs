@@ -16,7 +16,6 @@ import { sanitizeRunescapePassword } from '@helpers/string/stringUtils'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import axios from 'axios'
 import Head from 'next/head'
-import { SharedBrowserTitle } from 'src/constants'
 
 const CreateGameAccount = () => {
   const [loading, setLoading] = useState(true)
@@ -118,7 +117,7 @@ const CreateGameAccount = () => {
   return (
     <>
       <Head>
-        <title>Create Game Account | {SharedBrowserTitle}</title>
+        <title>Create Game Account | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
       </Head>
       <ContentBlock>
         <PageHeading>Create Game Account</PageHeading>
