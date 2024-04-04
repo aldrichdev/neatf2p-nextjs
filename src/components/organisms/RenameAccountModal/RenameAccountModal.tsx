@@ -3,7 +3,7 @@ import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
 import { Warning } from './RenameAccountModal.styled'
 import { Modal } from '@molecules/Modal'
 import { Field } from '@atoms/Field'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { User } from '@globalTypes/User'
 
 type RenameAccountModalProps = {
@@ -56,19 +56,23 @@ const RenameAccountModal = (props: RenameAccountModalProps) => {
       accountId: account.id,
       currentName: account.username,
       newName: newAccountName,
-    }).then(response => {
-      if (typeof response?.data === 'number') {
-        setSuccessMessage('Your account has been renamed successfully! This page will now refresh.')
-        setTimeout(() => {
-          if (typeof window !== 'undefined') {
-            location.reload()
-          }
-        }, 3000)
-      } else {
-        const errorMessage = `Non-number response type in RenameAccountModal: ${response?.data}`
-        console.log(errorMessage)
-      }
     })
+      .then(response => {
+        if (typeof response?.data === 'number') {
+          setSuccessMessage('Your account has been renamed successfully! This page will now refresh.')
+          setTimeout(() => {
+            if (typeof window !== 'undefined') {
+              location.reload()
+            }
+          }, 3000)
+        } else {
+          const errorMessage = `Non-number response type in RenameAccountModal: ${response?.data}`
+          console.log(errorMessage)
+        }
+      })
+      .catch((error: string) => {
+        handleForbiddenRedirect(error)
+      })
   }
 
   if (!open) return null

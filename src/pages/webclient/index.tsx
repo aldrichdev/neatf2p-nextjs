@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { Modal } from '@molecules/Modal'
 import Link from 'next/link'
 import Head from 'next/head'
+import { SharedBrowserTitle } from 'src/constants'
 
 const WebclientPage = () => {
   const [hideAds, setHideAds] = useState(false)
@@ -42,7 +43,7 @@ const WebclientPage = () => {
   return (
     <>
       <Head>
-        <title>Web Client | Neat F2P :: Nostalgia Reborn</title>
+        <title>Web Client | {SharedBrowserTitle}</title>
       </Head>
       <ContentBlock>
         {!hideAds && <WebclientBanner bannerType='Ad' bannerPlacement='top' />}

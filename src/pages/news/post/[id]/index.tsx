@@ -6,6 +6,7 @@ import { NewsPostDetailItem } from '@atoms/NewsPostDetailItem'
 import { Spinner } from '@molecules/Spinner'
 import { sendApiRequest } from '@helpers/api/apiUtils'
 import Head from 'next/head'
+import { SharedBrowserTitle } from 'src/constants'
 
 const NewsPostDetail = () => {
   const { query } = useRouter()
@@ -39,7 +40,9 @@ const NewsPostDetail = () => {
   return (
     <>
       <Head>
-        <title>{newsPost.title} | Neat F2P :: Nostalgia Reborn</title>
+        <title>
+          {newsPost.title} | {SharedBrowserTitle}
+        </title>
       </Head>
       <ContentBlock>
         <NewsPostDetailItem newsPost={newsPost} />

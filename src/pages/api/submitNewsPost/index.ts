@@ -12,26 +12,46 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
   if (await shouldBlockApiCall(userId, sessionCookie)) {
     res.statusCode = 403
     res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify(`Forbidden`))
+    res.end(JSON.stringify('Forbidden'))
     return
   }
 
   try {
-    const insertImageQuery = `INSERT INTO images (image, alt) VALUES (?, ?)`
-    const insertImageResponse: OkPacket | ErrorResult = await queryDatabase('website', insertImageQuery, [image, alt])
+    const insertImageQuery = `INSERT INTO images (image, alt) SELECT ?, ? FROM images WHERE (SELECT COUNT(*) FROM users WHERE id = ? AND isAdmin = 1) > 0 LIMIT 1`
+    const insertImageResponse: OkPacket | ErrorResult = await queryDatabase('website', insertImageQuery, [
+      image,
+      alt,
+      userId,
+    ])
+
+    if (!isOkPacket(insertImageResponse)) {
+      throw new Error(insertImageResponse?.error?.toString())
+    }
+
+    if (insertImageResponse?.affectedRows < 1) {
+      // Probably the user is not an admin...
+      throw new Error('Unauthorized')
+    }
+
     const insertedImageId = isOkPacket(insertImageResponse) && insertImageResponse?.insertId
 
     // Next, build the insertNewsPost command and execute, then return results.
-    const insertNewsPostQuery = `INSERT INTO newsPosts (image, title, datePosted, body) VALUES (?, ?, ?, ?)`
+    const insertNewsPostQuery = `INSERT INTO newsPosts (image, title, datePosted, body) SELECT ?, ?, ?, ? FROM newsPosts WHERE (SELECT COUNT(*) FROM users WHERE id = ? AND isAdmin = 1) > 0 LIMIT 1`
     const insertNewsPostResponse: OkPacket | ErrorResult = await queryDatabase('website', insertNewsPostQuery, [
       insertedImageId,
       title,
       datePosted,
       body,
+      userId,
     ])
 
     if (!isOkPacket(insertNewsPostResponse)) {
       throw new Error(insertNewsPostResponse?.error?.toString())
+    }
+
+    if (insertNewsPostResponse?.affectedRows < 1) {
+      // Probably the user is not an admin...
+      throw new Error('Unauthorized')
     }
 
     const insertedNewsPostId = insertNewsPostResponse?.insertId

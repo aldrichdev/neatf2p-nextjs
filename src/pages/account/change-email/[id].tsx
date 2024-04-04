@@ -1,13 +1,14 @@
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import useAuthentication from '@hooks/useAuthentication'
 import { Spinner } from '@molecules/Spinner'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { SharedBrowserTitle } from 'src/constants'
 
 const ChangeEmailByIdPage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -22,9 +23,13 @@ const ChangeEmailByIdPage = () => {
     sendApiRequest('POST', '/api/updateWebsiteUserEmailAddress', {
       userId: accountId,
       newEmail,
-    }).then(() => {
-      setIsLoading(false)
     })
+      .then(() => {
+        setIsLoading(false)
+      })
+      .catch((error: string) => {
+        handleForbiddenRedirect(error)
+      })
   }, [accountId, newEmail, user.id])
 
   if (isLoading) {
@@ -34,7 +39,7 @@ const ChangeEmailByIdPage = () => {
   return (
     <>
       <Head>
-        <title>Change Email Address | Neat F2P :: Nostalgia Reborn</title>
+        <title>Change Email Address | {SharedBrowserTitle}</title>
       </Head>
       <ContentBlock>
         <PageHeading>Update Complete</PageHeading>

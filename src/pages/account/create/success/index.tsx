@@ -6,6 +6,7 @@ import { Spinner } from '@molecules/Spinner'
 import { useState } from 'react'
 import { PageHeading } from '@atoms/PageHeading'
 import Head from 'next/head'
+import { SharedBrowserTitle } from 'src/constants'
 
 const CreateAccountSuccessPage = () => {
   const [loading, setLoading] = useState(true)
@@ -31,12 +32,12 @@ const CreateAccountSuccessPage = () => {
   return (
     <>
       <Head>
-        <title>Success | Neat F2P :: Nostalgia Reborn</title>
+        <title>Success | {SharedBrowserTitle}</title>
       </Head>
       <ContentBlock>
         <PageHeading>Success</PageHeading>
         <BodyText variant='body' textAlign='center'>
-          Your account, {user?.username}, has been created! You can now view your
+          Your account, <strong>{user?.username}</strong>, has been created! You can now view your
           <InlineLink href='/account'>Account page</InlineLink>.
         </BodyText>
       </ContentBlock>

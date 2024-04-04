@@ -13,9 +13,10 @@ import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
 import { sanitizeRunescapePassword } from '@helpers/string/stringUtils'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import axios from 'axios'
 import Head from 'next/head'
+import { SharedBrowserTitle } from 'src/constants'
 
 const CreateGameAccount = () => {
   const [loading, setLoading] = useState(true)
@@ -83,12 +84,14 @@ const CreateGameAccount = () => {
               .catch((error: { response: { data: string } }) => {
                 setSubmitDisabled(false)
                 setValidationError(error.response.data)
+                handleForbiddenRedirect(error.response.data)
               })
           }
         })
         .catch((error: { response: { data: string } }) => {
           setSubmitDisabled(false)
           setValidationError(error.response.data)
+          handleForbiddenRedirect(error.response.data)
         })
     })
   }
@@ -115,7 +118,7 @@ const CreateGameAccount = () => {
   return (
     <>
       <Head>
-        <title>Create Game Account | Neat F2P :: Nostalgia Reborn</title>
+        <title>Create Game Account | {SharedBrowserTitle}</title>
       </Head>
       <ContentBlock>
         <PageHeading>Create Game Account</PageHeading>

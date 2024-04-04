@@ -27,8 +27,9 @@ import { NewsPostTitle } from '@organisms/NewsPostListItem/NewsPostListItem.styl
 import { Field } from '@atoms/Field'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { ContentBlock } from '@atoms/ContentBlock'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import Head from 'next/head'
+import { SharedBrowserTitle } from 'src/constants'
 
 const NewsPostForm = () => {
   const [loading, setLoading] = useState(true)
@@ -110,6 +111,7 @@ const NewsPostForm = () => {
           answer: error.response.data,
           code: 'red',
         })
+        handleForbiddenRedirect(error.response.data)
       })
   }
 
@@ -132,7 +134,7 @@ const NewsPostForm = () => {
   return (
     <>
       <Head>
-        <title>Submit News Post | Neat F2P :: Nostalgia Reborn</title>
+        <title>Submit News Post | {SharedBrowserTitle}</title>
       </Head>
       <PageHeading>Submit a News Post</PageHeading>
       <ContentBlock topMargin={40}>

@@ -3,12 +3,13 @@ import { BodyText } from '@atoms/BodyText'
 import { InlineLink } from '@atoms/InlineLink'
 import { PageHeading } from '@atoms/PageHeading'
 import Head from 'next/head'
+import { SharedBrowserTitle } from 'src/constants'
 
 const ForgotPasswordSuccessPage = () => {
   return (
     <>
       <Head>
-        <title>Success | Neat F2P :: Nostalgia Reborn</title>
+        <title>Success | {SharedBrowserTitle}</title>
       </Head>
       <ContentBlock>
         <PageHeading>Request Received</PageHeading>

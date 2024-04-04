@@ -22,11 +22,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Props>) => {
   if (await shouldBlockApiCall(userId, sessionCookie)) {
     res.statusCode = 403
     res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify(`Forbidden`))
+    res.end(JSON.stringify('Forbidden'))
     return
   }
 
-  const query = `SELECT id, username, former_name, pass, salt, combat, creation_date, login_date, banned
+  const query = `SELECT id, username, former_name, combat, creation_date, login_date, banned
     FROM players
     WHERE websiteUserId = ?`
 

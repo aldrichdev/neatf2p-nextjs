@@ -14,6 +14,7 @@ import { Spinner } from '@molecules/Spinner'
 import { BodyText } from '@atoms/BodyText'
 import { InlineLink } from '@atoms/InlineLink'
 import Head from 'next/head'
+import { SharedBrowserTitle } from 'src/constants'
 
 const ResetPassword = () => {
   const { query } = useRouter()
@@ -111,7 +112,7 @@ const ResetPassword = () => {
   return (
     <>
       <Head>
-        <title>Reset Password | Neat F2P :: Nostalgia Reborn</title>
+        <title>Reset Password | {SharedBrowserTitle}</title>
       </Head>
       <ContentBlock>
         <PageHeading>Reset Your Password</PageHeading>

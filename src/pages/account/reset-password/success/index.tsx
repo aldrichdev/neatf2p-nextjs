@@ -5,6 +5,7 @@ import useAuthentication from '@hooks/useAuthentication'
 import { UserIsLoggedIn } from '@helpers/users/users'
 import { PageHeading } from '@atoms/PageHeading'
 import Head from 'next/head'
+import { SharedBrowserTitle } from 'src/constants'
 
 const ResetPasswordSuccessPage = () => {
   const user = useAuthentication()
@@ -12,7 +13,7 @@ const ResetPasswordSuccessPage = () => {
   return (
     <>
       <Head>
-        <title>Success | Neat F2P :: Nostalgia Reborn</title>
+        <title>Success | {SharedBrowserTitle}</title>
       </Head>
       <ContentBlock>
         <PageHeading>Reset Successful</PageHeading>

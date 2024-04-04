@@ -15,6 +15,7 @@ import { BugTypeDropdown, BugTypeMenuItem, IssuesLink } from '@styledPages/Repor
 import Head from 'next/head'
 import { Octokit } from 'octokit'
 import { ChangeEvent, FormEvent, ReactNode, useState } from 'react'
+import { SharedBrowserTitle } from 'src/constants'
 
 const BugReportsPage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -94,7 +95,7 @@ const BugReportsPage = () => {
   return (
     <>
       <Head>
-        <title>Report a Bug | Neat F2P :: Nostalgia Reborn</title>
+        <title>Report a Bug | {SharedBrowserTitle}</title>
       </Head>
       <ContentBlock>
         <PageHeading>Report a Bug</PageHeading>

@@ -9,6 +9,7 @@ import { useState } from 'react'
 import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
 import Head from 'next/head'
+import { SharedBrowserTitle } from 'src/constants'
 
 const CreateAccountSuccessPage = () => {
   const [loading, setLoading] = useState(true)
@@ -29,7 +30,7 @@ const CreateAccountSuccessPage = () => {
     return (
       <>
         <Head>
-          <title>Oops | Neat F2P :: Nostalgia Reborn</title>
+          <title>Oops | {SharedBrowserTitle}</title>
         </Head>
         <ContentBlock>
           <PageHeading>Oops...</PageHeading>
@@ -44,7 +45,7 @@ const CreateAccountSuccessPage = () => {
   return (
     <>
       <Head>
-        <title>Success | Neat F2P :: Nostalgia Reborn</title>
+        <title>Success | {SharedBrowserTitle}</title>
       </Head>
       <ContentBlock>
         <PageHeading>Success</PageHeading>

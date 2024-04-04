@@ -4,11 +4,12 @@ import { PageHeading } from '@atoms/PageHeading'
 import { BodyText } from '@atoms/BodyText'
 import Link from 'next/link'
 import Head from 'next/head'
+import { SharedBrowserTitle } from 'src/constants'
 
 const About = () => (
   <>
     <Head>
-      <title>About | Neat F2P :: Nostalgia Reborn</title>
+      <title>About | {SharedBrowserTitle}</title>
     </Head>
     <ContentBlock>
       <PageHeading>Our Spin on RSC</PageHeading>

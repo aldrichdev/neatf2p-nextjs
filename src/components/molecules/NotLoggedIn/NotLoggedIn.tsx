@@ -3,11 +3,12 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { InlineLink } from '@atoms/InlineLink'
 import { PageHeading } from '@atoms/PageHeading'
 import Head from 'next/head'
+import { SharedBrowserTitle } from 'src/constants'
 
 const NotLoggedIn = () => (
   <>
     <Head>
-      <title>Not Logged In | Neat F2P :: Nostalgia Reborn</title>
+      <title>Not Logged In | {SharedBrowserTitle}</title>
     </Head>
     <ContentBlock>
       <PageHeading>Access Denied</PageHeading>
