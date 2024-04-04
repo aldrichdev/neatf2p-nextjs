@@ -31,7 +31,7 @@ const CreateAccountSuccessPage = () => {
     <ContentBlock>
       <PageHeading>Success</PageHeading>
       <BodyText variant='body' textAlign='center'>
-        Your account, {user?.username}, has been created! You can now view your
+        Your account, <strong>{user?.username}</strong>, has been created! You can now view your
         <InlineLink href='/account'>Account page</InlineLink>.
       </BodyText>
     </ContentBlock>
