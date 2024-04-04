@@ -13,7 +13,7 @@ import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
 import { sanitizeRunescapePassword } from '@helpers/string/stringUtils'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import axios from 'axios'
 
 const CreateGameAccount = () => {
@@ -82,12 +82,14 @@ const CreateGameAccount = () => {
               .catch((error: { response: { data: string } }) => {
                 setSubmitDisabled(false)
                 setValidationError(error.response.data)
+                handleForbiddenRedirect(error.response.data)
               })
           }
         })
         .catch((error: { response: { data: string } }) => {
           setSubmitDisabled(false)
           setValidationError(error.response.data)
+          handleForbiddenRedirect(error.response.data)
         })
     })
   }

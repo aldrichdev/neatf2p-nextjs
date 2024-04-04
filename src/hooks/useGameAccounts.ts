@@ -1,5 +1,5 @@
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { useEffect, useState } from 'react'
 
 const useGameAccounts = (userId: string | undefined) => {
@@ -11,7 +11,10 @@ const useGameAccounts = (userId: string | undefined) => {
         .then(response => {
           setAccounts(response.data)
         })
-        .catch((error: string) => console.log(error))
+        .catch((error: string) => {
+          console.log(error)
+          handleForbiddenRedirect(error)
+        })
     }
 
     if (accounts === undefined) {

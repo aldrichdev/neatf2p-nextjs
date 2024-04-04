@@ -10,7 +10,7 @@ import { Form } from '@atoms/Form'
 import { redirectTo } from '@helpers/window'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { hashPassword } from '@helpers/password'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 
 const ChangePasswordPage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -49,16 +49,20 @@ const ChangePasswordPage = () => {
       userId: user.id,
       newPassword: hashedPassword,
       newPasswordSalt: passwordSalt,
-    }).then(response => {
-      if (typeof response?.data === 'number') {
-        // Reset was successful - redirect to success page
-        redirectTo('/account/change-password/success')
-      } else {
-        const errorMessage = `Non-number response type in change-password: ${response?.data}`
-        console.log(errorMessage)
-        setFormValidationError(`Something went wrong. Please try again later. Error: ${errorMessage}`)
-      }
     })
+      .then(response => {
+        if (typeof response?.data === 'number') {
+          // Reset was successful - redirect to success page
+          redirectTo('/account/change-password/success')
+        } else {
+          const errorMessage = `Non-number response type in change-password: ${response?.data}`
+          console.log(errorMessage)
+          setFormValidationError(`Something went wrong. Please try again later. Error: ${errorMessage}`)
+        }
+      })
+      .catch((error: string) => {
+        handleForbiddenRedirect(error)
+      })
   }
 
   if (isLoading) {
