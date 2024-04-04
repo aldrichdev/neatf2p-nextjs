@@ -18,7 +18,6 @@ import { Callout } from '@atoms/Callout'
 import { sendApiRequest } from '@helpers/api/apiUtils'
 import axios from 'axios'
 import Head from 'next/head'
-import { SharedBrowserTitle } from 'src/constants'
 
 const CreateAccountPage = () => {
   const [loading, setLoading] = useState(true)
@@ -142,7 +141,7 @@ const CreateAccountPage = () => {
   return (
     <>
       <Head>
-        <title>Register | {SharedBrowserTitle}</title>
+        <title>Register | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
       </Head>
       <ContentBlock>
         <PageHeading>Create Account</PageHeading>

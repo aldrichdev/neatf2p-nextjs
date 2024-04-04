@@ -20,7 +20,6 @@ import { PageHeading } from '@atoms/PageHeading'
 import { sendApiRequest } from '@helpers/api/apiUtils'
 import axios from 'axios'
 import Head from 'next/head'
-import { SharedBrowserTitle } from 'src/constants'
 
 const ForgotPasswordBlock = styled(BodyText)(
   () => css`
@@ -134,7 +133,7 @@ const AccountLoginPage = () => {
   return (
     <>
       <Head>
-        <title>Login | {SharedBrowserTitle}</title>
+        <title>Login | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
       </Head>
       <ContentBlock>
         <PageHeading>Login</PageHeading>

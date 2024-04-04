@@ -12,7 +12,6 @@ import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { hashPassword } from '@helpers/password'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import Head from 'next/head'
-import { SharedBrowserTitle } from 'src/constants'
 
 const ChangePasswordPage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -74,7 +73,7 @@ const ChangePasswordPage = () => {
   return (
     <>
       <Head>
-        <title>Change Password | {SharedBrowserTitle}</title>
+        <title>Change Password | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
       </Head>
       <ContentBlock>
         <PageHeading>Change Password</PageHeading>

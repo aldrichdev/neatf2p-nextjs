@@ -8,7 +8,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { SharedBrowserTitle } from 'src/constants'
 
 const ChangeEmailByIdPage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -39,7 +38,7 @@ const ChangeEmailByIdPage = () => {
   return (
     <>
       <Head>
-        <title>Change Email Address | {SharedBrowserTitle}</title>
+        <title>Change Email Address | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
       </Head>
       <ContentBlock>
         <PageHeading>Update Complete</PageHeading>

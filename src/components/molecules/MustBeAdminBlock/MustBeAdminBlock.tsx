@@ -3,7 +3,6 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
 import { MustBeAdminBlockProps } from './MustBeAdminBlock.types'
 import Head from 'next/head'
-import { SharedBrowserTitle } from 'src/constants'
 
 const MustBeAdminBlock = (props: MustBeAdminBlockProps) => {
   const { textColor } = props
@@ -11,7 +10,7 @@ const MustBeAdminBlock = (props: MustBeAdminBlockProps) => {
   return (
     <>
       <Head>
-        <title>Access Denied | {SharedBrowserTitle}</title>
+        <title>Access Denied | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
       </Head>
       <ContentBlock textColor={textColor}>
         <PageHeading>Nice Try</PageHeading>
