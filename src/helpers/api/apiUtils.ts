@@ -30,6 +30,8 @@ export const sendApiRequest = (
   return axios.post(endpointUrl, body)
 }
 
+/** Checks if the `sessionCookie` value provided matches a `session` column value in the database
+ * for the `userId` provided. If not, the API call is blocked (`true` is returned). */
 export const shouldBlockApiCall = async (userId: string, sessionCookie: string | undefined) => {
   let returnValue = false
 
