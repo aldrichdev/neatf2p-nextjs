@@ -30,17 +30,26 @@ const NewsPostDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query])
 
+  const renderHead = () => (
+    <Head>
+      <title>News Post | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
+    </Head>
+  )
+
   if (isLoading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead()}
+        <Spinner />
+      </>
+    )
   }
 
   if (!newsPost?.title) return null
 
   return (
     <>
-      <Head>
-        <title>{newsPost.title} | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead()}
       <ContentBlock>
         <NewsPostDetailItem newsPost={newsPost} />
       </ContentBlock>

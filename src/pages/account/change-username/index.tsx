@@ -72,8 +72,19 @@ const ChangeUsernamePage = () => {
       })
   }
 
+  const renderHead = () => (
+    <Head>
+      <title>Change Username | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
+    </Head>
+  )
+
   if (isLoading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead()}
+        <Spinner />
+      </>
+    )
   }
 
   if (!UserIsLoggedIn(user)) {
@@ -82,9 +93,7 @@ const ChangeUsernamePage = () => {
 
   return (
     <>
-      <Head>
-        <title>Change Username | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead()}
       <ContentBlock>
         <PageHeading>Change Username</PageHeading>
         <BodyText variant='body'>

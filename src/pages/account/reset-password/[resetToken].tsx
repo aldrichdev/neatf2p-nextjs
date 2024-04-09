@@ -91,28 +91,42 @@ const ResetPassword = () => {
     })
   }, [resetToken])
 
+  const renderHead = () => (
+    <Head>
+      <title>Reset Password | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
+    </Head>
+  )
+
   if (isLoading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead()}
+        <Spinner />
+      </>
+    )
   }
 
   if (tokenExpired) {
     return (
-      <ContentBlock>
-        <PageHeading>Token Expired</PageHeading>
-        <BodyText variant='body'>
-          Your token has expired. Please visit the{' '}
-          <InlineLink href='/account/login/forgot-password'>Forgot Password</InlineLink> page and enter your email
-          again. You need to open the link in the email within 10 minutes.
-        </BodyText>
-      </ContentBlock>
+      <>
+        <Head>
+          <title>Token Expired | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
+        </Head>
+        <ContentBlock>
+          <PageHeading>Token Expired</PageHeading>
+          <BodyText variant='body'>
+            Your token has expired. Please visit the{' '}
+            <InlineLink href='/account/login/forgot-password'>Forgot Password</InlineLink> page and enter your email
+            again. You need to open the link in the email within 10 minutes.
+          </BodyText>
+        </ContentBlock>
+      </>
     )
   }
 
   return (
     <>
-      <Head>
-        <title>Reset Password | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead()}
       <ContentBlock>
         <PageHeading>Reset Your Password</PageHeading>
         <Form onSubmit={handleRequest}>

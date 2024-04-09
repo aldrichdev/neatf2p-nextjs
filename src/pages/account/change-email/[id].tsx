@@ -31,15 +31,24 @@ const ChangeEmailByIdPage = () => {
       })
   }, [accountId, newEmail, user.id])
 
+  const renderHead = () => (
+    <Head>
+      <title>Change Email Address | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
+    </Head>
+  )
+
   if (isLoading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead()}
+        <Spinner />
+      </>
+    )
   }
 
   return (
     <>
-      <Head>
-        <title>Change Email Address | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead()}
       <ContentBlock>
         <PageHeading>Update Complete</PageHeading>
         <BodyText variant='body' textAlign='center'>

@@ -10,6 +10,7 @@ import emailjs from '@emailjs/browser'
 import { Form } from '@atoms/Form'
 import { redirectTo } from '@helpers/window'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
+import Head from 'next/head'
 
 const ChangeEmailPage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -45,32 +46,46 @@ const ChangeEmailPage = () => {
       })
   }
 
+  const renderHead = () => (
+    <Head>
+      <title>Change Email Address | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
+    </Head>
+  )
+
   if (isLoading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead()}
+        <Spinner />
+      </>
+    )
   }
 
   return (
-    <ContentBlock>
-      <PageHeading>Change Email Address</PageHeading>
-      <BodyText variant='body'>
-        Enter your new email address below. We will send an email to the new address to confirm you own that account.
-        Within the email there will be a link to complete the process.
-      </BodyText>
-      <Form onSubmit={handleSubmit}>
-        <Field
-          required
-          id='newEmail'
-          label='New Email'
-          type='email'
-          variant='standard'
-          onChange={handleNewEmailChange}
-        />
-        <FieldValidationMessage>{formValidationError}</FieldValidationMessage>
-        <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
-          Submit
-        </FormButton>
-      </Form>
-    </ContentBlock>
+    <>
+      {renderHead()}
+      <ContentBlock>
+        <PageHeading>Change Email Address</PageHeading>
+        <BodyText variant='body'>
+          Enter your new email address below. We will send an email to the new address to confirm you own that account.
+          Within the email there will be a link to complete the process.
+        </BodyText>
+        <Form onSubmit={handleSubmit}>
+          <Field
+            required
+            id='newEmail'
+            label='New Email'
+            type='email'
+            variant='standard'
+            onChange={handleNewEmailChange}
+          />
+          <FieldValidationMessage>{formValidationError}</FieldValidationMessage>
+          <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
+            Submit
+          </FormButton>
+        </Form>
+      </ContentBlock>
+    </>
   )
 }
 

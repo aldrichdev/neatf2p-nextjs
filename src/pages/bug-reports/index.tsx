@@ -83,8 +83,19 @@ const BugReportsPage = () => {
       })
   }
 
+  const renderHead = () => (
+    <Head>
+      <title>Report a Bug | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
+    </Head>
+  )
+
   if (isLoading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead()}
+        <Spinner />
+      </>
+    )
   }
 
   if (!UserIsLoggedIn(user)) {
@@ -93,9 +104,7 @@ const BugReportsPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Report a Bug | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead()}
       <ContentBlock>
         <PageHeading>Report a Bug</PageHeading>
         <BodyText variant='body'>

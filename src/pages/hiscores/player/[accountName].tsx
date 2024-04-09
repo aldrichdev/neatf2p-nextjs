@@ -108,15 +108,24 @@ const PlayerHiscore = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hiscoresData])
 
+  const renderHead = () => (
+    <Head>
+      <title>Player Hiscore | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
+    </Head>
+  )
+
   if (isLoading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead()}
+        <Spinner />
+      </>
+    )
   }
 
   return (
     <>
-      <Head>
-        <title>{accountName || 'Hiscore'} | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead()}
       <ContentBlock>
         <PageHeading>{accountName ? accountName.toString() : 'Unknown Player'}</PageHeading>
         {typeof accountName !== 'string' || !playerHiscores || !hiscoresData?.find(isMatchingUser) ? (

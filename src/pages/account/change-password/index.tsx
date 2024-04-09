@@ -66,15 +66,24 @@ const ChangePasswordPage = () => {
       })
   }
 
+  const renderHead = () => (
+    <Head>
+      <title>Change Password | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
+    </Head>
+  )
+
   if (isLoading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead()}
+        <Spinner />
+      </>
+    )
   }
 
   return (
     <>
-      <Head>
-        <title>Change Password | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead()}
       <ContentBlock>
         <PageHeading>Change Password</PageHeading>
         <BodyText variant='body'>Please enter your new password below.</BodyText>
