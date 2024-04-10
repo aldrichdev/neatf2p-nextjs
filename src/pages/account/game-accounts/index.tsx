@@ -22,8 +22,19 @@ const GameAccountsPage = () => {
   const isLoggedIn = UserIsLoggedIn(user)
   const creationsDisabled = process.env.NEXT_PUBLIC_GAME_ACCOUNTS_DISABLE_CREATION === 'true'
 
+  const renderHead = () => (
+    <Head>
+      <title>Game Accounts | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
+    </Head>
+  )
+
   if (loading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead()}
+        <Spinner />
+      </>
+    )
   }
 
   if (!isLoggedIn) {
@@ -46,9 +57,7 @@ const GameAccountsPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Game Accounts | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead()}
       <ContentBlock isWide>
         <PageHeading>Game Accounts</PageHeading>
         <BodyText variant='body' textAlign='center'>

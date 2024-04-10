@@ -16,8 +16,19 @@ const CreateAccountSuccessPage = () => {
   const user = useAuthentication(setLoading)
   const accountName = query['accountName']
 
+  const renderHead = () => (
+    <Head>
+      <title>Success | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
+    </Head>
+  )
+
   if (loading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead()}
+        <Spinner />
+      </>
+    )
   }
 
   if (!UserIsLoggedIn(user)) {
@@ -27,25 +38,18 @@ const CreateAccountSuccessPage = () => {
   if (!accountName || accountName?.length < 1) {
     // Something went wrong...
     return (
-      <>
-        <Head>
-          <title>Oops | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-        </Head>
-        <ContentBlock>
-          <PageHeading>Oops...</PageHeading>
-          <BodyText variant='body' textAlign='center'>
-            Something went wrong... your game account name is empty. Please report this to the admin.
-          </BodyText>
-        </ContentBlock>
-      </>
+      <ContentBlock>
+        <PageHeading>Oops...</PageHeading>
+        <BodyText variant='body' textAlign='center'>
+          Something went wrong... your game account name is empty. Please report this to the admin.
+        </BodyText>
+      </ContentBlock>
     )
   }
 
   return (
     <>
-      <Head>
-        <title>Success | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead()}
       <ContentBlock>
         <PageHeading>Success</PageHeading>
         <BodyText variant='body' textAlign='center'>

@@ -11,8 +11,18 @@ const CreateAccountSuccessPage = () => {
   const [loading, setLoading] = useState(true)
   const user = useAuthentication(setLoading)
 
+  const renderHead = () => (
+    <Head>
+      <title>Success | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
+    </Head>
+  )
   if (loading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead()}
+        <Spinner />
+      </>
+    )
   }
 
   if (user?.id === 'NULL') {
@@ -30,9 +40,7 @@ const CreateAccountSuccessPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Success | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead()}
       <ContentBlock>
         <PageHeading>Success</PageHeading>
         <BodyText variant='body' textAlign='center'>

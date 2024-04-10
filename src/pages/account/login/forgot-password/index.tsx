@@ -21,8 +21,19 @@ const ForgotPasswordPage = () => {
   const user = useAuthentication(setLoading)
   const userIsLoggedIn = UserIsLoggedIn(user)
 
+  const renderHead = () => (
+    <Head>
+      <title>Forgot Password | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
+    </Head>
+  )
+
   if (loading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead()}
+        <Spinner />
+      </>
+    )
   }
 
   if (userIsLoggedIn) {
@@ -60,9 +71,7 @@ const ForgotPasswordPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Forgot Password | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead()}
       <ContentBlock>
         <PageHeading>Forgot Password</PageHeading>
         <BodyText variant='body' textAlign='left'>

@@ -45,8 +45,19 @@ const AccountLoginPage = () => {
   const user = useAuthentication(setLoading)
   const userIsLoggedIn = UserIsLoggedIn(user)
 
+  const renderHead = () => (
+    <Head>
+      <title>Login | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
+    </Head>
+  )
+
   if (loading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead()}
+        <Spinner />
+      </>
+    )
   }
 
   if (userIsLoggedIn) {
@@ -132,9 +143,7 @@ const AccountLoginPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Login | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead()}
       <ContentBlock>
         <PageHeading>Login</PageHeading>
         <BodyText variant='body' textAlign='left'>

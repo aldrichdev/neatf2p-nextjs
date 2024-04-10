@@ -25,8 +25,19 @@ const AccountPage = () => {
     setAnchorEl(null)
   }
 
+  const renderHead = () => (
+    <Head>
+      <title>Account | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
+    </Head>
+  )
+
   if (loading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead()}
+        <Spinner />
+      </>
+    )
   }
 
   if (!isLoggedIn) {
@@ -35,9 +46,7 @@ const AccountPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Account | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead()}
       <ContentBlock>
         <PageHeading>Hiya, {user?.username}!</PageHeading>
         <BodyText variant='body' textAlign='center'>

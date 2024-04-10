@@ -122,8 +122,19 @@ const NewsPostForm = () => {
     }
   }, [body])
 
+  const renderHead = () => (
+    <Head>
+      <title>Submit News Post | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
+    </Head>
+  )
+
   if (loading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead()}
+        <Spinner />
+      </>
+    )
   }
 
   if (!user?.isAdmin) {
@@ -132,9 +143,7 @@ const NewsPostForm = () => {
 
   return (
     <>
-      <Head>
-        <title>Submit News Post | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead()}
       <PageHeading>Submit a News Post</PageHeading>
       <ContentBlock topMargin={40}>
         <StyledForm onSubmit={handleSubmit}>

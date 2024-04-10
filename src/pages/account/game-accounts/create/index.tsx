@@ -95,8 +95,19 @@ const CreateGameAccount = () => {
     })
   }
 
+  const renderHead = () => (
+    <Head>
+      <title>Create Game Account | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
+    </Head>
+  )
+
   if (loading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead()}
+        <Spinner />
+      </>
+    )
   }
 
   if (process.env.NEXT_PUBLIC_GAME_ACCOUNTS_DISABLE_CREATION === 'true') {
@@ -116,9 +127,7 @@ const CreateGameAccount = () => {
 
   return (
     <>
-      <Head>
-        <title>Create Game Account | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead()}
       <ContentBlock>
         <PageHeading>Create Game Account</PageHeading>
         <BodyText variant='body'>
