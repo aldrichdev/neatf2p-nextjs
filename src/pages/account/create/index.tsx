@@ -18,6 +18,7 @@ import { Callout } from '@atoms/Callout'
 import { sendApiRequest } from '@helpers/api/apiUtils'
 import axios from 'axios'
 import Head from 'next/head'
+import { RulesAcceptanceCheckbox } from '@molecules/RulesAcceptanceCheckbox'
 
 const CreateAccountPage = () => {
   const [loading, setLoading] = useState(true)
@@ -25,6 +26,7 @@ const CreateAccountPage = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [rulesAgreedTo, setRulesAgreedTo] = useState<boolean>()
   const [validationError, setValidationError] = useState('')
   const [submitDisabled, setSubmitDisabled] = useState(false)
   const user = useAuthentication(setLoading)
@@ -47,6 +49,10 @@ const CreateAccountPage = () => {
   const handleConfirmPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setConfirmPassword(event.target.value)
     setValidationError('')
+  }
+
+  const handleRulesCheck = () => {
+    setRulesAgreedTo(!rulesAgreedTo)
   }
 
   const handleAccountCreation = (event: FormEvent<HTMLFormElement>) => {
@@ -188,7 +194,8 @@ const CreateAccountPage = () => {
             variant='standard'
             onChange={handleConfirmPasswordChange}
           />
-          <FieldValidationMessage>{validationError}</FieldValidationMessage>
+          <RulesAcceptanceCheckbox onChange={handleRulesCheck} />
+          {validationError && <FieldValidationMessage>{validationError}</FieldValidationMessage>}
           <FormButton variant='contained' type='submit' disabled={submitDisabled}>
             Submit
           </FormButton>
