@@ -18,7 +18,7 @@ const AlreadyLoggedIn = (props: AlreadyLoggedInProps) => {
       </Head>
       <ContentBlock>
         <PageHeading>Already Logged In</PageHeading>
-        <BodyText variant='body' textAlign='center'>
+        <BodyText variant='body' bodyTextAlign='center'>
           {message || (
             <>
               You are already logged in. You can visit your

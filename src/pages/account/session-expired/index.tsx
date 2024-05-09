@@ -11,10 +11,10 @@ const SessionExpiredPage = () => (
     </Head>
     <ContentBlock>
       <PageHeading>Session Expired</PageHeading>
-      <BodyText variant='body' textAlign='center'>
+      <BodyText variant='body' bodyTextAlign='center'>
         Your session has expired. Perhaps you logged in on a different computer or browser?
       </BodyText>
-      <BodyText variant='body' textAlign='center'>
+      <BodyText variant='body' bodyTextAlign='center'>
         Please<InlineLink href='/account/login'>login</InlineLink> again.
       </BodyText>
     </ContentBlock>

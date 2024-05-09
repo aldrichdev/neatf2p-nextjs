@@ -30,7 +30,7 @@ const Modal = (props: ModalProps) => {
           </CloseButton>
         </CloseBar>
         <ModalHeader variant='h3'>{heading}</ModalHeader>
-        <BodyText variant='body' textAlign='left'>
+        <BodyText variant='body' component='span' bodyTextAlign='left'>
           {body}
         </BodyText>
         {hasForm && handleSubmit && renderFields && (
@@ -48,7 +48,7 @@ const Modal = (props: ModalProps) => {
               </FormButtonGroup>
             </Form>
             {formSuccessMessage && (
-              <BodyText variant='body' textAlign='left' color='green'>
+              <BodyText variant='body' bodyTextAlign='left' color='green'>
                 {formSuccessMessage}
               </BodyText>
             )}

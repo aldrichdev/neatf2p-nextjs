@@ -33,7 +33,7 @@ const CreateAccountSuccessPage = () => {
         </Head>
         <ContentBlock>
           <PageHeading>Oops...</PageHeading>
-          <BodyText variant='body' textAlign='center'>
+          <BodyText variant='body' bodyTextAlign='center'>
             Something went wrong... your game account name is empty. Please report this to the admin.
           </BodyText>
         </ContentBlock>
@@ -48,10 +48,10 @@ const CreateAccountSuccessPage = () => {
       </Head>
       <ContentBlock>
         <PageHeading>Success</PageHeading>
-        <BodyText variant='body' textAlign='center'>
+        <BodyText variant='body' bodyTextAlign='center'>
           Your game account, <strong>{accountName}</strong>, has been created. You can now log in.
         </BodyText>
-        <BodyText variant='body' textAlign='center'>
+        <BodyText variant='body' bodyTextAlign='center'>
           You may return to the
           <InlineLink href='/account/game-accounts'>game accounts page</InlineLink>.
         </BodyText>

@@ -2,17 +2,22 @@ import { Button, TableRow } from '@mui/material'
 import { StyledTableCell } from '@atoms/StyledTableCell'
 import { GameAccountRowProps } from './GameAccountRow.types'
 import { getPrettyDateStringFromMillis } from '@helpers/date/date'
+import { CharacterInfoButton } from '@atoms/CharacterInfoButton'
 
 const GameAccountRow = (props: GameAccountRowProps) => {
-  const { account, showRenameModal, showPasswordModal } = props
+  const { account, showRenameModal, showPasswordModal, showCharacterInfoModal } = props
 
   const handleRename = () => {
     // Show a modal which handles the rename
-    showRenameModal(true, account)
+    showRenameModal(account)
   }
 
   const handleUpdatePassword = () => {
-    showPasswordModal(true, account)
+    showPasswordModal(account)
+  }
+
+  const handleCharacterInfoClick = () => {
+    showCharacterInfoModal(account)
   }
 
   return (
@@ -23,9 +28,6 @@ const GameAccountRow = (props: GameAccountRowProps) => {
         </StyledTableCell>
         <StyledTableCell align='right'>{account.username}</StyledTableCell>
         <StyledTableCell align='right'>{account.combat}</StyledTableCell>
-        <StyledTableCell align='right'>
-          {account.creation_date === 0 ? '-' : getPrettyDateStringFromMillis(account.creation_date)}
-        </StyledTableCell>
         <StyledTableCell align='right'>
           {account.login_date === 0 ? '-' : getPrettyDateStringFromMillis(account.login_date)}
         </StyledTableCell>
@@ -38,6 +40,9 @@ const GameAccountRow = (props: GameAccountRowProps) => {
           <Button variant='contained' onClick={handleUpdatePassword}>
             Update
           </Button>
+        </StyledTableCell>
+        <StyledTableCell align='right'>
+          <CharacterInfoButton handleClick={handleCharacterInfoClick} />
         </StyledTableCell>
       </TableRow>
     </>

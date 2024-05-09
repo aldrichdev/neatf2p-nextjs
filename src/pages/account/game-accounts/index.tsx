@@ -18,6 +18,7 @@ const GameAccountsPage = () => {
   const [activeAccount, setActiveAccount] = useState<PlayerDataRow>()
   const [renameModalVisible, setRenameModalVisible] = useState(false)
   const [passwordModalVisible, setPasswordModalVisible] = useState(false)
+  const [characterInfoModalVisible, setCharacterInfoModalVisible] = useState(false)
   const user = useAuthentication(setLoading)
   const isLoggedIn = UserIsLoggedIn(user)
   const creationsDisabled = process.env.NEXT_PUBLIC_GAME_ACCOUNTS_DISABLE_CREATION === 'true'
@@ -30,13 +31,18 @@ const GameAccountsPage = () => {
     return <NotLoggedIn />
   }
 
-  const showRenameModal = (visible: boolean, account: PlayerDataRow) => {
+  const showRenameModal = (account: PlayerDataRow) => {
     setRenameModalVisible(true)
     setActiveAccount(account)
   }
 
-  const showPasswordModal = (visible: boolean, account: PlayerDataRow) => {
+  const showPasswordModal = (account: PlayerDataRow) => {
     setPasswordModalVisible(true)
+    setActiveAccount(account)
+  }
+
+  const showCharacterInfoModal = (account: PlayerDataRow) => {
+    setCharacterInfoModalVisible(true)
     setActiveAccount(account)
   }
 
@@ -51,7 +57,7 @@ const GameAccountsPage = () => {
       </Head>
       <ContentBlock isWide>
         <PageHeading>Game Accounts</PageHeading>
-        <BodyText variant='body' textAlign='center'>
+        <BodyText variant='body' bodyTextAlign='center'>
           Here, you can view your current game accounts, create new ones, rename them, and update passwords. All times
           shown are in your local timezone.
         </BodyText>
@@ -60,23 +66,29 @@ const GameAccountsPage = () => {
           activeAccount={activeAccount}
           renameModalVisible={renameModalVisible}
           passwordModalVisible={passwordModalVisible}
+          characterInfoModalVisible={characterInfoModalVisible}
           setRenameModalVisible={setRenameModalVisible}
           setPasswordModalVisible={setPasswordModalVisible}
+          setCharacterInfoModalVisible={setCharacterInfoModalVisible}
           showRenameModal={showRenameModal}
           showPasswordModal={showPasswordModal}
+          showCharacterInfoModal={showCharacterInfoModal}
         />
         <GameAccountsTableMobile
           user={user}
           activeAccount={activeAccount}
           renameModalVisible={renameModalVisible}
           passwordModalVisible={passwordModalVisible}
+          characterInfoModalVisible={characterInfoModalVisible}
           setRenameModalVisible={setRenameModalVisible}
           setPasswordModalVisible={setPasswordModalVisible}
+          setCharacterInfoModalVisible={setCharacterInfoModalVisible}
           showRenameModal={showRenameModal}
           showPasswordModal={showPasswordModal}
+          showCharacterInfoModal={showCharacterInfoModal}
         />
         {creationsDisabled && (
-          <BodyText variant='body' textAlign='center'>
+          <BodyText variant='body' bodyTextAlign='center'>
             Game account creations are temporarily disabled until further notice.
           </BodyText>
         )}

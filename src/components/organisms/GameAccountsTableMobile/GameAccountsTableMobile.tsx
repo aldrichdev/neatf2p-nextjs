@@ -9,6 +9,8 @@ import { PasswordModal } from '@organisms/PasswordModal'
 import { GameAccountRowMobile } from '@atoms/GameAccountRowMobile'
 import { getPrettyDateStringFromMillis } from '@helpers/date/date'
 import useGameAccounts from '@hooks/useGameAccounts'
+import { CharacterInfoButton } from '@atoms/CharacterInfoButton'
+import { CharacterInfoModal } from '@molecules/CharacterInfoModal'
 
 const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
   const {
@@ -16,10 +18,13 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
     activeAccount,
     renameModalVisible,
     passwordModalVisible,
+    characterInfoModalVisible,
     setRenameModalVisible,
     setPasswordModalVisible,
+    setCharacterInfoModalVisible,
     showRenameModal,
     showPasswordModal,
+    showCharacterInfoModal,
   } = props
   const [isLoading, setIsLoading] = useState(true)
   const accounts = useGameAccounts(user?.id)
@@ -30,11 +35,15 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
 
   const handleRename = (account: PlayerDataRow) => {
     // Show a modal which handles the rename
-    showRenameModal(true, account)
+    showRenameModal(account)
   }
 
   const handleUpdatePassword = (account: PlayerDataRow) => {
-    showPasswordModal(true, account)
+    showPasswordModal(account)
+  }
+
+  const handleCharacterInfoClick = (account: PlayerDataRow) => {
+    showCharacterInfoModal(account)
   }
 
   if (isLoading) {
@@ -59,11 +68,6 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
             <GameAccountRowMobile account={account} rowLabel='Combat Level' rowValue={account.combat} />
             <GameAccountRowMobile
               account={account}
-              rowLabel='Date Created'
-              rowValue={getPrettyDateStringFromMillis(account.creation_date)}
-            />
-            <GameAccountRowMobile
-              account={account}
               rowLabel='Last Login'
               rowValue={getPrettyDateStringFromMillis(account.login_date)}
             />
@@ -85,6 +89,11 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
                 </Button>
               }
             />
+            <GameAccountRowMobile
+              account={account}
+              rowLabel='Info'
+              rowValue={<CharacterInfoButton handleClick={() => handleCharacterInfoClick(account)} />}
+            />
           </TableBody>
         </AccountTable>
       ))}
@@ -102,6 +111,13 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
           open={passwordModalVisible}
           setOpen={setPasswordModalVisible}
           user={user}
+        />
+      )}
+      {characterInfoModalVisible && activeAccount && (
+        <CharacterInfoModal
+          account={activeAccount}
+          open={characterInfoModalVisible}
+          setOpen={setCharacterInfoModalVisible}
         />
       )}
     </AccountTableContainer>

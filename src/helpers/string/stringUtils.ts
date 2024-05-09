@@ -10,3 +10,5 @@ export const GetRandomToken = () => {
 
   return result
 }
+
+export const pluralize = (number: number, text: string) => (number === 1 ? text : `${text}s`)

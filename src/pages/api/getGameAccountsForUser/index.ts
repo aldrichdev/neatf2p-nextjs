@@ -4,11 +4,7 @@ import { shouldBlockApiCall } from '@helpers/api/apiUtils'
 import { queryDatabase } from '@helpers/db'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-interface Props {
-  onlinePlayerCount: number
-}
-
-const handler = async (req: NextApiRequest, res: NextApiResponse<Props>) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { userId } = req.query
   const sessionCookie = req.cookies?.['neat-f2p-session']
 
@@ -26,9 +22,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Props>) => {
     return
   }
 
-  const query = `SELECT id, username, former_name, combat, creation_date, login_date, banned
-    FROM players
-    WHERE websiteUserId = ?`
+  const query = `SELECT p.id, p.username, p.former_name, p.combat, p.creation_date, p.login_date, p.banned, 
+    pc.value/60/60/1000 AS hours_played
+    FROM players p
+    LEFT JOIN player_cache pc ON pc.playerID = p.id
+    AND pc.key LIKE "total_played"
+    WHERE websiteUserId = ?
+    ORDER by p.id`
 
   try {
     const response: PlayerDataRow[] | ErrorResult = await queryDatabase('game', query, [userId])

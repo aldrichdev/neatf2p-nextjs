@@ -145,7 +145,7 @@ const CreateAccountPage = () => {
       </Head>
       <ContentBlock>
         <PageHeading>Create Account</PageHeading>
-        <BodyText variant='body' textAlign='left'>
+        <BodyText variant='body' bodyTextAlign='left'>
           By creating a website account, you can add or rename game accounts, update passwords, and some other nifty
           things.
         </BodyText>
@@ -193,7 +193,7 @@ const CreateAccountPage = () => {
             Submit
           </FormButton>
         </Form>
-        <BodyText variant='body' topMargin={40} textAlign='left'>
+        <BodyText variant='body' topMargin={40} bodyTextAlign='left'>
           <span>Already have an account?</span>
           <InlineLink href='/account/login'>Log in.</InlineLink>
         </BodyText>

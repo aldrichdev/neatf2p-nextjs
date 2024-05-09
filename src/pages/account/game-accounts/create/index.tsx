@@ -103,7 +103,7 @@ const CreateGameAccount = () => {
     return (
       <ContentBlock>
         <PageHeading>Temporarily Disabled</PageHeading>
-        <BodyText variant='body' textAlign='center'>
+        <BodyText variant='body' bodyTextAlign='center'>
           Game account creations are temporarily disabled until further notice.
         </BodyText>
       </ContentBlock>
