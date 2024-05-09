@@ -17,11 +17,11 @@ const ChangeEmailSuccessPage = () => {
       </Head>
       <ContentBlock>
         <PageHeading>Check Your New Email</PageHeading>
-        <BodyText variant='body' textAlign='center'>
+        <BodyText variant='body' bodyTextAlign='center'>
           We just sent an email to {newEmail}. There should be a link in it to complete the process. Your email is not
           updated until you click the link.
         </BodyText>
-        <BodyText variant='body' textAlign='center'>
+        <BodyText variant='body' bodyTextAlign='center'>
           If you would like to try again, return to the <Link href='/account/change-email'>Change Email</Link> page.
         </BodyText>
       </ContentBlock>

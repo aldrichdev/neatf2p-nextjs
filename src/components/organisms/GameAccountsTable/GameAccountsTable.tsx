@@ -2,12 +2,13 @@ import { Spinner } from '@molecules/Spinner'
 import { TableBody, TableHead, TableRow, Paper } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { AccountTable, AccountTableContainer, DesktopSpinner, TabletDesktopBodyText } from './GameAccountsTable.styled'
-import { GameAccountRow } from '@atoms/GameAccountRow'
+import { GameAccountRow } from '@molecules/GameAccountRow'
 import { GameAccountsTableProps } from './GameAccountsTable.types'
 import { RenameAccountModal } from '@organisms/RenameAccountModal'
 import { PasswordModal } from '@organisms/PasswordModal'
 import { StyledTableCell } from '@atoms/StyledTableCell'
 import useGameAccounts from '@hooks/useGameAccounts'
+import { CharacterInfoModal } from '@molecules/CharacterInfoModal'
 
 const GameAccountsTable = (props: GameAccountsTableProps) => {
   const {
@@ -15,10 +16,13 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
     activeAccount,
     renameModalVisible,
     passwordModalVisible,
+    characterInfoModalVisible,
     setRenameModalVisible,
     setPasswordModalVisible,
+    setCharacterInfoModalVisible,
     showRenameModal,
     showPasswordModal,
+    showCharacterInfoModal,
   } = props
   const [isLoading, setIsLoading] = useState(true)
   const accounts = useGameAccounts(user?.id)
@@ -37,7 +41,7 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
     return null
   } else if (accounts && accounts.length < 1) {
     return (
-      <TabletDesktopBodyText variant='body' textAlign='center'>
+      <TabletDesktopBodyText variant='body' bodyTextAlign='center'>
         You don&apos;t have any accounts right now. Why not create one?
       </TabletDesktopBodyText>
     )
@@ -58,9 +62,6 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
               Combat Level
             </StyledTableCell>
             <StyledTableCell align='right' bold>
-              Date Created
-            </StyledTableCell>
-            <StyledTableCell align='right' bold>
               Last Login
             </StyledTableCell>
             <StyledTableCell align='right' bold>
@@ -68,6 +69,9 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
             </StyledTableCell>
             <StyledTableCell align='right' bold>
               Password
+            </StyledTableCell>
+            <StyledTableCell align='right' bold>
+              Info
             </StyledTableCell>
           </TableRow>
         </TableHead>
@@ -78,6 +82,7 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
               account={account}
               showRenameModal={showRenameModal}
               showPasswordModal={showPasswordModal}
+              showCharacterInfoModal={showCharacterInfoModal}
             />
           ))}
         </TableBody>
@@ -96,6 +101,13 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
           open={passwordModalVisible}
           setOpen={setPasswordModalVisible}
           user={user}
+        />
+      )}
+      {characterInfoModalVisible && activeAccount && (
+        <CharacterInfoModal
+          account={activeAccount}
+          open={characterInfoModalVisible}
+          setOpen={setCharacterInfoModalVisible}
         />
       )}
     </AccountTableContainer>

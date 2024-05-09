@@ -120,7 +120,7 @@ const PlayerHiscore = () => {
       <ContentBlock>
         <PageHeading>{accountName ? accountName.toString() : 'Unknown Player'}</PageHeading>
         {typeof accountName !== 'string' || !playerHiscores || !hiscoresData?.find(isMatchingUser) ? (
-          <BodyText variant='body' textAlign='center'>
+          <BodyText variant='body' bodyTextAlign='center'>
             No hiscore found for this player.
           </BodyText>
         ) : (

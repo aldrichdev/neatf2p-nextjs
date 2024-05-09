@@ -6,5 +6,6 @@ export interface PlayerDataRow {
   combat: number
   creation_date: number
   login_date: number
-  bannned: string
+  banned: string
+  hours_played: number
 }

@@ -14,7 +14,7 @@ const MustBeAdminBlock = (props: MustBeAdminBlockProps) => {
       </Head>
       <ContentBlock textColor={textColor}>
         <PageHeading>Nice Try</PageHeading>
-        <BodyText variant='body' textAlign='center'>
+        <BodyText variant='body' bodyTextAlign='center'>
           You must be an administrator to perform that action.
         </BodyText>
       </ContentBlock>
