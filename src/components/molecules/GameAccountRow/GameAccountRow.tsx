@@ -9,15 +9,15 @@ const GameAccountRow = (props: GameAccountRowProps) => {
 
   const handleRename = () => {
     // Show a modal which handles the rename
-    showRenameModal(true, account)
+    showRenameModal(account)
   }
 
   const handleUpdatePassword = () => {
-    showPasswordModal(true, account)
+    showPasswordModal(account)
   }
 
   const handleCharacterInfoClick = () => {
-    showCharacterInfoModal(true, account)
+    showCharacterInfoModal(account)
   }
 
   return (

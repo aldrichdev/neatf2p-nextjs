@@ -23,13 +23,13 @@ const CharacterInfoModal = (props: CharacterInfoModalProps) => {
     document.body.style.overflow = 'unset'
   }
 
-  const loadKdr = () => {
+  const loadKillsAndDeaths = () => {
     setIsLoading(true)
-    sendApiRequest('GET', `/api/getKdrForPlayer?playerId=${account.id}`)
+    sendApiRequest('GET', `/api/getKillsAndDeathsForPlayer?playerId=${account.id}`)
       .then(response => {
         if (response?.data) {
-          setKills(response.data.kills.toString())
-          setDeaths(response.data.deaths.toString())
+          setKills(response.data.kills?.toString())
+          setDeaths(response.data.deaths?.toString())
         }
 
         setIsLoading(false)
@@ -37,7 +37,7 @@ const CharacterInfoModal = (props: CharacterInfoModalProps) => {
       .catch((error: string) => console.log(error))
   }
 
-  const getKdr = (kills: string, deaths: string) => {
+  const calculateKdr = (kills: string, deaths: string) => {
     if (Number(kills) === 0 || Number(deaths) === 0) return '0'
 
     const rawKdr = Number(kills) / Number(deaths)
@@ -51,7 +51,7 @@ const CharacterInfoModal = (props: CharacterInfoModalProps) => {
 
     if (!kills || !deaths) {
       return (
-        <ViewButton variant='text' onClick={loadKdr}>
+        <ViewButton variant='text' onClick={loadKillsAndDeaths}>
           View
         </ViewButton>
       )
@@ -59,7 +59,7 @@ const CharacterInfoModal = (props: CharacterInfoModalProps) => {
 
     return (
       <>
-        <span>{getKdr(kills, deaths)}</span>{' '}
+        <span>{calculateKdr(kills, deaths)}</span>{' '}
         <KillsAndDeaths>
           ({kills} {pluralize(Number(kills), 'kill')}, {deaths} {pluralize(Number(deaths), 'death')})
         </KillsAndDeaths>

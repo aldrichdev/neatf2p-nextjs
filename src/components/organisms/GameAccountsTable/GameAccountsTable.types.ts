@@ -10,7 +10,7 @@ export type GameAccountsTableProps = {
   setRenameModalVisible: (open: boolean) => void
   setPasswordModalVisible: (open: boolean) => void
   setCharacterInfoModalVisible: (open: boolean) => void
-  showRenameModal: (visible: boolean, account: PlayerDataRow) => void
-  showPasswordModal: (visible: boolean, account: PlayerDataRow) => void
-  showCharacterInfoModal: (visible: boolean, account: PlayerDataRow) => void
+  showRenameModal: (account: PlayerDataRow) => void
+  showPasswordModal: (account: PlayerDataRow) => void
+  showCharacterInfoModal: (account: PlayerDataRow) => void
 }

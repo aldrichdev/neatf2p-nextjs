@@ -13,7 +13,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (!playerId || typeof playerId !== 'string') {
     res.statusCode = 400
     res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify('Missing or malformed playerId provided to getKdrForPlayer.'))
+    res.end(JSON.stringify('Missing or malformed playerId provided to getKillsAndDeathsForPlayer.'))
     return
   }
 
@@ -35,7 +35,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify({ kills, deaths }))
   } catch (error) {
-    console.log('An error occurred in the getKdrForPlayer API: ', error)
+    console.log('An error occurred in the getKillsAndDeathsForPlayer API: ', error)
     res.statusCode = 500
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(error?.toString()))

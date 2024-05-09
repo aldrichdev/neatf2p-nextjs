@@ -35,15 +35,15 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
 
   const handleRename = (account: PlayerDataRow) => {
     // Show a modal which handles the rename
-    showRenameModal(true, account)
+    showRenameModal(account)
   }
 
   const handleUpdatePassword = (account: PlayerDataRow) => {
-    showPasswordModal(true, account)
+    showPasswordModal(account)
   }
 
   const handleCharacterInfoClick = (account: PlayerDataRow) => {
-    showCharacterInfoModal(true, account)
+    showCharacterInfoModal(account)
   }
 
   if (isLoading) {

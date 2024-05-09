@@ -31,17 +31,17 @@ const GameAccountsPage = () => {
     return <NotLoggedIn />
   }
 
-  const showRenameModal = (visible: boolean, account: PlayerDataRow) => {
+  const showRenameModal = (account: PlayerDataRow) => {
     setRenameModalVisible(true)
     setActiveAccount(account)
   }
 
-  const showPasswordModal = (visible: boolean, account: PlayerDataRow) => {
+  const showPasswordModal = (account: PlayerDataRow) => {
     setPasswordModalVisible(true)
     setActiveAccount(account)
   }
 
-  const showCharacterInfoModal = (visible: boolean, account: PlayerDataRow) => {
+  const showCharacterInfoModal = (account: PlayerDataRow) => {
     setCharacterInfoModalVisible(true)
     setActiveAccount(account)
   }
