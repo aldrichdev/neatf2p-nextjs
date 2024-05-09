@@ -2,13 +2,11 @@ import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { InlineLink } from '@atoms/InlineLink'
 import { PageHeading } from '@atoms/PageHeading'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const NotLoggedIn = () => (
   <>
-    <Head>
-      <title>Not Logged In | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-    </Head>
+    {renderHead('Not Logged In')}
     <ContentBlock>
       <PageHeading>Access Denied</PageHeading>
       <BodyText variant='body' bodyTextAlign='center'>

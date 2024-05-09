@@ -11,7 +11,7 @@ import { redirectTo } from '@helpers/window'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { hashPassword } from '@helpers/password'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const ChangePasswordPage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -67,14 +67,17 @@ const ChangePasswordPage = () => {
   }
 
   if (isLoading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead('Change Password')}
+        <Spinner />
+      </>
+    )
   }
 
   return (
     <>
-      <Head>
-        <title>Change Password | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead('Change Password')}
       <ContentBlock>
         <PageHeading>Change Password</PageHeading>
         <BodyText variant='body'>Please enter your new password below.</BodyText>

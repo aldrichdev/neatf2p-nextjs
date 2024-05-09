@@ -3,7 +3,7 @@ import { BodyText } from '@atoms/BodyText'
 import { PageHeading } from '@atoms/PageHeading'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const ChangeEmailSuccessPage = () => {
   const router = useRouter()
@@ -12,9 +12,7 @@ const ChangeEmailSuccessPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Success | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead('Success')}
       <ContentBlock>
         <PageHeading>Check Your New Email</PageHeading>
         <BodyText variant='body' bodyTextAlign='center'>

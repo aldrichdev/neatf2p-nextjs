@@ -2,16 +2,14 @@ import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
 import { MustBeAdminBlockProps } from './MustBeAdminBlock.types'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const MustBeAdminBlock = (props: MustBeAdminBlockProps) => {
   const { textColor } = props
 
   return (
     <>
-      <Head>
-        <title>Access Denied | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead('Access Denied')}
       <ContentBlock textColor={textColor}>
         <PageHeading>Nice Try</PageHeading>
         <BodyText variant='body' bodyTextAlign='center'>

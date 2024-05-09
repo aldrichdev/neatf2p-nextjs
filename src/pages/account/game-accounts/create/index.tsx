@@ -15,7 +15,7 @@ import { PageHeading } from '@atoms/PageHeading'
 import { sanitizeRunescapePassword } from '@helpers/string/stringUtils'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import axios from 'axios'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 import { RulesAcceptanceCheckbox } from '@molecules/RulesAcceptanceCheckbox'
 
 const CreateGameAccount = () => {
@@ -102,7 +102,12 @@ const CreateGameAccount = () => {
   }
 
   if (loading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead('Create Game Account')}
+        <Spinner />
+      </>
+    )
   }
 
   if (process.env.NEXT_PUBLIC_GAME_ACCOUNTS_DISABLE_CREATION === 'true') {
@@ -122,9 +127,7 @@ const CreateGameAccount = () => {
 
   return (
     <>
-      <Head>
-        <title>Create Game Account | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead('Create Game Account')}
       <ContentBlock>
         <PageHeading>Create Game Account</PageHeading>
         <BodyText variant='body'>

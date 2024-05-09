@@ -8,7 +8,7 @@ import { UserIsLoggedIn } from '@helpers/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const AccountPage = () => {
   const [loading, setLoading] = useState(true)
@@ -26,7 +26,12 @@ const AccountPage = () => {
   }
 
   if (loading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead('Account')}
+        <Spinner />
+      </>
+    )
   }
 
   if (!isLoggedIn) {
@@ -35,9 +40,7 @@ const AccountPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Account | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead('Account')}
       <ContentBlock>
         <PageHeading>Hiya, {user?.username}!</PageHeading>
         <BodyText variant='body' bodyTextAlign='center'>

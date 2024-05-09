@@ -5,7 +5,7 @@ import { NewsPost } from '@globalTypes/NewsPost'
 import { NewsPostDetailItem } from '@atoms/NewsPostDetailItem'
 import { Spinner } from '@molecules/Spinner'
 import { sendApiRequest } from '@helpers/api/apiUtils'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const NewsPostDetail = () => {
   const { query } = useRouter()
@@ -31,16 +31,19 @@ const NewsPostDetail = () => {
   }, [query])
 
   if (isLoading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead('News Post')}
+        <Spinner />
+      </>
+    )
   }
 
   if (!newsPost?.title) return null
 
   return (
     <>
-      <Head>
-        <title>{newsPost.title} | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead('News Post')}
       <ContentBlock>
         <NewsPostDetailItem newsPost={newsPost} />
       </ContentBlock>

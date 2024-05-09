@@ -2,7 +2,7 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { BodyText } from '@atoms/BodyText'
 import { InlineLink } from '@atoms/InlineLink'
 import { PageHeading } from '@atoms/PageHeading'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 type AlreadyLoggedInProps = {
   message?: JSX.Element | string
@@ -13,9 +13,7 @@ const AlreadyLoggedIn = (props: AlreadyLoggedInProps) => {
 
   return (
     <>
-      <Head>
-        <title>Already Logged In | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead('Already Logged In')}
       <ContentBlock>
         <PageHeading>Already Logged In</PageHeading>
         <BodyText variant='body' bodyTextAlign='center'>

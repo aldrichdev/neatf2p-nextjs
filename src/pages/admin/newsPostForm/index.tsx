@@ -28,7 +28,7 @@ import { Field } from '@atoms/Field'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const NewsPostForm = () => {
   const [loading, setLoading] = useState(true)
@@ -123,7 +123,12 @@ const NewsPostForm = () => {
   }, [body])
 
   if (loading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead('Submit News Post')}
+        <Spinner />
+      </>
+    )
   }
 
   if (!user?.isAdmin) {
@@ -132,9 +137,7 @@ const NewsPostForm = () => {
 
   return (
     <>
-      <Head>
-        <title>Submit News Post | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead('Submit News Post')}
       <PageHeading>Submit a News Post</PageHeading>
       <ContentBlock topMargin={40}>
         <StyledForm onSubmit={handleSubmit}>

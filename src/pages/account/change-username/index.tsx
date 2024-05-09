@@ -13,7 +13,7 @@ import { BannedText } from 'src/data/BannedText'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { UserIsLoggedIn } from '@helpers/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const ChangeUsernamePage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -73,7 +73,12 @@ const ChangeUsernamePage = () => {
   }
 
   if (isLoading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead('Change Username')}
+        <Spinner />
+      </>
+    )
   }
 
   if (!UserIsLoggedIn(user)) {
@@ -82,9 +87,7 @@ const ChangeUsernamePage = () => {
 
   return (
     <>
-      <Head>
-        <title>Change Username | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead('Change Username')}
       <ContentBlock>
         <PageHeading>Change Username</PageHeading>
         <BodyText variant='body'>

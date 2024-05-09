@@ -5,7 +5,7 @@ import useAuthentication from '@hooks/useAuthentication'
 import { Spinner } from '@molecules/Spinner'
 import { useState } from 'react'
 import { PageHeading } from '@atoms/PageHeading'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const CreateAccountSuccessPage = () => {
   const [loading, setLoading] = useState(true)
@@ -18,21 +18,22 @@ const CreateAccountSuccessPage = () => {
   if (user?.id === 'NULL') {
     // Something went wrong...
     return (
-      <ContentBlock>
-        <PageHeading>Oops...</PageHeading>
-        <BodyText variant='body' bodyTextAlign='center'>
-          Something went wrong... you are now {user?.username}! Tell all your friends, then try logging in again, or
-          notify the admin
-        </BodyText>
-      </ContentBlock>
+      <>
+        {renderHead('Oops...')}
+        <ContentBlock>
+          <PageHeading>Oops...</PageHeading>
+          <BodyText variant='body' bodyTextAlign='center'>
+            Something went wrong... you are now {user?.username}! Tell all your friends, then try logging in again, or
+            notify the admin
+          </BodyText>
+        </ContentBlock>
+      </>
     )
   }
 
   return (
     <>
-      <Head>
-        <title>Success | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead('Success')}
       <ContentBlock>
         <PageHeading>Success</PageHeading>
         <BodyText variant='body' bodyTextAlign='center'>

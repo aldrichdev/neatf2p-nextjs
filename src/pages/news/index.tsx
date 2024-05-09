@@ -1,12 +1,10 @@
 import { ContentBlock } from '@atoms/ContentBlock'
+import { renderHead } from '@helpers/renderUtils'
 import { NewsAndUpdates } from '@organisms/NewsAndUpdates'
-import Head from 'next/head'
 
 const News = () => (
   <>
-    <Head>
-      <title>News | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-    </Head>
+    {renderHead('News')}
     <ContentBlock>
       <NewsAndUpdates heading='News' />
     </ContentBlock>

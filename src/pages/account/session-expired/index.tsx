@@ -2,13 +2,11 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { BodyText } from '@atoms/BodyText'
 import { InlineLink } from '@atoms/InlineLink'
 import { PageHeading } from '@atoms/PageHeading'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const SessionExpiredPage = () => (
   <>
-    <Head>
-      <title>Session Expired | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-    </Head>
+    {renderHead('Session Expired')}
     <ContentBlock>
       <PageHeading>Session Expired</PageHeading>
       <BodyText variant='body' bodyTextAlign='center'>

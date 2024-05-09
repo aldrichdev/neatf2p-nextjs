@@ -10,7 +10,7 @@ import { Spinner } from '@molecules/Spinner'
 import { PlayerLookup } from '@molecules/PlayerLookup'
 import { PageHeading } from '@atoms/PageHeading'
 import { push } from '@helpers/router'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const Hiscores = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -39,9 +39,7 @@ const Hiscores = () => {
 
   return (
     <>
-      <Head>
-        <title>Hiscores | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead('Hiscores')}
       <ContentBlock isWide>
         <PageHeading>{`${hiscoreType} Hiscores`}</PageHeading>
         <HiscoresPageContainer>

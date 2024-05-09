@@ -10,6 +10,7 @@ import emailjs from '@emailjs/browser'
 import { Form } from '@atoms/Form'
 import { redirectTo } from '@helpers/window'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
+import { renderHead } from '@helpers/renderUtils'
 
 const ChangeEmailPage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -46,31 +47,39 @@ const ChangeEmailPage = () => {
   }
 
   if (isLoading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead('Change Email Address')}
+        <Spinner />
+      </>
+    )
   }
 
   return (
-    <ContentBlock>
-      <PageHeading>Change Email Address</PageHeading>
-      <BodyText variant='body'>
-        Enter your new email address below. We will send an email to the new address to confirm you own that account.
-        Within the email there will be a link to complete the process.
-      </BodyText>
-      <Form onSubmit={handleSubmit}>
-        <Field
-          required
-          id='newEmail'
-          label='New Email'
-          type='email'
-          variant='standard'
-          onChange={handleNewEmailChange}
-        />
-        <FieldValidationMessage>{formValidationError}</FieldValidationMessage>
-        <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
-          Submit
-        </FormButton>
-      </Form>
-    </ContentBlock>
+    <>
+      {renderHead('Change Email Address')}
+      <ContentBlock>
+        <PageHeading>Change Email Address</PageHeading>
+        <BodyText variant='body'>
+          Enter your new email address below. We will send an email to the new address to confirm you own that account.
+          Within the email there will be a link to complete the process.
+        </BodyText>
+        <Form onSubmit={handleSubmit}>
+          <Field
+            required
+            id='newEmail'
+            label='New Email'
+            type='email'
+            variant='standard'
+            onChange={handleNewEmailChange}
+          />
+          <FieldValidationMessage>{formValidationError}</FieldValidationMessage>
+          <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
+            Submit
+          </FormButton>
+        </Form>
+      </ContentBlock>
+    </>
   )
 }
 

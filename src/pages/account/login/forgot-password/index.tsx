@@ -13,7 +13,7 @@ import { Spinner } from '@molecules/Spinner'
 import { DiscordLink } from '@atoms/DiscordLink'
 import { PageHeading } from '@atoms/PageHeading'
 import { sendApiRequest } from '@helpers/api/apiUtils'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const ForgotPasswordPage = () => {
   const [loading, setLoading] = useState(true)
@@ -22,7 +22,12 @@ const ForgotPasswordPage = () => {
   const userIsLoggedIn = UserIsLoggedIn(user)
 
   if (loading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead('Forgot Password')}
+        <Spinner />
+      </>
+    )
   }
 
   if (userIsLoggedIn) {
@@ -60,9 +65,7 @@ const ForgotPasswordPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Forgot Password | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead('Forgot Password')}
       <ContentBlock>
         <PageHeading>Forgot Password</PageHeading>
         <BodyText variant='body' bodyTextAlign='left'>

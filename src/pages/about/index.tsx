@@ -3,13 +3,11 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
 import { BodyText } from '@atoms/BodyText'
 import Link from 'next/link'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const About = () => (
   <>
-    <Head>
-      <title>About | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-    </Head>
+    {renderHead('About')}
     <ContentBlock>
       <PageHeading>Our Spin on RSC</PageHeading>
       <BodyText variant='body' bodyTextAlign='center'>

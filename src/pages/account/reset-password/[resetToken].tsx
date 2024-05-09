@@ -13,7 +13,7 @@ import { User } from '@globalTypes/User'
 import { Spinner } from '@molecules/Spinner'
 import { BodyText } from '@atoms/BodyText'
 import { InlineLink } from '@atoms/InlineLink'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const ResetPassword = () => {
   const { query } = useRouter()
@@ -92,27 +92,33 @@ const ResetPassword = () => {
   }, [resetToken])
 
   if (isLoading) {
-    return <Spinner />
+    return (
+      <>
+        {renderHead('Reset Password')}
+        <Spinner />
+      </>
+    )
   }
 
   if (tokenExpired) {
     return (
-      <ContentBlock>
-        <PageHeading>Token Expired</PageHeading>
-        <BodyText variant='body'>
-          Your token has expired. Please visit the{' '}
-          <InlineLink href='/account/login/forgot-password'>Forgot Password</InlineLink> page and enter your email
-          again. You need to open the link in the email within 10 minutes.
-        </BodyText>
-      </ContentBlock>
+      <>
+        {renderHead('Token Expired')}
+        <ContentBlock>
+          <PageHeading>Token Expired</PageHeading>
+          <BodyText variant='body'>
+            Your token has expired. Please visit the{' '}
+            <InlineLink href='/account/login/forgot-password'>Forgot Password</InlineLink> page and enter your email
+            again. You need to open the link in the email within 10 minutes.
+          </BodyText>
+        </ContentBlock>
+      </>
     )
   }
 
   return (
     <>
-      <Head>
-        <title>Reset Password | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead('Reset Password')}
       <ContentBlock>
         <PageHeading>Reset Your Password</PageHeading>
         <Form onSubmit={handleRequest}>

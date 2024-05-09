@@ -8,7 +8,7 @@ import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { useState } from 'react'
 import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const CreateAccountSuccessPage = () => {
   const [loading, setLoading] = useState(true)
@@ -28,9 +28,7 @@ const CreateAccountSuccessPage = () => {
     // Something went wrong...
     return (
       <>
-        <Head>
-          <title>Oops | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-        </Head>
+        {renderHead('Oops...')}
         <ContentBlock>
           <PageHeading>Oops...</PageHeading>
           <BodyText variant='body' bodyTextAlign='center'>
@@ -43,9 +41,7 @@ const CreateAccountSuccessPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Success | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead('Success')}
       <ContentBlock>
         <PageHeading>Success</PageHeading>
         <BodyText variant='body' bodyTextAlign='center'>

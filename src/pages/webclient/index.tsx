@@ -7,7 +7,7 @@ import { HideAdsFormGroup } from '@styledPages/Webclient.styled'
 import { useState } from 'react'
 import { Modal } from '@molecules/Modal'
 import Link from 'next/link'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const WebclientPage = () => {
   const [hideAds, setHideAds] = useState(false)
@@ -41,9 +41,7 @@ const WebclientPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Web Client | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead('Web Client')}
       <ContentBlock>
         {!hideAds && <WebclientBanner bannerType='Ad' bannerPlacement='top' />}
         <Webclient url={webclientUrl} />

@@ -2,14 +2,12 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { BodyText } from '@atoms/BodyText'
 import { InlineLink } from '@atoms/InlineLink'
 import { PageHeading } from '@atoms/PageHeading'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const ForgotPasswordSuccessPage = () => {
   return (
     <>
-      <Head>
-        <title>Success | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead('Success')}
       <ContentBlock>
         <PageHeading>Request Received</PageHeading>
         <BodyText variant='body' bodyTextAlign='center'>

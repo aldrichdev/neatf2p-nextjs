@@ -4,16 +4,14 @@ import { InlineLink } from '@atoms/InlineLink'
 import useAuthentication from '@hooks/useAuthentication'
 import { UserIsLoggedIn } from '@helpers/users/users'
 import { PageHeading } from '@atoms/PageHeading'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const ResetPasswordSuccessPage = () => {
   const user = useAuthentication()
 
   return (
     <>
-      <Head>
-        <title>Success | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead('Success')}
       <ContentBlock>
         <PageHeading>Reset Successful</PageHeading>
         <BodyText variant='body' bodyTextAlign='center'>
