@@ -12,24 +12,22 @@ const CreateAccountSuccessPage = () => {
   const user = useAuthentication(setLoading)
 
   if (loading) {
-    return (
-      <>
-        {renderHead('Success')}
-        <Spinner />
-      </>
-    )
+    return <Spinner />
   }
 
   if (user?.id === 'NULL') {
     // Something went wrong...
     return (
-      <ContentBlock>
-        <PageHeading>Oops...</PageHeading>
-        <BodyText variant='body' textAlign='center'>
-          Something went wrong... you are now {user?.username}! Tell all your friends, then try logging in again, or
-          notify the admin
-        </BodyText>
-      </ContentBlock>
+      <>
+        {renderHead('Oops...')}
+        <ContentBlock>
+          <PageHeading>Oops...</PageHeading>
+          <BodyText variant='body' textAlign='center'>
+            Something went wrong... you are now {user?.username}! Tell all your friends, then try logging in again, or
+            notify the admin
+          </BodyText>
+        </ContentBlock>
+      </>
     )
   }
 

@@ -17,12 +17,7 @@ const CreateAccountSuccessPage = () => {
   const accountName = query['accountName']
 
   if (loading) {
-    return (
-      <>
-        {renderHead('Success')}
-        <Spinner />
-      </>
-    )
+    return <Spinner />
   }
 
   if (!UserIsLoggedIn(user)) {
@@ -32,12 +27,15 @@ const CreateAccountSuccessPage = () => {
   if (!accountName || accountName?.length < 1) {
     // Something went wrong...
     return (
-      <ContentBlock>
-        <PageHeading>Oops...</PageHeading>
-        <BodyText variant='body' textAlign='center'>
-          Something went wrong... your game account name is empty. Please report this to the admin.
-        </BodyText>
-      </ContentBlock>
+      <>
+        {renderHead('Oops...')}
+        <ContentBlock>
+          <PageHeading>Oops...</PageHeading>
+          <BodyText variant='body' textAlign='center'>
+            Something went wrong... your game account name is empty. Please report this to the admin.
+          </BodyText>
+        </ContentBlock>
+      </>
     )
   }
 
