@@ -9,9 +9,9 @@ import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { PlayerHiscoreRow } from '@globalTypes/Hiscores/PlayerHiscoreRow'
 import { sendApiRequest } from '@helpers/api/apiUtils'
 import { compareHiscores, convertExp, getTotalExp, isNotBaselineExp } from '@helpers/hiscores/hiscoresUtils'
+import { renderHead } from '@helpers/renderUtils'
 import { Spinner } from '@molecules/Spinner'
 import { PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
@@ -108,16 +108,10 @@ const PlayerHiscore = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hiscoresData])
 
-  const renderHead = () => (
-    <Head>
-      <title>Player Hiscore | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-    </Head>
-  )
-
   if (isLoading) {
     return (
       <>
-        {renderHead()}
+        {renderHead('Player Hiscore')}
         <Spinner />
       </>
     )
@@ -125,7 +119,7 @@ const PlayerHiscore = () => {
 
   return (
     <>
-      {renderHead()}
+      {renderHead('Player Hiscore')}
       <ContentBlock>
         <PageHeading>{accountName ? accountName.toString() : 'Unknown Player'}</PageHeading>
         {typeof accountName !== 'string' || !playerHiscores || !hiscoresData?.find(isMatchingUser) ? (

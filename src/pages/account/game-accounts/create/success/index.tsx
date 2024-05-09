@@ -8,7 +8,7 @@ import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { useState } from 'react'
 import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const CreateAccountSuccessPage = () => {
   const [loading, setLoading] = useState(true)
@@ -16,16 +16,10 @@ const CreateAccountSuccessPage = () => {
   const user = useAuthentication(setLoading)
   const accountName = query['accountName']
 
-  const renderHead = () => (
-    <Head>
-      <title>Success | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-    </Head>
-  )
-
   if (loading) {
     return (
       <>
-        {renderHead()}
+        {renderHead('Success')}
         <Spinner />
       </>
     )
@@ -49,7 +43,7 @@ const CreateAccountSuccessPage = () => {
 
   return (
     <>
-      {renderHead()}
+      {renderHead('Success')}
       <ContentBlock>
         <PageHeading>Success</PageHeading>
         <BodyText variant='body' textAlign='center'>

@@ -13,7 +13,7 @@ import { User } from '@globalTypes/User'
 import { Spinner } from '@molecules/Spinner'
 import { BodyText } from '@atoms/BodyText'
 import { InlineLink } from '@atoms/InlineLink'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const ResetPassword = () => {
   const { query } = useRouter()
@@ -91,16 +91,10 @@ const ResetPassword = () => {
     })
   }, [resetToken])
 
-  const renderHead = () => (
-    <Head>
-      <title>Reset Password | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-    </Head>
-  )
-
   if (isLoading) {
     return (
       <>
-        {renderHead()}
+        {renderHead('Reset Password')}
         <Spinner />
       </>
     )
@@ -109,9 +103,7 @@ const ResetPassword = () => {
   if (tokenExpired) {
     return (
       <>
-        <Head>
-          <title>Token Expired | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-        </Head>
+        {renderHead('Token Expired')}
         <ContentBlock>
           <PageHeading>Token Expired</PageHeading>
           <BodyText variant='body'>
@@ -126,7 +118,7 @@ const ResetPassword = () => {
 
   return (
     <>
-      {renderHead()}
+      {renderHead('Reset Password')}
       <ContentBlock>
         <PageHeading>Reset Your Password</PageHeading>
         <Form onSubmit={handleRequest}>

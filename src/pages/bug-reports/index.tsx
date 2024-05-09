@@ -6,13 +6,13 @@ import { Form } from '@atoms/Form'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { PageHeading } from '@atoms/PageHeading'
 import { BugType } from '@globalTypes/BugType'
+import { renderHead } from '@helpers/renderUtils'
 import { UserIsLoggedIn } from '@helpers/users/users'
 import useAuthentication from '@hooks/useAuthentication'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { Spinner } from '@molecules/Spinner'
 import { InputLabel, Select, SelectChangeEvent } from '@mui/material'
 import { BugTypeDropdown, BugTypeMenuItem, IssuesLink } from '@styledPages/ReportABug.styled'
-import Head from 'next/head'
 import { Octokit } from 'octokit'
 import { ChangeEvent, FormEvent, ReactNode, useState } from 'react'
 
@@ -83,16 +83,10 @@ const BugReportsPage = () => {
       })
   }
 
-  const renderHead = () => (
-    <Head>
-      <title>Report a Bug | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-    </Head>
-  )
-
   if (isLoading) {
     return (
       <>
-        {renderHead()}
+        {renderHead('Report a Bug')}
         <Spinner />
       </>
     )
@@ -104,7 +98,7 @@ const BugReportsPage = () => {
 
   return (
     <>
-      {renderHead()}
+      {renderHead('Report a Bug')}
       <ContentBlock>
         <PageHeading>Report a Bug</PageHeading>
         <BodyText variant='body'>

@@ -11,7 +11,7 @@ import { useState } from 'react'
 import { Spinner } from '@molecules/Spinner'
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
 import { PageHeading } from '@atoms/PageHeading'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const GameAccountsPage = () => {
   const [loading, setLoading] = useState(true)
@@ -22,16 +22,10 @@ const GameAccountsPage = () => {
   const isLoggedIn = UserIsLoggedIn(user)
   const creationsDisabled = process.env.NEXT_PUBLIC_GAME_ACCOUNTS_DISABLE_CREATION === 'true'
 
-  const renderHead = () => (
-    <Head>
-      <title>Game Accounts | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-    </Head>
-  )
-
   if (loading) {
     return (
       <>
-        {renderHead()}
+        {renderHead('Game Accounts')}
         <Spinner />
       </>
     )
@@ -57,7 +51,7 @@ const GameAccountsPage = () => {
 
   return (
     <>
-      {renderHead()}
+      {renderHead('Game Accounts')}
       <ContentBlock isWide>
         <PageHeading>Game Accounts</PageHeading>
         <BodyText variant='body' textAlign='center'>

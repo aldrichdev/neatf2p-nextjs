@@ -4,14 +4,12 @@ import Link from 'next/link'
 import { YouTubeVideo } from '@atoms/YouTubeVideo'
 import { PageHeading } from '@atoms/PageHeading'
 import { BackToLink } from '@atoms/BackToLink/BackToLink'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const RscPlusInfoPage = () => {
   return (
     <>
-      <Head>
-        <title>How to Play with RSC+ | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead('How to Play with RSC+')}
       <ContentBlock>
         <PageHeading>How to Play with RSC+</PageHeading>
         <BodyText variant='body'>

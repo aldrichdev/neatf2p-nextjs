@@ -2,13 +2,11 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { BodyText } from '@atoms/BodyText'
 import { PageHeading } from '@atoms/PageHeading'
 import Link from 'next/link'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const ChangeUsernameSuccessPage = () => (
   <>
-    <Head>
-      <title>Success | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-    </Head>
+    {renderHead('Success')}
     <ContentBlock>
       <PageHeading>Username Updated</PageHeading>
       <BodyText variant='body' textAlign='center'>

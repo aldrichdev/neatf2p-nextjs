@@ -2,9 +2,9 @@ import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
+import { renderHead } from '@helpers/renderUtils'
 import useAuthentication from '@hooks/useAuthentication'
 import { Spinner } from '@molecules/Spinner'
-import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -31,16 +31,10 @@ const ChangeEmailByIdPage = () => {
       })
   }, [accountId, newEmail, user.id])
 
-  const renderHead = () => (
-    <Head>
-      <title>Change Email Address | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-    </Head>
-  )
-
   if (isLoading) {
     return (
       <>
-        {renderHead()}
+        {renderHead('Change Email Address')}
         <Spinner />
       </>
     )
@@ -48,7 +42,7 @@ const ChangeEmailByIdPage = () => {
 
   return (
     <>
-      {renderHead()}
+      {renderHead('Change Email Address')}
       <ContentBlock>
         <PageHeading>Update Complete</PageHeading>
         <BodyText variant='body' textAlign='center'>

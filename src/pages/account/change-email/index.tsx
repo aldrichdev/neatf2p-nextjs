@@ -10,7 +10,7 @@ import emailjs from '@emailjs/browser'
 import { Form } from '@atoms/Form'
 import { redirectTo } from '@helpers/window'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const ChangeEmailPage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -46,16 +46,10 @@ const ChangeEmailPage = () => {
       })
   }
 
-  const renderHead = () => (
-    <Head>
-      <title>Change Email Address | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-    </Head>
-  )
-
   if (isLoading) {
     return (
       <>
-        {renderHead()}
+        {renderHead('Change Email Address')}
         <Spinner />
       </>
     )
@@ -63,7 +57,7 @@ const ChangeEmailPage = () => {
 
   return (
     <>
-      {renderHead()}
+      {renderHead('Change Email Address')}
       <ContentBlock>
         <PageHeading>Change Email Address</PageHeading>
         <BodyText variant='body'>

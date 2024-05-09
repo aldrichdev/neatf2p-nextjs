@@ -5,7 +5,7 @@ import { NewsPost } from '@globalTypes/NewsPost'
 import { NewsPostDetailItem } from '@atoms/NewsPostDetailItem'
 import { Spinner } from '@molecules/Spinner'
 import { sendApiRequest } from '@helpers/api/apiUtils'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const NewsPostDetail = () => {
   const { query } = useRouter()
@@ -30,16 +30,10 @@ const NewsPostDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query])
 
-  const renderHead = () => (
-    <Head>
-      <title>News Post | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-    </Head>
-  )
-
   if (isLoading) {
     return (
       <>
-        {renderHead()}
+        {renderHead('News Post')}
         <Spinner />
       </>
     )
@@ -49,7 +43,7 @@ const NewsPostDetail = () => {
 
   return (
     <>
-      {renderHead()}
+      {renderHead('News Post')}
       <ContentBlock>
         <NewsPostDetailItem newsPost={newsPost} />
       </ContentBlock>

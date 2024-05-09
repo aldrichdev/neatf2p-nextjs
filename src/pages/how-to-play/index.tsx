@@ -3,14 +3,12 @@ import { BodyText } from '@atoms/BodyText'
 import { PageHeading } from '@atoms/PageHeading'
 import { ThreeColumnLayout, ClientButton, ClientRemarks, ClientButtonImage } from '@styledPages/HowToPlay.styled'
 import Link from 'next/link'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const HowToPlay = () => {
   return (
     <>
-      <Head>
-        <title>How to Play | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-      </Head>
+      {renderHead('How to Play')}
       <ContentBlock isWide>
         <PageHeading>How To Play</PageHeading>
         <BodyText variant='body' textAlign='center'>

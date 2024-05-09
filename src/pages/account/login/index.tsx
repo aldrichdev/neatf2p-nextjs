@@ -19,7 +19,7 @@ import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
 import { sendApiRequest } from '@helpers/api/apiUtils'
 import axios from 'axios'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const ForgotPasswordBlock = styled(BodyText)(
   () => css`
@@ -45,16 +45,10 @@ const AccountLoginPage = () => {
   const user = useAuthentication(setLoading)
   const userIsLoggedIn = UserIsLoggedIn(user)
 
-  const renderHead = () => (
-    <Head>
-      <title>Login | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-    </Head>
-  )
-
   if (loading) {
     return (
       <>
-        {renderHead()}
+        {renderHead('Login')}
         <Spinner />
       </>
     )
@@ -143,7 +137,7 @@ const AccountLoginPage = () => {
 
   return (
     <>
-      {renderHead()}
+      {renderHead('Login')}
       <ContentBlock>
         <PageHeading>Login</PageHeading>
         <BodyText variant='body' textAlign='left'>

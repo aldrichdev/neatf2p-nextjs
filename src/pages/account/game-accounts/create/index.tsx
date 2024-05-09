@@ -15,7 +15,7 @@ import { PageHeading } from '@atoms/PageHeading'
 import { sanitizeRunescapePassword } from '@helpers/string/stringUtils'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import axios from 'axios'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const CreateGameAccount = () => {
   const [loading, setLoading] = useState(true)
@@ -95,16 +95,10 @@ const CreateGameAccount = () => {
     })
   }
 
-  const renderHead = () => (
-    <Head>
-      <title>Create Game Account | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-    </Head>
-  )
-
   if (loading) {
     return (
       <>
-        {renderHead()}
+        {renderHead('Create Game Account')}
         <Spinner />
       </>
     )
@@ -127,7 +121,7 @@ const CreateGameAccount = () => {
 
   return (
     <>
-      {renderHead()}
+      {renderHead('Create Game Account')}
       <ContentBlock>
         <PageHeading>Create Game Account</PageHeading>
         <BodyText variant='body'>

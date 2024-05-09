@@ -17,7 +17,7 @@ import { PageHeading } from '@atoms/PageHeading'
 import { Callout } from '@atoms/Callout'
 import { sendApiRequest } from '@helpers/api/apiUtils'
 import axios from 'axios'
-import Head from 'next/head'
+import { renderHead } from '@helpers/renderUtils'
 
 const CreateAccountPage = () => {
   const [loading, setLoading] = useState(true)
@@ -127,16 +127,10 @@ const CreateAccountPage = () => {
       })
   }
 
-  const renderHead = () => (
-    <Head>
-      <title>Register | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-    </Head>
-  )
-
   if (loading) {
     return (
       <>
-        {renderHead()}
+        {renderHead('Register')}
         <Spinner />
       </>
     )
@@ -151,7 +145,7 @@ const CreateAccountPage = () => {
 
   return (
     <>
-      {renderHead()}
+      {renderHead('Register')}
       <ContentBlock>
         <PageHeading>Create Account</PageHeading>
         <BodyText variant='body' textAlign='left'>
