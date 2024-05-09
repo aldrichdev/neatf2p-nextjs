@@ -9,7 +9,7 @@ const NotLoggedIn = () => (
     {renderHead('Not Logged In')}
     <ContentBlock>
       <PageHeading>Access Denied</PageHeading>
-      <BodyText variant='body' textAlign='center'>
+      <BodyText variant='body' bodyTextAlign='center'>
         You are not currently logged in. Please visit the <InlineLink href='/account/login'>Login page</InlineLink> to
         log in.
       </BodyText>

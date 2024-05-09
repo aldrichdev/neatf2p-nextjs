@@ -45,7 +45,7 @@ const ChangeEmailByIdPage = () => {
       {renderHead('Change Email Address')}
       <ContentBlock>
         <PageHeading>Update Complete</PageHeading>
-        <BodyText variant='body' textAlign='center'>
+        <BodyText variant='body' bodyTextAlign='center'>
           Your email has been updated. You can go back to your <Link href='/account'>account</Link> page.
         </BodyText>
       </ContentBlock>

@@ -11,7 +11,7 @@ const HowToPlay = () => {
       {renderHead('How to Play')}
       <ContentBlock isWide>
         <PageHeading>How To Play</PageHeading>
-        <BodyText variant='body' textAlign='center'>
+        <BodyText variant='body' bodyTextAlign='center'>
           To play Neat F2P, you can use WinRune, RSC+ or the Web client. <strong>You need Java!</strong> If you do not
           have Java installed or are not sure,{' '}
           <Link href='https://www.java.com/en/download/help/download_options.html' target='_blank'>
@@ -21,7 +21,7 @@ const HowToPlay = () => {
           adverts. RSC+ is a custom client that provides extra features on top of RSC. The web client is a page on this
           site that lets you play Neat F2P through your browser.
         </BodyText>
-        <BodyText variant='body' textAlign='center'>
+        <BodyText variant='body' bodyTextAlign='center'>
           Don&apos;t have an account yet? Head over to the <Link href='/account/game-accounts'>game accounts</Link> page
           to create one.
         </BodyText>

@@ -18,6 +18,7 @@ import { Callout } from '@atoms/Callout'
 import { sendApiRequest } from '@helpers/api/apiUtils'
 import axios from 'axios'
 import { renderHead } from '@helpers/renderUtils'
+import { RulesAcceptanceCheckbox } from '@molecules/RulesAcceptanceCheckbox'
 
 const CreateAccountPage = () => {
   const [loading, setLoading] = useState(true)
@@ -25,6 +26,7 @@ const CreateAccountPage = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [rulesAgreedTo, setRulesAgreedTo] = useState<boolean>()
   const [validationError, setValidationError] = useState('')
   const [submitDisabled, setSubmitDisabled] = useState(false)
   const user = useAuthentication(setLoading)
@@ -47,6 +49,10 @@ const CreateAccountPage = () => {
   const handleConfirmPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setConfirmPassword(event.target.value)
     setValidationError('')
+  }
+
+  const handleRulesCheck = () => {
+    setRulesAgreedTo(!rulesAgreedTo)
   }
 
   const handleAccountCreation = (event: FormEvent<HTMLFormElement>) => {
@@ -148,7 +154,7 @@ const CreateAccountPage = () => {
       {renderHead('Register')}
       <ContentBlock>
         <PageHeading>Create Account</PageHeading>
-        <BodyText variant='body' textAlign='left'>
+        <BodyText variant='body' bodyTextAlign='left'>
           By creating a website account, you can add or rename game accounts, update passwords, and some other nifty
           things.
         </BodyText>
@@ -191,12 +197,13 @@ const CreateAccountPage = () => {
             variant='standard'
             onChange={handleConfirmPasswordChange}
           />
-          <FieldValidationMessage>{validationError}</FieldValidationMessage>
+          <RulesAcceptanceCheckbox onChange={handleRulesCheck} />
+          {validationError && <FieldValidationMessage>{validationError}</FieldValidationMessage>}
           <FormButton variant='contained' type='submit' disabled={submitDisabled}>
             Submit
           </FormButton>
         </Form>
-        <BodyText variant='body' topMargin={40} textAlign='left'>
+        <BodyText variant='body' topMargin={40} bodyTextAlign='left'>
           <span>Already have an account?</span>
           <InlineLink href='/account/login'>Log in.</InlineLink>
         </BodyText>

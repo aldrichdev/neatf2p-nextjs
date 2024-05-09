@@ -16,12 +16,14 @@ import { sanitizeRunescapePassword } from '@helpers/string/stringUtils'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import axios from 'axios'
 import { renderHead } from '@helpers/renderUtils'
+import { RulesAcceptanceCheckbox } from '@molecules/RulesAcceptanceCheckbox'
 
 const CreateGameAccount = () => {
   const [loading, setLoading] = useState(true)
   const [accountName, setAccountName] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [rulesAgreedTo, setRulesAgreedTo] = useState<boolean>()
   const [validationError, setValidationError] = useState('')
   const [submitDisabled, setSubmitDisabled] = useState(false)
   const user = useAuthentication(setLoading)
@@ -39,6 +41,10 @@ const CreateGameAccount = () => {
   const handleConfirmPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setConfirmPassword(event.target.value)
     setValidationError('')
+  }
+
+  const handleRulesCheck = () => {
+    setRulesAgreedTo(!rulesAgreedTo)
   }
 
   const handleGameAccountCreation = (event: FormEvent<HTMLFormElement>) => {
@@ -108,7 +114,7 @@ const CreateGameAccount = () => {
     return (
       <ContentBlock>
         <PageHeading>Temporarily Disabled</PageHeading>
-        <BodyText variant='body' textAlign='center'>
+        <BodyText variant='body' bodyTextAlign='center'>
           Game account creations are temporarily disabled until further notice.
         </BodyText>
       </ContentBlock>
@@ -157,6 +163,7 @@ const CreateGameAccount = () => {
             inputProps={{ maxLength: 20 }}
           />
           <FieldValidationMessage>{validationError}</FieldValidationMessage>
+          <RulesAcceptanceCheckbox onChange={handleRulesCheck} />
           <FormButton variant='contained' type='submit' disabled={submitDisabled}>
             Submit
           </FormButton>

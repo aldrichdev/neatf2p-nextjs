@@ -140,7 +140,7 @@ const AccountLoginPage = () => {
       {renderHead('Login')}
       <ContentBlock>
         <PageHeading>Login</PageHeading>
-        <BodyText variant='body' textAlign='left'>
+        <BodyText variant='body' bodyTextAlign='left'>
           Log in to your website account below.
         </BodyText>
         <Form onSubmit={handleLogin}>
@@ -154,14 +154,14 @@ const AccountLoginPage = () => {
             onChange={handlePasswordChange}
           />
           <FieldValidationMessage>{validationError}</FieldValidationMessage>
-          <ForgotPasswordBlock variant='body' topMargin={20} textAlign='left'>
+          <ForgotPasswordBlock variant='body' topMargin={20} bodyTextAlign='left'>
             <ForgotPasswordLink href='/account/login/forgot-password'>Forgot Password?</ForgotPasswordLink>
           </ForgotPasswordBlock>
           <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
             Log In
           </FormButton>
         </Form>
-        <BodyText variant='body' topMargin={40} textAlign='left'>
+        <BodyText variant='body' topMargin={40} bodyTextAlign='left'>
           <span>New around here?</span>
           <InlineLink href='/account/create'>Create a site account.</InlineLink>
         </BodyText>

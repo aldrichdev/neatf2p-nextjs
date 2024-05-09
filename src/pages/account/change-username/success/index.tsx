@@ -9,7 +9,7 @@ const ChangeUsernameSuccessPage = () => (
     {renderHead('Success')}
     <ContentBlock>
       <PageHeading>Username Updated</PageHeading>
-      <BodyText variant='body' textAlign='center'>
+      <BodyText variant='body' bodyTextAlign='center'>
         Your username has been updated. You can return to your <Link href='/account'>account</Link> page.
       </BodyText>
     </ContentBlock>

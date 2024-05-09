@@ -43,7 +43,7 @@ const AccountPage = () => {
       {renderHead('Account')}
       <ContentBlock>
         <PageHeading>Hiya, {user?.username}!</PageHeading>
-        <BodyText variant='body' textAlign='center'>
+        <BodyText variant='body' bodyTextAlign='center'>
           Welcome to your account page. Here, you can modify your website account, create game (RSC) accounts, rename
           game accounts and update passwords.
         </BodyText>
