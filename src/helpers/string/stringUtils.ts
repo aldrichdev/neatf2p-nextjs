@@ -12,3 +12,6 @@ export const GetRandomToken = () => {
 }
 
 export const pluralize = (number: number, text: string) => (number === 1 ? text : `${text}s`)
+
+/** Rounds a number to 1 decimal point and converts it to a string. */
+export const convertNumberToOneDecimalPoint = (number: number) => (Math.round(number * 10) / 10).toFixed(1).toString()
