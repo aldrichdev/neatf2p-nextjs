@@ -36,3 +36,9 @@ export const KdrTooltip = styled(({ className, ...props }: TooltipProps) => (
     fontSize: 14,
   },
 }))
+
+export const LoadingText = styled('em')(
+  () => css`
+    color: gray;
+  `,
+)

@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { CharacterInfoModalProps } from './CharacterInfoModal.types'
 import { Modal } from '@molecules/Modal'
 import { sendApiRequest } from '@helpers/api/apiUtils'
-import { KdrTooltip, KillsAndDeaths, ViewButton } from './CharacterInfoModal.styled'
-import { pluralize } from '@helpers/string/stringUtils'
+import { KdrTooltip, KillsAndDeaths, LoadingText, ViewButton } from './CharacterInfoModal.styled'
+import { convertNumberToOneDecimalPoint, pluralize } from '@helpers/string/stringUtils'
 import { getPrettyDateStringFromMillis } from '@helpers/date/date'
 
 const CharacterInfoModal = (props: CharacterInfoModalProps) => {
@@ -38,15 +38,19 @@ const CharacterInfoModal = (props: CharacterInfoModalProps) => {
   }
 
   const calculateKdr = (kills: string, deaths: string) => {
-    if (Number(kills) === 0 || Number(deaths) === 0) return '0'
+    const numKills = Number(kills)
+    const numDeaths = Number(deaths)
 
-    const rawKdr = Number(kills) / Number(deaths)
-    return (Math.round(rawKdr * 10) / 10).toFixed(1).toString()
+    if (numKills === 0 && numDeaths === 0) return '0.0'
+    if (numDeaths === 0) return convertNumberToOneDecimalPoint(numKills)
+
+    const rawKdr = numKills / numDeaths
+    return convertNumberToOneDecimalPoint(rawKdr)
   }
 
   const renderKdr = () => {
     if (isLoading) {
-      return <span>Loading...</span>
+      return <LoadingText>Loading...</LoadingText>
     }
 
     if (!kills || !deaths) {

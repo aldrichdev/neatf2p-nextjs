@@ -15,6 +15,7 @@ export const BodyText = styled(Typography, {
   shouldForwardProp: prop => !['topMargin', 'bodyTextAlign'].includes(prop.toString()),
 })<BodyTextProps>(
   ({ theme, topMargin, bodyTextAlign }) => css`
+    display: block;
     margin-top: ${topMargin || 20}px;
     text-align: center;
 
