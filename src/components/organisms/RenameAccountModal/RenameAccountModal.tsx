@@ -6,7 +6,6 @@ import { Field } from '@atoms/Field'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { User } from '@globalTypes/User'
 import { AxiosError } from 'axios'
-import { AxiosErrorResponse } from '@globalTypes/AxiosErrorResponse'
 
 type RenameAccountModalProps = {
   account: PlayerDataRow
