@@ -73,7 +73,7 @@ const PlayerHiscore = () => {
     }
   }
 
-  const getLastLogin = (response: { data: HiscoreDataRow[] }) =>
+  const getLoginDate = (response: { data: HiscoreDataRow[] }) =>
     response.data.find((row: HiscoreDataRow) => row.username === accountName)?.login_date
 
   useEffect(() => {
@@ -88,7 +88,7 @@ const PlayerHiscore = () => {
         setHiscoresData(response?.data as HiscoreDataRow[])
 
         // Get player last login date
-        const lastLoginMillis = getLastLogin(response)
+        const lastLoginMillis = getLoginDate(response)
         const lastLogin = getPrettyDateStringFromMillis(lastLoginMillis || 0)
         setLastLogin(lastLogin)
 
