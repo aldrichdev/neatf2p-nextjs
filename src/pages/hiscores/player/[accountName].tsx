@@ -8,6 +8,7 @@ import { HiscoresSortField } from '@globalTypes/Database/HiscoresSortField'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { PlayerHiscoreRow } from '@globalTypes/Hiscores/PlayerHiscoreRow'
 import { sendApiRequest } from '@helpers/api/apiUtils'
+import { getPrettyDateStringFromMillis } from '@helpers/date/date'
 import { compareHiscores, convertExp, getTotalExp, isNotBaselineExp } from '@helpers/hiscores/hiscoresUtils'
 import { renderHead } from '@helpers/renderUtils'
 import { Spinner } from '@molecules/Spinner'
@@ -20,6 +21,7 @@ const PlayerHiscore = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [hiscoresData, setHiscoresData] = useState<HiscoreDataRow[] | undefined>()
   const [playerHiscores, setPlayerHiscores] = useState<PlayerHiscoreRow[] | undefined>()
+  const [lastLogin, setLastLogin] = useState<string>()
   const accountName = query.accountName as string
 
   const isMatchingUser = (hiscoreDataRow: HiscoreDataRow) =>
@@ -71,6 +73,10 @@ const PlayerHiscore = () => {
     }
   }
 
+  const getLastLogin = (response: { data: HiscoreDataRow[] }) => {
+    return response.data.find((row: HiscoreDataRow) => row.username === accountName)?.login_date
+  }
+
   useEffect(() => {
     setIsLoading(true)
 
@@ -81,6 +87,12 @@ const PlayerHiscore = () => {
     })
       .then(response => {
         setHiscoresData(response?.data as HiscoreDataRow[])
+
+        // Get player last login date
+        const lastLoginMillis = getLastLogin(response)
+        const lastLogin = getPrettyDateStringFromMillis(lastLoginMillis || 0)
+        setLastLogin(lastLogin)
+
         setIsLoading(false)
       })
       .catch((error: string) => console.log(`Error getting player hiscore: ${error}`))
@@ -127,9 +139,14 @@ const PlayerHiscore = () => {
             No hiscore found for this player.
           </BodyText>
         ) : (
-          <PlayerHiscoreTableContainer>
-            <PlayerHiscoreTable accountName={accountName} playerHiscores={playerHiscores} />
-          </PlayerHiscoreTableContainer>
+          <>
+            <PlayerHiscoreTableContainer>
+              <PlayerHiscoreTable accountName={accountName} playerHiscores={playerHiscores} />
+            </PlayerHiscoreTableContainer>
+            <BodyText variant='body' bodyTextAlign='center'>
+              <strong>Last Login:</strong> {lastLogin}
+            </BodyText>
+          </>
         )}
         <BackToLink href='/hiscores'>{'<'} Return to Hiscores</BackToLink>
       </ContentBlock>

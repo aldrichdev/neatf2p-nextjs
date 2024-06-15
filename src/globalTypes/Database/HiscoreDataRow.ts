@@ -2,6 +2,7 @@ import { HiscoresSortField } from './HiscoresSortField'
 
 export type HiscoreDataRow = HiscoresSortField & {
   username: string
+  login_date: number
   attack: number
   defense: number
   strength: number
