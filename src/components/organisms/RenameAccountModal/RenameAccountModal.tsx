@@ -5,6 +5,7 @@ import { Modal } from '@molecules/Modal'
 import { Field } from '@atoms/Field'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { User } from '@globalTypes/User'
+import { AxiosError } from 'axios'
 
 type RenameAccountModalProps = {
   account: PlayerDataRow
@@ -70,8 +71,15 @@ const RenameAccountModal = (props: RenameAccountModalProps) => {
           console.log(errorMessage)
         }
       })
-      .catch((error: string) => {
-        handleForbiddenRedirect(error)
+      .catch((error: AxiosError<string>) => {
+        if (error?.response?.data?.includes('No rows affected')) {
+          // Usually means they tried to rename to an account that is taken in a different case and they don't own it
+          // (There cannot be multiple account names that only differ in casing, only one can login)
+          setValidationError('The new name entered is taken. Please try another one.')
+          return
+        }
+
+        handleForbiddenRedirect(error?.message)
       })
   }
 

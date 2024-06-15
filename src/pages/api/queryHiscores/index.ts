@@ -10,7 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   e.woodcut AS 'woodcutxp', ms.fishing, e.fishing AS 'fishingxp', ms.firemaking, e.firemaking AS 'firemakingxp', ms.crafting,
   e.crafting AS 'craftingxp', ms.smithing, e.smithing AS 'smithingxp', ms.mining,
   e.mining AS 'miningxp' FROM maxstats ms JOIN players p ON p.id = ms.playerID
-  JOIN experience e ON e.playerID = p.id WHERE p.group_id != 0 AND p.banned = 0`
+  JOIN experience e ON e.playerID = p.id WHERE p.group_id = 10 AND p.banned = 0`
 
   return handleQuery<HiscoreDataRow>('game', query, res)
 }
