@@ -59,6 +59,6 @@ export const handleManipulate = async (
     console.log('An error occurred in the handleManipulate API handler: ', error)
     res.statusCode = 500
     res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify(`${error?.toString()}`))
+    res.end(JSON.stringify(error?.toString()))
   }
 }
