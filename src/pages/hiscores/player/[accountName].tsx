@@ -73,9 +73,8 @@ const PlayerHiscore = () => {
     }
   }
 
-  const getLastLogin = (response: { data: HiscoreDataRow[] }) => {
-    return response.data.find((row: HiscoreDataRow) => row.username === accountName)?.login_date
-  }
+  const getLastLogin = (response: { data: HiscoreDataRow[] }) =>
+    response.data.find((row: HiscoreDataRow) => row.username === accountName)?.login_date
 
   useEffect(() => {
     setIsLoading(true)
