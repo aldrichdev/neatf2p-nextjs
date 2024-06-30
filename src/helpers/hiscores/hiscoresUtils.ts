@@ -1,8 +1,9 @@
-import { HiscoreDataRow } from '@globalTypes/Database/HiscoreDataRow'
-import { HiscoresSortField } from '@globalTypes/Database/HiscoresSortField'
-import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
+import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
+import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
+import { PlayerHiscoresSortField } from '@globalTypes/Database/PlayerHiscoresSortField'
+import { HiscoreType, NpcHiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 
-export const getTotalExp = (hiscoreRow: HiscoreDataRow) =>
+export const getTotalExp = (hiscoreRow: PlayerHiscoreDataRow) =>
   hiscoreRow.attackxp +
   hiscoreRow.defensexp +
   hiscoreRow.strengthxp +
@@ -23,18 +24,22 @@ export const convertExp = (skillXP: number) => {
   return Math.round(skillXP / 4).toLocaleString()
 }
 
-export const isNotBaselineExp = (hiscore: HiscoreDataRow, propName: string) => {
+export const isNotBaselineExp = (hiscore: PlayerHiscoreDataRow, propName: string) => {
   if (propName === 'skill_total') {
     return getTotalExp(hiscore) > 4000
   } else if (propName === 'hitsxp') {
     return hiscore.hitsxp > 4000
   } else {
-    return hiscore[propName as keyof HiscoresSortField] > 0
+    return hiscore[propName as keyof PlayerHiscoresSortField] > 0
   }
 }
 
-export const compareHiscores = (hiscoreType: HiscoreType, playerOne: HiscoreDataRow, playerTwo: HiscoreDataRow) => {
-  type HiscoreSortKey = keyof HiscoresSortField
+export const compareHiscores = (
+  hiscoreType: HiscoreType,
+  playerOne: PlayerHiscoreDataRow,
+  playerTwo: PlayerHiscoreDataRow,
+) => {
+  type HiscoreSortKey = keyof PlayerHiscoresSortField
   let fieldName: HiscoreSortKey
 
   switch (hiscoreType) {
@@ -63,6 +68,24 @@ export const compareHiscores = (hiscoreType: HiscoreType, playerOne: HiscoreData
     if (getTotalExp(playerOne) < getTotalExp(playerTwo)) {
       return 1
     }
+  }
+
+  return 0
+}
+
+export const compareNpcHiscores = (
+  npcHiscoreType: NpcHiscoreType,
+  playerOne: NpcHiscoreDataRow,
+  playerTwo: NpcHiscoreDataRow,
+) => {
+  const fieldName = 'killCount'
+
+  if (playerOne[fieldName] > playerTwo[fieldName]) {
+    return -1
+  }
+
+  if (playerOne[fieldName] < playerTwo[fieldName]) {
+    return 1
   }
 
   return 0

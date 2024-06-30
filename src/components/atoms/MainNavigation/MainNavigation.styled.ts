@@ -32,7 +32,6 @@ export const NavLink = styled(Link, {
     border: 2px solid;
     border-color: ${isActive ? 'purple' : 'green'};
     background-color: ${isActive ? 'purple' : 'green'};
-    border-radius: 20px;
     padding: 8px;
 
     :hover {

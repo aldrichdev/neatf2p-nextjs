@@ -3,8 +3,8 @@ import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
 import { PlayerHiscoreTable } from '@atoms/PlayerHiscoreTable'
-import { HiscoreDataRow } from '@globalTypes/Database/HiscoreDataRow'
-import { HiscoresSortField } from '@globalTypes/Database/HiscoresSortField'
+import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
+import { PlayerHiscoresSortField } from '@globalTypes/Database/PlayerHiscoresSortField'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { PlayerHiscoreRow } from '@globalTypes/Hiscores/PlayerHiscoreRow'
 import { sendApiRequest } from '@helpers/api/apiUtils'
@@ -19,12 +19,12 @@ import { useEffect, useState } from 'react'
 const PlayerHiscore = () => {
   const { query } = useRouter()
   const [isLoading, setIsLoading] = useState(true)
-  const [hiscoresData, setHiscoresData] = useState<HiscoreDataRow[] | undefined>()
+  const [hiscoresData, setHiscoresData] = useState<PlayerHiscoreDataRow[] | undefined>()
   const [playerHiscores, setPlayerHiscores] = useState<PlayerHiscoreRow[] | undefined>()
   const [lastLogin, setLastLogin] = useState<string>()
   const accountName = query.accountName as string
 
-  const isMatchingUser = (hiscoreDataRow: HiscoreDataRow) =>
+  const isMatchingUser = (hiscoreDataRow: PlayerHiscoreDataRow) =>
     hiscoreDataRow.username.toLowerCase() === accountName.toLowerCase()
 
   const getRank = (hiscoreType: HiscoreType) => {
@@ -47,7 +47,7 @@ const PlayerHiscore = () => {
 
     if (!playerHiscore) return 0
 
-    return playerHiscore[propName as keyof HiscoresSortField]
+    return playerHiscore[propName as keyof PlayerHiscoresSortField]
   }
 
   const getExp = (hiscoreType: HiscoreType) => {
@@ -59,7 +59,7 @@ const PlayerHiscore = () => {
       return convertExp(getTotalExp(playerHiscore))
     }
 
-    return convertExp(playerHiscore[`${hiscoreType.toLowerCase()}xp` as keyof HiscoresSortField])
+    return convertExp(playerHiscore[`${hiscoreType.toLowerCase()}xp` as keyof PlayerHiscoresSortField])
   }
 
   const getPlayerHiscoreRow = (hiscoreType: HiscoreType) => {
@@ -73,8 +73,8 @@ const PlayerHiscore = () => {
     }
   }
 
-  const getLoginDate = (response: { data: HiscoreDataRow[] }) =>
-    response.data.find((row: HiscoreDataRow) => row.username === accountName)?.login_date
+  const getLoginDate = (response: { data: PlayerHiscoreDataRow[] }) =>
+    response.data.find((row: PlayerHiscoreDataRow) => row.username === accountName)?.login_date
 
   useEffect(() => {
     setIsLoading(true)
@@ -85,7 +85,7 @@ const PlayerHiscore = () => {
       username: accountName.toLowerCase(),
     })
       .then(response => {
-        setHiscoresData(response?.data as HiscoreDataRow[])
+        setHiscoresData(response?.data as PlayerHiscoreDataRow[])
 
         // Get player last login date
         const lastLoginMillis = getLoginDate(response)

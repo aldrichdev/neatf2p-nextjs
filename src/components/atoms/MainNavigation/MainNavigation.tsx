@@ -1,9 +1,11 @@
 import { useRouter } from 'next/router'
 import { NavUnorderedList, NavLink } from './MainNavigation.styled'
+import { NavigationItem } from './MainNavigation.types'
+import { MainNavigationDropdownItem } from 'src/components/MainNavigationDropdownItem'
 
 const MainNavigation = () => {
   const { asPath } = useRouter()
-  const navigationLinks = [
+  const navigationItems: NavigationItem[] = [
     {
       path: '/',
       text: 'Home',
@@ -21,12 +23,26 @@ const MainNavigation = () => {
       text: 'How to Play',
     },
     {
-      path: '/hiscores',
       text: 'Hiscores',
+      subItems: [
+        {
+          path: '/hiscores',
+          text: 'Player',
+        },
+        {
+          path: '/npc-hiscores',
+          text: 'NPC',
+        },
+      ],
     },
     {
-      path: '/bug-reports',
-      text: 'Report a Bug',
+      text: 'Other Pages',
+      subItems: [
+        {
+          path: '/bug-reports',
+          text: 'Report a Bug',
+        },
+      ],
     },
   ]
 
@@ -36,7 +52,7 @@ const MainNavigation = () => {
       return true
     }
 
-    if (linkPath === '/hiscores' && asPath.startsWith('/hiscores')) {
+    if (linkPath === '/hiscores' && (asPath.startsWith('/hiscores') || asPath.startsWith('/npc-hiscores'))) {
       return true
     }
 
@@ -49,11 +65,15 @@ const MainNavigation = () => {
 
   return (
     <NavUnorderedList>
-      {navigationLinks.map((link: { path: string; text: string }) => (
-        <li key={link.path}>
-          <NavLink href={link.path} isActive={isLinkActive(link.path)}>
-            {link.text}
-          </NavLink>
+      {navigationItems.map((item: NavigationItem) => (
+        <li key={item.path || item.subItems?.[0]?.path}>
+          {item.path ? (
+            <NavLink href={item.path} isActive={isLinkActive(item.path)}>
+              {item.text}
+            </NavLink>
+          ) : (
+            <MainNavigationDropdownItem title={item.text} subItems={item.subItems || []} isItemActive={isLinkActive} />
+          )}
         </li>
       ))}
     </NavUnorderedList>

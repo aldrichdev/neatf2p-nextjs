@@ -1,4 +1,4 @@
-import { HiscoreDataRow } from '@globalTypes/Database/HiscoreDataRow'
+import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { TableBody, TableHead, Paper } from '@mui/material'
 import {
@@ -18,7 +18,7 @@ import { useRouter } from 'next/router'
 import { push } from '@helpers/router'
 
 type HiscoresTableProps = {
-  hiscores: HiscoreDataRow[]
+  hiscores: PlayerHiscoreDataRow[]
   hiscoreType: HiscoreType
   page: number
   setPage: (value: number) => void
@@ -33,7 +33,7 @@ const HiscoresTable = (props: HiscoresTableProps) => {
   const endingRecord = page == 1 ? resultsPerPage : startingRecord + resultsPerPage
   let rank = startingRecord
 
-  const getHiscoreValue = (hiscore: HiscoreDataRow) => {
+  const getHiscoreValue = (hiscore: PlayerHiscoreDataRow) => {
     switch (hiscoreType) {
       case 'Overall':
         return hiscore.skill_total
@@ -42,7 +42,7 @@ const HiscoresTable = (props: HiscoresTableProps) => {
     }
   }
 
-  const getHiscoreSkillXP = (hiscore: HiscoreDataRow) => {
+  const getHiscoreSkillXP = (hiscore: PlayerHiscoreDataRow) => {
     switch (hiscoreType) {
       case 'Overall':
         return getTotalExp(hiscore)
