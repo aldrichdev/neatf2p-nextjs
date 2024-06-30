@@ -79,7 +79,7 @@ const RenameAccountModal = (props: RenameAccountModalProps) => {
           return
         }
 
-        handleForbiddenRedirect(error?.message)
+        handleForbiddenRedirect(error)
       })
   }
 

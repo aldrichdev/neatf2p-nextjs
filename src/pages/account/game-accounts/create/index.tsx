@@ -14,7 +14,7 @@ import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
 import { sanitizeRunescapePassword } from '@helpers/string/stringUtils'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { renderHead } from '@helpers/renderUtils'
 import { RulesAcceptanceCheckbox } from '@molecules/RulesAcceptanceCheckbox'
 
@@ -86,17 +86,17 @@ const CreateGameAccount = () => {
                   redirectTo(`/account/game-accounts/create/success?accountName=${accountName}`)
                 }
               })
-              .catch((error: { response: { data: string } }) => {
+              .catch((error: AxiosError<string>) => {
                 setSubmitDisabled(false)
-                setValidationError(error.response.data)
-                handleForbiddenRedirect(error.response.data)
+                setValidationError(error?.response?.data || '')
+                handleForbiddenRedirect(error)
               })
           }
         })
-        .catch((error: { response: { data: string } }) => {
+        .catch((error: AxiosError<string>) => {
           setSubmitDisabled(false)
-          setValidationError(error.response.data)
-          handleForbiddenRedirect(error.response.data)
+          setValidationError(error?.response?.data || '')
+          handleForbiddenRedirect(error)
         })
     })
   }

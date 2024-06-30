@@ -1,5 +1,5 @@
 import { redirectTo } from '@helpers/window'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { NextApiResponse } from 'next'
 
 /** This type comprises all the possible types of values in body properties. */
@@ -69,11 +69,11 @@ export const sendBadRequest = (res: NextApiResponse, errorMessage: string) => {
   return
 }
 
-export const handleForbiddenRedirect = (error: string) => {
+export const handleForbiddenRedirect = (error: AxiosError<string>) => {
   // If the error is an HTTP 403, it means the user's session cookie value
   // no longer matches the one that was saved when they last logged in.
   // Log the user out and redirect to the Session Expired page.
-  if (error.includes('403') || error.toLowerCase().includes('forbidden')) {
+  if (error?.response?.status === 403 || error?.response?.data?.toLowerCase().includes('forbidden')) {
     sendApiRequest('GET', '/api/ironLogout')
       .then(() => {
         redirectTo('/account/session-expired')
