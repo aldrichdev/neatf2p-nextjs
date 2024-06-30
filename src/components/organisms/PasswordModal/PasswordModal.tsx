@@ -6,6 +6,7 @@ import { hashPassword } from '@helpers/password'
 import { sanitizeRunescapePassword } from '@helpers/string/stringUtils'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { User } from '@globalTypes/User'
+import { AxiosError } from 'axios'
 
 type PasswordModalProps = {
   account: PlayerDataRow
@@ -72,7 +73,7 @@ const PasswordModal = (props: PasswordModalProps) => {
           console.log(errorMessage)
         }
       })
-      .catch((error: string) => {
+      .catch((error: AxiosError<string>) => {
         handleForbiddenRedirect(error)
       })
   }

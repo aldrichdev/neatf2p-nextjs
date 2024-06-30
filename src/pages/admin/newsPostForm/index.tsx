@@ -29,6 +29,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { renderHead } from '@helpers/renderUtils'
+import { AxiosError } from 'axios'
 
 const NewsPostForm = () => {
   const [loading, setLoading] = useState(true)
@@ -105,12 +106,12 @@ const NewsPostForm = () => {
           code: response?.data?.includes('Success') ? 'green' : 'red',
         })
       })
-      .catch((error: { response: { data: string } }) => {
+      .catch((error: AxiosError<string>) => {
         setSubmitResult({
-          answer: error.response.data,
+          answer: error?.response?.data || '',
           code: 'red',
         })
-        handleForbiddenRedirect(error.response.data)
+        handleForbiddenRedirect(error)
       })
   }
 

@@ -15,13 +15,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   }
 
   // The 2nd line ensures that the case-sensitive new name isn't taken.
-  // The 3rd line ensures that the username returned from the new name search is theirs.
+  // The 3rd line ensures that the username returned from the search is theirs.
   const query = `UPDATE players SET former_name = ?, username = ? WHERE id = ? AND websiteUserId = ?
     AND NOT EXISTS (SELECT username FROM players WHERE BINARY username = ?) 
-      AND (SELECT username FROM players WHERE username = ?) = ?
+      AND ? IN (SELECT username FROM players WHERE websiteUserId = ?)
         AND former_name = ''`
 
-  return handleManipulate('game', query, res, [currentName, newName, accountId, userId, newName, newName, currentName])
+  return handleManipulate('game', query, res, [currentName, newName, accountId, userId, newName, currentName, userId])
 }
 
 export default handler

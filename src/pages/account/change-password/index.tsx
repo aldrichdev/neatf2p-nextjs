@@ -12,6 +12,7 @@ import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { hashPassword } from '@helpers/password'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { renderHead } from '@helpers/renderUtils'
+import { AxiosError } from 'axios'
 
 const ChangePasswordPage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -61,7 +62,7 @@ const ChangePasswordPage = () => {
           setFormValidationError(`Something went wrong. Please try again later. Error: ${errorMessage}`)
         }
       })
-      .catch((error: string) => {
+      .catch((error: AxiosError<string>) => {
         handleForbiddenRedirect(error)
       })
   }

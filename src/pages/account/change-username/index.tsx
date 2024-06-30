@@ -14,6 +14,7 @@ import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { UserIsLoggedIn } from '@helpers/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { renderHead } from '@helpers/renderUtils'
+import { AxiosError } from 'axios'
 
 const ChangeUsernamePage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -67,7 +68,7 @@ const ChangeUsernamePage = () => {
       .then(() => {
         redirectTo('/account/change-username/success')
       })
-      .catch((error: string) => {
+      .catch((error: AxiosError<string>) => {
         handleForbiddenRedirect(error)
       })
   }

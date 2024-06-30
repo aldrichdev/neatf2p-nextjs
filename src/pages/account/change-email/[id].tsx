@@ -5,6 +5,7 @@ import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { renderHead } from '@helpers/renderUtils'
 import useAuthentication from '@hooks/useAuthentication'
 import { Spinner } from '@molecules/Spinner'
+import { AxiosError } from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -26,7 +27,7 @@ const ChangeEmailByIdPage = () => {
       .then(() => {
         setIsLoading(false)
       })
-      .catch((error: string) => {
+      .catch((error: AxiosError<string>) => {
         handleForbiddenRedirect(error)
       })
   }, [accountId, newEmail, user.id])
