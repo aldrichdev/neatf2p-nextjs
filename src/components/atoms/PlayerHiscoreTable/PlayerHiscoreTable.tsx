@@ -1,48 +1,27 @@
 import { TableContainer, Paper } from '@mui/material'
-import { HiscoreTable, HiscoreTableCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
-import {
-  ExperienceCell,
-  HiscoreSkillIcon,
-  HiscoreSkillTableCell,
-  HiscoreTableRow,
-  PlayerHiscoreTableBody,
-  PlayerHiscoreTableHead,
-  SkillLink,
-} from './PlayerHiscoreTable.styled'
-import { PlayerHiscoreRow } from '@globalTypes/Hiscores/PlayerHiscoreRow'
+import { HiscoreTable } from '@atoms/HiscoresTable/HiscoresTable.styled'
+import { HiscoreTableRow, PlayerHiscoreTableBody, PlayerHiscoreTableHead } from './PlayerHiscoreTable.styled'
+import { ReactNode } from 'react'
 
 type HiscoreTableProps = {
   accountName: string
-  playerHiscores: PlayerHiscoreRow[]
+  /** Use an array of `HiscoreTableCell` elements. */
+  columns: ReactNode
+  /** Use map() on the hiscore array and render a `HiscoreTableRow` containing cells with data values. */
+  body: ReactNode
+  isNpcHiscores?: boolean
 }
 
 const PlayerHiscoreTable = (props: HiscoreTableProps) => {
-  const { accountName, playerHiscores } = props
+  const { accountName, columns, body, isNpcHiscores } = props
 
   return (
-    <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
-      <HiscoreTable aria-label={`${accountName} Hiscore Table`}>
-        <PlayerHiscoreTableHead>
-          <HiscoreTableRow>
-            <HiscoreTableCell sx={{ fontWeight: 700 }}>Skill</HiscoreTableCell>
-            <HiscoreTableCell sx={{ fontWeight: 700 }}>Rank</HiscoreTableCell>
-            <HiscoreTableCell sx={{ fontWeight: 700 }}>Level</HiscoreTableCell>
-            <HiscoreTableCell sx={{ fontWeight: 700 }}>EXP</HiscoreTableCell>
-          </HiscoreTableRow>
+    <TableContainer component={Paper} sx={{ boxShadow: 'none' }} data-what-is-rendering>
+      <HiscoreTable isNpcHiscores={isNpcHiscores} aria-label={`${accountName} Hiscore Table`}>
+        <PlayerHiscoreTableHead isNpcHiscores={isNpcHiscores}>
+          <HiscoreTableRow isNpcHiscores={isNpcHiscores}>{columns}</HiscoreTableRow>
         </PlayerHiscoreTableHead>
-        <PlayerHiscoreTableBody>
-          {playerHiscores.map(playerHiscoreRow => (
-            <HiscoreTableRow key={playerHiscoreRow.skill}>
-              <HiscoreSkillTableCell>
-                <HiscoreSkillIcon src={`/img/skills/${playerHiscoreRow.skill}.png`} alt='' />
-                <SkillLink href={`/hiscores?skill=${playerHiscoreRow.skill}`}>{playerHiscoreRow.skill}</SkillLink>
-              </HiscoreSkillTableCell>
-              <HiscoreTableCell>{playerHiscoreRow.rank === 0 ? '--' : playerHiscoreRow.rank}</HiscoreTableCell>
-              <HiscoreTableCell>{playerHiscoreRow.level}</HiscoreTableCell>
-              <ExperienceCell>{playerHiscoreRow.exp}</ExperienceCell>
-            </HiscoreTableRow>
-          ))}
-        </PlayerHiscoreTableBody>
+        <PlayerHiscoreTableBody isNpcHiscores={isNpcHiscores}>{body}</PlayerHiscoreTableBody>
       </HiscoreTable>
     </TableContainer>
   )

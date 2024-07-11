@@ -3,6 +3,13 @@
   --gold-border-color: rgb(160, 82, 45);
   --faded-blue-bg-color: #2055da;
   --faded-green-bg-color: rgba(0, 128, 0, 0.25);
+  --npc-hiscores-bg-color: #353935;
+  --npc-hiscores-border-color: #000;
+  --npc-hiscores-text-color: #f9f6ee;
+  --npc-hiscores-active-text-color: #a9a9a9;
+  --npc-hiscores-hover-text-color: #d3d3d3;
+  --npc-hiscores-button-bg-color: #880808;
+  --npc-hiscores-button-bg-hover-color: #dc143c;
 }
 
 body {

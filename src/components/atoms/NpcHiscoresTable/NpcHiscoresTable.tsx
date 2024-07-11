@@ -1,5 +1,4 @@
-import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
-import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
+import { NpcHiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { TableBody, TableHead, Paper } from '@mui/material'
 import {
   RootContainer,
@@ -9,21 +8,22 @@ import {
   HiscoreUsername,
   HiscoresTableRow,
 } from './HiscoresTable.styled'
-import { convertExp, getTotalExp } from '@helpers/hiscores/hiscoresUtils'
+import { getNpcNameById } from '@helpers/hiscores/hiscoresUtils'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { push } from '@helpers/router'
 import { HiscoresControls } from '@atoms/HiscoresControls'
+import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
 
-type HiscoresTableProps = {
-  hiscores: PlayerHiscoreDataRow[]
-  hiscoreType: HiscoreType
+type NpcHiscoresTableProps = {
+  hiscores: NpcHiscoreDataRow[]
+  npcHiscoreType: NpcHiscoreType
   page: number
   setPage: (value: number) => void
 }
 
-const HiscoresTable = (props: HiscoresTableProps) => {
-  const { hiscores, hiscoreType, page, setPage } = props
+const NpcHiscoresTable = (props: NpcHiscoresTableProps) => {
+  const { hiscores, npcHiscoreType, page, setPage } = props
   const router = useRouter()
   const resultsPerPage = 20
   const pageCount = Math.ceil(hiscores.length / resultsPerPage)
@@ -31,28 +31,11 @@ const HiscoresTable = (props: HiscoresTableProps) => {
   const endingRecord = page == 1 ? resultsPerPage : startingRecord + resultsPerPage
   let rank = startingRecord
 
-  const getHiscoreValue = (hiscore: PlayerHiscoreDataRow) => {
-    switch (hiscoreType) {
-      case 'Overall':
-        return hiscore.skill_total
-      default:
-        return hiscore[(hiscoreType as string).toLowerCase() as keyof typeof hiscore]
-    }
-  }
-
-  const getHiscoreSkillXP = (hiscore: PlayerHiscoreDataRow) => {
-    switch (hiscoreType) {
-      case 'Overall':
-        return getTotalExp(hiscore)
-      default:
-        return hiscore[`${(hiscoreType as string).toLowerCase()}xp` as keyof typeof hiscore] as number
-    }
-  }
-
+  // TODO: Can we put this in the HiscoresControls component or maybe a new hook?
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value)
     router.query.page = value.toString()
-    push(router, '/hiscores', router.query)
+    push(router, '/npc-hiscores', router.query)
   }
 
   const handleScrollToTop = () => {
@@ -61,37 +44,43 @@ const HiscoresTable = (props: HiscoresTableProps) => {
 
   useEffect(() => {
     router.query.page = page.toString()
-    push(router, '/hiscores', router.query)
+    push(router, '/npc-hiscores', router.query)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page])
 
   return (
-    <RootContainer>
+    <RootContainer data-what-is-rendering-2>
       <HiscoreTableContainer component={Paper}>
-        <HiscoreTable aria-label={`${hiscoreType} Hiscores Table`}>
+        <HiscoreTable aria-label={`${getNpcNameById(npcHiscoreType)} Hiscores Table`}>
           <TableHead>
-            <HiscoresTableRow>
-              <HiscoreTableCell sx={{ fontWeight: 700 }}>Rank</HiscoreTableCell>
-              <HiscoreTableCell sx={{ fontWeight: 700 }}>Name</HiscoreTableCell>
-              <HiscoreTableCell sx={{ fontWeight: 700 }}>Level</HiscoreTableCell>
-              <HiscoreTableCell sx={{ fontWeight: 700 }}>EXP</HiscoreTableCell>
+            <HiscoresTableRow isNpcHiscores>
+              <HiscoreTableCell sx={{ fontWeight: 700 }} isNpcHiscores>
+                Rank
+              </HiscoreTableCell>
+              <HiscoreTableCell sx={{ fontWeight: 700 }} isNpcHiscores>
+                Name
+              </HiscoreTableCell>
+              <HiscoreTableCell sx={{ fontWeight: 700 }} isNpcHiscores>
+                Kills
+              </HiscoreTableCell>
             </HiscoresTableRow>
           </TableHead>
           <TableBody>
             {hiscores?.slice(startingRecord, endingRecord).map((hiscoreRow, index) => {
               rank++
               return (
-                <HiscoresTableRow key={hiscoreRow.username}>
-                  <HiscoreTableCell component='th' scope='row'>
+                <HiscoresTableRow key={hiscoreRow.username} isNpcHiscores>
+                  <HiscoreTableCell component='th' scope='row' isNpcHiscores>
                     {startingRecord === 0 ? index + 1 : rank}
                   </HiscoreTableCell>
-                  <HiscoreTableCell>
-                    <HiscoreUsername href={`/hiscores/player/${hiscoreRow.username}`}>
+                  <HiscoreTableCell isNpcHiscores>
+                    <HiscoreUsername href={`/npc-hiscores/player/${hiscoreRow.username}`}>
                       {hiscoreRow.username}
                     </HiscoreUsername>
                   </HiscoreTableCell>
-                  <HiscoreTableCell>{getHiscoreValue(hiscoreRow)}</HiscoreTableCell>
-                  <HiscoreTableCell>{convertExp(getHiscoreSkillXP(hiscoreRow))}</HiscoreTableCell>
+                  <HiscoreTableCell isNpcHiscores data-kills>
+                    {hiscoreRow.killCount.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                  </HiscoreTableCell>
                 </HiscoresTableRow>
               )
             })}
@@ -110,4 +99,4 @@ const HiscoresTable = (props: HiscoresTableProps) => {
   )
 }
 
-export default HiscoresTable
+export default NpcHiscoresTable

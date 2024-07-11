@@ -1,8 +1,16 @@
 import { BackToLink } from '@atoms/BackToLink/BackToLink'
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
+import { HiscoreTableCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
 import { PageHeading } from '@atoms/PageHeading'
 import { PlayerHiscoreTable } from '@atoms/PlayerHiscoreTable'
+import {
+  ExperienceCell,
+  HiscoreSkillIcon,
+  HiscoreSkillTableCell,
+  HiscoreTableRow,
+  SkillLink,
+} from '@atoms/PlayerHiscoreTable/PlayerHiscoreTable.styled'
 import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
 import { PlayerHiscoresSortField } from '@globalTypes/Database/PlayerHiscoresSortField'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
@@ -132,7 +140,7 @@ const PlayerHiscore = () => {
     <>
       {renderHead('Player Hiscore')}
       <ContentBlock>
-        <PageHeading>{accountName ? accountName.toString() : 'Unknown Player'}</PageHeading>
+        <PageHeading>{accountName ? accountName : 'Unknown Player'}</PageHeading>
         {typeof accountName !== 'string' || !playerHiscores || !hiscoresData?.find(isMatchingUser) ? (
           <BodyText variant='body' bodyTextAlign='center'>
             No hiscore found for this player.
@@ -140,7 +148,28 @@ const PlayerHiscore = () => {
         ) : (
           <>
             <PlayerHiscoreTableContainer>
-              <PlayerHiscoreTable accountName={accountName} playerHiscores={playerHiscores} />
+              <PlayerHiscoreTable
+                accountName={accountName}
+                columns={
+                  <>
+                    <HiscoreTableCell sx={{ fontWeight: 700 }}>Skill</HiscoreTableCell>
+                    <HiscoreTableCell sx={{ fontWeight: 700 }}>Rank</HiscoreTableCell>
+                    <HiscoreTableCell sx={{ fontWeight: 700 }}>Level</HiscoreTableCell>
+                    <HiscoreTableCell sx={{ fontWeight: 700 }}>EXP</HiscoreTableCell>
+                  </>
+                }
+                body={playerHiscores.map(playerHiscoreRow => (
+                  <HiscoreTableRow key={playerHiscoreRow.skill}>
+                    <HiscoreSkillTableCell>
+                      <HiscoreSkillIcon src={`/img/skills/${playerHiscoreRow.skill}.png`} alt='' />
+                      <SkillLink href={`/hiscores?skill=${playerHiscoreRow.skill}`}>{playerHiscoreRow.skill}</SkillLink>
+                    </HiscoreSkillTableCell>
+                    <HiscoreTableCell>{playerHiscoreRow.rank === 0 ? '--' : playerHiscoreRow.rank}</HiscoreTableCell>
+                    <HiscoreTableCell>{playerHiscoreRow.level}</HiscoreTableCell>
+                    <ExperienceCell>{playerHiscoreRow.exp}</ExperienceCell>
+                  </HiscoreTableRow>
+                ))}
+              />
             </PlayerHiscoreTableContainer>
             <BodyText variant='body' bodyTextAlign='center'>
               <strong>Last Login:</strong> {lastLogin}

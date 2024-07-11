@@ -30,10 +30,12 @@ export const PlayerHiscoreTableContainer = styled('div')(
   `,
 )
 
-export const HiscoresMenuItemList = styled('ul')(
-  ({ theme }) => css`
-    background-color: var(--gold-bg-color);
-    border: 2px solid var(--gold-border-color);
+export const HiscoresMenuItemList = styled('ul', {
+  shouldForwardProp: prop => prop !== 'isNpcMenu',
+})<{ isNpcMenu?: boolean }>(
+  ({ theme, isNpcMenu }) => css`
+    background-color: ${isNpcMenu ? 'var(--npc-hiscores-bg-color)' : 'var(--gold-bg-color)'};
+    border: 2px solid ${isNpcMenu ? 'var(--npc-hiscores-border-color)' : 'var(--gold-border-color)'};
     padding: 10px 16px;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -49,7 +51,9 @@ export const HiscoresMenuItemList = styled('ul')(
     }
 
     ${theme.breakpoints.up('desktop')} {
-      flex-basis: auto;
+      box-sizing: border-box;
+      ${isNpcMenu && 'min-width: 200px'};
+      flex-basis: ${isNpcMenu ? 'auto' : 'auto'};
     }
   `,
 )

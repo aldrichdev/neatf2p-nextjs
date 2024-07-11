@@ -8,7 +8,12 @@ import {
 } from './PlayerLookup.styled'
 import { redirectTo } from '@helpers/window'
 
-const PlayerLookup = () => {
+type PlayerLookupProps = {
+  isNpcHiscores?: boolean
+}
+
+const PlayerLookup = (props: PlayerLookupProps) => {
+  const { isNpcHiscores } = props
   const [playerName, setPlayerName] = useState<string>('')
 
   const handlePlayerNameChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -20,12 +25,14 @@ const PlayerLookup = () => {
 
     if (!playerName) return null
 
-    redirectTo(`/hiscores/player/${playerName?.replace(/_/g, ' ')}`)
+    redirectTo(`/${isNpcHiscores ? 'npc-hiscores' : 'hiscores'}/player/${playerName?.replace(/_/g, ' ')}`)
   }
 
   return (
-    <PlayerLookupContainer>
-      <LookupHeading variant='h3'>Look Up Player</LookupHeading>
+    <PlayerLookupContainer isNpcHiscores={isNpcHiscores}>
+      <LookupHeading variant='h3' isNpcHiscores={isNpcHiscores}>
+        Look Up Player
+      </LookupHeading>
       <LookupForm onSubmit={handleSubmit}>
         <PlayerNameField
           required
@@ -34,10 +41,12 @@ const PlayerLookup = () => {
           onChange={handlePlayerNameChange}
           inputProps={{ maxLength: 12 }}
           value={playerName}
+          labelColor={isNpcHiscores ? 'var(--npc-hiscores-text-color)' : undefined}
+          borderColor={isNpcHiscores ? 'var(--npc-hiscores-text-color)' : undefined}
         >
           Player Name
         </PlayerNameField>
-        <LookupSubmitButton type='submit' variant='contained'>
+        <LookupSubmitButton type='submit' variant='contained' isNpcHiscores={isNpcHiscores}>
           Check
         </LookupSubmitButton>
       </LookupForm>

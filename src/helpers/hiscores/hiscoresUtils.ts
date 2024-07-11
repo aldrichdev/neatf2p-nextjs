@@ -2,6 +2,7 @@ import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
 import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
 import { PlayerHiscoresSortField } from '@globalTypes/Database/PlayerHiscoresSortField'
 import { HiscoreType, NpcHiscoreType } from '@globalTypes/Hiscores/HiscoreType'
+import { groupArrayByProperty } from '@helpers/arrayUtils'
 
 export const getTotalExp = (hiscoreRow: PlayerHiscoreDataRow) =>
   hiscoreRow.attackxp +
@@ -73,11 +74,8 @@ export const compareHiscores = (
   return 0
 }
 
-export const compareNpcHiscores = (
-  npcHiscoreType: NpcHiscoreType,
-  playerOne: NpcHiscoreDataRow,
-  playerTwo: NpcHiscoreDataRow,
-) => {
+/** Compares NPC hiscores by kill count. */
+export const compareNpcHiscores = (playerOne: NpcHiscoreDataRow, playerTwo: NpcHiscoreDataRow) => {
   const fieldName = 'killCount'
 
   if (playerOne[fieldName] > playerTwo[fieldName]) {
@@ -89,4 +87,131 @@ export const compareNpcHiscores = (
   }
 
   return 0
+}
+
+export const getNpcNameById = (id: NpcHiscoreType) => {
+  const npcId = Array.isArray(id) ? id?.[0] : id
+
+  switch (npcId) {
+    case 3:
+      return 'Chicken'
+    case 5:
+      return 'Hans'
+    case 114:
+      return 'Imp'
+    case 62:
+      return 'Goblin (7)'
+    case 11:
+      return 'Man'
+    case 6:
+      return 'Cow'
+    case 21:
+      return 'Mugger'
+    case 47:
+      return 'Rat (13)'
+    case 93:
+      return 'Monk'
+    case 4:
+      return 'Goblin (13)'
+    case 57:
+      return 'Dark Wizard (13)'
+    case 76:
+      return 'Barbarian'
+    case 94:
+      return 'Dwarf'
+    case 199:
+      return 'Dark Warrior'
+    case 41:
+      return 'Zombie (24)'
+    case 60:
+      return 'Dark Wizard (25)'
+    case 67:
+      return 'Hobgoblin'
+    case 68:
+      return 'Zombie (32)'
+    case 99:
+      return 'Deadly Red Spider'
+    case 61:
+      return 'Giant'
+    case 104:
+      return 'Moss Giant'
+    case 78:
+      return 'Gunthor the Brave'
+    case 66:
+      return 'Black Knight'
+    case 195:
+      return 'Skeleton (54)'
+    case 102:
+      return 'White Knight'
+    case 158:
+      return 'Ice Warrior'
+    case 190:
+      return 'Chaos Dwarf'
+    case 135:
+      return 'Ice Giant'
+    case 22:
+      return 'Lesser Demon'
+    case 184:
+      return 'Greater Demon'
+  }
+}
+
+// WeakMap might work also..
+// const wm1 = new WeakMap()
+// wm1.set([4, 153, 154], 'Goblin (13)')
+
+// export const NpcHiscoreLookupTable = new Map([
+//   [3, 'Chicken'],
+//   [5, 'Hans'],
+//   [114, 'Imp'],
+//   [62, 'Goblin (7)'],
+//   [11, 'Man'],
+//   [6, 'Cow'],
+//   [21, 'Mugger'],
+//   [47, 'Rat (13)'],
+//   [93, 'Monk'],
+//   [[4, 153, 154], 'Goblin (13)'],
+//   [57, 'Dark Wizard (13)'],
+//   [76, 'Barbarian'],
+//   [94, 'Dwarf'],
+//   [199, 'Dark Warrior'],
+//   [41, 'Zombie (24)'],
+//   [60, 'Dark Wizard (25)'],
+//   [67, 'Hobgoblin'],
+//   [68, 'Zombie (32)'],
+//   [99, 'Deadly Red Spider'],
+//   [61, 'Giant'],
+//   [104, 'Moss Giant'],
+//   [78, 'Gunthor the Brave'],
+//   [[66, 189], 'Black Knight'],
+//   [195, 'Skeleton (54)'],
+//   [102, 'White Knight'],
+//   [158, 'Ice Warrior'],
+//   [190, 'Chaos Dwarf'],
+//   [135, 'Ice Giant'],
+//   [[22, 181], 'Lesser Demon'],
+//   [184, 'Greater Demon'],
+// ])
+
+/** Groups NPC kill records for the same NPC by username and sums the kill counts.
+ *  (When we query by multiple NPC IDs in an array, like level 13 goblins [4, 153, 154],
+ *  we get some account names back in duplicate.)
+ *  @param filteredHiscores - all NPC hiscores filtered by NPC hiscore type
+ */
+export const groupByUsername = (filteredHiscores: NpcHiscoreDataRow[]) => {
+  const groupedHiscores = groupArrayByProperty(filteredHiscores, 'username')
+
+  // Make a new array using the key (username) and the sum of all `killCount` properties in the object array
+  const newArray: NpcHiscoreDataRow[] = []
+
+  Object.entries(groupedHiscores).map((record: [key: string, value: NpcHiscoreDataRow[]]) => {
+    const newObject: NpcHiscoreDataRow = {
+      npcID: 0, // Shouldn't matter
+      username: record?.[0],
+      killCount: record?.[1]?.reduce((n, { killCount }) => n + killCount, 0),
+    }
+    newArray.push(newObject)
+  })
+
+  return newArray
 }
