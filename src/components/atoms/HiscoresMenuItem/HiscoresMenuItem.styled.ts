@@ -30,12 +30,16 @@ export const HiscoreMenuSkillIcon = styled('img')(
 export const CurrentMenuItemLabel = styled('span', {
   shouldForwardProp: prop => prop !== 'isNpcMenu',
 })<{ isNpcMenu?: boolean }>(
-  isNpcMenu => css`
-    font-family: ${isNpcMenu ? 'Arial' : 'Verdana'};
-    font-weight: ${isNpcMenu ? 600 : 500};
-    font-size: 18px;
+  ({ theme, isNpcMenu }) => css`
+    font-family: Verdana;
+    font-weight: 500;
+    font-size: ${isNpcMenu ? '14px' : '18px'};
     line-height: 2;
-    color: ${isNpcMenu ? 'var(--npc-hiscores-active-text-color)' : 'blue'};
+    color: blue;
+
+    ${theme.breakpoints.up('tablet')} {
+      font-size: 18px;
+    }
   `,
 )
 
@@ -43,17 +47,18 @@ export const MenuItemButton = styled(Button, {
   shouldForwardProp: prop => prop !== 'isNpcMenu',
 })<{ isNpcMenu?: boolean }>(
   ({ theme, isNpcMenu }) => css`
-    font-family: ${isNpcMenu ? 'Arial' : 'Verdana'};
-    font-weight: ${isNpcMenu ? 600 : 500};
-    color: ${isNpcMenu ? 'var(--npc-hiscores-text-color)' : 'black'};
-    font-size: 18px;
+    font-family: Verdana;
+    font-weight: 500;
+    color: black;
+    font-size: ${isNpcMenu ? '14px' : '18px'};
     justify-content: flex-start;
 
     :hover {
-      color: ${isNpcMenu ? 'var(--npc-hiscores-hover-text-color)' : 'var(--faded-blue-bg-color)'};
+      color: var(--faded-blue-bg-color);
     }
 
     ${theme.breakpoints.up('mobile')} {
+      font-size: 18px;
       justify-content: flex-start;
     }
   `,

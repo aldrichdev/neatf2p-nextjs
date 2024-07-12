@@ -29,12 +29,12 @@ export const HiscoreTableContainer = styled(TableContainer)<ExtendedTableContain
 )
 
 export const HiscoreTable = styled(Table, {
-  shouldForwardProp: prop => !['aria-label', 'isNpcHiscores'].includes(prop.toString()),
-})<{ isNpcHiscores?: boolean }>(
-  ({ isNpcHiscores }) => css`
-    font-family: ${isNpcHiscores ? 'Arial' : 'Verdana'};
-    background-color: ${isNpcHiscores ? 'var(--npc-hiscores-bg-color)' : 'var(--gold-bg-color)'};
-    border: 2px solid ${isNpcHiscores ? 'var( --npc-hiscores-border-color)' : 'var(--gold-border-color)'};
+  shouldForwardProp: prop => prop !== 'aria-label',
+})(
+  () => css`
+    font-family: Verdana;
+    background-color: var(--gold-bg-color);
+    border: 2px solid var(--gold-border-color);
   `,
 )
 

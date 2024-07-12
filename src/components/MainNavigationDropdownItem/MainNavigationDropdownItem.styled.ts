@@ -1,6 +1,7 @@
 import { Button, Link } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
+import { getBaseNavItemStyles } from '@theme/globalStyles'
 
 export const NavItem = styled('div')(
   () => css`
@@ -8,25 +9,17 @@ export const NavItem = styled('div')(
   `,
 )
 
-/** TODO: Reuse styles between here and NavLink if possible. */
 export const NavButton = styled(Button, {
   shouldForwardProp: prop => prop !== 'isActive',
 })<{ isActive?: boolean }>(
   ({ isActive }) => css`
-    color: white;
-    font-family: Saros;
+    ${getBaseNavItemStyles(isActive)}
+    font-family: Source Sans Pro;
     font-size: 20px;
-    height: 44px;
     border-radius: 0;
-    border: 2px solid;
-    border-color: ${isActive ? 'purple' : 'green'};
-    background-color: ${isActive ? 'purple' : 'green'};
-    padding: 8px;
 
     :hover {
       color: white;
-      background-color: ${isActive ? '#670067' : 'darkgreen'};
-      border-color: ${isActive ? '#670067' : 'darkgreen'};
     }
   `,
 )

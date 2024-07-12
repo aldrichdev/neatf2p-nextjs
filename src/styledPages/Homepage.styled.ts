@@ -7,7 +7,7 @@ export const HomepageBanner = styled('img')(
     ${theme.breakpoints.up('tablet')} {
       display: block;
       margin: 0 auto;
-      width: 600px;
+      width: 90%;
     }
 
     ${theme.breakpoints.up('desktop')} {

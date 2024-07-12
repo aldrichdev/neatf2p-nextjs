@@ -34,26 +34,27 @@ export const HiscoresMenuItemList = styled('ul', {
   shouldForwardProp: prop => prop !== 'isNpcMenu',
 })<{ isNpcMenu?: boolean }>(
   ({ theme, isNpcMenu }) => css`
-    background-color: ${isNpcMenu ? 'var(--npc-hiscores-bg-color)' : 'var(--gold-bg-color)'};
-    border: 2px solid ${isNpcMenu ? 'var(--npc-hiscores-border-color)' : 'var(--gold-border-color)'};
+    background-color: var(--gold-bg-color);
+    border: 2px solid var(--gold-border-color);
     padding: 10px 16px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin: 0 auto;
     column-gap: 5px;
+    ${isNpcMenu && 'width: 100%'};
 
     ${theme.breakpoints.up('tablet')} {
       display: block;
       grid-template-columns: unset;
       margin: 0;
       column-gap: 0;
+      width: auto;
       flex-basis: calc(30% - 30px);
     }
 
     ${theme.breakpoints.up('desktop')} {
       box-sizing: border-box;
-      ${isNpcMenu && 'min-width: 200px'};
-      flex-basis: ${isNpcMenu ? 'auto' : 'auto'};
+      ${isNpcMenu && 'min-width: 220px'};
+      flex-basis: auto;
     }
   `,
 )

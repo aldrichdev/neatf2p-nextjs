@@ -29,20 +29,18 @@ export const HiscoreTableContainer = styled(TableContainer)<ExtendedTableContain
 )
 
 export const HiscoreTable = styled(Table, {
-  shouldForwardProp: prop => !['aria-label', 'isNpcHiscores'].includes(prop.toString()),
-})<{ isNpcHiscores?: boolean }>(
-  isNpcHiscores => css`
-    font-family: ${isNpcHiscores ? 'Arial' : 'Verdana'};
-    background-color: ${isNpcHiscores ? 'var(--npc-hiscores-bg-color)' : 'var(--gold-bg-color)'};
-    border: 2px solid ${isNpcHiscores ? 'var(--npc-hiscores-border-color)' : 'var(--gold-border-color)'};
+  shouldForwardProp: prop => prop !== 'aria-label',
+})(
+  () => css`
+    font-family: Verdana;
+    background-color: var(--gold-bg-color);
+    border: 2px solid var(--gold-border-color);
   `,
 )
 
-export const HiscoresTableRow = styled(TableRow, {
-  shouldForwardProp: prop => prop !== 'isNpcHiscores',
-})<{ isNpcHiscores?: boolean }>(
-  ({ theme, isNpcHiscores }) => css`
-    border-bottom: 1px solid ${isNpcHiscores ? 'var(--npc-hiscores-text-color)' : 'black'};
+export const HiscoresTableRow = styled(TableRow)(
+  ({ theme }) => css`
+    border-bottom: 1px solid black;
     font-size: 14px;
 
     ${theme.breakpoints.up('tablet')} {
@@ -51,18 +49,16 @@ export const HiscoresTableRow = styled(TableRow, {
   `,
 )
 
-export const HiscoreTableCell = styled(TableCell, {
-  shouldForwardProp: prop => prop !== 'isNpcHiscores',
-})<{ isNpcHiscores?: boolean }>(
-  ({ theme, isNpcHiscores }) => css`
+export const HiscoreTableCell = styled(TableCell)(
+  ({ theme }) => css`
     font-weight: 400;
     padding: 8px;
     border: 0;
-    color: ${isNpcHiscores ? 'var(--npc-hiscores-text-color)' : 'black'};
-    font-size: ${isNpcHiscores ? '18px' : '16px'};
+    color: black;
+    font-size: 16px;
 
     &:not(:last-child) {
-      border-right: 1px solid ${isNpcHiscores ? 'var(--npc-hiscores-text-color)' : 'black'};
+      border-right: 1px solid black;
     }
 
     ${theme.breakpoints.up('tablet')} {
@@ -71,11 +67,9 @@ export const HiscoreTableCell = styled(TableCell, {
   `,
 )
 
-export const HiscoreUsername = styled(HoverUnderlineLink, {
-  shouldForwardProp: prop => prop !== 'isNpcHiscores',
-})<{ isNpcHiscores?: boolean }>(
-  isNpcHiscores => css`
-    color: ${isNpcHiscores ? 'var(--npc-hiscores-text-color)' : 'black'};
-    font-size: ${isNpcHiscores ? '18px' : '16px'};
+export const HiscoreUsername = styled(HoverUnderlineLink)(
+  () => css`
+    color: black;
+    font-size: 16px;
   `,
 )

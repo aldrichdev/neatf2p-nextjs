@@ -156,43 +156,6 @@ export const getNpcNameById = (id: NpcHiscoreType) => {
   }
 }
 
-// WeakMap might work also..
-// const wm1 = new WeakMap()
-// wm1.set([4, 153, 154], 'Goblin (13)')
-
-// export const NpcHiscoreLookupTable = new Map([
-//   [3, 'Chicken'],
-//   [5, 'Hans'],
-//   [114, 'Imp'],
-//   [62, 'Goblin (7)'],
-//   [11, 'Man'],
-//   [6, 'Cow'],
-//   [21, 'Mugger'],
-//   [47, 'Rat (13)'],
-//   [93, 'Monk'],
-//   [[4, 153, 154], 'Goblin (13)'],
-//   [57, 'Dark Wizard (13)'],
-//   [76, 'Barbarian'],
-//   [94, 'Dwarf'],
-//   [199, 'Dark Warrior'],
-//   [41, 'Zombie (24)'],
-//   [60, 'Dark Wizard (25)'],
-//   [67, 'Hobgoblin'],
-//   [68, 'Zombie (32)'],
-//   [99, 'Deadly Red Spider'],
-//   [61, 'Giant'],
-//   [104, 'Moss Giant'],
-//   [78, 'Gunthor the Brave'],
-//   [[66, 189], 'Black Knight'],
-//   [195, 'Skeleton (54)'],
-//   [102, 'White Knight'],
-//   [158, 'Ice Warrior'],
-//   [190, 'Chaos Dwarf'],
-//   [135, 'Ice Giant'],
-//   [[22, 181], 'Lesser Demon'],
-//   [184, 'Greater Demon'],
-// ])
-
 /** Groups NPC kill records for the same NPC by username and sums the kill counts.
  *  (When we query by multiple NPC IDs in an array, like level 13 goblins [4, 153, 154],
  *  we get some account names back in duplicate.)

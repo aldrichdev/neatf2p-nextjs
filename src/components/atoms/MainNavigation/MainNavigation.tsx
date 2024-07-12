@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { NavUnorderedList, NavLink } from './MainNavigation.styled'
+import { NavUnorderedList, NavLink, NavContainer } from './MainNavigation.styled'
 import { NavigationItem } from './MainNavigation.types'
 import { MainNavigationDropdownItem } from 'src/components/MainNavigationDropdownItem'
 
@@ -64,19 +64,25 @@ const MainNavigation = () => {
   }
 
   return (
-    <NavUnorderedList>
-      {navigationItems.map((item: NavigationItem) => (
-        <li key={item.path || item.subItems?.[0]?.path}>
-          {item.path ? (
-            <NavLink href={item.path} isActive={isLinkActive(item.path)}>
-              {item.text}
-            </NavLink>
-          ) : (
-            <MainNavigationDropdownItem title={item.text} subItems={item.subItems || []} isItemActive={isLinkActive} />
-          )}
-        </li>
-      ))}
-    </NavUnorderedList>
+    <NavContainer>
+      <NavUnorderedList>
+        {navigationItems.map((item: NavigationItem) => (
+          <li key={item.path || item.subItems?.[0]?.path}>
+            {item.path ? (
+              <NavLink href={item.path} isActive={isLinkActive(item.path)}>
+                {item.text}
+              </NavLink>
+            ) : (
+              <MainNavigationDropdownItem
+                title={item.text}
+                subItems={item.subItems || []}
+                isItemActive={isLinkActive}
+              />
+            )}
+          </li>
+        ))}
+      </NavUnorderedList>
+    </NavContainer>
   )
 }
 

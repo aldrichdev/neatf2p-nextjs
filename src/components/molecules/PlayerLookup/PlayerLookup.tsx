@@ -29,10 +29,8 @@ const PlayerLookup = (props: PlayerLookupProps) => {
   }
 
   return (
-    <PlayerLookupContainer isNpcHiscores={isNpcHiscores}>
-      <LookupHeading variant='h3' isNpcHiscores={isNpcHiscores}>
-        Look Up Player
-      </LookupHeading>
+    <PlayerLookupContainer>
+      <LookupHeading variant='h3'>Look Up Player</LookupHeading>
       <LookupForm onSubmit={handleSubmit}>
         <PlayerNameField
           required
@@ -41,12 +39,10 @@ const PlayerLookup = (props: PlayerLookupProps) => {
           onChange={handlePlayerNameChange}
           inputProps={{ maxLength: 12 }}
           value={playerName}
-          labelColor={isNpcHiscores ? 'var(--npc-hiscores-text-color)' : undefined}
-          borderColor={isNpcHiscores ? 'var(--npc-hiscores-text-color)' : undefined}
         >
           Player Name
         </PlayerNameField>
-        <LookupSubmitButton type='submit' variant='contained' isNpcHiscores={isNpcHiscores}>
+        <LookupSubmitButton type='submit' variant='contained'>
           Check
         </LookupSubmitButton>
       </LookupForm>

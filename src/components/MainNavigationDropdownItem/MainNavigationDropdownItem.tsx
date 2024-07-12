@@ -17,7 +17,7 @@ const MainNavigationDropdownItem = (props: MainNavigationDropdownItemProps) => {
 
   return (
     <NavItem onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <NavButton variant='text' isActive={isActive} href={subItems?.[0]?.path}>
+      <NavButton variant='text' isActive={isActive}>
         {title}
       </NavButton>
       {isDropdownVisible && (

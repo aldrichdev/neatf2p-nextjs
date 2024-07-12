@@ -82,7 +82,8 @@ const PlayerHiscore = () => {
   }
 
   const getLoginDate = (response: { data: PlayerHiscoreDataRow[] }) =>
-    response.data.find((row: PlayerHiscoreDataRow) => row.username === accountName)?.login_date
+    response.data.find((row: PlayerHiscoreDataRow) => row.username.toLowerCase() === accountName.toLowerCase())
+      ?.login_date
 
   useEffect(() => {
     setIsLoading(true)

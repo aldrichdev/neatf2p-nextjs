@@ -5,35 +5,31 @@ import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
 export const HiscoreTableRow = styled(TableRow, {
-  shouldForwardProp: prop => prop !== 'isNpcHiscores',
-})<{ isNpcHiscores?: boolean }>(
-  ({ theme, isNpcHiscores }) => css`
+  shouldForwardProp: prop => prop !== 'isNpcTable',
+})<{ isNpcTable?: boolean }>(
+  ({ theme, isNpcTable }) => css`
     display: grid;
-    grid-template-columns: 30% 20% 20% 30%;
+    grid-template-columns: ${isNpcTable ? '50% 20% 30%' : '30% 20% 20% 30%'};
     font-size: 14px;
 
     ${theme.breakpoints.up('tablet')} {
-      font-size: ${isNpcHiscores ? '18px' : '16px'};
+      font-size: 16px;
     }
   `,
 )
 
-export const PlayerHiscoreTableHead = styled(TableHead, {
-  shouldForwardProp: prop => prop !== 'isNpcHiscores',
-})<{ isNpcHiscores?: boolean }>(
-  ({ isNpcHiscores }) => css`
+export const PlayerHiscoreTableHead = styled(TableHead)(
+  () => css`
     .MuiTableRow-root {
-      border-bottom: 1px solid ${isNpcHiscores ? 'var(--npc-hiscores-text-color)' : 'black'};
+      border-bottom: 1px solid black;
     }
   `,
 )
 
-export const PlayerHiscoreTableBody = styled(TableBody, {
-  shouldForwardProp: prop => prop !== 'isNpcHiscores',
-})<{ isNpcHiscores?: boolean }>(
-  ({ isNpcHiscores }) => css`
+export const PlayerHiscoreTableBody = styled(TableBody)(
+  () => css`
     .MuiTableRow-root:not(:last-child) {
-      border-bottom: 1px solid ${isNpcHiscores ? 'var(--npc-hiscores-text-color)' : 'black'};
+      border-bottom: 1px solid black;
     }
   `,
 )

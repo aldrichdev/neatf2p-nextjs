@@ -14,6 +14,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { push } from '@helpers/router'
 import { HiscoresControls } from '@atoms/HiscoresControls'
+import useHiscoresPagination from '@hooks/useHiscoresPagination'
 
 type HiscoresTableProps = {
   hiscores: PlayerHiscoreDataRow[]
@@ -25,6 +26,7 @@ type HiscoresTableProps = {
 const HiscoresTable = (props: HiscoresTableProps) => {
   const { hiscores, hiscoreType, page, setPage } = props
   const router = useRouter()
+  const { handlePageChange, handleScrollToTop } = useHiscoresPagination(setPage)
   const resultsPerPage = 20
   const pageCount = Math.ceil(hiscores.length / resultsPerPage)
   const startingRecord = page === 1 ? 0 : (page - 1) * resultsPerPage
@@ -47,16 +49,6 @@ const HiscoresTable = (props: HiscoresTableProps) => {
       default:
         return hiscore[`${(hiscoreType as string).toLowerCase()}xp` as keyof typeof hiscore] as number
     }
-  }
-
-  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value)
-    router.query.page = value.toString()
-    push(router, '/hiscores', router.query)
-  }
-
-  const handleScrollToTop = () => {
-    window.scrollTo({ top: 525, behavior: 'smooth' })
   }
 
   useEffect(() => {
