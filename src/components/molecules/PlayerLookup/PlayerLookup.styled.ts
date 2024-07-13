@@ -22,7 +22,6 @@ export const LookupHeading = styled(Typography)(
     font-family: Source Sans Pro;
     font-size: 24px;
     font-weight: 700;
-    color: black;
   `,
 )
 

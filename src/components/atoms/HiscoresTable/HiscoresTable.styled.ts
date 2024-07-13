@@ -65,6 +65,12 @@ export const HiscoreTableCell = styled(TableCell)(
   `,
 )
 
+export const HiscoreTableHeaderCell = styled(HiscoreTableCell)(
+  () => css`
+    font-weight: 700;
+  `,
+)
+
 export const HiscoreUsername = styled(HoverUnderlineLink)(
   () => css`
     color: black;

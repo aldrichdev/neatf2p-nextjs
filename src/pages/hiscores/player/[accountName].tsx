@@ -1,7 +1,7 @@
 import { BackToLink } from '@atoms/BackToLink/BackToLink'
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
-import { HiscoreTableCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
+import { HiscoreTableCell, HiscoreTableHeaderCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
 import { PageHeading } from '@atoms/PageHeading'
 import { PlayerHiscoreTable } from '@atoms/PlayerHiscoreTable'
 import {
@@ -141,7 +141,7 @@ const PlayerHiscore = () => {
     <>
       {renderHead('Player Hiscore')}
       <ContentBlock>
-        <PageHeading>{accountName ? accountName : 'Unknown Player'}</PageHeading>
+        <PageHeading>{accountName || 'Unknown Player'}</PageHeading>
         {typeof accountName !== 'string' || !playerHiscores || !hiscoresData?.find(isMatchingUser) ? (
           <BodyText variant='body' bodyTextAlign='center'>
             No hiscore found for this player.
@@ -153,10 +153,10 @@ const PlayerHiscore = () => {
                 accountName={accountName}
                 columns={
                   <>
-                    <HiscoreTableCell sx={{ fontWeight: 700 }}>Skill</HiscoreTableCell>
-                    <HiscoreTableCell sx={{ fontWeight: 700 }}>Rank</HiscoreTableCell>
-                    <HiscoreTableCell sx={{ fontWeight: 700 }}>Level</HiscoreTableCell>
-                    <HiscoreTableCell sx={{ fontWeight: 700 }}>EXP</HiscoreTableCell>
+                    <HiscoreTableHeaderCell>Skill</HiscoreTableHeaderCell>
+                    <HiscoreTableHeaderCell>Rank</HiscoreTableHeaderCell>
+                    <HiscoreTableHeaderCell>Level</HiscoreTableHeaderCell>
+                    <HiscoreTableHeaderCell>EXP</HiscoreTableHeaderCell>
                   </>
                 }
                 body={playerHiscores.map(playerHiscoreRow => (

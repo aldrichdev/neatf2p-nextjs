@@ -38,6 +38,9 @@ const About = () => (
       <BodyText variant='body' bodyTextAlign='center'>
         So, <Link href='/how-to-play'>jump in today</Link> and experience what a F2P-only economy can be!
       </BodyText>
+      <BodyText variant='body' bodyTextAlign='center'>
+        You can read our server rules <Link href='/about/rules'>here</Link>.
+      </BodyText>
     </ContentBlock>
   </>
 )

@@ -4,10 +4,11 @@ import {
   RootContainer,
   HiscoreTableContainer,
   HiscoreTable,
+  HiscoresTableRow,
   HiscoreTableCell,
   HiscoreUsername,
-  HiscoresTableRow,
-} from './HiscoresTable.styled'
+  HiscoreTableHeaderCell,
+} from '@atoms/HiscoresTable/HiscoresTable.styled'
 import { getNpcNameById } from '@helpers/hiscores/hiscoresUtils'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
@@ -26,11 +27,11 @@ type NpcHiscoresTableProps = {
 const NpcHiscoresTable = (props: NpcHiscoresTableProps) => {
   const { hiscores, npcHiscoreType, page, setPage } = props
   const router = useRouter()
-  const { handlePageChange, handleScrollToTop } = useHiscoresPagination(setPage)
-  const resultsPerPage = 20
-  const pageCount = Math.ceil(hiscores.length / resultsPerPage)
-  const startingRecord = page === 1 ? 0 : (page - 1) * resultsPerPage
-  const endingRecord = page == 1 ? resultsPerPage : startingRecord + resultsPerPage
+  const { startingRecord, endingRecord, pageCount, handlePageChange, handleScrollToTop } = useHiscoresPagination(
+    hiscores.length,
+    page,
+    setPage,
+  )
   let rank = startingRecord
 
   useEffect(() => {
@@ -45,9 +46,9 @@ const NpcHiscoresTable = (props: NpcHiscoresTableProps) => {
         <HiscoreTable aria-label={`${getNpcNameById(npcHiscoreType)} Hiscores Table`}>
           <TableHead>
             <HiscoresTableRow>
-              <HiscoreTableCell sx={{ fontWeight: 700 }}>Rank</HiscoreTableCell>
-              <HiscoreTableCell sx={{ fontWeight: 700 }}>Name</HiscoreTableCell>
-              <HiscoreTableCell sx={{ fontWeight: 700 }}>Kills</HiscoreTableCell>
+              <HiscoreTableHeaderCell>Rank</HiscoreTableHeaderCell>
+              <HiscoreTableHeaderCell>Name</HiscoreTableHeaderCell>
+              <HiscoreTableHeaderCell>Kills</HiscoreTableHeaderCell>
             </HiscoresTableRow>
           </TableHead>
           <TableBody>
@@ -63,9 +64,7 @@ const NpcHiscoresTable = (props: NpcHiscoresTableProps) => {
                       {hiscoreRow.username}
                     </HiscoreUsername>
                   </HiscoreTableCell>
-                  <HiscoreTableCell>
-                    {hiscoreRow.killCount.toLocaleString(undefined, { maximumFractionDigits: 0 })}
-                  </HiscoreTableCell>
+                  <HiscoreTableCell>{hiscoreRow.killCount.toLocaleString()}</HiscoreTableCell>
                 </HiscoresTableRow>
               )
             })}

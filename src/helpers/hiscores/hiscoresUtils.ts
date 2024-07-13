@@ -173,6 +173,7 @@ export const groupByUsername = (filteredHiscores: NpcHiscoreDataRow[]) => {
       username: record?.[0],
       killCount: record?.[1]?.reduce((n, { killCount }) => n + killCount, 0),
     }
+
     newArray.push(newObject)
   })
 

@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react'
 import { PlayerNpcHiscoreRow } from '@globalTypes/Hiscores/PlayerNpcHiscoreRow'
 import useNpcHiscores from '@hooks/useNpcHiscores'
 import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
-import { HiscoreTableCell } from '@atoms/NpcHiscoresTable/HiscoresTable.styled'
+import { HiscoreTableCell, HiscoreTableHeaderCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
 import { HiscoreTableRow, SkillLink } from '@atoms/PlayerHiscoreTable/PlayerHiscoreTable.styled'
 
 const PlayerNpcHiscore = () => {
@@ -104,7 +104,7 @@ const PlayerNpcHiscore = () => {
     <>
       {renderHead('Player NPC Hiscore')}
       <ContentBlock>
-        <PageHeading>{accountName ? accountName.toString() : 'Unknown Player'}</PageHeading>
+        <PageHeading>{accountName || 'Unknown Player'}</PageHeading>
         {typeof accountName !== 'string' || !playerNpcHiscoreRows || !allNpcHiscores?.find(isMatchingUser) ? (
           <BodyText variant='body' bodyTextAlign='center'>
             No hiscore found for this player.
@@ -117,9 +117,9 @@ const PlayerNpcHiscore = () => {
                 accountName={accountName}
                 columns={
                   <>
-                    <HiscoreTableCell sx={{ fontWeight: 700 }}>NPC</HiscoreTableCell>
-                    <HiscoreTableCell sx={{ fontWeight: 700 }}>Rank</HiscoreTableCell>
-                    <HiscoreTableCell sx={{ fontWeight: 700 }}>Kills</HiscoreTableCell>
+                    <HiscoreTableHeaderCell>NPC</HiscoreTableHeaderCell>
+                    <HiscoreTableHeaderCell>Rank</HiscoreTableHeaderCell>
+                    <HiscoreTableHeaderCell>Kills</HiscoreTableHeaderCell>
                   </>
                 }
                 body={playerNpcHiscoreRows.map(playerNpcHiscoreRow => (

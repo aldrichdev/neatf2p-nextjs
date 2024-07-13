@@ -5,9 +5,11 @@ import { ReactNode } from 'react'
 
 type HiscoreTableProps = {
   accountName: string
-  /** Use an array of `HiscoreTableCell` elements. */
+  /** The columns, or header cells, for the table.
+   * Pass a fragment with several `HiscoreTableCell` children. */
   columns: ReactNode
-  /** Use map() on the hiscore array and render a `HiscoreTableRow` containing cells with data values. */
+  /** The rows for the table. When setting this prop, map through
+   * the hiscores and render a `HiscoreTableRow` containing cells with data values. */
   body: ReactNode
   /** Whether this component is used to render NPC kill hiscores.
    * Needed, since the NPC table has less columns, and thus, different styling.

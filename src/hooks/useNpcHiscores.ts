@@ -1,7 +1,7 @@
 import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
 import { NpcHiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { sendApiRequest } from '@helpers/api/apiUtils'
-import { groupByUsername } from '@helpers/hiscores/hiscoresUtils'
+import { compareNpcHiscores, groupByUsername } from '@helpers/hiscores/hiscoresUtils'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 /** Manages and provides state of NPC hiscore data records and sets loading status. */
@@ -26,8 +26,8 @@ const useNpcHiscores = (setIsLoading?: Dispatch<SetStateAction<boolean>>, npcHis
       // Filter, group and sort raw hiscores.
       if (Array.isArray(npcHiscoreType)) {
         const filteredHiscores = rawHiscores?.filter(row => npcHiscoreType.includes(row.npcID))
-        const groupedCompositeHiscores = groupByUsername(filteredHiscores || []).sort(
-          (a, b) => b.killCount - a.killCount,
+        const groupedCompositeHiscores = groupByUsername(filteredHiscores || []).sort((obj1, obj2) =>
+          compareNpcHiscores(obj1, obj2),
         )
         setHiscores(groupedCompositeHiscores)
       } else {

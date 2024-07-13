@@ -8,6 +8,7 @@ import {
   HiscoreTableCell,
   HiscoreUsername,
   HiscoresTableRow,
+  HiscoreTableHeaderCell,
 } from './HiscoresTable.styled'
 import { convertExp, getTotalExp } from '@helpers/hiscores/hiscoresUtils'
 import { useEffect } from 'react'
@@ -26,11 +27,11 @@ type HiscoresTableProps = {
 const HiscoresTable = (props: HiscoresTableProps) => {
   const { hiscores, hiscoreType, page, setPage } = props
   const router = useRouter()
-  const { handlePageChange, handleScrollToTop } = useHiscoresPagination(setPage)
-  const resultsPerPage = 20
-  const pageCount = Math.ceil(hiscores.length / resultsPerPage)
-  const startingRecord = page === 1 ? 0 : (page - 1) * resultsPerPage
-  const endingRecord = page == 1 ? resultsPerPage : startingRecord + resultsPerPage
+  const { startingRecord, endingRecord, pageCount, handlePageChange, handleScrollToTop } = useHiscoresPagination(
+    hiscores.length,
+    page,
+    setPage,
+  )
   let rank = startingRecord
 
   const getHiscoreValue = (hiscore: PlayerHiscoreDataRow) => {
@@ -63,10 +64,10 @@ const HiscoresTable = (props: HiscoresTableProps) => {
         <HiscoreTable aria-label={`${hiscoreType} Hiscores Table`}>
           <TableHead>
             <HiscoresTableRow>
-              <HiscoreTableCell sx={{ fontWeight: 700 }}>Rank</HiscoreTableCell>
-              <HiscoreTableCell sx={{ fontWeight: 700 }}>Name</HiscoreTableCell>
-              <HiscoreTableCell sx={{ fontWeight: 700 }}>Level</HiscoreTableCell>
-              <HiscoreTableCell sx={{ fontWeight: 700 }}>EXP</HiscoreTableCell>
+              <HiscoreTableHeaderCell>Rank</HiscoreTableHeaderCell>
+              <HiscoreTableHeaderCell>Name</HiscoreTableHeaderCell>
+              <HiscoreTableHeaderCell>Level</HiscoreTableHeaderCell>
+              <HiscoreTableHeaderCell>EXP</HiscoreTableHeaderCell>
             </HiscoresTableRow>
           </TableHead>
           <TableBody>
