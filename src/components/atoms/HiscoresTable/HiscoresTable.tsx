@@ -28,6 +28,7 @@ const HiscoresTable = (props: HiscoresTableProps) => {
   const { hiscores, hiscoreType, page, setPage } = props
   const router = useRouter()
   const { startingRecord, endingRecord, pageCount, handlePageChange, handleScrollToTop } = useHiscoresPagination(
+    false,
     hiscores.length,
     page,
     setPage,
