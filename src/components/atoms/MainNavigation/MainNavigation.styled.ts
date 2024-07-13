@@ -24,9 +24,13 @@ export const NavUnorderedList = styled('ul')(
     column-gap: 16px;
     row-gap: 32px;
     background-color: var(--dark-gray);
-    border: 2px solid black;
+    border: 0;
     padding: 12px 0;
     width: 1200px;
+
+    ${theme.breakpoints.up('tablet')} {
+      border: 2px solid black;
+    }
 
     ${theme.breakpoints.up('desktop')} {
       flex-wrap: nowrap;
