@@ -1,9 +1,4 @@
-import {
-  MenuItem,
-  CurrentMenuItemLabel,
-  MenuItemButton,
-  HiscoreSkill,
-} from '@atoms/HiscoresMenuItem/HiscoresMenuItem.styled'
+import { MenuItem, CurrentMenuItemLabel, MenuItemButton } from '@atoms/HiscoresMenuItem/HiscoresMenuItem.styled'
 import { NpcHiscoresMenuItemProps } from './NpcHiscoresMenuItem.types'
 import { getNpcNameById } from '@helpers/hiscores/hiscoresUtils'
 
@@ -13,16 +8,12 @@ const NpcHiscoresMenuItem = (props: NpcHiscoresMenuItemProps) => {
 
   return (
     <MenuItem>
-      {hiscoreType === menuItemNpcId ? (
-        <HiscoreSkill>
-          <CurrentMenuItemLabel isNpcMenu>{npcName}</CurrentMenuItemLabel>
-        </HiscoreSkill>
+      {JSON.stringify(hiscoreType) === JSON.stringify(menuItemNpcId) ? (
+        <CurrentMenuItemLabel isNpcMenu>{npcName}</CurrentMenuItemLabel>
       ) : (
-        <HiscoreSkill>
-          <MenuItemButton variant='text' onClick={() => buttonOnClick(menuItemNpcId)} isNpcMenu>
-            {npcName}
-          </MenuItemButton>
-        </HiscoreSkill>
+        <MenuItemButton variant='text' onClick={() => buttonOnClick(menuItemNpcId)} isNpcMenu>
+          {npcName}
+        </MenuItemButton>
       )}
     </MenuItem>
   )

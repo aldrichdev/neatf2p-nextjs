@@ -4,19 +4,14 @@ import { css } from '@mui/system'
 
 export const MenuItem = styled('li')(
   ({ theme }) => css`
+    display: flex;
+    align-items: center;
     list-style-type: none;
     text-align: center;
 
     ${theme.breakpoints.up('mobile')} {
       text-align: left;
     }
-  `,
-)
-
-export const HiscoreSkill = styled('div')(
-  () => css`
-    display: flex;
-    align-items: center;
   `,
 )
 
