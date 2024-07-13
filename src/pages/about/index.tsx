@@ -22,12 +22,12 @@ const About = () => (
         experience that we have never seen!
       </BodyText>
       <FeatureList>
-        <Feature>Based on Open RSC&apos;s Core Framework with Few or No Added Changes</Feature>
+        <Feature>Based on Open RSC&apos;s Core Framework with Few Added Changes</Feature>
         <Feature>Open Source (Game & Website) Forever</Feature>
         <Feature>F2P Mode Enabled (Forever) - Only F2P Areas, Features, Items, Quests, Spells, Prayers, Etc.</Feature>
-        <Feature>1x EXP Rates</Feature>
         <Feature>1 Page Bank (Authentic F2P Behavior)</Feature>
-        <Feature>Play with RSC+, WinRune and Web Client</Feature>
+        <Feature>1x EXP Rates</Feature>
+        <Feature>Play with RSC+, WinRune or Web Client</Feature>
         <Feature>Skip Tutorial Option Enabled</Feature>
         <Feature>Max 2 Characters Logged In At Once</Feature>
         <Feature>No QOL - Straight RSC</Feature>
@@ -37,6 +37,9 @@ const About = () => (
       </FeatureList>
       <BodyText variant='body' bodyTextAlign='center'>
         So, <Link href='/how-to-play'>jump in today</Link> and experience what a F2P-only economy can be!
+      </BodyText>
+      <BodyText variant='body' bodyTextAlign='center'>
+        You can read our server rules <Link href='/about/rules'>here</Link>.
       </BodyText>
     </ContentBlock>
   </>

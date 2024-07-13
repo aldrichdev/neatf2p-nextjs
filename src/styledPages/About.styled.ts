@@ -7,6 +7,8 @@ export const FeatureList = styled('ul')(
     background-color: var(--gold-bg-color);
     border: 2px dashed var(--gold-border-color);
     padding: 16px 16px 16px 56px; /* Right: 40px for bullet points + 16px */
+    margin: 20px 0;
+    list-style-type: disc;
   `,
 )
 

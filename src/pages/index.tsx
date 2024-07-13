@@ -1,5 +1,5 @@
 import { ContentBlock } from '@atoms/ContentBlock'
-import { DiscordButtonContainer, DiscordIcon } from '@styledPages/Homepage.styled'
+import { DiscordButtonContainer, DiscordIcon, HomepageBanner } from '@styledPages/Homepage.styled'
 import { OnlinePlayers } from '@organisms/OnlinePlayers'
 import { NewsAndUpdates } from '@organisms/NewsAndUpdates'
 import Link from 'next/link'
@@ -7,7 +7,6 @@ import DiscordLogo from 'public/img/discord-512.webp'
 import { DiscordLink } from '@atoms/DiscordLink'
 import { PageHeading } from '@atoms/PageHeading'
 import { BodyText } from '@atoms/BodyText'
-import { YouTubeVideo } from '@atoms/YouTubeVideo'
 
 const Homepage = () => (
   <div>
@@ -23,11 +22,7 @@ const Homepage = () => (
       </BodyText>
     </ContentBlock>
     <ContentBlock isWide topMargin={40}>
-      <YouTubeVideo
-        embedUrl='https://www.youtube.com/embed/hWOOOmBKhRE?si=pTXUfElWW5sgu-tU'
-        desktopWidth='75%'
-        desktopHeight='500px'
-      />
+      <HomepageBanner src='/img/banners/HomepageBanner.png' alt='Relive It All' />
     </ContentBlock>
     <ContentBlock isWide topMargin={40}>
       <NewsAndUpdates heading='Latest News & Updates' limit={3} showViewAllButton />

@@ -6,7 +6,7 @@ import { User } from '@globalTypes/User'
 
 /** Helper for querying database records.
  * For <T>, use the type of data array you would like returned.
- * For example, a HiscoreDataRow.
+ * For example, a PlayerHiscoreDataRow.
  */
 export const handleQuery = async <T>(
   databaseType: 'website' | 'game',

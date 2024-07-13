@@ -8,7 +8,12 @@ import {
 } from './PlayerLookup.styled'
 import { redirectTo } from '@helpers/window'
 
-const PlayerLookup = () => {
+type PlayerLookupProps = {
+  isNpcHiscores?: boolean
+}
+
+const PlayerLookup = (props: PlayerLookupProps) => {
+  const { isNpcHiscores } = props
   const [playerName, setPlayerName] = useState<string>('')
 
   const handlePlayerNameChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +25,7 @@ const PlayerLookup = () => {
 
     if (!playerName) return null
 
-    redirectTo(`/hiscores/player/${playerName?.replace(/_/g, ' ')}`)
+    redirectTo(`/${isNpcHiscores ? 'npc-hiscores' : 'hiscores'}/player/${playerName?.replace(/_/g, ' ')}`)
   }
 
   return (

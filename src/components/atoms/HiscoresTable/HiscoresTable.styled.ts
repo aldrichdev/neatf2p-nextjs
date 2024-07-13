@@ -1,8 +1,7 @@
 import { ExtendedTableContainerProps } from '@globalTypes/MUI/ExtendedTableContainerProps'
-import { Pagination, Table, TableCell, TableContainer, TableRow } from '@mui/material'
+import { Table, TableCell, TableContainer, TableRow } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
-import VerticalAlignTopIcon from '@mui/icons-material/VerticalAlignTop'
 import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 
 export const RootContainer = styled('div')(
@@ -30,7 +29,7 @@ export const HiscoreTableContainer = styled(TableContainer)<ExtendedTableContain
 )
 
 export const HiscoreTable = styled(Table, {
-  shouldForwardProp: prop => !['aria-label'].includes(prop.toString()),
+  shouldForwardProp: prop => prop !== 'aria-label',
 })(
   () => css`
     font-family: Verdana;
@@ -66,47 +65,14 @@ export const HiscoreTableCell = styled(TableCell)(
   `,
 )
 
+export const HiscoreTableHeaderCell = styled(HiscoreTableCell)(
+  () => css`
+    font-weight: 700;
+  `,
+)
+
 export const HiscoreUsername = styled(HoverUnderlineLink)(
   () => css`
     color: black;
-  `,
-)
-
-export const HiscoresControls = styled('div')(
-  () => css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    column-gap: 30px;
-    margin-top: 40px;
-  `,
-)
-
-export const HiscoresPagination = styled(Pagination)(
-  () => css`
-    & .MuiPaginationItem-text {
-      font-family: Verdana;
-      font-size: 14px;
-    }
-
-    & .MuiPaginationItem-root.Mui-selected {
-      background-color: var(--faded-blue-bg-color);
-    }
-
-    & .MuiPaginationItem-root:not(.Mui-selected) {
-      color: black;
-    }
-  `,
-)
-
-export const ScrollToTopButton = styled(VerticalAlignTopIcon)(
-  () => css`
-    cursor: pointer;
-    width: 24px;
-    height: 24px;
-
-    &:hover {
-      color: var(--faded-blue-bg-color);
-    }
   `,
 )

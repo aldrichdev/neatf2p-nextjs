@@ -4,10 +4,12 @@ import { TableBody, TableCell, TableHead, TableRow } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
-export const HiscoreTableRow = styled(TableRow)(
-  ({ theme }) => css`
+export const HiscoreTableRow = styled(TableRow, {
+  shouldForwardProp: prop => prop !== 'isNpcTable',
+})<{ isNpcTable?: boolean }>(
+  ({ theme, isNpcTable }) => css`
     display: grid;
-    grid-template-columns: 30% 20% 20% 30%;
+    grid-template-columns: ${isNpcTable ? '50% 20% 30%' : '30% 20% 20% 30%'};
     font-size: 14px;
 
     ${theme.breakpoints.up('tablet')} {

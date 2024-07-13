@@ -1,6 +1,6 @@
-import { HiscoresSortField } from './HiscoresSortField'
+import { PlayerHiscoresSortField } from './PlayerHiscoresSortField'
 
-export type HiscoreDataRow = HiscoresSortField & {
+export type PlayerHiscoreDataRow = PlayerHiscoresSortField & {
   username: string
   login_date: number
   attack: number

@@ -60,6 +60,7 @@ export const NewsPostTitleLink = styled(HoverUnderlineLink)`
 
 export const NewsPostTitle = styled(Typography)`
   font-weight: 600;
+  font-family: Source Sans Pro;
 `
 
 export const NewsPostBody = styled(Typography)<ExtendedTypographyProps>(

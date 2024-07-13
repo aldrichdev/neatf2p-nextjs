@@ -13,4 +13,38 @@ export const HiscoreTypes = [
   'Mining',
 ] as const
 
+export const NpcHiscoreTypes = [
+  3,
+  5,
+  114,
+  62,
+  11,
+  6,
+  21,
+  47,
+  93,
+  [4, 153, 154],
+  57,
+  76,
+  94,
+  199,
+  41,
+  60,
+  67,
+  68,
+  99,
+  61,
+  104,
+  78,
+  [66, 189],
+  195,
+  102,
+  158,
+  190,
+  135,
+  [22, 181],
+  184,
+] as const
+
 export type HiscoreType = (typeof HiscoreTypes)[number]
+export type NpcHiscoreType = (typeof NpcHiscoreTypes)[number]

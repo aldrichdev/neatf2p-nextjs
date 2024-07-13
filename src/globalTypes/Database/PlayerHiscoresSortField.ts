@@ -1,4 +1,4 @@
-export type HiscoresSortField = {
+export type PlayerHiscoresSortField = {
   skill_total: number
   attackxp: number
   defensexp: number
