@@ -1,7 +1,12 @@
 import { push } from '@helpers/router'
 import { useRouter } from 'next/router'
 
-const useHiscoresPagination = (hiscoreCount: number, page: number, setPage: (page: number) => void) => {
+const useHiscoresPagination = (
+  isNpcHiscores: boolean,
+  hiscoreCount: number,
+  page: number,
+  setPage: (page: number) => void,
+) => {
   const router = useRouter()
   const resultsPerPage = 20
   const pageCount = Math.ceil(hiscoreCount / resultsPerPage)
@@ -11,7 +16,7 @@ const useHiscoresPagination = (hiscoreCount: number, page: number, setPage: (pag
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value)
     router.query.page = value.toString()
-    push(router, '/npc-hiscores', router.query)
+    push(router, isNpcHiscores ? '/npc-hiscores' : '/hiscores', router.query)
   }
 
   const handleScrollToTop = () => {

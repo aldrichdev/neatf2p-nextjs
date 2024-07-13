@@ -28,6 +28,7 @@ const NpcHiscoresTable = (props: NpcHiscoresTableProps) => {
   const { hiscores, npcHiscoreType, page, setPage } = props
   const router = useRouter()
   const { startingRecord, endingRecord, pageCount, handlePageChange, handleScrollToTop } = useHiscoresPagination(
+    true,
     hiscores.length,
     page,
     setPage,
