@@ -66,11 +66,9 @@ export const ScrollableContainer = styled('div')(
   `,
 )
 
-export const ModalBody = styled(BodyText)(
+export const ScrollableBody = styled(BodyText)(
   () => css`
-    position: absolute;
     overflow-y: scroll;
     height: 100%;
-    display: block;
   `,
 )

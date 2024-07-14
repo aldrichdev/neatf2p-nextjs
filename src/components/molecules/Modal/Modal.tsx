@@ -6,8 +6,8 @@ import {
   ModalHeader,
   ModalOverlay,
   ModalRoot,
-  ModalBody,
   ScrollableContainer,
+  ScrollableBody,
 } from './Modal.styled'
 import { Form } from '@atoms/Form'
 import { FormButton } from '@atoms/FormButton/FormButton'
@@ -42,9 +42,9 @@ const Modal = (props: ModalProps) => {
         <ModalHeader variant='h3'>{heading}</ModalHeader>
         {bodyScrollable ? (
           <ScrollableContainer>
-            <ModalBody variant='body' component='span' bodyTextAlign='left'>
+            <ScrollableBody variant='body' component='span' bodyTextAlign='left'>
               {body}
-            </ModalBody>
+            </ScrollableBody>
           </ScrollableContainer>
         ) : (
           <BodyText variant='body' component='span' bodyTextAlign='left'>
