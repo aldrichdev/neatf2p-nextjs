@@ -189,6 +189,7 @@ const NewsPostForm = () => {
                 <ReactMarkdown className='news-post-body-markdown'>{body}</ReactMarkdown>
               </>
             }
+            bodyScrollable
           />
           <SubmitArea>
             <SubmitButton variant='contained' type='submit' disabled={submitDisabled}>

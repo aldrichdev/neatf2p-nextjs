@@ -1,3 +1,4 @@
+import { BodyText } from '@atoms/BodyText'
 import { Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
@@ -14,10 +15,8 @@ export const ModalOverlay = styled('div')(
   `,
 )
 
-export const ModalRoot = styled('div', {
-  shouldForwardProp: prop => prop !== 'open',
-})<{ open: boolean }>(
-  ({ theme, open }) => css`
+export const ModalRoot = styled('div')(
+  ({ theme }) => css`
     position: absolute;
     left: 0;
     right: 0;
@@ -25,19 +24,10 @@ export const ModalRoot = styled('div', {
     background-color: white;
     padding: 16px 32px 32px 32px;
 
-    ${
-      /** TODO: Do we still need this? Is it doing anything? seems to do nothing on mac? */
-      open &&
-      `
-      overflow-y: hidden;
-      max-height: 100vh;
-      `
-    }
-
     ${theme.breakpoints.up('tablet')} {
       left: 25%;
       right: 25%;
-      top: 25%;
+      top: 15%;
     }
   `,
 )
@@ -66,5 +56,21 @@ export const ModalHeader = styled(Typography)(
     ${theme.breakpoints.down('tablet')} {
       font-size: 32px;
     }
+  `,
+)
+
+export const ScrollableContainer = styled('div')(
+  () => css`
+    position: relative;
+    height: 400px;
+  `,
+)
+
+export const ModalBody = styled(BodyText)(
+  () => css`
+    position: absolute;
+    overflow-y: scroll;
+    height: 100%;
+    display: block;
   `,
 )
