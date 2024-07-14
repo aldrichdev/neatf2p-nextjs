@@ -70,7 +70,7 @@ const AccountLoginPage = () => {
     event.preventDefault()
     setButtonDisabled(true)
 
-    sendApiRequest('GET', `/api/getUser?email=${email}`)
+    sendApiRequest('GET', `/api/getUser?email=${encodeURIComponent(email)}`)
       .then(async response => {
         const result = response?.data
 
