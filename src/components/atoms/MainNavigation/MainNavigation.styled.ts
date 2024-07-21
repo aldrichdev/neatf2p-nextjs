@@ -20,8 +20,7 @@ export const NavUnorderedList = styled('ul')(
     align-items: center;
     font-family: Source Sans Pro;
     font-size: 20px;
-    column-gap: 16px;
-    row-gap: 16px;
+    gap: 16px;
     background-color: var(--dark-gray);
     border: 0;
     padding: 12px 0;
