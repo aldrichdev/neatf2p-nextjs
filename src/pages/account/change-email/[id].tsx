@@ -9,6 +9,7 @@ import { AxiosError } from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import emailjs from '@emailjs/browser'
 
 const ChangeEmailByIdPage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -25,12 +26,20 @@ const ChangeEmailByIdPage = () => {
       newEmail,
     })
       .then(() => {
-        setIsLoading(false)
+        // Send an email to the old address to let them know it changed
+        emailjs
+          .send('service_6xpikef', 'template_6rz807l', {
+            recipient: user.emailAddress,
+            newEmail,
+          })
+          .then(() => {
+            setIsLoading(false)
+          })
       })
       .catch((error: AxiosError<string>) => {
         handleForbiddenRedirect(error)
       })
-  }, [accountId, newEmail, user.id])
+  }, [accountId, newEmail, user.id, user.emailAddress])
 
   if (isLoading) {
     return (
