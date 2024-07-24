@@ -1,0 +1,147 @@
+export const communityAchievements = [
+  {
+    achievement: "First to unlock Champion's Guild",
+    playerName: 'Jonttu',
+    date: '2/24/2024',
+  },
+  {
+    achievement: 'First to unlock Mining Guild',
+    playerName: 'Man',
+    date: '2/27/2024',
+  },
+  {
+    achievement: 'First to complete Dragon Slayer',
+    playerName: 'Eisen Berg',
+    date: '2/27/2024',
+  },
+  {
+    achievement: 'First to complete all quests',
+    playerName: 'Apsolutnul',
+    date: '2/27/2024',
+  },
+  {
+    achievement: 'First to PK a Player',
+    playerName: 'Ye Olde Nite',
+    date: '2/24/2024',
+  },
+  {
+    achievement: 'First Pure PK Tourney Winner',
+    playerName: 'Mind',
+    date: '5/25/2024',
+  },
+  {
+    achievement: 'First to fish Lobster',
+    playerName: 'Apsolutnul',
+    date: '2/24/2024',
+  },
+  {
+    achievement: 'First to craft Strength Amulet',
+    playerName: 'Chevy K10',
+    date: 'Unknown',
+  },
+  {
+    achievement: 'First to craft Power Amulet',
+    playerName: 'Chevy K10',
+    date: 'Unknown',
+  },
+  {
+    achievement: 'First to smith full Bronze',
+    playerName: 'V A H O V A',
+    date: '2/24/2024',
+  },
+  {
+    achievement: 'First to smith full Iron',
+    playerName: 'V A H O V A',
+    date: '2/24/2024',
+  },
+  {
+    achievement: 'First to smith full Steel',
+    playerName: 'LionHeart',
+    date: 'Unknown',
+  },
+  {
+    achievement: 'First to smith full Mithril',
+    playerName: 'LionHeart',
+    date: 'Unknown',
+  },
+  {
+    achievement: 'First to smith full Adamantite',
+    playerName: 'TBD',
+    date: 'TBD',
+  },
+  {
+    achievement: 'First to smith full Rune',
+    playerName: 'TBD',
+    date: 'TBD',
+  },
+  {
+    achievement: 'First to 500 Skill Total',
+    playerName: 'Eisen Berg',
+    date: '3/1/2024',
+  },
+  {
+    achievement: 'First to 1000 Skill Total',
+    playerName: 'YiForLife',
+    date: '6/25/2024',
+  },
+  {
+    achievement: 'First to 1390 Skill Total',
+    playerName: 'TBD',
+    date: 'TBD',
+  },
+  {
+    achievement: 'First to 99 Hits',
+    playerName: 'TBD',
+    date: 'TBD',
+  },
+  {
+    achievement: 'First to 99 Ranged',
+    playerName: 'TBD',
+    date: 'TBD',
+  },
+  {
+    achievement: 'First to 99 Prayer',
+    playerName: 'TBD',
+    date: 'TBD',
+  },
+  {
+    achievement: 'First to 99 Magic',
+    playerName: 'TBD',
+    date: 'TBD',
+  },
+  {
+    achievement: 'First to 99 Cooking',
+    playerName: 'TBD',
+    date: 'TBD',
+  },
+  {
+    achievement: 'First to 99 Woodcut',
+    playerName: 'TBD',
+    date: 'TBD',
+  },
+  {
+    achievement: 'First to 99 Fishing',
+    playerName: 'TBD',
+    date: 'TBD',
+  },
+  {
+    achievement: 'First to 99 Firemaking',
+    playerName: 'TBD',
+    date: 'TBD',
+  },
+  {
+    achievement: 'First to 99 Crafting',
+    playerName: 'TBD',
+    date: 'TBD',
+  },
+  {
+    achievement: 'First to 99 Smithing',
+    playerName: 'TBD',
+    date: 'TBD',
+  },
+  {
+    achievement: 'First to 99 Mining',
+    playerName: 'TBD',
+    date: 'TBD',
+  },
+]
