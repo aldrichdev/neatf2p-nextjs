@@ -1,5 +1,14 @@
 import { BodyText } from '@atoms/BodyText'
-import { CloseBar, CloseButton, CloseIcon, ModalHeader, ModalOverlay, ModalRoot } from './Modal.styled'
+import {
+  CloseBar,
+  CloseButton,
+  CloseIcon,
+  ModalHeader,
+  ModalOverlay,
+  ModalRoot,
+  ScrollableContainer,
+  ScrollableBody,
+} from './Modal.styled'
 import { Form } from '@atoms/Form'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
@@ -17,22 +26,31 @@ const Modal = (props: ModalProps) => {
     renderFields,
     formValidationError,
     formSuccessMessage,
+    bodyScrollable,
   } = props
 
   if (!open) return null
 
   return (
     <ModalOverlay>
-      <ModalRoot open={open}>
+      <ModalRoot>
         <CloseBar>
           <CloseButton onClick={handleClose}>
             <CloseIcon src='/img/close-icon.webp' alt='' />
           </CloseButton>
         </CloseBar>
         <ModalHeader variant='h3'>{heading}</ModalHeader>
-        <BodyText variant='body' component='span' bodyTextAlign='left'>
-          {body}
-        </BodyText>
+        {bodyScrollable ? (
+          <ScrollableContainer>
+            <ScrollableBody variant='body' component='span' bodyTextAlign='left'>
+              {body}
+            </ScrollableBody>
+          </ScrollableContainer>
+        ) : (
+          <BodyText variant='body' component='span' bodyTextAlign='left'>
+            {body}
+          </BodyText>
+        )}
         {hasForm && handleSubmit && renderFields && (
           <>
             <Form onSubmit={handleSubmit}>
