@@ -12,4 +12,5 @@ export type ModalProps = {
   renderFields?: () => JSX.Element
   formValidationError?: string
   formSuccessMessage?: string
+  bodyScrollable?: boolean
 }

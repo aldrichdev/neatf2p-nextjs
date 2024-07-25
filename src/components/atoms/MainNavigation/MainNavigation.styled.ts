@@ -13,7 +13,6 @@ export const NavContainer = styled('div')(
 export const NavUnorderedList = styled('ul')(
   ({ theme }) => css`
     list-style-type: none;
-    margin: 20px 0 10px;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
@@ -21,15 +20,15 @@ export const NavUnorderedList = styled('ul')(
     align-items: center;
     font-family: Source Sans Pro;
     font-size: 20px;
-    column-gap: 16px;
-    row-gap: 32px;
+    gap: 16px;
     background-color: var(--dark-gray);
     border: 0;
     padding: 12px 0;
-    width: 1200px;
+    width: 100%;
 
     ${theme.breakpoints.up('tablet')} {
       border: 2px solid black;
+      row-gap: 32px;
     }
 
     ${theme.breakpoints.up('desktop')} {

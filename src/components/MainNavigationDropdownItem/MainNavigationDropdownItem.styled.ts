@@ -12,14 +12,19 @@ export const NavItem = styled('div')(
 export const NavButton = styled(Button, {
   shouldForwardProp: prop => prop !== 'isActive',
 })<{ isActive?: boolean }>(
-  ({ isActive }) => css`
+  ({ theme, isActive }) => css`
     ${getBaseNavItemStyles(isActive)}
     font-family: Source Sans Pro;
     font-size: 20px;
     border-radius: 0;
+    height: 43px;
 
     :hover {
       color: white;
+    }
+
+    ${theme.breakpoints.up('tablet')} {
+      height: auto;
     }
   `,
 )
