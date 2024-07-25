@@ -28,6 +28,7 @@ export const HomepageLink = styled(Link)(
 export const Logo = styled('img')(
   () => css`
     width: 100%;
+    display: block;
   `,
 )
 
