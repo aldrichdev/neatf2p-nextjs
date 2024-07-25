@@ -180,6 +180,7 @@ const CreateAccountPage = () => {
             variant='standard'
             onChange={handleUsernameChange}
             inputProps={{ maxLength: 100 }}
+            autoComplete='username'
           />
           <Field
             required
@@ -188,6 +189,7 @@ const CreateAccountPage = () => {
             type='password'
             variant='standard'
             onChange={handlePasswordChange}
+            autoComplete='new-password'
           />
           <Field
             required
@@ -196,6 +198,7 @@ const CreateAccountPage = () => {
             type='password'
             variant='standard'
             onChange={handleConfirmPasswordChange}
+            autoComplete='new-password'
           />
           <RulesAcceptanceCheckbox onChange={handleRulesCheck} />
           {validationError && <FieldValidationMessage>{validationError}</FieldValidationMessage>}

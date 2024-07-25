@@ -143,6 +143,7 @@ const CreateGameAccount = () => {
             variant='standard'
             onChange={handleAccountNameChange}
             inputProps={{ maxLength: 12 }}
+            autoComplete='username'
           />
           <Field
             required
@@ -152,6 +153,7 @@ const CreateGameAccount = () => {
             variant='standard'
             onChange={handlePasswordChange}
             inputProps={{ maxLength: 20 }}
+            autoComplete='new-password'
           />
           <Field
             required
@@ -161,6 +163,7 @@ const CreateGameAccount = () => {
             variant='standard'
             onChange={handleConfirmPasswordChange}
             inputProps={{ maxLength: 20 }}
+            autoComplete='new-password'
           />
           <FieldValidationMessage>{validationError}</FieldValidationMessage>
           <RulesAcceptanceCheckbox onChange={handleRulesCheck} />
