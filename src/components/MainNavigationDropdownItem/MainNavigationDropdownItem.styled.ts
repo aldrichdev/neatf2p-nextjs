@@ -53,5 +53,6 @@ export const NavSubLink = styled(Link)(
     text-decoration: none;
     padding: 8px;
     display: block;
+    font-size: 18px;
   `,
 )

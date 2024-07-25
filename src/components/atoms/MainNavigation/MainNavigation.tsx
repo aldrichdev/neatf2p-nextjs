@@ -31,13 +31,17 @@ const MainNavigation = () => {
         },
         {
           path: '/npc-hiscores',
-          text: 'NPC',
+          text: 'NPC Kills',
         },
       ],
     },
     {
       text: 'Other Pages',
       subItems: [
+        {
+          path: '/hall-of-fame',
+          text: 'Hall of Fame',
+        },
         {
           path: '/bug-reports',
           text: 'Report a Bug',
