@@ -35,14 +35,14 @@ export const communityAchievements = [
     date: '2/24/2024',
   },
   {
-    achievement: 'First to craft Strength Amulet',
+    achievement: 'First to make Strength Amulet',
     playerName: 'Chevy K10',
-    date: 'Unknown',
+    date: '3/5/2024',
   },
   {
-    achievement: 'First to craft Power Amulet',
+    achievement: 'First to make Power Amulet',
     playerName: 'Chevy K10',
-    date: 'Unknown',
+    date: '3/30/2024',
   },
   {
     achievement: 'First to smith full Bronze',
@@ -57,12 +57,12 @@ export const communityAchievements = [
   {
     achievement: 'First to smith full Steel',
     playerName: 'LionHeart',
-    date: 'Unknown',
+    date: '2/29/2024',
   },
   {
     achievement: 'First to smith full Mithril',
     playerName: 'LionHeart',
-    date: 'Unknown',
+    date: '3/6/2024',
   },
   {
     achievement: 'First to smith full Adamantite',

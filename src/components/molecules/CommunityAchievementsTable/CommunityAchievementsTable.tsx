@@ -1,9 +1,10 @@
-import { TableHead, TableBody, TableCell } from '@mui/material'
-import Link from 'next/link'
+import { TableHead, TableBody } from '@mui/material'
 import { communityAchievements } from './CommunityAchievements.data'
 import {
   AchievementsTable,
+  AchievementsTableCell,
   AchievementsTableHeaderCell,
+  AchievementsTableLink,
   AchievementsTableRow,
 } from './CommunityAchievementsTable.styled'
 
@@ -19,15 +20,17 @@ const CommunityAchievementsTable = () => (
     <TableBody>
       {communityAchievements.map(achievement => (
         <AchievementsTableRow key={achievement.achievement}>
-          <TableCell scope='row'>{achievement.achievement}</TableCell>
-          <TableCell>
+          <AchievementsTableCell scope='row'>{achievement.achievement}</AchievementsTableCell>
+          <AchievementsTableCell>
             {achievement.playerName !== 'TBD' ? (
-              <Link href={`/hiscores/player/${achievement.playerName}`}>{achievement.playerName}</Link>
+              <AchievementsTableLink href={`/hiscores/player/${achievement.playerName}`} target='_blank'>
+                {achievement.playerName}
+              </AchievementsTableLink>
             ) : (
               achievement.playerName
             )}
-          </TableCell>
-          <TableCell>{achievement.date}</TableCell>
+          </AchievementsTableCell>
+          <AchievementsTableCell>{achievement.date}</AchievementsTableCell>
         </AchievementsTableRow>
       ))}
     </TableBody>
