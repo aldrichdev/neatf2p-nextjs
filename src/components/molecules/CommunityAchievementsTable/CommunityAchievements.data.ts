@@ -85,7 +85,7 @@ export const communityAchievements = [
     date: '6/25/2024',
   },
   {
-    achievement: 'First to 1390 Skill Total',
+    achievement: 'First to 1390 (Max) Skill Total',
     playerName: 'TBD',
     date: 'TBD',
   },

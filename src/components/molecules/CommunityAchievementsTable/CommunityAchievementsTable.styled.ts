@@ -42,5 +42,9 @@ export const AchievementsTableHeaderCell = styled(AchievementsTableCell)(
 export const AchievementsTableLink = styled(Link)(
   () => css`
     color: #eeb425;
+
+    &:hover {
+      color: #a78123;
+    }
   `,
 )

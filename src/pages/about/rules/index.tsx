@@ -1,15 +1,13 @@
 import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
-import Head from 'next/head'
 import { Callout } from '@atoms/Callout'
 import { RuleListItem } from '@styledPages/Rules.styled'
 import { BodyText } from '@atoms/BodyText'
+import { renderHead } from '@helpers/renderUtils'
 
 const RulesPage = () => (
   <>
-    <Head>
-      <title>Rules | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P</title>
-    </Head>
+    {renderHead('Rules')}
     <ContentBlock>
       <PageHeading>Rules</PageHeading>
       <BodyText variant='body' fontFamily='Source Sans Pro' marginBottom='20px'>
