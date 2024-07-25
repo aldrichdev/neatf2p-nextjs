@@ -11,6 +11,9 @@ import { Form } from '@atoms/Form'
 import { redirectTo } from '@helpers/window'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { renderHead } from '@helpers/renderUtils'
+import { sendApiRequest } from '@helpers/api/apiUtils'
+import { UserExists } from '@helpers/users/users'
+import { AxiosError } from 'axios'
 
 const ChangeEmailPage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -35,14 +38,29 @@ const ChangeEmailPage = () => {
       return
     }
 
-    // Send email verification
-    emailjs
-      .send('service_6xpikef', 'template_6xawv5v', {
-        recipient: newEmail,
-        websiteAccountId: user.id,
+    // Check if new email is already taken
+    sendApiRequest('GET', `/api/getUser?email=${newEmail}`)
+      .then(async response => {
+        const result = response?.data
+
+        if (UserExists(result)) {
+          setFormValidationError('The email you entered is taken. Please choose another one.')
+          setButtonDisabled(false)
+          return
+        } else {
+          // Send email verification
+          emailjs
+            .send('service_6xpikef', 'template_6xawv5v', {
+              recipient: newEmail,
+              websiteAccountId: user.id,
+            })
+            .then(() => {
+              redirectTo(`/account/change-email/success?email=${newEmail}`)
+            })
+        }
       })
-      .then(() => {
-        redirectTo(`/account/change-email/success?email=${newEmail}`)
+      .catch((error: AxiosError<string>) => {
+        console.log('Could not get user in change-email checks. Error:', error)
       })
   }
 
