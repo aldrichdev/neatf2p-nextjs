@@ -82,7 +82,6 @@ const CreateAccountPage = () => {
     })
       .then(response => {
         if (response?.status !== 200) {
-          // Display error to user (usually due to a taken email or username).
           setSubmitDisabled(false)
           setValidationError(response?.data)
         } else if (typeof response?.data === 'string') {
@@ -129,7 +128,14 @@ const CreateAccountPage = () => {
       })
       .catch((error: { response: { data: string } }) => {
         setSubmitDisabled(false)
-        setValidationError(error.response.data)
+
+        // An exception can happen if the email address or username are taken.
+        // We need to check if there are no rows affected, because this means the query didn't insert anything.
+        if (error.response.data.toLowerCase().includes('no rows affected')) {
+          setValidationError('The email address or username you entered is already taken. Please choose another one.')
+        } else {
+          setValidationError(error.response.data)
+        }
       })
   }
 
