@@ -137,6 +137,9 @@ const ChangeEmailByIdPage = () => {
                 console.log('An error occurred on logout: ', error)
               })
           })
+          .catch((error: string) => {
+            console.log('An error occurred sending the confirm email to the old address: ', error)
+          })
       })
       .catch((error: AxiosError<string>) => {
         handleForbiddenRedirect(error)
