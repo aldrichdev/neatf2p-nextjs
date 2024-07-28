@@ -1,6 +1,13 @@
 import { useState } from 'react'
 import { MainNavigationDropdownItemProps } from './MainNavigationDropdownItem.types'
-import { NavButton, NavDropdownMenu, NavItem, NavSubItem, NavSubLink } from './MainNavigationDropdownItem.styled'
+import {
+  NavButton,
+  NavDropdownMenu,
+  NavDropdownMenuSubItemList,
+  NavItem,
+  NavSubItem,
+  NavSubLink,
+} from './MainNavigationDropdownItem.styled'
 
 const MainNavigationDropdownItem = (props: MainNavigationDropdownItemProps) => {
   const { title, subItems, isItemActive } = props
@@ -22,13 +29,13 @@ const MainNavigationDropdownItem = (props: MainNavigationDropdownItemProps) => {
       </NavButton>
       {isDropdownVisible && (
         <NavDropdownMenu>
-          <ul>
+          <NavDropdownMenuSubItemList>
             {subItems.map(subItem => (
               <NavSubItem key={subItem.path}>
                 <NavSubLink href={subItem.path}>{subItem.text}</NavSubLink>
               </NavSubItem>
             ))}
-          </ul>
+          </NavDropdownMenuSubItemList>
         </NavDropdownMenu>
       )}
     </NavItem>

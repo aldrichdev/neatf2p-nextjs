@@ -36,6 +36,14 @@ export const NavDropdownMenu = styled('div')(
   `,
 )
 
+export const NavDropdownMenuSubItemList = styled('ul')(
+  () => css`
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  `,
+)
+
 export const NavSubItem = styled('li')(
   () => css`
     list-style-type: none;
