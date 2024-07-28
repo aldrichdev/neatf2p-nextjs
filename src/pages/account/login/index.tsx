@@ -7,7 +7,6 @@ import { BodyText } from '@atoms/BodyText'
 import { Field } from '@atoms/Field'
 import { InlineLink } from '@atoms/InlineLink'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
-import bcrypt from 'bcryptjs'
 import { User } from '@globalTypes/User'
 import useAuthentication from '@hooks/useAuthentication'
 import { redirectTo } from '@helpers/window'
@@ -20,6 +19,7 @@ import { PageHeading } from '@atoms/PageHeading'
 import { sendApiRequest } from '@helpers/api/apiUtils'
 import axios from 'axios'
 import { renderHead } from '@helpers/renderUtils'
+import usePasswordHashing from '@hooks/usePasswordHashing'
 
 const ForgotPasswordBlock = styled(BodyText)(
   () => css`
@@ -44,6 +44,7 @@ const AccountLoginPage = () => {
   const [buttonDisabled, setButtonDisabled] = useState(false)
   const user = useAuthentication(setLoading)
   const userIsLoggedIn = UserIsLoggedIn(user)
+  const { passwordValid } = usePasswordHashing()
 
   if (loading) {
     return (
@@ -82,19 +83,15 @@ const AccountLoginPage = () => {
         }
 
         // Next would be to make sure the password is right
-        const hashedPassword = result?.password
-        const passwordSalt = result?.passwordSalt
-        let currentPasswordHashed = ''
-
-        try {
-          currentPasswordHashed = bcrypt.hashSync(password, passwordSalt)
-        } catch (e) {
+        const handleHashingException = (error: Error) => {
           setButtonDisabled(false)
-          setValidationError(`An error occurred. ${e}. Please notify the admin.`)
+          setValidationError(`An error occurred. ${error.message}. Please notify the admin.`)
           return
         }
 
-        if (hashedPassword !== currentPasswordHashed) {
+        const passwordIsCorrect = passwordValid(result, password, handleHashingException)
+
+        if (!passwordIsCorrect) {
           setButtonDisabled(false)
           setValidationError('Password is incorrect.')
           return
