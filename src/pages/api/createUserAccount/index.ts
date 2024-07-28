@@ -42,6 +42,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
       return
     }
 
+    if (insertUserResponse?.affectedRows < 1) {
+      throw new Error(`No rows affected. Response: ${insertUserResponse}`)
+    }
+
     // Return a JSON result indicating success
     res.statusCode = 200
     res.setHeader('Content-Type', 'application/json')
