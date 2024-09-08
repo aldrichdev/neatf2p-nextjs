@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { Modal } from '@molecules/Modal'
 import Link from 'next/link'
 import { renderHead } from '@helpers/renderUtils'
+import { getProtocol } from '@helpers/envUtils'
 
 const WebclientPage = () => {
   const [hideAds, setHideAds] = useState(false)
@@ -15,7 +16,10 @@ const WebclientPage = () => {
   const [showHelpModal, setShowHelpModal] = useState(false)
   const gameServerHost = process.env.NEXT_PUBLIC_GAME_SERVER_HOST
   const gameServerRsaPublicKey = process.env.NEXT_PUBLIC_GAME_SERVER_RSA_PUBLIC_KEY
-  const webclientUrl = `https://${gameServerHost}/index.html#free,${gameServerHost},43494,65537,${gameServerRsaPublicKey},true`
+  const websiteDomain = process.env.NEXT_PUBLIC_WEBSITE_HOST
+  const protocol = getProtocol()
+  const webclientSourceUrl = `${protocol}://${websiteDomain}/client/index.html`
+  const webclientUrl = `${webclientSourceUrl}#free,${gameServerHost},43494,65537,${gameServerRsaPublicKey},true`
 
   const handleHideAdsCheck = () => {
     setHideAds(!hideAds)
