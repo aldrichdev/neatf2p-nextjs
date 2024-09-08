@@ -1,4 +1,3 @@
-import { getProtocol } from '@helpers/envUtils'
 import { redirectTo } from '@helpers/window'
 import axios, { AxiosError } from 'axios'
 import { NextApiResponse } from 'next'
@@ -35,11 +34,10 @@ export const sendApiRequest = (
 /** Checks if the `sessionCookie` value provided matches a `session` column value in the database
  * for the `userId` provided. If not, the API call is blocked (`true` is returned). */
 export const shouldBlockApiCall = async (userId: string, sessionCookie: string | undefined) => {
-  const protocol = getProtocol()
   let returnValue = false
 
   await axios
-    .get(`${protocol}://${process.env.NEXT_PUBLIC_WEBSITE_HOST}/api/checkWebsiteUserSession?userId=${userId}`, {
+    .get(`${process.env.APP_URL}/api/checkWebsiteUserSession?userId=${userId}`, {
       headers: {
         'neat-f2p-session-cookie': sessionCookie,
       },
