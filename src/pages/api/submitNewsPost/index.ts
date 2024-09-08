@@ -17,23 +17,26 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
   }
 
   try {
-    const insertImageQuery = `INSERT INTO images (image, alt) SELECT ?, ? FROM images WHERE (SELECT COUNT(*) FROM users WHERE id = ? AND isAdmin = 1) > 0 LIMIT 1`
-    const insertImageResponse: OkPacket | ErrorResult = await queryDatabase('website', insertImageQuery, [
-      image,
-      alt,
-      userId,
-    ])
+    let insertImageResponse: OkPacket | ErrorResult | null = null
 
-    if (!isOkPacket(insertImageResponse)) {
-      throw new Error(insertImageResponse?.error?.toString())
+    // Only insert an image record if there is actually an image to insert
+    if (image) {
+      const insertImageQuery = `INSERT INTO images (image, alt) SELECT ?, ? FROM images WHERE (SELECT COUNT(*) FROM users WHERE id = ? AND isAdmin = 1) > 0 LIMIT 1`
+      insertImageResponse = await queryDatabase('website', insertImageQuery, [image, alt, userId])
     }
 
-    if (insertImageResponse?.affectedRows < 1) {
-      // Probably the user is not an admin...
-      throw new Error('Unauthorized')
+    if (insertImageResponse) {
+      if (!isOkPacket(insertImageResponse)) {
+        throw new Error(insertImageResponse?.error?.toString())
+      }
+
+      if (insertImageResponse?.affectedRows < 1) {
+        // Probably the user is not an admin...
+        throw new Error('Unauthorized')
+      }
     }
 
-    const insertedImageId = isOkPacket(insertImageResponse) && insertImageResponse?.insertId
+    const insertedImageId = (isOkPacket(insertImageResponse) && insertImageResponse?.insertId) || null
 
     // Next, build the insertNewsPost command and execute, then return results.
     const insertNewsPostQuery = `INSERT INTO newsPosts (image, title, datePosted, body) SELECT ?, ?, ?, ? FROM newsPosts WHERE (SELECT COUNT(*) FROM users WHERE id = ? AND isAdmin = 1) > 0 LIMIT 1`
