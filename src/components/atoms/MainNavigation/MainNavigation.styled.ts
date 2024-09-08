@@ -14,6 +14,7 @@ export const NavUnorderedList = styled('ul')(
   ({ theme }) => css`
     list-style-type: none;
     padding: 0;
+    margin: 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
