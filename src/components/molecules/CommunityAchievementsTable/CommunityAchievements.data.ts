@@ -66,8 +66,8 @@ export const communityAchievements = [
   },
   {
     achievement: 'First to smith full Adamantite',
-    playerName: 'TBD',
-    date: 'TBD',
+    playerName: 'V A H O V A',
+    date: '8/28/2024',
   },
   {
     achievement: 'First to smith full Rune',
