@@ -3,9 +3,12 @@ import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 import { getBaseNavItemStyles } from '@theme/globalStyles'
 
+// Nav buttons (which have a sub menu and are transformed into links) strangely appear
+// 1px higher up than the nav links, so we need to translate the Y axis down by 1 pixel.
 export const NavItem = styled('div')(
   () => css`
     position: relative;
+    transform: translateY(1px);
   `,
 )
 
@@ -21,10 +24,7 @@ export const NavButton = styled(Button, {
 
     :hover {
       color: white;
-    }
-
-    ${theme.breakpoints.up('tablet')} {
-      height: auto;
+      border-bottom: 2px solid green;
     }
   `,
 )

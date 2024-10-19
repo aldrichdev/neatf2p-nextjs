@@ -24,11 +24,8 @@ const MainNavigation = () => {
     },
     {
       text: 'Hiscores',
+      path: '/hiscores',
       subItems: [
-        {
-          path: '/hiscores',
-          text: 'Player',
-        },
         {
           path: '/npc-hiscores',
           text: 'NPC Kills',
@@ -72,16 +69,17 @@ const MainNavigation = () => {
       <NavUnorderedList>
         {navigationItems.map((item: NavigationItem) => (
           <li key={item.path || item.subItems?.[0]?.path}>
-            {item.path ? (
-              <NavLink href={item.path} isActive={isLinkActive(item.path)}>
-                {item.text}
-              </NavLink>
-            ) : (
+            {item.subItems ? (
               <MainNavigationDropdownItem
                 title={item.text}
                 subItems={item.subItems || []}
                 isItemActive={isLinkActive}
+                path={item.path}
               />
+            ) : (
+              <NavLink href={item.path || ''} isActive={isLinkActive(item.path || '')}>
+                {item.text}
+              </NavLink>
             )}
           </li>
         ))}

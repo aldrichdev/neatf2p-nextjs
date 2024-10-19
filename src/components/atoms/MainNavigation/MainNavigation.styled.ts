@@ -40,14 +40,17 @@ export const NavUnorderedList = styled('ul')(
 )
 
 export const NavLink = styled(Link, {
-  shouldForwardProp: prop => prop !== 'isActive',
-})<{ isActive?: boolean }>(
-  ({ isActive }) => css`
+  shouldForwardProp: prop => !['isActive', 'disableBorder'].includes(prop.toString()),
+})<{ isActive?: boolean; disableBorder?: boolean }>(
+  ({ isActive, disableBorder }) => css`
     ${getBaseNavItemStyles(isActive)}
     text-decoration: none;
 
-    :hover {
-      border-bottom: 2px solid green;
-    }
+    ${!disableBorder &&
+    `
+      :hover {
+        border-bottom: 2px solid green;
+      }
+    `}
   `,
 )

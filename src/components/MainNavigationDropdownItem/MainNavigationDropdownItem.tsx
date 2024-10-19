@@ -10,9 +10,9 @@ import {
 } from './MainNavigationDropdownItem.styled'
 
 const MainNavigationDropdownItem = (props: MainNavigationDropdownItemProps) => {
-  const { title, subItems, isItemActive } = props
+  const { title, subItems, isItemActive, path } = props
   const [isDropdownVisible, setIsDropdownVisible] = useState(false)
-  const isActive = subItems.some(subItem => isItemActive(subItem.path))
+  const isActive = path ? isItemActive(path) : subItems.some(subItem => isItemActive(subItem.path))
 
   const handleMouseEnter = () => {
     setIsDropdownVisible(true)
@@ -24,7 +24,7 @@ const MainNavigationDropdownItem = (props: MainNavigationDropdownItemProps) => {
 
   return (
     <NavItem onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <NavButton variant='text' isActive={isActive}>
+      <NavButton variant='text' isActive={isActive} href={path || ''}>
         {title}
       </NavButton>
       {isDropdownVisible && (
