@@ -15,7 +15,7 @@ export const NavItem = styled('div')(
 export const NavButton = styled(Button, {
   shouldForwardProp: prop => prop !== 'isActive',
 })<{ isActive?: boolean }>(
-  ({ theme, isActive }) => css`
+  ({ isActive }) => css`
     ${getBaseNavItemStyles(isActive)}
     font-family: Source Sans Pro;
     font-size: 20px;
