@@ -1,9 +1,16 @@
 import { ContentBlock } from '@atoms/ContentBlock'
 import { BodyText } from '@atoms/BodyText'
 import { PageHeading } from '@atoms/PageHeading'
-import { ThreeColumnLayout, ClientButton, ClientRemarks, ClientButtonImage } from '@styledPages/HowToPlay.styled'
+import {
+  ThreeColumnLayout,
+  ClientButton,
+  ClientRemarks,
+  ClientButtonImage,
+  CalloutLink,
+} from '@styledPages/HowToPlay.styled'
 import Link from 'next/link'
 import { renderHead } from '@helpers/renderUtils'
+import { Callout } from '@atoms/Callout'
 
 const HowToPlay = () => {
   return (
@@ -11,6 +18,18 @@ const HowToPlay = () => {
       {renderHead('How to Play')}
       <ContentBlock isWide>
         <PageHeading>How To Play</PageHeading>
+        <Callout variant='warning'>
+          Please{' '}
+          <CalloutLink href='/account/create' target='_blank'>
+            register
+          </CalloutLink>{' '}
+          on this site and create a{' '}
+          <CalloutLink href='/account/game-accounts' target='_blank'>
+            game account
+          </CalloutLink>{' '}
+          before attempting to play. All game accounts must be created via the website - if you attempt to create one in
+          the game client, it will <strong>not</strong> work!
+        </Callout>
         <BodyText variant='body' bodyTextAlign='center'>
           To play Neat F2P, you can use WinRune, RSC+ or the Web client. <strong>You need Java!</strong> If you do not
           have Java installed or are not sure,{' '}
@@ -18,12 +37,9 @@ const HowToPlay = () => {
             install it
           </Link>{' '}
           before continuing. WinRune is a 2003-authentic Windows client for playing the game, and shows original
-          adverts. RSC+ is a custom client that provides extra features on top of RSC. The web client is a page on this
-          site that lets you play Neat F2P through your browser.
-        </BodyText>
-        <BodyText variant='body' bodyTextAlign='center'>
-          Don&apos;t have an account yet? Head over to the <Link href='/account/game-accounts'>game accounts</Link> page
-          to create one.
+          adverts. RSC+ is a custom client that provides extra features (all of which are configurable) on top of RSC.
+          The web client is a page on this site that lets you play Neat F2P through your browser. Neat F2P does not have
+          a mobile client.
         </BodyText>
         <ContentBlock topMargin={40} isWide>
           <ThreeColumnLayout>
@@ -40,8 +56,8 @@ const HowToPlay = () => {
               Fastest way to get in game, older mechanics, shorter AFK timer, requires Windows, nostalgic interface
             </ClientRemarks>
             <ClientRemarks>
-              Newer mechanics, tons of quality of life settings and overlays, requires a bit of setup before using,
-              cross-platform
+              <strong>(Recommended)</strong> Newer mechanics, tons of quality of life settings and overlays, requires a
+              bit of setup before using, cross-platform
             </ClientRemarks>
             <ClientRemarks>
               Similar to WinRune but in your browser, requires a privacy warning to be accepted, nostalgic interface

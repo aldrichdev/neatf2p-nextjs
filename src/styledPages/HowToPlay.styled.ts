@@ -2,6 +2,12 @@ import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 import Link from 'next/link'
 
+export const CalloutLink = styled(Link)(
+  () => css`
+    color: var(--faded-blue-bg-color);
+  `,
+)
+
 export const ThreeColumnLayout = styled('div')(
   ({ theme }) => css`
     font-family: Saros;
