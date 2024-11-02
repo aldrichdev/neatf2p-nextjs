@@ -1,33 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { Ratelimit } from '@upstash/ratelimit'
-import { kv } from '@vercel/kv'
 import { GetRandomToken } from '@helpers/string/stringUtils'
 import { queryDatabase, isOkPacket } from '@helpers/db'
 import { OkPacket } from 'mysql'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { mailOptions, transporter } from 'src/config/nodemailer'
-import requestIp from 'request-ip'
-
-const rateLimit = new Ratelimit({
-  redis: kv,
-  limiter: Ratelimit.slidingWindow(5, '10s'),
-})
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { userId, recipientEmail } = req.body
-  const ip = requestIp.getClientIp(req) || '127.0.0.1'
-  const { limit, reset, remaining } = await rateLimit.limit(ip)
-
-  if (remaining === 0) {
-    res.statusCode = 429
-    res.setHeader('Content-Type', 'application/json')
-    res.setHeader('X-RateLimit-Limit', limit.toString())
-    res.setHeader('X-RateLimit-Remaining', remaining.toString())
-    res.setHeader('X-RateLimit-Reset', reset.toString())
-    res.end(JSON.stringify('Rate limit exceeded'))
-    return
-  }
-
   const now = new Date().toISOString()
   const resetToken = GetRandomToken()
   const query = `UPDATE users SET resetToken = ?, dateModified = ? WHERE id = ? AND emailAddress = ?`
