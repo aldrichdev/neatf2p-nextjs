@@ -23,8 +23,6 @@
     "@types/react-dom": "18.0.10",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
-    "@upstash/ratelimit": "^1.0.1",
-    "@vercel/kv": "^1.0.1",
     "axios": "^1.2.5",
     "bcryptjs": "^2.4.3",
     "eslint": "^8.1.0",
