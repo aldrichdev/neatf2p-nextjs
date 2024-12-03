@@ -28,6 +28,6 @@
       "@models/*": ["src/models/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/atoms/EventCalendar/EventCalendar.types.ts"],
   "exclude": ["node_modules"]
 }

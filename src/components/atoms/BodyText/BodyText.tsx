@@ -16,7 +16,7 @@ export const BodyText = styled(Typography, {
 })<BodyTextProps>(
   ({ theme, topMargin, bodyTextAlign }) => css`
     display: block;
-    margin-top: ${topMargin || 20}px;
+    margin-top: ${topMargin === 0 ? 0 : topMargin || 20}px;
     text-align: center;
 
     ${theme.breakpoints.up('tablet')} {

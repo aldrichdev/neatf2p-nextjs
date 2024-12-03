@@ -1,5 +1,5 @@
 import { ContentBlock } from '@atoms/ContentBlock'
-import { DiscordButtonContainer, DiscordIcon, HomepageBanner } from '@styledPages/Homepage.styled'
+import { DiscordIcon, HomepageBanner } from '@styledPages/Homepage.styled'
 import { OnlinePlayers } from '@organisms/OnlinePlayers'
 import { NewsAndUpdates } from '@organisms/NewsAndUpdates'
 import Link from 'next/link'
@@ -32,11 +32,11 @@ const Homepage = () => (
       <BodyText variant='body' bodyTextAlign='center'>
         Click the button below to join our Discord server.
       </BodyText>
-      <DiscordButtonContainer>
-        <DiscordLink>
-          <DiscordIcon src={DiscordLogo.src} alt='Join our Discord Server' />
-        </DiscordLink>
-      </DiscordButtonContainer>
+    </ContentBlock>
+    <ContentBlock isWide topMargin={40}>
+      <DiscordLink>
+        <DiscordIcon src={DiscordLogo.src} alt='Join our Discord Server' />
+      </DiscordLink>
     </ContentBlock>
   </div>
 )

@@ -16,12 +16,6 @@ export const HomepageBanner = styled('img')(
   `,
 )
 
-export const DiscordButtonContainer = styled('div')(
-  () => css`
-    margin-top: 40px;
-  `,
-)
-
 export const DiscordIcon = styled('img')`
   width: 150px;
 `

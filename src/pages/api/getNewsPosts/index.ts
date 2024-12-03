@@ -23,7 +23,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
       ORDER BY np.datePosted DESC
       ${hasLimit ? `LIMIT ${Number(limit)}` : ''}`
 
-    const response: Array<any> | ErrorResult = await queryDatabase('website', query)
+    const response: Array<NewsPost> | ErrorResult = await queryDatabase('website', query)
 
     if (response instanceof Array) {
       response?.map((rowDataPacket: NewsPost) => {
