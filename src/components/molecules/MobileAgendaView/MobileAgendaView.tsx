@@ -12,6 +12,7 @@ import { BodyText } from '@atoms/BodyText'
 import Link from 'next/link'
 import { PageHeading } from '@atoms/PageHeading'
 
+/** A mobile view showing upcoming events (happening in the next 2 months) in boxes. */
 const MobileAgendaView = (props: MobileAgendaViewProps) => {
   const { events } = props
   const now = new Date()

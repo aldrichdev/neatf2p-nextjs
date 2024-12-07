@@ -1,8 +1,3 @@
-export type EventCalendarProps = {
-  prop1: string
-  prop2: string
-}
-
 export type Event = {
   id: number
   title: string

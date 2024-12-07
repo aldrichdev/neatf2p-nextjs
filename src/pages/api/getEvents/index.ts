@@ -5,18 +5,12 @@ import { DatabaseEvent, Event } from '@organisms/EventCalendar/EventCalendar.typ
 import { getEmojiByName } from '@helpers/string/stringUtils'
 import { getDateFromMillis } from '@helpers/date/date'
 
-/** Handler for the getEvents API endpoint.
- * Query Options:
- * `?id=n` - returns a single event (in an array) by its unique ID
- */
+/** Handler for the getEvents API endpoint.*/
 const handler = async (req: NextApiRequest, res: NextApiResponse<DatabaseEvent>) => {
   try {
     const list: Event[] = []
-    const id = req?.query?.id
-    const hasId = id && typeof id === 'string' && !isNaN(Number(id))
     const query = `SELECT e.Id, e.Title, e.StartDate, e.EndDate, e.RelativeUrl, e.Location, e.EmojiName
-      FROM events e
-      ${hasId ? `WHERE e.Id = ${Number(id)}` : ''}`
+      FROM events e`
 
     const response: Array<DatabaseEvent> | ErrorResult = await queryDatabase('website', query)
 

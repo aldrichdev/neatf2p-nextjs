@@ -3,7 +3,7 @@ import { PageTabsProps } from './PageTabs.types'
 
 /** A component displaying tab buttons that can be clicked to change the active tab.
  * Used within page content (below main navigation) as a sub-navigation system.
- * Example:
+ * Example usage:
  *       const [activeTab, setActiveTab] = useState<string>('News')
  *       ...
  *       <ContentBlock>
