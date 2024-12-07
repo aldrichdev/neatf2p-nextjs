@@ -20,8 +20,8 @@ export type Event = {
 export type DatabaseEvent = {
   Id: number
   Title: string
-  StartDate: Date
-  EndDate: Date
+  StartDate: number
+  EndDate: number
   RelativeUrl: string
   Location: string
   EmojiName?: string

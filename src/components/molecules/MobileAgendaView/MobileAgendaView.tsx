@@ -19,30 +19,14 @@ const MobileAgendaView = (props: MobileAgendaViewProps) => {
   twoMonthsFromNow.setMonth(now.getMonth() + 2)
 
   const sortedAndFilteredEvents = events
-    .filter(event => {
-      console.log(
-        'start',
-        event.start,
-        'end',
-        event.end,
-        'twoMonthsFromNow',
-        twoMonthsFromNow,
-        'event.start < twoMonthsFromNow',
-        event.start < twoMonthsFromNow,
-        'event.end > now',
-        event.end > now,
-      )
-      return new Date(event.start) < twoMonthsFromNow && new Date(event.end) > now
-    })
+    .filter(event => new Date(event.start) < twoMonthsFromNow && new Date(event.end) > now)
     .sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())
-
-  console.log('sortedAndFilteredEvents', sortedAndFilteredEvents)
 
   return (
     <MobileAgendaViewContainer>
       <PageHeading>Upcoming Events</PageHeading>
       <BodyText variant='body' topMargin={0}>
-        All times shown are in your local time zone.
+        All event times are shown in your local time zone.
       </BodyText>
       <MobileAgendaViewBody>
         {sortedAndFilteredEvents?.length > 0 ? (

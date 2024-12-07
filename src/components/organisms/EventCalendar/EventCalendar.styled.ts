@@ -18,6 +18,7 @@ export const DesktopEventView = styled('div')(
     ${theme.breakpoints.up('tablet')} {
       display: block;
       width: 100%;
+      margin-bottom: 60px;
     }
   `,
 )

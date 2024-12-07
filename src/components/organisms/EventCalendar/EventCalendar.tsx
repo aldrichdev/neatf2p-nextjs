@@ -2,7 +2,7 @@ import { EventCalendarContainer, DesktopEventCalendar, DesktopEventView } from '
 import { Event as RbcEvent, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-import { MobileAgendaView } from '@atoms/MobileAgendaView'
+import { MobileAgendaView } from '@molecules/MobileAgendaView'
 import { BodyText } from '@atoms/BodyText'
 import { PageHeading } from '@atoms/PageHeading'
 import { sendApiRequest } from '@helpers/api/apiUtils'
@@ -45,8 +45,6 @@ const EventCalendar = () => {
   if (isLoading) {
     return <Spinner />
   }
-
-  console.log('events', events)
 
   return (
     <EventCalendarContainer>

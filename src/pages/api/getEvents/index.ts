@@ -1,15 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { queryDatabase } from '@helpers/db'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
-import { DatabaseEvent, Event } from '@atoms/EventCalendar/EventCalendar.types'
+import { DatabaseEvent, Event } from '@organisms/EventCalendar/EventCalendar.types'
 import { getEmojiByName } from '@helpers/string/stringUtils'
+import { getDateFromMillis } from '@helpers/date/date'
 
 /** Handler for the getEvents API endpoint.
  * Query Options:
  * `?id=n` - returns a single event (in an array) by its unique ID
  */
 const handler = async (req: NextApiRequest, res: NextApiResponse<DatabaseEvent>) => {
-  // TODO: How do we prevent people from running this via Postman or cURL or whatever and creating events they choose?
   try {
     const list: Event[] = []
     const id = req?.query?.id
@@ -29,8 +29,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<DatabaseEvent>)
           title: rowDataPacket.EmojiName
             ? `${getEmojiByName(rowDataPacket.EmojiName)} ${rowDataPacket.Title}`
             : rowDataPacket.Title,
-          start: new Date(rowDataPacket.StartDate),
-          end: new Date(rowDataPacket.EndDate),
+          start: getDateFromMillis(rowDataPacket.StartDate),
+          end: getDateFromMillis(rowDataPacket.EndDate),
           resource: rowDataPacket.RelativeUrl,
           location: rowDataPacket.Location,
         }

@@ -19,11 +19,6 @@ const nextConfig = {
   },
   redirects() {
     return [
-      {
-        source: '/news/post/:id*',
-        destination: '/news-and-events/post/:id*',
-        permanent: true,
-      },
       process.env.MAINTENANCE_MODE === '1'
         ? { source: '/((?!maintenance).*)', destination: '/maintenance.html', permanent: false }
         : null,
