@@ -19,6 +19,10 @@ const MainNavigation = () => {
       text: 'News',
     },
     {
+      path: '/events',
+      text: 'Events',
+    },
+    {
       path: '/how-to-play',
       text: 'How to Play',
     },

@@ -15,3 +15,17 @@ export const pluralize = (number: number, text: string) => (number === 1 ? text 
 
 /** Rounds a number to 1 decimal point and converts it to a string. */
 export const convertNumberToOneDecimalPoint = (number: number) => (Math.round(number * 10) / 10).toFixed(1).toString()
+
+/** Converts an emoji name in the website database to an emoji.
+ * MySQL can't return all emoji correctly and converts some to ? symbols.
+ */
+export const getEmojiByName = (emojiName: string) => {
+  switch (emojiName) {
+    case 'Crown':
+      return '👑'
+    case 'Pumpkin':
+      return '🎃'
+    default:
+      return 'ℹ'
+  }
+}
