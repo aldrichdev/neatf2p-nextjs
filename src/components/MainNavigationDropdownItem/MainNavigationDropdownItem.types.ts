@@ -7,4 +7,6 @@ export type MainNavigationDropdownItemProps = {
   subItems: SubNavigationItem[]
   /** True if the user is currently on that page, a sub-page, or a related page. */
   isItemActive: (itemPath: string) => boolean
+  /** The nav item's path */
+  path: string | undefined
 }
