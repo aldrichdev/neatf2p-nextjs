@@ -1,7 +1,7 @@
 import { HiscoresMenuItemList } from '@styledPages/hiscores.styled'
 import { NpcHiscoreTypes } from '@globalTypes/Hiscores/HiscoreType'
 import { NpcHiscoresMenuItem } from '@atoms/NpcHiscoresMenuItem'
-import { getNpcNameById } from '@helpers/hiscores/hiscoresUtils'
+import { getNpcNameByIdForMenuKey } from '@helpers/hiscores/hiscoresUtils'
 import { NpcHiscoresMenuProps } from './NpcHiscoresMenu.types'
 
 const NpcHiscoresMenu = (props: NpcHiscoresMenuProps) => {
@@ -9,14 +9,17 @@ const NpcHiscoresMenu = (props: NpcHiscoresMenuProps) => {
 
   return (
     <HiscoresMenuItemList isNpcMenu>
-      {NpcHiscoreTypes.map(npcHiscoreType => (
-        <NpcHiscoresMenuItem
-          key={getNpcNameById(npcHiscoreType)}
-          menuItemNpcId={npcHiscoreType}
-          hiscoreType={activeNpcHiscoreType}
-          buttonOnClick={buttonOnClick}
-        />
-      ))}
+      {NpcHiscoreTypes.map(npcHiscoreType => {
+        console.log('aint it unique? ', getNpcNameByIdForMenuKey(npcHiscoreType), npcHiscoreType)
+        return (
+          <NpcHiscoresMenuItem
+            key={getNpcNameByIdForMenuKey(npcHiscoreType)}
+            menuItemNpcId={npcHiscoreType}
+            hiscoreType={activeNpcHiscoreType}
+            buttonOnClick={buttonOnClick}
+          />
+        )
+      })}
     </HiscoresMenuItemList>
   )
 }

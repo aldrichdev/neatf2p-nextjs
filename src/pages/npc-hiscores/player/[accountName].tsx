@@ -15,6 +15,9 @@ import useNpcHiscores from '@hooks/useNpcHiscores'
 import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
 import { HiscoreTableCell, HiscoreTableHeaderCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
 import { HiscoreTableRow, SkillLink } from '@atoms/PlayerHiscoreTable/PlayerHiscoreTable.styled'
+import { PageTabs } from '@atoms/PageTabs'
+import { redirectTo } from '@helpers/window'
+import { Tab } from '@atoms/PageTabs/PageTabs.types'
 
 const PlayerNpcHiscore = () => {
   const { query } = useRouter()
@@ -22,6 +25,10 @@ const PlayerNpcHiscore = () => {
   const allNpcHiscores = useNpcHiscores()
   const [playerNpcHiscoreRows, setPlayerNpcHiscoreRows] = useState<PlayerNpcHiscoreRow[] | undefined>()
   const accountName = query.accountName as string
+  const pageTabs = [
+    { id: 0, label: 'Skills' },
+    { id: 1, label: 'NPC Kills' },
+  ]
 
   const isMatchingUser = (hiscoreDataRow: NpcHiscoreDataRow) =>
     hiscoreDataRow.username.toLowerCase() === accountName.toLowerCase()
@@ -77,6 +84,12 @@ const PlayerNpcHiscore = () => {
     killCount: getKillCount(npcHiscoreType),
   })
 
+  const handleSetActiveTab = (tab: Tab) => {
+    if (tab.label === 'Skills') {
+      redirectTo(`/hiscores/player/${accountName}`)
+    }
+  }
+
   useEffect(() => {
     if (!allNpcHiscores) return
 
@@ -105,6 +118,7 @@ const PlayerNpcHiscore = () => {
       {renderHead('Player NPC Hiscore')}
       <ContentBlock>
         <PageHeading>{accountName || 'Unknown Player'}</PageHeading>
+        <PageTabs tabs={pageTabs} activeTab={pageTabs[1]} setActiveTab={tab => handleSetActiveTab(tab)} />
         {typeof accountName !== 'string' || !playerNpcHiscoreRows || !allNpcHiscores?.find(isMatchingUser) ? (
           <BodyText variant='body' bodyTextAlign='center'>
             No hiscore found for this player.

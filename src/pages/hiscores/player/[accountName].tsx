@@ -3,6 +3,8 @@ import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { HiscoreTableCell, HiscoreTableHeaderCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
 import { PageHeading } from '@atoms/PageHeading'
+import { PageTabs } from '@atoms/PageTabs'
+import { Tab } from '@atoms/PageTabs/PageTabs.types'
 import { PlayerHiscoreTable } from '@atoms/PlayerHiscoreTable'
 import {
   ExperienceCell,
@@ -19,6 +21,7 @@ import { sendApiRequest } from '@helpers/api/apiUtils'
 import { getPrettyDateStringFromMillis } from '@helpers/date/date'
 import { compareHiscores, convertExp, getTotalExp, isNotBaselineExp } from '@helpers/hiscores/hiscoresUtils'
 import { renderHead } from '@helpers/renderUtils'
+import { redirectTo } from '@helpers/window'
 import { Spinner } from '@molecules/Spinner'
 import { PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
 import { useRouter } from 'next/router'
@@ -31,6 +34,10 @@ const PlayerHiscore = () => {
   const [playerHiscores, setPlayerHiscores] = useState<PlayerHiscoreRow[] | undefined>()
   const [lastLogin, setLastLogin] = useState<string>()
   const accountName = query.accountName as string
+  const pageTabs = [
+    { id: 0, label: 'Skills' },
+    { id: 1, label: 'NPC Kills' },
+  ]
 
   const isMatchingUser = (hiscoreDataRow: PlayerHiscoreDataRow) =>
     hiscoreDataRow.username.toLowerCase() === accountName.toLowerCase()
@@ -84,6 +91,12 @@ const PlayerHiscore = () => {
   const getLoginDate = (response: { data: PlayerHiscoreDataRow[] }) =>
     response.data.find((row: PlayerHiscoreDataRow) => row.username.toLowerCase() === accountName.toLowerCase())
       ?.login_date
+
+  const handleSetActiveTab = (tab: Tab) => {
+    if (tab.label === 'NPC Kills') {
+      redirectTo(`/npc-hiscores/player/${accountName}`)
+    }
+  }
 
   useEffect(() => {
     setIsLoading(true)
@@ -142,6 +155,7 @@ const PlayerHiscore = () => {
       {renderHead('Player Hiscore')}
       <ContentBlock>
         <PageHeading>{accountName || 'Unknown Player'}</PageHeading>
+        <PageTabs tabs={pageTabs} activeTab={pageTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
         {typeof accountName !== 'string' || !playerHiscores || !hiscoresData?.find(isMatchingUser) ? (
           <BodyText variant='body' bodyTextAlign='center'>
             No hiscore found for this player.

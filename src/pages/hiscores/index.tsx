@@ -11,6 +11,9 @@ import { PlayerLookup } from '@molecules/PlayerLookup'
 import { PageHeading } from '@atoms/PageHeading'
 import { push } from '@helpers/router'
 import { renderHead } from '@helpers/renderUtils'
+import { PageTabs } from '@atoms/PageTabs'
+import { redirectTo } from '@helpers/window'
+import { Tab } from '@atoms/PageTabs/PageTabs.types'
 
 const Hiscores = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -20,6 +23,10 @@ const Hiscores = () => {
   const isHiscoreType = (x: string): x is HiscoreType => HiscoreTypes.includes(x as HiscoreType)
   const [hiscoreType, setHiscoreType] = useState<HiscoreType>('Overall')
   const hiscores = useHiscores(hiscoreType, setIsLoading)
+  const pageTabs = [
+    { id: 0, label: 'Player' },
+    { id: 1, label: 'NPC Kills' },
+  ]
 
   const handleMenuItemClick = (hiscoreType: HiscoreType) => {
     setHiscoreType(hiscoreType)
@@ -27,6 +34,12 @@ const Hiscores = () => {
     router.query.page = '1'
     router.query.skill = hiscoreType
     push(router, '/hiscores', router.query)
+  }
+
+  const handleSetActiveTab = (tab: Tab) => {
+    if (tab.label === 'NPC Kills') {
+      redirectTo('/npc-hiscores')
+    }
   }
 
   useEffect(() => {
@@ -41,6 +54,7 @@ const Hiscores = () => {
     <>
       {renderHead('Hiscores')}
       <ContentBlock isWide>
+        <PageTabs tabs={pageTabs} activeTab={pageTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
         <PageHeading>{`${hiscoreType} Hiscores`}</PageHeading>
         <HiscoresPageContainer>
           <HiscoresMenu hiscoreType={hiscoreType} buttonOnClick={handleMenuItemClick} />
