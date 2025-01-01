@@ -6,11 +6,12 @@ import { NpcHiscoresMenuProps } from './NpcHiscoresMenu.types'
 
 const NpcHiscoresMenu = (props: NpcHiscoresMenuProps) => {
   const { activeNpcHiscoreType, buttonOnClick } = props
+  // console.log('rendering')
 
   return (
     <HiscoresMenuItemList isNpcMenu>
       {NpcHiscoreTypes.map(npcHiscoreType => {
-        console.log('aint it unique? ', getNpcNameByIdForMenuKey(npcHiscoreType), npcHiscoreType)
+        // console.log('aint it unique? ', getNpcNameByIdForMenuKey(npcHiscoreType), npcHiscoreType)
         return (
           <NpcHiscoresMenuItem
             key={getNpcNameByIdForMenuKey(npcHiscoreType)}

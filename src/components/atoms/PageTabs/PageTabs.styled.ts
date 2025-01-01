@@ -28,6 +28,10 @@ export const PageTab = styled('button', {
       border-right: 1px solid black;
     }
 
+    &:only-child {
+      background-color: black;
+    }
+
     ${!active &&
     `
       &:hover {

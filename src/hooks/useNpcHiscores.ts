@@ -8,6 +8,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 const useNpcHiscores = (setIsLoading?: Dispatch<SetStateAction<boolean>>, npcHiscoreType?: NpcHiscoreType) => {
   const [rawHiscores, setRawHiscores] = useState<NpcHiscoreDataRow[] | undefined>(undefined)
   const [hiscores, setHiscores] = useState<NpcHiscoreDataRow[] | undefined>(undefined)
+  const npcHiscoreTypeHasValue = npcHiscoreType || npcHiscoreType === 0
 
   useEffect(() => {
     setIsLoading?.(true)
@@ -22,7 +23,7 @@ const useNpcHiscores = (setIsLoading?: Dispatch<SetStateAction<boolean>>, npcHis
   }, [])
 
   useEffect(() => {
-    if (npcHiscoreType) {
+    if (npcHiscoreTypeHasValue) {
       // Filter, group and sort raw hiscores.
       if (Array.isArray(npcHiscoreType)) {
         const filteredHiscores = rawHiscores?.filter(row => npcHiscoreType.includes(row.npcID))
@@ -38,7 +39,7 @@ const useNpcHiscores = (setIsLoading?: Dispatch<SetStateAction<boolean>>, npcHis
     setIsLoading?.(false)
   }, [npcHiscoreType, rawHiscores, setIsLoading])
 
-  if (!npcHiscoreType) return rawHiscores
+  if (!npcHiscoreTypeHasValue) return rawHiscores
 
   return hiscores
 }

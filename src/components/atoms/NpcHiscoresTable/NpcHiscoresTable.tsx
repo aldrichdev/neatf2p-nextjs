@@ -44,11 +44,7 @@ const NpcHiscoresTable = (props: NpcHiscoresTableProps) => {
   return (
     <RootContainer>
       <HiscoreTableContainer component={Paper}>
-        <HiscoreTable
-          aria-label={`${getNpcNameById(
-            /*Array.isArray(npcHiscoreType) ? npcHiscoreType[0] : */ npcHiscoreType,
-          )} Hiscores Table`}
-        >
+        <HiscoreTable aria-label={`${getNpcNameById(npcHiscoreType)} Hiscores Table`}>
           <TableHead>
             <HiscoresTableRow>
               <HiscoreTableHeaderCell>Rank</HiscoreTableHeaderCell>
