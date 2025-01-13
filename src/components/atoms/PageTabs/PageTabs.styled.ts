@@ -26,6 +26,7 @@ export const PageTab = styled('button', {
 
     &:not(:last-child) {
       border-right: 1px solid black;
+      box-sizing: content-box; // only when there are 4... hmm
     }
 
     &:only-child {
