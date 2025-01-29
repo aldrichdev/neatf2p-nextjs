@@ -2,7 +2,7 @@ import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
 export const TabsContainer = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     width: 100%;
     flex-wrap: nowrap;
@@ -13,9 +13,6 @@ export const TabsContainer = styled('div')(
 
     button {
       box-sizing: content-box;
-    }
-
-    ${theme.breakpoints.up('desktop')} {
     }
   `,
 )

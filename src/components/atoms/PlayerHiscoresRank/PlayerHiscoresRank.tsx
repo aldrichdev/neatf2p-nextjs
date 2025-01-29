@@ -11,7 +11,7 @@ const PlayerHiscoresRank = (props: PlayerHiscoresRankProps) => {
     case 1:
       return (
         <RankOneIconContainer>
-          <RankOneIcon src={`/img/skills/rankone.png`} alt='' />
+          <RankOneIcon src='/img/skills/rankone.png' alt='' />
         </RankOneIconContainer>
       )
     default:

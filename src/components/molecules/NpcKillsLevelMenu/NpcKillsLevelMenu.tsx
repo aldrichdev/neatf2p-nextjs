@@ -9,8 +9,7 @@ const NpcKillsLevelMenu = (props: NpcKillsLevelMenuProps) => {
   const { npcHiscoreType, npcSubTypes, menuItemOnClick } = props
 
   /** Some NPCs have the same name but up to 4 different combat levels.
-   * So, this method will generate the tabs needed for the inner navigation,
-   * below the heading.
+   * This method generates the tabs needed for the inner navigation, below the heading.
    */
   const getTabsForNpcType = (): Array<Tab> => {
     const firstId = Array.isArray(npcSubTypes[0]) ? npcSubTypes[0][0] : npcSubTypes[0]

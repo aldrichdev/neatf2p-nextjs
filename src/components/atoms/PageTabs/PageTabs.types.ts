@@ -1,8 +1,5 @@
-import { NpcKillsLevelMenuSubType } from '@molecules/NpcKillsLevelMenu/NpcKillsLevelMenu.types'
-
 export type Tab = {
-  /** Usually an NPC ID (for NPC hiscore sub-navigation), or a number like 0, 1, etc. */
-  id: NpcKillsLevelMenuSubType
+  id: number | number[]
   label: string
 }
 

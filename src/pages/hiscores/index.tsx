@@ -14,6 +14,7 @@ import { renderHead } from '@helpers/renderUtils'
 import { PageTabs } from '@atoms/PageTabs'
 import { redirectTo } from '@helpers/window'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
+import { HiscoresTabs } from '@models/HiscoresTabs'
 
 const Hiscores = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -23,10 +24,6 @@ const Hiscores = () => {
   const isHiscoreType = (x: string): x is HiscoreType => HiscoreTypes.includes(x as HiscoreType)
   const [hiscoreType, setHiscoreType] = useState<HiscoreType>('Overall')
   const hiscores = useHiscores(hiscoreType, setIsLoading)
-  const pageTabs = [
-    { id: 0, label: 'Skills' },
-    { id: 1, label: 'NPC Kills' },
-  ]
 
   const handleMenuItemClick = (hiscoreType: HiscoreType) => {
     setHiscoreType(hiscoreType)
@@ -54,7 +51,7 @@ const Hiscores = () => {
     <>
       {renderHead('Hiscores')}
       <ContentBlock isWide>
-        <PageTabs tabs={pageTabs} activeTab={pageTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
+        <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
         <PageHeading>{`${hiscoreType} Hiscores`}</PageHeading>
         <HiscoresPageContainer>
           <HiscoresMenu hiscoreType={hiscoreType} buttonOnClick={handleMenuItemClick} />

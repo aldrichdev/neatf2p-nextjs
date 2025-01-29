@@ -591,7 +591,7 @@ export const getNpcCombatLevelById = (id: number) => {
  *  to show a subnav for. Examples: Rats, Spiders, Zombies, Skeletons.
  *
  *  We DON'T want to add NPC IDs here if they are all the same level -
- *  for example, level 25 Ghost have 3 IDs but they are all the same
+ *  for example, level 25 Ghost has 3 IDs but they are all the same
  *  level, so we want to sum the kills, not show a tab menu. */
 export const getNpcIdsByInitialId = (id: number | string): Array<number | number[]> => {
   switch (id) {

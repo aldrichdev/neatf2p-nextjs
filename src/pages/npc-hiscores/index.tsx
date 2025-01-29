@@ -16,6 +16,7 @@ import { redirectTo } from '@helpers/window'
 import { NpcKillsLevelMenu } from '@molecules/NpcKillsLevelMenu'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
 import { NpcHiscoresPageContainer } from '@styledPages/NpcHiscores.styled'
+import { HiscoresTabs } from '@models/HiscoresTabs'
 
 const NpcHiscores = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -27,10 +28,6 @@ const NpcHiscores = () => {
   const [npcHiscoreType, setNpcHiscoreType] = useState<NpcHiscoreType>(29)
   const [npcSubTypes, setNpcSubTypes] = useState<(number | number[])[]>([])
   const hiscores = useNpcHiscores(setIsLoading, npcHiscoreType)
-  const pageTabs = [
-    { id: 0, label: 'Player' },
-    { id: 1, label: 'NPC Kills' },
-  ]
 
   const handleMenuItemClick = (npcHiscoreType: NpcHiscoreType) => {
     setNpcHiscoreType(npcHiscoreType)
@@ -41,7 +38,7 @@ const NpcHiscores = () => {
   }
 
   const handleSetActiveTab = (tab: Tab) => {
-    if (tab.label === 'Player') {
+    if (tab.label === 'Skills') {
       redirectTo('/hiscores')
     }
   }
@@ -78,7 +75,7 @@ const NpcHiscores = () => {
     <>
       {renderHead('NPC Hiscores')}
       <ContentBlock isWide>
-        <PageTabs tabs={pageTabs} activeTab={pageTabs[1]} setActiveTab={tab => handleSetActiveTab(tab)} />
+        <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[1]} setActiveTab={tab => handleSetActiveTab(tab)} />
         <PageHeading>{`${getNpcNameById(npcHiscoreType)} Kill Hiscores`}</PageHeading>
         <NpcHiscoresMenu activeNpcHiscoreType={npcHiscoreType} buttonOnClick={handleMenuItemClick} />
         <NpcKillsLevelMenu

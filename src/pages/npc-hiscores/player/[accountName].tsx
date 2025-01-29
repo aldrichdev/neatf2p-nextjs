@@ -19,6 +19,7 @@ import { PageTabs } from '@atoms/PageTabs'
 import { redirectTo } from '@helpers/window'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
 import { PlayerHiscoresRank } from '@atoms/PlayerHiscoresRank'
+import { HiscoresTabs } from '@models/HiscoresTabs'
 
 const PlayerNpcHiscore = () => {
   const { query } = useRouter()
@@ -26,15 +27,12 @@ const PlayerNpcHiscore = () => {
   const allNpcHiscores = useNpcHiscores()
   const [playerNpcHiscoreRows, setPlayerNpcHiscoreRows] = useState<PlayerNpcHiscoreRow[] | undefined>()
   const accountName = query.accountName as string
-  const pageTabs: Tab[] = [
-    { id: 0, label: 'Skills' },
-    { id: 1, label: 'NPC Kills' },
-  ]
 
   const isMatchingUser = (hiscoreDataRow: NpcHiscoreDataRow) =>
     hiscoreDataRow.username.toLowerCase() === accountName.toLowerCase()
 
   const getRank = (npcHiscoreType: NpcHiscoreType): number => {
+    // Note: Zero, if returned, will be shown in the table as a double dash (--).
     let hiscoresFilteredByType
 
     if (Array.isArray(npcHiscoreType)) {
@@ -119,7 +117,7 @@ const PlayerNpcHiscore = () => {
       {renderHead('Player NPC Hiscore')}
       <ContentBlock>
         <PageHeading>{accountName || 'Unknown Player'}</PageHeading>
-        <PageTabs tabs={pageTabs} activeTab={pageTabs[1]} setActiveTab={tab => handleSetActiveTab(tab)} />
+        <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[1]} setActiveTab={tab => handleSetActiveTab(tab)} />
         {typeof accountName !== 'string' || !playerNpcHiscoreRows || !allNpcHiscores?.find(isMatchingUser) ? (
           <BodyText variant='body' bodyTextAlign='center'>
             No hiscore found for this player.

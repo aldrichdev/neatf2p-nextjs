@@ -24,6 +24,7 @@ import { getPrettyDateStringFromMillis } from '@helpers/date/date'
 import { compareHiscores, convertExp, getTotalExp, isNotBaselineExp } from '@helpers/hiscores/hiscoresUtils'
 import { renderHead } from '@helpers/renderUtils'
 import { redirectTo } from '@helpers/window'
+import { HiscoresTabs } from '@models/HiscoresTabs'
 import { Spinner } from '@molecules/Spinner'
 import { PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
 import { useRouter } from 'next/router'
@@ -36,10 +37,6 @@ const PlayerHiscore = () => {
   const [playerHiscores, setPlayerHiscores] = useState<PlayerHiscoreRow[] | undefined>()
   const [lastLogin, setLastLogin] = useState<string>()
   const accountName = query.accountName as string
-  const pageTabs = [
-    { id: 0, label: 'Skills' },
-    { id: 1, label: 'NPC Kills' },
-  ]
 
   const isMatchingUser = (hiscoreDataRow: PlayerHiscoreDataRow) =>
     hiscoreDataRow.username.toLowerCase() === accountName.toLowerCase()
@@ -157,7 +154,7 @@ const PlayerHiscore = () => {
       {renderHead('Player Hiscore')}
       <ContentBlock>
         <PageHeading>{accountName || 'Unknown Player'}</PageHeading>
-        <PageTabs tabs={pageTabs} activeTab={pageTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
+        <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
         {typeof accountName !== 'string' || !playerHiscores || !hiscoresData?.find(isMatchingUser) ? (
           <BodyText variant='body' bodyTextAlign='center'>
             No hiscore found for this player.

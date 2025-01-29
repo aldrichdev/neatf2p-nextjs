@@ -5,10 +5,10 @@ import { PageTabsProps, Tab } from './PageTabs.types'
  * Used within page content (below main navigation) as a sub-navigation system.
  *
  * Example usage:
- *    const pageTabs = [{ id: 0, label: 'Player' }, { id: 1, label: 'NPC Kills' }]
+ *    const pageTabs = [{ id: 0, label: 'Skills' }, { id: 1, label: 'NPC Kills' }]
  *
  *    <ContentBlock>
- *      <PageTabs tabs={pageTabs} activeTab={pageTabs[0]} setActiveTab={handleSetActiveTab} />
+ *      <PageTabs tabs={pageTabs} activeTab={pageTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
  *    </ContentBlock>
  */
 const PageTabs = (props: PageTabsProps) => {
