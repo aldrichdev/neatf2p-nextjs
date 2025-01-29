@@ -24,7 +24,7 @@ const Hiscores = () => {
   const [hiscoreType, setHiscoreType] = useState<HiscoreType>('Overall')
   const hiscores = useHiscores(hiscoreType, setIsLoading)
   const pageTabs = [
-    { id: 0, label: 'Player' },
+    { id: 0, label: 'Skills' },
     { id: 1, label: 'NPC Kills' },
   ]
 

@@ -1,28 +1,34 @@
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
+import { HiscoresPageContainer } from './hiscores.styled'
 
 export const NpcHiscoresMenuItemList = styled('ul')(
   ({ theme }) => css`
     background-color: var(--gold-bg-color);
     border: 2px solid var(--gold-border-color);
     padding: 10px 16px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 750px;
     column-gap: 5px;
-    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
 
     ${theme.breakpoints.up('tablet')} {
-      grid-template-columns: unset;
-      grid-template-rows: repeat(4, 1fr);
-      margin: 0;
+      height: 650px;
+    }
+
+    ${theme.breakpoints.up('desktop')} {
+      height: 400px;
     }
   `,
 )
 
-export const MobileOnly = styled('div')(
+export const NpcHiscoresPageContainer = styled(HiscoresPageContainer)(
   ({ theme }) => css`
-    ${theme.breakpoints.up('tablet')} {
-      display: none;
+    ${theme.breakpoints.up('desktop')} {
+      gap: 30px;
     }
   `,
 )

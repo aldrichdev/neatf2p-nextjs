@@ -1,16 +1,18 @@
 import { BackToLink } from '@atoms/BackToLink/BackToLink'
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
-import { HiscoreTableCell, HiscoreTableHeaderCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
+import { HiscoreTableHeaderCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
 import { PageHeading } from '@atoms/PageHeading'
 import { PageTabs } from '@atoms/PageTabs'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
+import { PlayerHiscoresRank } from '@atoms/PlayerHiscoresRank'
 import { PlayerHiscoreTable } from '@atoms/PlayerHiscoreTable'
 import {
   ExperienceCell,
   HiscoreSkillIcon,
   HiscoreSkillTableCell,
   HiscoreTableRow,
+  PlayerHiscoreTableCell,
   SkillLink,
 } from '@atoms/PlayerHiscoreTable/PlayerHiscoreTable.styled'
 import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
@@ -179,8 +181,10 @@ const PlayerHiscore = () => {
                       <HiscoreSkillIcon src={`/img/skills/${playerHiscoreRow.skill}.png`} alt='' />
                       <SkillLink href={`/hiscores?skill=${playerHiscoreRow.skill}`}>{playerHiscoreRow.skill}</SkillLink>
                     </HiscoreSkillTableCell>
-                    <HiscoreTableCell>{playerHiscoreRow.rank === 0 ? '--' : playerHiscoreRow.rank}</HiscoreTableCell>
-                    <HiscoreTableCell>{playerHiscoreRow.level}</HiscoreTableCell>
+                    <PlayerHiscoreTableCell>
+                      <PlayerHiscoresRank rank={playerHiscoreRow.rank} />
+                    </PlayerHiscoreTableCell>
+                    <PlayerHiscoreTableCell>{playerHiscoreRow.level}</PlayerHiscoreTableCell>
                     <ExperienceCell>{playerHiscoreRow.exp}</ExperienceCell>
                   </HiscoreTableRow>
                 ))}

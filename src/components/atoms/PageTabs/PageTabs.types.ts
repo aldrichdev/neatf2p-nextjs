@@ -1,10 +1,8 @@
-import { NpcKillsLevelMenuSubType } from '@molecules/NpcKillsLevelMenu/NpcKillsLevelMenu.types'
+import { NpcHiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 
 export type Tab = {
-  /** Usually an NPC ID (for NPC hiscore sub-navigation), or 0.
-   * TODO: Can we change the type to `NpcHiscoreType`? Then we can
-   * remove the `as` in `NpcKillsLevelMenu.tsx` */
-  id: NpcKillsLevelMenuSubType
+  /** Usually an NPC ID (for NPC hiscore sub-navigation), or 0. */
+  id: NpcHiscoreType
   label: string
 }
 

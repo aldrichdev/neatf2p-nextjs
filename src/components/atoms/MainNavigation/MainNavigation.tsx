@@ -29,16 +29,6 @@ const MainNavigation = () => {
     {
       path: '/hiscores',
       text: 'Hiscores',
-      // subItems: [
-      //   {
-      //     path: '/hiscores',
-      //     text: 'Player',
-      //   },
-      //   {
-      //     path: '/npc-hiscores',
-      //     text: 'NPC Kills',
-      //   },
-      // ],
     },
     {
       text: 'Other Pages',

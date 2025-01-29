@@ -428,7 +428,7 @@ export const getNpcNameByIdForMenuKey = (id: NpcHiscoreType) => {
     case 100:
       return 'Guard (Fortress)'
     case 232:
-      return 'Bandit (Black)'
+      return 'Bandit'
     case 234:
       return 'Bandit (Blue)'
     case 236:

@@ -6,13 +6,10 @@ import { NpcHiscoresMenuItemList } from '@styledPages/NpcHiscores.styled'
 
 const NpcHiscoresMenu = (props: NpcHiscoresMenuProps) => {
   const { activeNpcHiscoreType, buttonOnClick } = props
-  // console.log('rendering')
-  console.log('NpcHiscoreTypes', NpcHiscoreTypes)
 
   return (
     <NpcHiscoresMenuItemList>
       {NpcHiscoreTypes.map(npcHiscoreType => {
-        // console.log('aint it unique? ', getNpcNameByIdForMenuKey(npcHiscoreType), npcHiscoreType)
         if (getNpcNameByIdForMenu(npcHiscoreType) !== '') {
           return (
             <NpcHiscoresMenuItem

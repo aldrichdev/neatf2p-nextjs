@@ -4,7 +4,7 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
 import { PlayerHiscoreTable } from '@atoms/PlayerHiscoreTable'
 import { NpcHiscoreType, NpcHiscoreTypes } from '@globalTypes/Hiscores/HiscoreType'
-import { compareNpcHiscores, getNpcNameById, groupByUsername } from '@helpers/hiscores/hiscoresUtils'
+import { compareNpcHiscores, getNpcNameByIdForMenuKey, groupByUsername } from '@helpers/hiscores/hiscoresUtils'
 import { renderHead } from '@helpers/renderUtils'
 import { Spinner } from '@molecules/Spinner'
 import { PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
@@ -13,11 +13,12 @@ import { useEffect, useState } from 'react'
 import { PlayerNpcHiscoreRow } from '@globalTypes/Hiscores/PlayerNpcHiscoreRow'
 import useNpcHiscores from '@hooks/useNpcHiscores'
 import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
-import { HiscoreTableCell, HiscoreTableHeaderCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
-import { HiscoreTableRow, SkillLink } from '@atoms/PlayerHiscoreTable/PlayerHiscoreTable.styled'
+import { HiscoreTableHeaderCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
+import { HiscoreTableRow, PlayerHiscoreTableCell, SkillLink } from '@atoms/PlayerHiscoreTable/PlayerHiscoreTable.styled'
 import { PageTabs } from '@atoms/PageTabs'
 import { redirectTo } from '@helpers/window'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
+import { PlayerHiscoresRank } from '@atoms/PlayerHiscoresRank'
 
 const PlayerNpcHiscore = () => {
   const { query } = useRouter()
@@ -33,7 +34,7 @@ const PlayerNpcHiscore = () => {
   const isMatchingUser = (hiscoreDataRow: NpcHiscoreDataRow) =>
     hiscoreDataRow.username.toLowerCase() === accountName.toLowerCase()
 
-  const getRank = (npcHiscoreType: NpcHiscoreType) => {
+  const getRank = (npcHiscoreType: NpcHiscoreType): number => {
     let hiscoresFilteredByType
 
     if (Array.isArray(npcHiscoreType)) {
@@ -42,7 +43,7 @@ const PlayerNpcHiscore = () => {
       hiscoresFilteredByType = allNpcHiscores?.filter(hiscore => hiscore.npcID === npcHiscoreType)
     }
 
-    if (!hiscoresFilteredByType) return '--'
+    if (!hiscoresFilteredByType) return 0
 
     // Now group by username and sort by killCount
     const groupedAndSortedHiscores = groupByUsername(hiscoresFilteredByType).sort((obj1, obj2) =>
@@ -52,7 +53,7 @@ const PlayerNpcHiscore = () => {
     // Now get the rank, by finding the index of the current account name in the list
     const rank = groupedAndSortedHiscores?.findIndex(isMatchingUser)
 
-    if (rank === undefined || rank < 0) return '--'
+    if (rank === undefined || rank < 0) return 0
 
     return rank + 1
   }
@@ -79,7 +80,7 @@ const PlayerNpcHiscore = () => {
 
   const getPlayerNpcHiscoreRow = (npcHiscoreType: NpcHiscoreType) => ({
     npcId: npcHiscoreType,
-    npcName: getNpcNameById(npcHiscoreType),
+    npcName: getNpcNameByIdForMenuKey(npcHiscoreType),
     rank: getRank(npcHiscoreType),
     killCount: getKillCount(npcHiscoreType),
   })
@@ -138,13 +139,15 @@ const PlayerNpcHiscore = () => {
                 }
                 body={playerNpcHiscoreRows.map(playerNpcHiscoreRow => (
                   <HiscoreTableRow key={playerNpcHiscoreRow.npcName} isNpcTable>
-                    <HiscoreTableCell>
+                    <PlayerHiscoreTableCell>
                       <SkillLink href={`/npc-hiscores?npc=${playerNpcHiscoreRow.npcId}`}>
-                        {playerNpcHiscoreRow.npcName}
+                        {getNpcNameByIdForMenuKey(playerNpcHiscoreRow.npcId)}
                       </SkillLink>
-                    </HiscoreTableCell>
-                    <HiscoreTableCell>{playerNpcHiscoreRow.rank}</HiscoreTableCell>
-                    <HiscoreTableCell>{playerNpcHiscoreRow.killCount}</HiscoreTableCell>
+                    </PlayerHiscoreTableCell>
+                    <PlayerHiscoreTableCell>
+                      <PlayerHiscoresRank rank={playerNpcHiscoreRow.rank} />
+                    </PlayerHiscoreTableCell>
+                    <PlayerHiscoreTableCell>{playerNpcHiscoreRow.killCount}</PlayerHiscoreTableCell>
                   </HiscoreTableRow>
                 ))}
               />

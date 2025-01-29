@@ -32,7 +32,7 @@ export const CurrentMenuItemLabel = styled('span', {
     line-height: 2;
     color: blue;
 
-    ${theme.breakpoints.up('tablet')} {
+    ${theme.breakpoints.up('mobile')} {
       font-size: 18px;
     }
   `,

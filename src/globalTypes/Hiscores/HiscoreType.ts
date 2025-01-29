@@ -24,6 +24,8 @@ const ComplexHiscoreTypes = [
   [22, 181], // Lesser
   [62, 192], // Goblin (7) (+ Wormbrain)
   [232, 234], // Bandit (Black & Blue)
+  [45, 179], // Skeleton (31) (reg + maze)
+  [65, 100], // Guard (reg + fortress)
 ]
 
 /** Note that this determines the order of the NPC names in the menu. */
@@ -68,13 +70,16 @@ export const NpcHiscoreTypes = [
   188,
   159,
   137,
-  65,
-  100,
-  232,
-  234,
+  ComplexHiscoreTypes[8],
+  //65,
+  //100,
+  ComplexHiscoreTypes[6],
+  //232,
+  //234,
   139,
-  45,
-  179,
+  ComplexHiscoreTypes[7],
+  //45,
+  //179,
   67,
   68,
   127,
@@ -96,8 +101,6 @@ export const NpcHiscoreTypes = [
   ComplexHiscoreTypes[4],
   184,
 ] as const
-
-console.log('NpcHiscoreTypes', NpcHiscoreTypes)
 
 export type HiscoreType = (typeof HiscoreTypes)[number]
 export type NpcHiscoreType = (typeof NpcHiscoreTypes)[number]

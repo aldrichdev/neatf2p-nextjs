@@ -1,6 +1,5 @@
 import { ContentBlock } from '@atoms/ContentBlock'
 import { useEffect, useState } from 'react'
-import { HiscoresPageContainer } from '@styledPages/hiscores.styled'
 import { NpcHiscoreType, NpcHiscoreTypes } from '@globalTypes/Hiscores/HiscoreType'
 import { useRouter } from 'next/router'
 import { Spinner } from '@molecules/Spinner'
@@ -16,7 +15,7 @@ import { PageTabs } from '@atoms/PageTabs'
 import { redirectTo } from '@helpers/window'
 import { NpcKillsLevelMenu } from '@molecules/NpcKillsLevelMenu'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
-import { MobileOnly } from '@styledPages/NpcHiscores.styled'
+import { NpcHiscoresPageContainer } from '@styledPages/NpcHiscores.styled'
 
 const NpcHiscores = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -48,7 +47,6 @@ const NpcHiscores = () => {
   }
 
   useEffect(() => {
-    console.log('query.npc', query.npc)
     let npcId: number | readonly number[] = 29
     let initialId: number | string = 29
 
@@ -65,9 +63,6 @@ const NpcHiscores = () => {
 
     const npcIdsForId = getNpcIdsByInitialId(initialId)
 
-    console.log('npcId', npcId)
-    console.log('npcIdsForId', npcIdsForId)
-
     // If the number we get in the query is one where there are multiple other npcs
     // of the same type but diff level, need to set npcSubTypes here.
     if (npcIdsForId.length > 0) {
@@ -78,8 +73,6 @@ const NpcHiscores = () => {
 
     setNpcHiscoreType(npcId as NpcHiscoreType)
   }, [query])
-
-  console.log('npcHiscoreType', npcHiscoreType)
 
   return (
     <>
@@ -93,16 +86,7 @@ const NpcHiscores = () => {
           npcSubTypes={npcSubTypes.length > 0 ? npcSubTypes : [npcHiscoreType]}
           menuItemOnClick={handleMenuItemClick}
         />
-        <HiscoresPageContainer>
-          <MobileOnly>
-            {npcSubTypes.length > 0 && (
-              <NpcKillsLevelMenu
-                npcHiscoreType={npcHiscoreType}
-                npcSubTypes={npcSubTypes}
-                menuItemOnClick={handleMenuItemClick}
-              />
-            )}
-          </MobileOnly>
+        <NpcHiscoresPageContainer>
           {isLoading || !hiscores ? (
             <Spinner hiscores />
           ) : (
@@ -114,7 +98,7 @@ const NpcHiscores = () => {
             />
           )}
           <PlayerLookup isNpcHiscores />
-        </HiscoresPageContainer>
+        </NpcHiscoresPageContainer>
       </ContentBlock>
     </>
   )

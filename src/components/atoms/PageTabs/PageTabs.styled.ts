@@ -2,13 +2,21 @@ import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
 export const TabsContainer = styled('div')(
-  () => css`
+  ({ theme }) => css`
     display: flex;
     width: 100%;
     flex-wrap: nowrap;
     border: 2px solid black;
     margin-bottom: 40px;
     height: 40px;
+    box-sizing: border-box;
+
+    button {
+      box-sizing: content-box;
+    }
+
+    ${theme.breakpoints.up('desktop')} {
+    }
   `,
 )
 
@@ -26,11 +34,10 @@ export const PageTab = styled('button', {
 
     &:not(:last-child) {
       border-right: 1px solid black;
-      box-sizing: content-box; // only when there are 4... hmm
     }
 
     &:only-child {
-      background-color: black;
+      cursor: auto;
     }
 
     ${!active &&

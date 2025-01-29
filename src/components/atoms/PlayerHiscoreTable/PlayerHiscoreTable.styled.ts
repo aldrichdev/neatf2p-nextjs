@@ -61,6 +61,13 @@ export const HiscoreSkillIcon = styled('img')(
   `,
 )
 
+export const PlayerHiscoreTableCell = styled(HiscoreTableCell)(
+  () => css`
+    display: flex;
+    gap: 10px;
+  `,
+)
+
 export const SkillLink = styled(HoverUnderlineLink)(
   () => css`
     color: black;
