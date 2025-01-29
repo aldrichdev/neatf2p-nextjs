@@ -1,14 +1,18 @@
 import { BackToLink } from '@atoms/BackToLink/BackToLink'
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
-import { HiscoreTableCell, HiscoreTableHeaderCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
+import { HiscoreTableHeaderCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
 import { PageHeading } from '@atoms/PageHeading'
+import { PageTabs } from '@atoms/PageTabs'
+import { Tab } from '@atoms/PageTabs/PageTabs.types'
+import { PlayerHiscoresRank } from '@atoms/PlayerHiscoresRank'
 import { PlayerHiscoreTable } from '@atoms/PlayerHiscoreTable'
 import {
   ExperienceCell,
   HiscoreSkillIcon,
   HiscoreSkillTableCell,
   HiscoreTableRow,
+  PlayerHiscoreTableCell,
   SkillLink,
 } from '@atoms/PlayerHiscoreTable/PlayerHiscoreTable.styled'
 import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
@@ -19,6 +23,8 @@ import { sendApiRequest } from '@helpers/api/apiUtils'
 import { getPrettyDateStringFromMillis } from '@helpers/date/date'
 import { compareHiscores, convertExp, getTotalExp, isNotBaselineExp } from '@helpers/hiscores/hiscoresUtils'
 import { renderHead } from '@helpers/renderUtils'
+import { redirectTo } from '@helpers/window'
+import { HiscoresTabs } from '@models/HiscoresTabs'
 import { Spinner } from '@molecules/Spinner'
 import { PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
 import { useRouter } from 'next/router'
@@ -85,6 +91,12 @@ const PlayerHiscore = () => {
     response.data.find((row: PlayerHiscoreDataRow) => row.username.toLowerCase() === accountName.toLowerCase())
       ?.login_date
 
+  const handleSetActiveTab = (tab: Tab) => {
+    if (tab.label === 'NPC Kills') {
+      redirectTo(`/npc-hiscores/player/${accountName}`)
+    }
+  }
+
   useEffect(() => {
     setIsLoading(true)
 
@@ -142,6 +154,7 @@ const PlayerHiscore = () => {
       {renderHead('Player Hiscore')}
       <ContentBlock>
         <PageHeading>{accountName || 'Unknown Player'}</PageHeading>
+        <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
         {typeof accountName !== 'string' || !playerHiscores || !hiscoresData?.find(isMatchingUser) ? (
           <BodyText variant='body' bodyTextAlign='center'>
             No hiscore found for this player.
@@ -165,8 +178,10 @@ const PlayerHiscore = () => {
                       <HiscoreSkillIcon src={`/img/skills/${playerHiscoreRow.skill}.png`} alt='' />
                       <SkillLink href={`/hiscores?skill=${playerHiscoreRow.skill}`}>{playerHiscoreRow.skill}</SkillLink>
                     </HiscoreSkillTableCell>
-                    <HiscoreTableCell>{playerHiscoreRow.rank === 0 ? '--' : playerHiscoreRow.rank}</HiscoreTableCell>
-                    <HiscoreTableCell>{playerHiscoreRow.level}</HiscoreTableCell>
+                    <PlayerHiscoreTableCell>
+                      <PlayerHiscoresRank rank={playerHiscoreRow.rank} />
+                    </PlayerHiscoreTableCell>
+                    <PlayerHiscoreTableCell>{playerHiscoreRow.level}</PlayerHiscoreTableCell>
                     <ExperienceCell>{playerHiscoreRow.exp}</ExperienceCell>
                   </HiscoreTableRow>
                 ))}

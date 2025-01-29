@@ -1,7 +1,13 @@
-import { Dispatch, SetStateAction } from 'react'
+export type Tab = {
+  id: number | number[]
+  label: string
+}
 
 export type PageTabsProps = {
-  tabs: string[]
-  activeTab: string
-  setActiveTab: Dispatch<SetStateAction<string>>
+  tabs: Tab[]
+  activeTab: Tab
+  setActiveTab: (tab: Tab) => void
+  defaultTabColor?: string
+  activeTabColor?: string
+  hoverTabColor?: string
 }
