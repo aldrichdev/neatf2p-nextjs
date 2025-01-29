@@ -26,7 +26,7 @@ const PlayerNpcHiscore = () => {
   const allNpcHiscores = useNpcHiscores()
   const [playerNpcHiscoreRows, setPlayerNpcHiscoreRows] = useState<PlayerNpcHiscoreRow[] | undefined>()
   const accountName = query.accountName as string
-  const pageTabs = [
+  const pageTabs: Tab[] = [
     { id: 0, label: 'Skills' },
     { id: 1, label: 'NPC Kills' },
   ]

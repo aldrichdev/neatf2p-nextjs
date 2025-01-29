@@ -326,18 +326,9 @@ export const getNpcNameByIdForMenu = (id: NpcHiscoreType) => {
   }
 }
 
-/** TODO: Find a way to reduce repetitiveness across these 3 functions which all need 
+/** TODO: Find a way to reduce repetitiveness across these 3 functions which all need
  * to behave differently. Maybe a simple getNpcNameById function to share simple use cases
  * across the 3.
- * 
- * this is retarded, but im drunk, just go with it for the moment
- * basically we have 3 ways taht we get npc names:
- * 1. Getting it as the real npc name, i.e. for a heading, or just to "get the f'ing name plz" kind of thing
- * 2. Getting it for the menu item - what we show in the sidebar - it can't render "Zombie" for ID 41 or 68!
- * 3. Getting it for the menu KEY - this needs to be UNIQUE (that's this method)
- * OHHHH so basically because we have values in NpcHiscoreTypes like 41 (level 24 zombie),
-   those come through as undefined when we use getNpcNameByIdForMenu because it ain't there,
-   and it shouldn't be. And because there are multiple "undefined"s, keys are not unique.
  */
 export const getNpcNameByIdForMenuKey = (id: NpcHiscoreType) => {
   const npcId = Array.isArray(id) ? id?.[0] : id

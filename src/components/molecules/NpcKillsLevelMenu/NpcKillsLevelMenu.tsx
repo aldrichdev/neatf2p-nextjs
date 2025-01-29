@@ -1,6 +1,7 @@
 import { ContentBlock } from '@atoms/ContentBlock'
 import { PageTabs } from '@atoms/PageTabs'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
+import { NpcHiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { getNpcCombatLevelById } from '@helpers/hiscores/hiscoresUtils'
 import { NpcKillsLevelMenuProps } from './NpcKillsLevelMenu.types'
 
@@ -47,7 +48,7 @@ const NpcKillsLevelMenu = (props: NpcKillsLevelMenuProps) => {
     // and that's not the currently selected tab,
     // then we take them to that NPC
     if (tab.id !== npcHiscoreType) {
-      menuItemOnClick(tab.id)
+      menuItemOnClick(tab.id as NpcHiscoreType)
     }
   }
 
