@@ -321,6 +321,8 @@ export const getNpcNameByIdForMenu = (id: NpcHiscoreType) => {
       return 'Lesser Demon'
     case 184:
       return 'Greater Demon'
+    default:
+      return ''
   }
 }
 

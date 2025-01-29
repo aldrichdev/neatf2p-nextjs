@@ -87,13 +87,13 @@ const NpcHiscores = () => {
       <ContentBlock isWide>
         <PageTabs tabs={pageTabs} activeTab={pageTabs[1]} setActiveTab={tab => handleSetActiveTab(tab)} />
         <PageHeading>{`${getNpcNameById(npcHiscoreType)} Kill Hiscores`}</PageHeading>
+        <NpcHiscoresMenu activeNpcHiscoreType={npcHiscoreType} buttonOnClick={handleMenuItemClick} />
         <NpcKillsLevelMenu
           npcHiscoreType={npcHiscoreType}
           npcSubTypes={npcSubTypes.length > 0 ? npcSubTypes : [npcHiscoreType]}
           menuItemOnClick={handleMenuItemClick}
         />
         <HiscoresPageContainer>
-          <NpcHiscoresMenu activeNpcHiscoreType={npcHiscoreType} buttonOnClick={handleMenuItemClick} />
           <MobileOnly>
             {npcSubTypes.length > 0 && (
               <NpcKillsLevelMenu
