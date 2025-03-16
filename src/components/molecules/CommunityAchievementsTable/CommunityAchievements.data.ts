@@ -91,8 +91,8 @@ export const communityAchievements = [
   },
   {
     achievement: 'First to 99 Hits',
-    playerName: 'TBD',
-    date: 'TBD',
+    playerName: 'sir prysin',
+    date: '3/14/2025',
   },
   {
     achievement: 'First to 99 Ranged',
