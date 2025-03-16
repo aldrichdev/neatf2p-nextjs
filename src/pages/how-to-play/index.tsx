@@ -11,7 +11,6 @@ import {
 import Link from 'next/link'
 import { renderHead } from '@helpers/renderUtils'
 import { Callout } from '@atoms/Callout'
-import { InlineLink } from '@atoms/InlineLink'
 
 const HowToPlay = () => {
   return (
