@@ -111,11 +111,11 @@ const PlayerHiscore = () => {
         // Get player last login date
         const lastLoginMillis = getLoginDate(response)
 
-        // A value of 0 means the user has never logged in
-        if (lastLoginMillis === 0) {
+        // A value of 0 means the user has never logged in - likewise for undefined
+        if (!lastLoginMillis) {
           setLastLogin('Never')
         } else {
-          const lastLogin = getPrettyDateStringFromMillis(lastLoginMillis || 0)
+          const lastLogin = getPrettyDateStringFromMillis(lastLoginMillis)
           setLastLogin(lastLogin)
         }
 
