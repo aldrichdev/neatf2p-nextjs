@@ -11,6 +11,7 @@ import {
 import Link from 'next/link'
 import { renderHead } from '@helpers/renderUtils'
 import { Callout } from '@atoms/Callout'
+import { InlineLink } from '@atoms/InlineLink'
 
 const HowToPlay = () => {
   return (
@@ -38,8 +39,7 @@ const HowToPlay = () => {
           </Link>{' '}
           before continuing. WinRune is a 2003-authentic Windows client for playing the game, and shows original
           adverts. RSC+ is a custom client that provides extra features (all of which are configurable) on top of RSC.
-          The web client is a page on this site that lets you play Neat F2P through your browser. Neat F2P does not have
-          a mobile client.
+          The web client is a page on this site that lets you play Neat F2P through your browser.
         </BodyText>
         <ContentBlock topMargin={40} isWide>
           <ThreeColumnLayout>
@@ -64,6 +64,15 @@ const HowToPlay = () => {
             </ClientRemarks>
           </ThreeColumnLayout>
         </ContentBlock>
+
+        <Callout variant='info'>
+          Most players can play on mobile by using Open RSC&apos;s mobile Android app. You can download that from{' '}
+          <CalloutLink href='https://rsc.vet/playnow' target='_blank'>
+            https://rsc.vet/playnow
+          </CalloutLink>
+          . Open the client and select <strong>Local Instance</strong> for Game Selection. Then, enter{' '}
+          <em>192.3.118.9</em> for the IP and <em>43594</em> for the port.
+        </Callout>
       </ContentBlock>
     </>
   )

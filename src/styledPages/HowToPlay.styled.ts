@@ -12,7 +12,7 @@ export const ThreeColumnLayout = styled('div')(
   ({ theme }) => css`
     font-family: Saros;
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 0.5fr;
     grid-gap: 30px;
 
     ${theme.breakpoints.up('tablet')} {
