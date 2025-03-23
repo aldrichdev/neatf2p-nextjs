@@ -8,16 +8,19 @@ import { useState } from 'react'
 import { Modal } from '@molecules/Modal'
 import Link from 'next/link'
 import { renderHead } from '@helpers/renderUtils'
+import { getProtocol } from '@helpers/envUtils'
 
 // TODO: This is a temporary page. Remove once webclient is fixed. [F2P-110]
 const TestWebclientPage = () => {
   const [hideAds, setHideAds] = useState(false)
   const [hideRunescapeBanners, setHideRunescapeBanners] = useState(false)
   const [showHelpModal, setShowHelpModal] = useState(false)
+  const protocol = getProtocol()
+  const webclientHost = process.env.NEXT_PUBLIC_WEBSITE_HOST
   const gameServerHost = '71.205.248.145'
   const gameServerRsaPublicKey =
     '10434129247747875206749322994737259335353815224197943208197420577351164491111787501201706919192564129410096061100941383106949396063257493621975484273337067'
-  const webclientUrl = `https://${gameServerHost}/index.html#free,${gameServerHost},43494,65537,${gameServerRsaPublicKey},true`
+  const webclientUrl = `${protocol}://${webclientHost}/client/index.html#free,${gameServerHost},43494,65537,${gameServerRsaPublicKey},true`
 
   const handleHideAdsCheck = () => {
     setHideAds(!hideAds)
