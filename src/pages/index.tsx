@@ -7,7 +7,7 @@ import DiscordLogo from 'public/img/discord-512.webp'
 import { DiscordLink } from '@atoms/DiscordLink'
 import { PageHeading } from '@atoms/PageHeading'
 import { BodyText } from '@atoms/BodyText'
-import { Banner, TabletAndDesktopBanner } from '@atoms/TabletAndDesktopBanner/TabletAndDesktopBanner'
+import { TabletAndDesktopBanner } from '@atoms/TabletAndDesktopBanner/TabletAndDesktopBanner'
 
 const Homepage = () => (
   <div>
