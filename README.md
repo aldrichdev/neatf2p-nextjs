@@ -19,7 +19,9 @@ The source code for the [Neat F2P website](https://www.neatf2p.com/).
 
 This went away when I installed node/lts and used it. However I also noted that after switching `nvs` back to `16.14.0`, which was the Node version I had installed when I originally had this problem, the problem was gone. Somehow, `nvs` installing newer Node verisons, or switching them, fixed this.
 
-### Adding new Typography variants
+### How-To
+
+#### Adding new Typography variants
 
 Instructions:
 
@@ -29,6 +31,30 @@ Instructions:
    b. `TypographyVariantsOptions`
    c. `TypographyPropsVariantOverrides`
 3. Set the new typography's element in `variantMapping`
+
+#### Setting up a Test Web Client
+
+To set up a web client page that connects to the Neat F2P test server (running off of my desk laptop), do the following:
+
+1. Add the `client` folder ([available here](https://gitlab.com/openrsc/Website-Portal/-/tree/develop/portal/public/client?ref_type=heads)) to `public`. That way the webclient HTML file is accessible via `{HOST}/client/index.html`.
+2. Create a `testwebclient` folder under `src/pages`, and then a `index.tsx` file underneath it, similar to the existing `webclient/index.tsx`, but with code like this:
+
+```
+const TestWebclientPage = () => {
+  const [hideAds, setHideAds] = useState(false)
+  const [hideRunescapeBanners, setHideRunescapeBanners] = useState(false)
+  const [showHelpModal, setShowHelpModal] = useState(false)
+  const protocol = getProtocol()
+  const webclientHost = process.env.NEXT_PUBLIC_WEBSITE_HOST
+  const gameServerHost = '71.205.248.145'
+  const gameServerRsaPublicKey =
+    '10434129247747875206749322994737259335353815224197943208197420577351164491111787501201706919192564129410096061100941383106949396063257493621975484273337067'
+  const webclientUrl = `${protocol}://${webclientHost}/client/index.html#free,${gameServerHost},43494,65537,${gameServerRsaPublicKey},true`
+```
+
+3. Add `"ignorePatterns": ["public/client"]` to `.eslintrc.json` so that the web client files do not throw errors.
+4. In `_app.tsx`, add `|| router.asPath === '/testwebclient'` to `isWebclientPage`.
+5. Push these changes up to the website and have it deploy. Then you need an SSL cert that is issued from the same domain.
 
 ### Next.js CNA Default Info
 
