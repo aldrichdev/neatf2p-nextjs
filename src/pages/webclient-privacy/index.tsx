@@ -6,9 +6,11 @@ import { PageHeading } from '@atoms/PageHeading'
 import { renderHead } from '@helpers/renderUtils'
 import { Button } from '@mui/material'
 import { MobileOnlyBanner } from '@atoms/MobileOnlyBanner/MobileOnlyBanner'
+
 const WebclientPrivacy = () => {
-  const webclientUrl =
-    'https://192.3.118.9/index.html#free,192.3.118.9,43494,65537,7054203720541778301305415601003616771303575117747596220839504585292533566477681434296099740212145164566076597502140720545018781667570788191100318093271681,true'
+  const gameServerHost = process.env.NEXT_PUBLIC_GAME_SERVER_HOST
+  const gameServerRsaKey = process.env.NEXT_PUBLIC_GAME_SERVER_RSA_PUBLIC_KEY
+  const webclientUrl = `https://${gameServerHost}/index.html#free,${gameServerHost},43494,65537,${gameServerRsaKey},true`
 
   return (
     <>
@@ -21,8 +23,8 @@ const WebclientPrivacy = () => {
             this page
           </InlineLink>{' '}
           and you may see a privacy warning. If so, click <strong>Advanced</strong> and then{' '}
-          <strong>Continue to 192.3.118.9 (unsafe)</strong>. This should load the webclient, but not on the Neat F2P
-          site. Finally, close the tab. See the below image for a step-by-step walkthrough.
+          <strong>Continue to {gameServerHost} (unsafe)</strong>. This should load the webclient, but not on the Neat
+          F2P site. Finally, close the tab. See the below image for a step-by-step walkthrough.
         </BodyText>
         <ContentBlock isWide topMargin={40}>
           <TabletAndDesktopBanner src='/img/banners/webclient-privacy-instructions.png' alt='Webclient Setup Graphic' />
