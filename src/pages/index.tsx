@@ -1,5 +1,5 @@
 import { ContentBlock } from '@atoms/ContentBlock'
-import { DiscordIcon, HomepageBanner } from '@styledPages/Homepage.styled'
+import { DiscordIcon } from '@styledPages/Homepage.styled'
 import { OnlinePlayers } from '@organisms/OnlinePlayers'
 import { NewsAndUpdates } from '@organisms/NewsAndUpdates'
 import Link from 'next/link'
@@ -7,6 +7,7 @@ import DiscordLogo from 'public/img/discord-512.webp'
 import { DiscordLink } from '@atoms/DiscordLink'
 import { PageHeading } from '@atoms/PageHeading'
 import { BodyText } from '@atoms/BodyText'
+import { Banner, TabletAndDesktopBanner } from '@atoms/TabletAndDesktopBanner/TabletAndDesktopBanner'
 
 const Homepage = () => (
   <div>
@@ -22,7 +23,7 @@ const Homepage = () => (
       </BodyText>
     </ContentBlock>
     <ContentBlock isWide topMargin={40}>
-      <HomepageBanner src='/img/banners/HomepageBanner.png' alt='Relive It All' />
+      <TabletAndDesktopBanner src='/img/banners/HomepageBanner.png' alt='Relive It All' />
     </ContentBlock>
     <ContentBlock isWide topMargin={40}>
       <NewsAndUpdates heading='Latest News & Updates' limit={3} showViewAllButton />

@@ -48,7 +48,7 @@ const HowToPlay = () => {
             <ClientButton href='/how-to-play/rscplus'>
               <ClientButtonImage src='/img/buttons/play-with-rscplus.png' alt='Play with RSC+' />
             </ClientButton>
-            <ClientButton href='/webclient'>
+            <ClientButton href='/webclient-privacy'>
               <ClientButtonImage src='/img/buttons/play-with-webclient.png' alt='Play wikth Webclient' />
             </ClientButton>
             <ClientRemarks>
