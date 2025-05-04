@@ -32,7 +32,9 @@ const MainNavigationDropdownItem = (props: MainNavigationDropdownItemProps) => {
           <NavDropdownMenuSubItemList>
             {subItems.map(subItem => (
               <NavSubItem key={subItem.path}>
-                <NavSubLink href={subItem.path}>{subItem.text}</NavSubLink>
+                <NavSubLink href={subItem.path} target={subItem.opensInNewTab ? '_blank' : '_self'}>
+                  {subItem.text}
+                </NavSubLink>
               </NavSubItem>
             ))}
           </NavDropdownMenuSubItemList>
