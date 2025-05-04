@@ -4,10 +4,12 @@
 export type SubNavigationItem = {
   path: string
   text: string
+  opensInNewTab?: boolean
 }
 
 export type NavigationItem = {
   path?: string
   text: string
   subItems?: SubNavigationItem[]
+  opensInNewTab?: boolean
 }

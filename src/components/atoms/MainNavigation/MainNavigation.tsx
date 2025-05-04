@@ -41,6 +41,15 @@ const MainNavigation = () => {
           path: '/bug-reports',
           text: 'Report a Bug',
         },
+        {
+          path: '/tournament-info',
+          text: 'Tournaments',
+        },
+        {
+          path: 'https://1drv.ms/x/c/0cb70e2f2bdaea22/EfbycDseWvJIpIkJt5itoNsBPD5TaJHX0bTjNb7Heor5UA?e=7zaO8Q',
+          text: 'Price Guide',
+          opensInNewTab: true,
+        },
       ],
     },
   ]
@@ -68,7 +77,11 @@ const MainNavigation = () => {
         {navigationItems.map((item: NavigationItem) => (
           <li key={item.path || item.subItems?.[0]?.path}>
             {item.path ? (
-              <NavLink href={item.path} isActive={isLinkActive(item.path)}>
+              <NavLink
+                href={item.path}
+                isActive={isLinkActive(item.path)}
+                target={item.opensInNewTab ? '_blank' : '_self'}
+              >
                 {item.text}
               </NavLink>
             ) : (

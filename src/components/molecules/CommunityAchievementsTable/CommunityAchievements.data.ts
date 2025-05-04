@@ -71,8 +71,8 @@ export const communityAchievements = [
   },
   {
     achievement: 'First to smith full Rune',
-    playerName: 'TBD',
-    date: 'TBD',
+    playerName: 'V A H O V A',
+    date: '4/27/2025',
   },
   {
     achievement: 'First to 500 Skill Total',
