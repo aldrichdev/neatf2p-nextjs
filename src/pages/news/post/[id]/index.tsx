@@ -33,7 +33,6 @@ const NewsPostDetail = () => {
   if (isLoading) {
     return (
       <>
-        {renderHead('News Post')}
         <Spinner />
       </>
     )
@@ -43,7 +42,7 @@ const NewsPostDetail = () => {
 
   return (
     <>
-      {renderHead('News Post')}
+      {renderHead(newsPost.title)}
       <ContentBlock>
         <NewsPostDetailItem newsPost={newsPost} />
       </ContentBlock>
