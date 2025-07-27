@@ -3,13 +3,15 @@ import { CharacterInfoModalProps } from './CharacterInfoModal.types'
 import { Modal } from '@molecules/Modal'
 import { sendApiRequest } from '@helpers/api/apiUtils'
 import { KdrTooltip, KillsAndDeaths, LoadingText, ViewButton } from './CharacterInfoModal.styled'
-import { convertNumberToOneDecimalPoint, pluralize } from '@helpers/string/stringUtils'
+import { convertNumberToTwoDecimalPoints, isNilString, pluralize } from '@helpers/string/stringUtils'
 import { getPrettyDateStringFromMillis } from '@helpers/date/date'
+import { isNilNumber } from '@helpers/numberUtils'
 
 const CharacterInfoModal = (props: CharacterInfoModalProps) => {
   const { account, open, setOpen } = props
   const [kills, setKills] = useState<string>()
   const [deaths, setDeaths] = useState<string>()
+  const [kdr, setKdr] = useState<number>()
   const [isLoading, setIsLoading] = useState<boolean>()
   const hoursPlayed = account.hours_played ? Math.round(account.hours_played * 100) / 100 : '--'
 
@@ -23,13 +25,14 @@ const CharacterInfoModal = (props: CharacterInfoModalProps) => {
     document.body.style.overflow = 'unset'
   }
 
-  const loadKillsAndDeaths = () => {
+  const loadKdrStatistics = () => {
     setIsLoading(true)
-    sendApiRequest('GET', `/api/getKillsAndDeathsForPlayer?playerId=${account.id}`)
+    sendApiRequest('GET', `/api/getKdrStatisticsForPlayer?playerId=${account.id}`)
       .then(response => {
         if (response?.data) {
           setKills(response.data.kills?.toString())
           setDeaths(response.data.deaths?.toString())
+          setKdr(response.data.kdr)
         }
 
         setIsLoading(false)
@@ -37,25 +40,14 @@ const CharacterInfoModal = (props: CharacterInfoModalProps) => {
       .catch((error: string) => console.log(error))
   }
 
-  const calculateKdr = (kills: string, deaths: string) => {
-    const numKills = Number(kills)
-    const numDeaths = Number(deaths)
-
-    if (numKills === 0 && numDeaths === 0) return '0.0'
-    if (numDeaths === 0) return convertNumberToOneDecimalPoint(numKills)
-
-    const rawKdr = numKills / numDeaths
-    return convertNumberToOneDecimalPoint(rawKdr)
-  }
-
   const renderKdr = () => {
     if (isLoading) {
       return <LoadingText>Loading...</LoadingText>
     }
 
-    if (!kills || !deaths) {
+    if (isNilString(kills) || isNilString(deaths) || isNilNumber(kdr)) {
       return (
-        <ViewButton variant='text' onClick={loadKillsAndDeaths}>
+        <ViewButton variant='text' onClick={loadKdrStatistics}>
           View
         </ViewButton>
       )
@@ -63,7 +55,7 @@ const CharacterInfoModal = (props: CharacterInfoModalProps) => {
 
     return (
       <>
-        <span>{calculateKdr(kills, deaths)}</span>{' '}
+        <span>{convertNumberToTwoDecimalPoints(kdr)}</span>{' '}
         <KillsAndDeaths>
           ({kills} {pluralize(Number(kills), 'kill')}, {deaths} {pluralize(Number(deaths), 'death')})
         </KillsAndDeaths>

@@ -13,8 +13,19 @@ export const GetRandomToken = () => {
 
 export const pluralize = (number: number, text: string) => (number === 1 ? text : `${text}s`)
 
-/** Rounds a number to 1 decimal point and converts it to a string. */
-export const convertNumberToOneDecimalPoint = (number: number) => (Math.round(number * 10) / 10).toFixed(1).toString()
+/** Rounds a number to 2 decimal points and converts it to a string. */
+export const convertNumberToTwoDecimalPoints = (number: number | undefined) => {
+  if (number === undefined) {
+    return ''
+  }
+
+  const formatter = new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })
+
+  return formatter.format(number)
+}
 
 /** Converts an emoji name in the website database to an emoji.
  * MySQL can't return all emoji correctly and converts some to ? symbols.
@@ -29,3 +40,5 @@ export const getEmojiByName = (emojiName: string) => {
       return 'ℹ'
   }
 }
+
+export const isNilString = (input: string | undefined) => input === undefined || input === null || input.length < 1
