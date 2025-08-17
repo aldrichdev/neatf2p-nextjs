@@ -21,11 +21,11 @@ import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
 
-type CreateGameAccountProps = {
+type CreateGameAccountPageProps = {
   user: User
 }
 
-const CreateGameAccount = ({ user }: CreateGameAccountProps) => {
+const CreateGameAccountPage = ({ user }: CreateGameAccountPageProps) => {
   const [accountName, setAccountName] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -168,7 +168,7 @@ const CreateGameAccount = ({ user }: CreateGameAccountProps) => {
   )
 }
 
-export default CreateGameAccount
+export default CreateGameAccountPage
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getIronSession(req, res, sessionOptions)

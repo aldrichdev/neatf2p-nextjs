@@ -105,11 +105,6 @@ const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores }: PlayerNpcHiscoreP
 
     setPlayerNpcHiscoreRows(playerNpcHiscoreRowArray)
 
-    // we could have a loading state and change it here but just have the browser title always reflect the accountname
-    // setIsLoading?.(false)
-    // we can't have this useEffect's logic in getStaticProps  because
-    // allNpcHiscores is needed by other functions in this component anyway
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allNpcHiscores])
 

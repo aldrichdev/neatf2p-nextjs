@@ -24,7 +24,6 @@ const NewsPostDetail = ({ newsPost }: NewsPostDetailProps) => {
 
 export default NewsPostDetail
 
-// This function gets called at build time
 export const getStaticProps: GetStaticProps = async context => {
   const { params } = context
   const fetchUrl = `${getWebsiteBaseUrl()}/api/getNewsPosts${params?.id ? `?id=${params.id}` : ''}`

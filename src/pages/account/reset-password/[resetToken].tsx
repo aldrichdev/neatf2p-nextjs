@@ -91,19 +91,12 @@ const ResetPassword = () => {
     })
   }, [resetToken])
 
-  if (isLoading) {
-    return (
-      <>
-        {renderHead('Reset Password')}
+  return (
+    <>
+      {renderHead('Reset Password')}
+      {isLoading ? (
         <Spinner />
-      </>
-    )
-  }
-
-  if (tokenExpired) {
-    return (
-      <>
-        {renderHead('Token Expired')}
+      ) : tokenExpired ? (
         <ContentBlock>
           <PageHeading>Token Expired</PageHeading>
           <BodyText variant='body'>
@@ -112,38 +105,33 @@ const ResetPassword = () => {
             again. You need to open the link in the email within 10 minutes.
           </BodyText>
         </ContentBlock>
-      </>
-    )
-  }
-
-  return (
-    <>
-      {renderHead('Reset Password')}
-      <ContentBlock>
-        <PageHeading>Reset Your Password</PageHeading>
-        <Form onSubmit={handleRequest}>
-          <Field
-            required
-            id='newPassword'
-            label='New Password'
-            variant='standard'
-            onChange={handleNewPasswordChange}
-            type='password'
-          />
-          <Field
-            required
-            id='confirmNewPassword'
-            label='Confirm New Password'
-            variant='standard'
-            onChange={handleConfirmNewPasswordChange}
-            type='password'
-          />
-          <FieldValidationMessage>{validationError}</FieldValidationMessage>
-          <FormButton variant='contained' type='submit'>
-            Submit
-          </FormButton>
-        </Form>
-      </ContentBlock>
+      ) : (
+        <ContentBlock>
+          <PageHeading>Reset Your Password</PageHeading>
+          <Form onSubmit={handleRequest}>
+            <Field
+              required
+              id='newPassword'
+              label='New Password'
+              variant='standard'
+              onChange={handleNewPasswordChange}
+              type='password'
+            />
+            <Field
+              required
+              id='confirmNewPassword'
+              label='Confirm New Password'
+              variant='standard'
+              onChange={handleConfirmNewPasswordChange}
+              type='password'
+            />
+            <FieldValidationMessage>{validationError}</FieldValidationMessage>
+            <FormButton variant='contained' type='submit'>
+              Submit
+            </FormButton>
+          </Form>
+        </ContentBlock>
+      )}
     </>
   )
 }
