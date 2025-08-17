@@ -3,8 +3,6 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { Field } from '@atoms/Field'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { PageHeading } from '@atoms/PageHeading'
-import useAuthentication from '@hooks/useAuthentication'
-import { Spinner } from '@molecules/Spinner'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import emailjs from '@emailjs/browser'
 import { Form } from '@atoms/Form'
@@ -14,13 +12,20 @@ import { renderHead } from '@helpers/renderUtils'
 import { sendApiRequest } from '@helpers/api/apiUtils'
 import { UserExists } from '@helpers/users/users'
 import { AxiosError } from 'axios'
+import { User } from '@globalTypes/User'
+import { NullUser } from '@models/NullUser'
+import { sessionOptions } from '@models/session'
+import { getIronSession } from 'iron-session'
+import { GetServerSideProps } from 'next'
 
-const ChangeEmailPage = () => {
-  const [isLoading, setIsLoading] = useState(true)
+type ChangeEmailPageProps = {
+  user: User
+}
+
+const ChangeEmailPage = ({ user }: ChangeEmailPageProps) => {
   const [newEmail, setNewEmail] = useState('')
   const [buttonDisabled, setButtonDisabled] = useState(false)
   const [formValidationError, setFormValidationError] = useState('')
-  const user = useAuthentication(setIsLoading)
 
   const handleNewEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setNewEmail(event.target.value)
@@ -64,15 +69,6 @@ const ChangeEmailPage = () => {
       })
   }
 
-  if (isLoading) {
-    return (
-      <>
-        {renderHead('Change Email Address')}
-        <Spinner />
-      </>
-    )
-  }
-
   return (
     <>
       {renderHead('Change Email Address')}
@@ -102,3 +98,14 @@ const ChangeEmailPage = () => {
 }
 
 export default ChangeEmailPage
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getIronSession(req, res, sessionOptions)
+  const user: User = session?.user || NullUser
+
+  return {
+    props: {
+      user: JSON.parse(JSON.stringify(user)),
+    },
+  }
+}

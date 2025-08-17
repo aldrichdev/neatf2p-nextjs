@@ -1,11 +1,15 @@
 import { ContentBlock } from '@atoms/ContentBlock'
 import { EventCalendar } from '@organisms/EventCalendar'
+import { renderHead } from '@helpers/renderUtils'
 
 const EventsPage = () => {
   return (
-    <ContentBlock isWide>
-      <EventCalendar />
-    </ContentBlock>
+    <>
+      {renderHead('Event Calendar')}
+      <ContentBlock isWide>
+        <EventCalendar />
+      </ContentBlock>
+    </>
   )
 }
 

@@ -10,7 +10,7 @@ let theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Saros,Vinque',
+    fontFamily: 'Saros,Vecna',
     body1: undefined,
     body2: undefined,
     subtitle1: undefined,
@@ -97,11 +97,11 @@ theme = createTheme(theme, {
       fontWeight: '600',
       fontSize: '36px',
       lineHeight: '36px',
-      fontFamily: 'Vinque',
+      fontFamily: 'Vecna',
 
       [theme.breakpoints.up('desktop')]: {
-        fontSize: '50px',
-        lineHeight: '50px',
+        fontSize: '60px',
+        lineHeight: '60px',
       },
     },
     body: {

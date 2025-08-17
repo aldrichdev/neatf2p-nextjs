@@ -4,7 +4,7 @@ import { handleQuery } from '@helpers/api/apiHandler'
 import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
-  const { username } = req.body
+  const { username } = JSON.parse(req.body)
 
   if (!username) {
     res.statusCode = 400

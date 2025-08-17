@@ -3,8 +3,6 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { Field } from '@atoms/Field'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { PageHeading } from '@atoms/PageHeading'
-import useAuthentication from '@hooks/useAuthentication'
-import { Spinner } from '@molecules/Spinner'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { Form } from '@atoms/Form'
 import { redirectTo } from '@helpers/window'
@@ -13,14 +11,21 @@ import { hashPassword } from '@helpers/password'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { renderHead } from '@helpers/renderUtils'
 import { AxiosError } from 'axios'
+import { User } from '@globalTypes/User'
+import { NullUser } from '@models/NullUser'
+import { sessionOptions } from '@models/session'
+import { getIronSession } from 'iron-session'
+import { GetServerSideProps } from 'next'
 
-const ChangePasswordPage = () => {
-  const [isLoading, setIsLoading] = useState(true)
+type ChangePasswordPageProps = {
+  user: User
+}
+
+const ChangePasswordPage = ({ user }: ChangePasswordPageProps) => {
   const [newPassword, setNewPassword] = useState('')
   const [confirmNewPassword, setConfirmNewPassword] = useState('')
   const [buttonDisabled, setButtonDisabled] = useState(false)
   const [formValidationError, setFormValidationError] = useState('')
-  const user = useAuthentication(setIsLoading)
 
   const handleNewPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setNewPassword(event.target.value)
@@ -67,15 +72,6 @@ const ChangePasswordPage = () => {
       })
   }
 
-  if (isLoading) {
-    return (
-      <>
-        {renderHead('Change Password')}
-        <Spinner />
-      </>
-    )
-  }
-
   return (
     <>
       {renderHead('Change Password')}
@@ -110,3 +106,14 @@ const ChangePasswordPage = () => {
 }
 
 export default ChangePasswordPage
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getIronSession(req, res, sessionOptions)
+  const user: User = session?.user || NullUser
+
+  return {
+    props: {
+      user: JSON.parse(JSON.stringify(user)),
+    },
+  }
+}

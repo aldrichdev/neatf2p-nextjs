@@ -7,21 +7,26 @@ import { Field } from '@atoms/Field'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import bcrypt from 'bcryptjs'
 import { User } from '@globalTypes/User'
-import useAuthentication from '@hooks/useAuthentication'
 import { redirectTo } from '@helpers/window'
 import { UserExists } from '@helpers/users/users'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
-import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
 import { Callout } from '@atoms/Callout'
 import { sendApiRequest } from '@helpers/api/apiUtils'
 import axios from 'axios'
 import { renderHead } from '@helpers/renderUtils'
 import { RulesAcceptanceCheckbox } from '@molecules/RulesAcceptanceCheckbox'
+import { NullUser } from '@models/NullUser'
+import { sessionOptions } from '@models/session'
+import { getIronSession } from 'iron-session'
+import { GetServerSideProps } from 'next'
 
-const CreateAccountPage = () => {
-  const [loading, setLoading] = useState(true)
+type CreateAccountPageProps = {
+  user: User
+}
+
+const CreateAccountPage = ({ user }: CreateAccountPageProps) => {
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -29,7 +34,6 @@ const CreateAccountPage = () => {
   const [rulesAgreedTo, setRulesAgreedTo] = useState<boolean>()
   const [validationError, setValidationError] = useState('')
   const [submitDisabled, setSubmitDisabled] = useState(false)
-  const user = useAuthentication(setLoading)
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value)
@@ -139,86 +143,85 @@ const CreateAccountPage = () => {
       })
   }
 
-  if (loading) {
-    return (
-      <>
-        {renderHead('Register')}
-        <Spinner />
-      </>
-    )
-  }
-
-  if (UserExists(user)) {
-    // Logged-in users should not see this page
-    return (
-      <AlreadyLoggedIn message='You already have an account! If you wish to create a new one, please log out first.' />
-    )
-  }
-
   return (
     <>
       {renderHead('Register')}
-      <ContentBlock>
-        <PageHeading>Create Account</PageHeading>
-        <BodyText variant='body' bodyTextAlign='left'>
-          By creating a website account, you can add or rename game accounts, update passwords, and some other nifty
-          things.
-        </BodyText>
-        <Callout variant='warning'>
-          <strong>Note:</strong> The account you are creating on this page is NOT a game account, it is an account for
-          the website. Once you log into the site, you will be able to create game accounts that you can log into the
-          server with.
-        </Callout>
-        <Form onSubmit={handleAccountCreation}>
-          <Field
-            required
-            id='email'
-            label='Email'
-            type='email'
-            variant='standard'
-            onChange={handleEmailChange}
-            inputProps={{ maxLength: 100 }}
-          />
-          <Field
-            required
-            id='username'
-            label='Username'
-            variant='standard'
-            onChange={handleUsernameChange}
-            inputProps={{ maxLength: 100 }}
-            autoComplete='username'
-          />
-          <Field
-            required
-            id='password'
-            label='Password'
-            type='password'
-            variant='standard'
-            onChange={handlePasswordChange}
-            autoComplete='new-password'
-          />
-          <Field
-            required
-            id='confirmPassword'
-            label='Confirm Password'
-            type='password'
-            variant='standard'
-            onChange={handleConfirmPasswordChange}
-            autoComplete='new-password'
-          />
-          <RulesAcceptanceCheckbox onChange={handleRulesCheck} />
-          {validationError && <FieldValidationMessage>{validationError}</FieldValidationMessage>}
-          <FormButton variant='contained' type='submit' disabled={submitDisabled}>
-            Submit
-          </FormButton>
-        </Form>
-        <BodyText variant='body' topMargin={40} bodyTextAlign='left'>
-          <span>Already have an account?</span>
-          <InlineLink href='/account/login'>Log in.</InlineLink>
-        </BodyText>
-      </ContentBlock>
+      {UserExists(user) ? (
+        <AlreadyLoggedIn message='You already have an account! If you wish to create a new one, please log out first.' />
+      ) : (
+        <ContentBlock>
+          <PageHeading>Create Account</PageHeading>
+          <BodyText variant='body' bodyTextAlign='left'>
+            By creating a website account, you can add or rename game accounts, update passwords, and some other nifty
+            things.
+          </BodyText>
+          <Callout variant='warning'>
+            <strong>Note:</strong> The account you are creating on this page is NOT a game account, it is an account for
+            the website. Once you log into the site, you will be able to create game accounts that you can log into the
+            server with.
+          </Callout>
+          <Form onSubmit={handleAccountCreation}>
+            <Field
+              required
+              id='email'
+              label='Email'
+              type='email'
+              variant='standard'
+              onChange={handleEmailChange}
+              inputProps={{ maxLength: 100 }}
+            />
+            <Field
+              required
+              id='username'
+              label='Username'
+              variant='standard'
+              onChange={handleUsernameChange}
+              inputProps={{ maxLength: 100 }}
+              autoComplete='username'
+            />
+            <Field
+              required
+              id='password'
+              label='Password'
+              type='password'
+              variant='standard'
+              onChange={handlePasswordChange}
+              autoComplete='new-password'
+            />
+            <Field
+              required
+              id='confirmPassword'
+              label='Confirm Password'
+              type='password'
+              variant='standard'
+              onChange={handleConfirmPasswordChange}
+              autoComplete='new-password'
+            />
+            <RulesAcceptanceCheckbox onChange={handleRulesCheck} />
+            {validationError && <FieldValidationMessage>{validationError}</FieldValidationMessage>}
+            <FormButton variant='contained' type='submit' disabled={submitDisabled}>
+              Submit
+            </FormButton>
+          </Form>
+          <BodyText variant='body' topMargin={40} bodyTextAlign='left'>
+            <span>Already have an account?</span>
+            <InlineLink href='/account/login'>Log in.</InlineLink>
+          </BodyText>
+        </ContentBlock>
+      )}
     </>
   )
 }
 
 export default CreateAccountPage
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getIronSession(req, res, sessionOptions)
+  const user: User = session?.user || NullUser
+
+  return {
+    props: {
+      user: JSON.parse(JSON.stringify(user)),
+    },
+  }
+}

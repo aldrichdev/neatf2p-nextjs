@@ -1,7 +1,7 @@
 import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
 import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
 import { PlayerHiscoresSortField } from '@globalTypes/Database/PlayerHiscoresSortField'
-import { HiscoreType, NpcHiscoreType } from '@globalTypes/Hiscores/HiscoreType'
+import { HiscoreType, NpcHiscoreType, NpcHiscoreTypes } from '@globalTypes/Hiscores/HiscoreType'
 import { groupArrayByProperty } from '@helpers/arrayUtils'
 
 export const getTotalExp = (hiscoreRow: PlayerHiscoreDataRow) =>
@@ -658,3 +658,25 @@ export const groupByUsername = (filteredHiscores: NpcHiscoreDataRow[]) => {
 
   return newArray
 }
+
+export const filterGroupAndSortHiscores = (rawHiscores: NpcHiscoreDataRow[], npcHiscoreType?: NpcHiscoreType) => {
+  const npcHiscoreTypeHasValue = npcHiscoreType || npcHiscoreType === 0
+
+  if (!npcHiscoreTypeHasValue) {
+    return rawHiscores
+  }
+
+  // Filter, group and sort raw hiscores.
+  if (Array.isArray(npcHiscoreType)) {
+    const filteredHiscores = rawHiscores?.filter(row => npcHiscoreType.includes(row.npcID))
+    const groupedCompositeHiscores = groupByUsername(filteredHiscores || []).sort((obj1, obj2) =>
+      compareNpcHiscores(obj1, obj2),
+    )
+    return groupedCompositeHiscores
+  } else {
+    return rawHiscores?.filter(hiscore => hiscore.npcID === npcHiscoreType)
+  }
+}
+
+export const isNpcHiscoreType = (x: number | readonly number[]): x is NpcHiscoreType =>
+  NpcHiscoreTypes.includes(x as NpcHiscoreType)

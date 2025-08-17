@@ -8,18 +8,20 @@ import { Field } from '@atoms/Field'
 import { InlineLink } from '@atoms/InlineLink'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { User } from '@globalTypes/User'
-import useAuthentication from '@hooks/useAuthentication'
 import { redirectTo } from '@helpers/window'
 import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
 import { UserExists, UserIsLoggedIn } from '@helpers/users/users'
 import { FormButton } from '@atoms/FormButton/FormButton'
-import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
 import { sendApiRequest } from '@helpers/api/apiUtils'
 import axios from 'axios'
 import { renderHead } from '@helpers/renderUtils'
 import usePasswordHashing from '@hooks/usePasswordHashing'
+import { NullUser } from '@models/NullUser'
+import { sessionOptions } from '@models/session'
+import { getIronSession } from 'iron-session'
+import { GetServerSideProps } from 'next'
 
 const ForgotPasswordBlock = styled(BodyText)(
   () => css`
@@ -36,28 +38,17 @@ const ForgotPasswordLink = styled(HoverUnderlineLink)(
   `,
 )
 
-const AccountLoginPage = () => {
-  const [loading, setLoading] = useState(true)
+type AccountLoginPageProps = {
+  user: User
+}
+
+const AccountLoginPage = ({ user }: AccountLoginPageProps) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [validationError, setValidationError] = useState('')
   const [buttonDisabled, setButtonDisabled] = useState(false)
-  const user = useAuthentication(setLoading)
   const userIsLoggedIn = UserIsLoggedIn(user)
   const { passwordValid } = usePasswordHashing()
-
-  if (loading) {
-    return (
-      <>
-        {renderHead('Login')}
-        <Spinner />
-      </>
-    )
-  }
-
-  if (userIsLoggedIn) {
-    return <AlreadyLoggedIn />
-  }
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value)
@@ -135,36 +126,51 @@ const AccountLoginPage = () => {
   return (
     <>
       {renderHead('Login')}
-      <ContentBlock>
-        <PageHeading>Login</PageHeading>
-        <BodyText variant='body' bodyTextAlign='left'>
-          Log in to your website account below.
-        </BodyText>
-        <Form onSubmit={handleLogin}>
-          <Field required id='email' label='Email' variant='standard' onChange={handleEmailChange} />
-          <Field
-            required
-            id='password'
-            label='Password'
-            type='password'
-            variant='standard'
-            onChange={handlePasswordChange}
-          />
-          <FieldValidationMessage>{validationError}</FieldValidationMessage>
-          <ForgotPasswordBlock variant='body' topMargin={20} bodyTextAlign='left'>
-            <ForgotPasswordLink href='/account/login/forgot-password'>Forgot Password?</ForgotPasswordLink>
-          </ForgotPasswordBlock>
-          <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
-            Log In
-          </FormButton>
-        </Form>
-        <BodyText variant='body' topMargin={40} bodyTextAlign='left'>
-          <span>New around here?</span>
-          <InlineLink href='/account/create'>Create a site account.</InlineLink>
-        </BodyText>
-      </ContentBlock>
+      {userIsLoggedIn ? (
+        <AlreadyLoggedIn />
+      ) : (
+        <ContentBlock>
+          <PageHeading>Login</PageHeading>
+          <BodyText variant='body' bodyTextAlign='left'>
+            Log in to your website account below.
+          </BodyText>
+          <Form onSubmit={handleLogin}>
+            <Field required id='email' label='Email' variant='standard' onChange={handleEmailChange} />
+            <Field
+              required
+              id='password'
+              label='Password'
+              type='password'
+              variant='standard'
+              onChange={handlePasswordChange}
+            />
+            <FieldValidationMessage>{validationError}</FieldValidationMessage>
+            <ForgotPasswordBlock variant='body' topMargin={20} bodyTextAlign='left'>
+              <ForgotPasswordLink href='/account/login/forgot-password'>Forgot Password?</ForgotPasswordLink>
+            </ForgotPasswordBlock>
+            <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
+              Log In
+            </FormButton>
+          </Form>
+          <BodyText variant='body' topMargin={40} bodyTextAlign='left'>
+            <span>New around here?</span>
+            <InlineLink href='/account/create'>Create a site account.</InlineLink>
+          </BodyText>
+        </ContentBlock>
+      )}
     </>
   )
 }
 
 export default AccountLoginPage
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getIronSession(req, res, sessionOptions)
+  const user: User = session?.user || NullUser
+
+  return {
+    props: {
+      user: JSON.parse(JSON.stringify(user)),
+    },
+  }
+}

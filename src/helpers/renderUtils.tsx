@@ -6,6 +6,6 @@ import Head from 'next/head'
  * otherwise we will see `<!-- -->` in it on first render. */
 export const renderHead = (title: string) => (
   <Head>
-    <title>{`${title} | Neat F2P :: Nostalgia Reborn | Runescape Classic F2P`}</title>
+    <title>{`${title} | Neat F2P`}</title>
   </Head>
 )

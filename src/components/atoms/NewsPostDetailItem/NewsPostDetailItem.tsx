@@ -4,7 +4,6 @@ import { NewsPostItemProps } from '@globalTypes/NewsPostItemProps'
 import { getNewsPostImageUrl } from '@helpers/imageUtils'
 import {
   NewsPostDetailContainer,
-  NewsPostTitle,
   NewsPostDetailImage,
   NewsPostDetailDate,
   NewsPostDetailAuthor,
@@ -17,8 +16,7 @@ const NewsPostDetailItem = (props: NewsPostItemProps) => {
 
   return (
     <NewsPostDetailContainer>
-      <PageHeading>News Post</PageHeading>
-      <NewsPostTitle variant='h3'>{newsPost.title}</NewsPostTitle>
+      <PageHeading>{newsPost.title}</PageHeading>
       <NewsPostDetailImage src={getNewsPostImageUrl(newsPost.image)} alt={newsPost.alt} />
       <NewsPostDetailDate variant='body'>{getPrettyDateStringFromISOString(newsPost.datePosted)}</NewsPostDetailDate>
       <NewsPostDetailAuthor variant='body'>Beast Fable</NewsPostDetailAuthor>

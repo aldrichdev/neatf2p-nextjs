@@ -16,8 +16,6 @@ import {
   PreviewButtonContainer,
   ForHtmlOutput,
 } from '@styledPages/NewsPostForm.styled'
-import useAuthentication from '@hooks/useAuthentication'
-import { Spinner } from '@molecules/Spinner'
 import { MustBeAdminBlock } from '@molecules/MustBeAdminBlock'
 import { PageHeading } from '@atoms/PageHeading'
 import ReactMarkdown from 'react-markdown'
@@ -30,9 +28,17 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { renderHead } from '@helpers/renderUtils'
 import { AxiosError } from 'axios'
+import { User } from '@globalTypes/User'
+import { NullUser } from '@models/NullUser'
+import { sessionOptions } from '@models/session'
+import { getIronSession } from 'iron-session'
+import { GetServerSideProps } from 'next'
 
-const NewsPostForm = () => {
-  const [loading, setLoading] = useState(true)
+type CreateNewsPostPageProps = {
+  user: User
+}
+
+const CreateNewsPostPage = ({ user }: CreateNewsPostPageProps) => {
   const [image, setImage] = useState<string>('')
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string>()
   const [alt, setAlt] = useState<string>('')
@@ -42,7 +48,6 @@ const NewsPostForm = () => {
   const [previewModalIsOpen, setPreviewModalIsOpen] = useState(false)
   const [submitDisabled, setSubmitDisabled] = useState(false)
   const [submitResult, setSubmitResult] = useState<{ answer: string; code: string }>()
-  const user = useAuthentication(setLoading)
 
   if (previewModalIsOpen) {
     // Prevent scrolling
@@ -123,84 +128,86 @@ const NewsPostForm = () => {
     }
   }, [body])
 
-  if (loading) {
-    return (
-      <>
-        {renderHead('Submit News Post')}
-        <Spinner />
-      </>
-    )
-  }
-
-  if (!user?.isAdmin) {
-    return <MustBeAdminBlock />
-  }
-
   return (
     <>
-      {renderHead('Submit News Post')}
-      <PageHeading>Submit a News Post</PageHeading>
-      <ContentBlock topMargin={40}>
-        <StyledForm onSubmit={handleSubmit}>
-          <ImageArea>
-            <ImageLabel>Image</ImageLabel>
-            <ImageHelperText>
-              Optional. If not provided, a placeholder image will be displayed next to the post.
-            </ImageHelperText>
-            <ImageButtonContainer>
-              <FileUploadButton component='label' variant='contained' startIcon={<CloudUploadIcon />}>
-                Upload file
-                <VisuallyHiddenInput type='file' onChange={handleImageChange} />
-              </FileUploadButton>
-              {imagePreviewUrl && (
-                <ClearButton variant='outlined' onClick={handleClearButtonClick}>
-                  Clear
-                </ClearButton>
-              )}
-            </ImageButtonContainer>
-            <PreviewImage src={imagePreviewUrl} alt='' />
-          </ImageArea>
-          <Field id='imageAlt' label='Alt Text' variant='outlined' onChange={handleAltChange} />
-          <Field id='postTitle' label='Title' variant='outlined' onChange={handleTitleChange} required />
-          <Field
-            id='postBody'
-            label='Body'
-            variant='outlined'
-            helperText='Supports markdown'
-            onChange={handleBodyChange}
-            multiline
-            required
-          />
-          <ForHtmlOutput>
-            <ReactMarkdown className='news-post-body-markdown-html'>{body}</ReactMarkdown>
-          </ForHtmlOutput>
-          <PreviewButtonContainer>
-            <Button variant='outlined' onClick={handlePreviewClick} disabled={!body}>
-              Preview
-            </Button>
-          </PreviewButtonContainer>
-          <Modal
-            open={previewModalIsOpen}
-            handleClose={handlePreviewModalClose}
-            heading='Preview'
-            body={
-              <>
-                <NewsPostTitle variant='body'>{title}</NewsPostTitle>
-                <ReactMarkdown className='news-post-body-markdown'>{body}</ReactMarkdown>
-              </>
-            }
-            bodyScrollable
-          />
-          <SubmitArea>
-            <SubmitButton variant='contained' type='submit' disabled={submitDisabled}>
-              Submit
-            </SubmitButton>
-          </SubmitArea>
-          <SubmitMessage color={submitResult?.code}>{submitResult?.answer}</SubmitMessage>
-        </StyledForm>
-      </ContentBlock>
+      {renderHead('Create News Post')}
+      {!user?.isAdmin ? (
+        <MustBeAdminBlock />
+      ) : (
+        <ContentBlock>
+          <PageHeading>Create a News Post</PageHeading>
+          <StyledForm onSubmit={handleSubmit}>
+            <ImageArea>
+              <ImageLabel>Image</ImageLabel>
+              <ImageHelperText>
+                Optional. If not provided, a placeholder image will be displayed next to the post.
+              </ImageHelperText>
+              <ImageButtonContainer>
+                <FileUploadButton component='label' variant='contained' startIcon={<CloudUploadIcon />}>
+                  Upload file
+                  <VisuallyHiddenInput type='file' onChange={handleImageChange} />
+                </FileUploadButton>
+                {imagePreviewUrl && (
+                  <ClearButton variant='outlined' onClick={handleClearButtonClick}>
+                    Clear
+                  </ClearButton>
+                )}
+              </ImageButtonContainer>
+              <PreviewImage src={imagePreviewUrl} alt='' />
+            </ImageArea>
+            <Field id='imageAlt' label='Alt Text' variant='outlined' onChange={handleAltChange} />
+            <Field id='postTitle' label='Title' variant='outlined' onChange={handleTitleChange} required />
+            <Field
+              id='postBody'
+              label='Body'
+              variant='outlined'
+              helperText='Supports markdown'
+              onChange={handleBodyChange}
+              multiline
+              required
+            />
+            <ForHtmlOutput>
+              <ReactMarkdown className='news-post-body-markdown-html'>{body}</ReactMarkdown>
+            </ForHtmlOutput>
+            <PreviewButtonContainer>
+              <Button variant='outlined' onClick={handlePreviewClick} disabled={!body}>
+                Preview
+              </Button>
+            </PreviewButtonContainer>
+            <Modal
+              open={previewModalIsOpen}
+              handleClose={handlePreviewModalClose}
+              heading='Preview'
+              body={
+                <>
+                  <NewsPostTitle variant='body'>{title}</NewsPostTitle>
+                  <ReactMarkdown className='news-post-body-markdown'>{body}</ReactMarkdown>
+                </>
+              }
+              bodyScrollable
+            />
+            <SubmitArea>
+              <SubmitButton variant='contained' type='submit' disabled={submitDisabled}>
+                Submit
+              </SubmitButton>
+            </SubmitArea>
+            <SubmitMessage color={submitResult?.code}>{submitResult?.answer}</SubmitMessage>
+          </StyledForm>
+        </ContentBlock>
+      )}
     </>
   )
 }
 
-export default NewsPostForm
+export default CreateNewsPostPage
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getIronSession(req, res, sessionOptions)
+  const user: User = session?.user || NullUser
+
+  return {
+    props: {
+      user: JSON.parse(JSON.stringify(user)),
+    },
+  }
+}
