@@ -19,24 +19,24 @@ import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow
 import { PlayerHiscoresSortField } from '@globalTypes/Database/PlayerHiscoresSortField'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { PlayerHiscoreRow } from '@globalTypes/Hiscores/PlayerHiscoreRow'
-import { sendApiRequest } from '@helpers/api/apiUtils'
 import { getPrettyDateStringFromMillis } from '@helpers/date/date'
+import { getWebsiteBaseUrl } from '@helpers/envUtils'
 import { compareHiscores, convertExp, getTotalExp, isNotBaselineExp } from '@helpers/hiscores/hiscoresUtils'
 import { renderHead } from '@helpers/renderUtils'
 import { redirectTo } from '@helpers/window'
 import { HiscoresTabs } from '@models/HiscoresTabs'
-import { Spinner } from '@molecules/Spinner'
 import { PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
-import { useRouter } from 'next/router'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { useEffect, useState } from 'react'
 
-const PlayerHiscore = () => {
-  const { query } = useRouter()
-  const [isLoading, setIsLoading] = useState(true)
-  const [hiscoresData, setHiscoresData] = useState<PlayerHiscoreDataRow[] | undefined>()
+type PlayerHiscorePageProps = {
+  accountName: string
+  hiscoresData: PlayerHiscoreDataRow[]
+  lastLogin: string
+}
+
+const PlayerHiscorePage = ({ accountName, hiscoresData, lastLogin }: PlayerHiscorePageProps) => {
   const [playerHiscores, setPlayerHiscores] = useState<PlayerHiscoreRow[] | undefined>()
-  const [lastLogin, setLastLogin] = useState<string>()
-  const accountName = query.accountName as string
 
   const isMatchingUser = (hiscoreDataRow: PlayerHiscoreDataRow) =>
     hiscoreDataRow.username.toLowerCase() === accountName.toLowerCase()
@@ -87,43 +87,11 @@ const PlayerHiscore = () => {
     }
   }
 
-  const getLoginDate = (response: { data: PlayerHiscoreDataRow[] }) =>
-    response.data.find((row: PlayerHiscoreDataRow) => row.username.toLowerCase() === accountName.toLowerCase())
-      ?.login_date
-
   const handleSetActiveTab = (tab: Tab) => {
     if (tab.label === 'NPC Kills') {
       redirectTo(`/npc-hiscores/player/${accountName}`)
     }
   }
-
-  useEffect(() => {
-    setIsLoading(true)
-
-    if (!accountName) return
-
-    sendApiRequest('POST', '/api/getPlayerHiscore', {
-      username: accountName.toLowerCase(),
-    })
-      .then(response => {
-        setHiscoresData(response?.data as PlayerHiscoreDataRow[])
-
-        // Get player last login date
-        const lastLoginMillis = getLoginDate(response)
-
-        // A value of 0 means the user has never logged in - likewise for undefined
-        if (!lastLoginMillis) {
-          setLastLogin('Never')
-        } else {
-          const lastLogin = getPrettyDateStringFromMillis(lastLoginMillis)
-          setLastLogin(lastLogin)
-        }
-
-        setIsLoading(false)
-      })
-      .catch((error: string) => console.log(`Error getting player hiscore: ${error}`))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accountName])
 
   useEffect(() => {
     if (!hiscoresData) return
@@ -146,20 +114,11 @@ const PlayerHiscore = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hiscoresData])
 
-  if (isLoading) {
-    return (
-      <>
-        {renderHead('Player Hiscore')}
-        <Spinner />
-      </>
-    )
-  }
-
   return (
     <>
-      {renderHead('Player Hiscore')}
+      {renderHead(`${accountName} | Player Hiscores`)}
       <ContentBlock>
-        <PageHeading>{accountName || 'Unknown Player'}</PageHeading>
+        <PageHeading>{accountName}</PageHeading>
         <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
         {typeof accountName !== 'string' || !playerHiscores || !hiscoresData?.find(isMatchingUser) ? (
           <BodyText variant='body' bodyTextAlign='center'>
@@ -204,4 +163,46 @@ const PlayerHiscore = () => {
   )
 }
 
-export default PlayerHiscore
+export default PlayerHiscorePage
+
+export const getStaticProps: GetStaticProps = async context => {
+  const { params } = context
+  const accountName = Array.isArray(params?.accountName) ? 'Unknown Player' : params?.accountName || 'Unknown Player'
+  const fetchUrl = `${getWebsiteBaseUrl()}/api/getPlayerHiscore`
+  const fetchBody = { username: accountName.toLowerCase() }
+
+  const res = await fetch(fetchUrl, { method: 'POST', body: JSON.stringify(fetchBody) })
+  const output = await res.json()
+
+  if (output) {
+    const hiscores: PlayerHiscoreDataRow[] = output
+
+    // Get player last login date
+    const lastLoginMillis = hiscores.find(
+      (row: PlayerHiscoreDataRow) => row.username.toLowerCase() === accountName.toLowerCase(),
+    )?.login_date
+
+    // A value of 0 for millis means the user has never logged in. Likewise for undefined.
+    const lastLogin = lastLoginMillis ? getPrettyDateStringFromMillis(lastLoginMillis) : 'Never'
+
+    return {
+      props: {
+        accountName,
+        hiscoresData: hiscores,
+        lastLogin,
+      },
+    }
+  }
+
+  return {
+    notFound: true,
+  }
+}
+
+// Next.js requires this to be here for dynamic routes
+export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
+  }
+}

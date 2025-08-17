@@ -4,14 +4,16 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
 import { PlayerHiscoreTable } from '@atoms/PlayerHiscoreTable'
 import { NpcHiscoreType, NpcHiscoreTypes } from '@globalTypes/Hiscores/HiscoreType'
-import { compareNpcHiscores, getNpcNameByIdForMenuKey, groupByUsername } from '@helpers/hiscores/hiscoresUtils'
+import {
+  compareNpcHiscores,
+  filterGroupAndSortHiscores,
+  getNpcNameByIdForMenuKey,
+  groupByUsername,
+} from '@helpers/hiscores/hiscoresUtils'
 import { renderHead } from '@helpers/renderUtils'
-import { Spinner } from '@molecules/Spinner'
 import { PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
-import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { PlayerNpcHiscoreRow } from '@globalTypes/Hiscores/PlayerNpcHiscoreRow'
-import useNpcHiscores from '@hooks/useNpcHiscores'
 import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
 import { HiscoreTableHeaderCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
 import { HiscoreTableRow, PlayerHiscoreTableCell, SkillLink } from '@atoms/PlayerHiscoreTable/PlayerHiscoreTable.styled'
@@ -20,13 +22,16 @@ import { redirectTo } from '@helpers/window'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
 import { PlayerHiscoresRank } from '@atoms/PlayerHiscoresRank'
 import { HiscoresTabs } from '@models/HiscoresTabs'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { getWebsiteBaseUrl } from '@helpers/envUtils'
 
-const PlayerNpcHiscore = () => {
-  const { query } = useRouter()
-  const [isLoading, setIsLoading] = useState(true)
-  const allNpcHiscores = useNpcHiscores()
+type PlayerNpcHiscorePageProps = {
+  accountName: string
+  allNpcHiscores: NpcHiscoreDataRow[]
+}
+
+const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores }: PlayerNpcHiscorePageProps) => {
   const [playerNpcHiscoreRows, setPlayerNpcHiscoreRows] = useState<PlayerNpcHiscoreRow[] | undefined>()
-  const accountName = query.accountName as string
 
   const isMatchingUser = (hiscoreDataRow: NpcHiscoreDataRow) =>
     hiscoreDataRow.username.toLowerCase() === accountName.toLowerCase()
@@ -99,22 +104,13 @@ const PlayerNpcHiscore = () => {
     })
 
     setPlayerNpcHiscoreRows(playerNpcHiscoreRowArray)
-    setIsLoading(false)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allNpcHiscores])
 
-  if (isLoading) {
-    return (
-      <>
-        {renderHead('Player NPC Hiscore')}
-        <Spinner />
-      </>
-    )
-  }
-
   return (
     <>
-      {renderHead('Player NPC Hiscore')}
+      {renderHead(`${accountName} | NPC Hiscores`)}
       <ContentBlock>
         <PageHeading>{accountName || 'Unknown Player'}</PageHeading>
         <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[1]} setActiveTab={tab => handleSetActiveTab(tab)} />
@@ -158,4 +154,32 @@ const PlayerNpcHiscore = () => {
   )
 }
 
-export default PlayerNpcHiscore
+export default PlayerNpcHiscorePage
+
+export const getStaticProps: GetStaticProps = async context => {
+  const { params } = context
+  const accountName = Array.isArray(params?.accountName) ? 'Unknown Player' : params?.accountName || 'Unknown Player'
+
+  // First fetch the data
+  const fetchUrl = `${getWebsiteBaseUrl()}/api/queryNpcHiscores`
+  const res = await fetch(fetchUrl)
+  const output = await res.json()
+
+  const rawHiscores: NpcHiscoreDataRow[] = output ? (output as NpcHiscoreDataRow[]) : []
+  const allNpcHiscores = filterGroupAndSortHiscores(rawHiscores)
+
+  return {
+    props: {
+      accountName,
+      allNpcHiscores,
+    },
+  }
+}
+
+// Next.js requires this to be here for dynamic routes
+export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
+  }
+}

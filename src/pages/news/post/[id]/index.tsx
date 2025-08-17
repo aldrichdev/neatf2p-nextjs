@@ -1,49 +1,20 @@
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { NewsPost } from '@globalTypes/NewsPost'
 import { NewsPostDetailItem } from '@atoms/NewsPostDetailItem'
-import { Spinner } from '@molecules/Spinner'
-import { sendApiRequest } from '@helpers/api/apiUtils'
 import { renderHead } from '@helpers/renderUtils'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { getWebsiteBaseUrl } from '@helpers/envUtils'
 
-const NewsPostDetail = () => {
-  const { query } = useRouter()
-  const [isLoading, setIsLoading] = useState(true)
-  const [newsPost, setNewsPost] = useState<NewsPost | undefined>(undefined)
+type NewsPostDetailProps = {
+  newsPost: NewsPost
+}
 
-  useEffect(() => {
-    const fetchNewsPost = () => {
-      sendApiRequest('GET', `/api/getNewsPosts${query?.id ? `?id=${query.id}` : ''}`)
-        .then(response => {
-          if (response?.data?.length === 1) {
-            setNewsPost(response.data[0])
-            setIsLoading(false)
-          }
-        })
-        .catch((error: string) => error)
-    }
-
-    if (newsPost === undefined) {
-      fetchNewsPost()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query])
-
-  if (isLoading) {
-    return (
-      <>
-        {renderHead('News Post')}
-        <Spinner />
-      </>
-    )
-  }
-
+const NewsPostDetail = ({ newsPost }: NewsPostDetailProps) => {
   if (!newsPost?.title) return null
 
   return (
     <>
-      {renderHead('News Post')}
+      {renderHead(newsPost.title)}
       <ContentBlock>
         <NewsPostDetailItem newsPost={newsPost} />
       </ContentBlock>
@@ -52,3 +23,33 @@ const NewsPostDetail = () => {
 }
 
 export default NewsPostDetail
+
+export const getStaticProps: GetStaticProps = async context => {
+  const { params } = context
+  const fetchUrl = `${getWebsiteBaseUrl()}/api/getNewsPosts${params?.id ? `?id=${params.id}` : ''}`
+
+  // Call an external API endpoint to get the requested post
+  const res = await fetch(fetchUrl)
+  const newsPosts = await res.json()
+
+  if (newsPosts.length === 1) {
+    // The `NewsPostDetail` component will receive `newsPost` as a prop at build time
+    return {
+      props: {
+        newsPost: newsPosts[0],
+      },
+    }
+  }
+
+  return {
+    notFound: true,
+  }
+}
+
+// Next.js requires this to be here for dynamic routes, or we will see: `getStaticPaths is required for dynamic SSG pages`
+export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
+  return {
+    paths: [], // Indicates that no page needs be created at build time
+    fallback: 'blocking', // Indicates the type of fallback
+  }
+}

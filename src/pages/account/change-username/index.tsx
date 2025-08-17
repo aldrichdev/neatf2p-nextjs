@@ -3,8 +3,6 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { Field } from '@atoms/Field'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { PageHeading } from '@atoms/PageHeading'
-import useAuthentication from '@hooks/useAuthentication'
-import { Spinner } from '@molecules/Spinner'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { Form } from '@atoms/Form'
 import { redirectTo } from '@helpers/window'
@@ -15,13 +13,20 @@ import { UserIsLoggedIn } from '@helpers/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { renderHead } from '@helpers/renderUtils'
 import { AxiosError } from 'axios'
+import { User } from '@globalTypes/User'
+import { NullUser } from '@models/NullUser'
+import { sessionOptions } from '@models/session'
+import { getIronSession } from 'iron-session'
+import { GetServerSideProps } from 'next'
 
-const ChangeUsernamePage = () => {
-  const [isLoading, setIsLoading] = useState(true)
+type ChangeUsernamePageProps = {
+  user: User
+}
+
+const ChangeUsernamePage = ({ user }: ChangeUsernamePageProps) => {
   const [newUsername, setNewUsername] = useState('')
   const [buttonDisabled, setButtonDisabled] = useState(false)
   const [formValidationError, setFormValidationError] = useState('')
-  const user = useAuthentication(setIsLoading)
 
   const handleNewUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setNewUsername(event.target.value)
@@ -73,45 +78,47 @@ const ChangeUsernamePage = () => {
       })
   }
 
-  if (isLoading) {
-    return (
-      <>
-        {renderHead('Change Username')}
-        <Spinner />
-      </>
-    )
-  }
-
-  if (!UserIsLoggedIn(user)) {
-    return <NotLoggedIn />
-  }
-
   return (
     <>
       {renderHead('Change Username')}
-      <ContentBlock>
-        <PageHeading>Change Username</PageHeading>
-        <BodyText variant='body'>
-          Enter your new username below. Remember that this only changes your website username, it does not affect your
-          game accounts.
-        </BodyText>
-        <Form onSubmit={handleSubmit}>
-          <Field
-            required
-            id='newUsername'
-            label='New Username'
-            variant='standard'
-            onChange={handleNewUsernameChange}
-            inputProps={{ maxLength: 25 }}
-          />
-          <FieldValidationMessage>{formValidationError}</FieldValidationMessage>
-          <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
-            Submit
-          </FormButton>
-        </Form>
-      </ContentBlock>
+      {!UserIsLoggedIn(user) ? (
+        <NotLoggedIn />
+      ) : (
+        <ContentBlock>
+          <PageHeading>Change Username</PageHeading>
+          <BodyText variant='body'>
+            Enter your new username below. Remember that this only changes your website username, it does not affect
+            your game accounts.
+          </BodyText>
+          <Form onSubmit={handleSubmit}>
+            <Field
+              required
+              id='newUsername'
+              label='New Username'
+              variant='standard'
+              onChange={handleNewUsernameChange}
+              inputProps={{ maxLength: 25 }}
+            />
+            <FieldValidationMessage>{formValidationError}</FieldValidationMessage>
+            <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
+              Submit
+            </FormButton>
+          </Form>
+        </ContentBlock>
+      )}
     </>
   )
 }
 
 export default ChangeUsernamePage
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getIronSession(req, res, sessionOptions)
+  const user: User = session?.user || NullUser
+
+  return {
+    props: {
+      user: JSON.parse(JSON.stringify(user)),
+    },
+  }
+}

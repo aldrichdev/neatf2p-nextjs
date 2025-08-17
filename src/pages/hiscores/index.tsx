@@ -15,8 +15,13 @@ import { PageTabs } from '@atoms/PageTabs'
 import { redirectTo } from '@helpers/window'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
 import { HiscoresTabs } from '@models/HiscoresTabs'
+import { GetServerSideProps } from 'next'
 
-const Hiscores = () => {
+type HiscoresProps = {
+  skill: HiscoreType
+}
+
+const Hiscores = ({ skill }: HiscoresProps) => {
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
   const { query } = router
@@ -40,16 +45,16 @@ const Hiscores = () => {
   }
 
   useEffect(() => {
-    if (query.skill) {
-      setHiscoreType(typeof query.skill === 'string' && isHiscoreType(query.skill) ? query.skill : 'Overall')
+    if (skill) {
+      setHiscoreType(typeof skill === 'string' && isHiscoreType(skill) ? skill : 'Overall')
     } else {
       setHiscoreType('Overall')
     }
-  }, [query])
+  }, [skill])
 
   return (
     <>
-      {renderHead('Hiscores')}
+      {renderHead(`${skill} Hiscores`)}
       <ContentBlock isWide>
         <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
         <PageHeading>{`${hiscoreType} Hiscores`}</PageHeading>
@@ -73,3 +78,14 @@ const Hiscores = () => {
 }
 
 export default Hiscores
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const skill = query.skill
+
+  return {
+    // Send the skill from the query string to the Hiscores page so it can be used in the browser title
+    props: {
+      skill: skill || 'Overall',
+    },
+  }
+}

@@ -7,26 +7,31 @@ import { FormButton } from '@atoms/FormButton/FormButton'
 import { redirectTo } from '@helpers/window'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { hashPassword } from '@helpers/password'
-import useAuthentication from '@hooks/useAuthentication'
 import { UserIsLoggedIn } from '@helpers/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
-import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
 import { sanitizeRunescapePassword } from '@helpers/string/stringUtils'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import axios, { AxiosError } from 'axios'
 import { renderHead } from '@helpers/renderUtils'
 import { RulesAcceptanceCheckbox } from '@molecules/RulesAcceptanceCheckbox'
+import { User } from '@globalTypes/User'
+import { NullUser } from '@models/NullUser'
+import { sessionOptions } from '@models/session'
+import { getIronSession } from 'iron-session'
+import { GetServerSideProps } from 'next'
 
-const CreateGameAccount = () => {
-  const [loading, setLoading] = useState(true)
+type CreateGameAccountPageProps = {
+  user: User
+}
+
+const CreateGameAccountPage = ({ user }: CreateGameAccountPageProps) => {
   const [accountName, setAccountName] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [rulesAgreedTo, setRulesAgreedTo] = useState<boolean>()
   const [validationError, setValidationError] = useState('')
   const [submitDisabled, setSubmitDisabled] = useState(false)
-  const user = useAuthentication(setLoading)
 
   const handleAccountNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setAccountName(event.target.value)
@@ -101,79 +106,77 @@ const CreateGameAccount = () => {
     })
   }
 
-  if (loading) {
-    return (
-      <>
-        {renderHead('Create Game Account')}
-        <Spinner />
-      </>
-    )
-  }
-
-  if (process.env.NEXT_PUBLIC_GAME_ACCOUNTS_DISABLE_CREATION === 'true') {
-    return (
-      <ContentBlock>
-        <PageHeading>Temporarily Disabled</PageHeading>
-        <BodyText variant='body' bodyTextAlign='center'>
-          Game account creations are temporarily disabled until further notice.
-        </BodyText>
-      </ContentBlock>
-    )
-  }
-
-  if (!UserIsLoggedIn(user)) {
-    return <NotLoggedIn />
-  }
-
   return (
     <>
       {renderHead('Create Game Account')}
-      <ContentBlock>
-        <PageHeading>Create Game Account</PageHeading>
-        <BodyText variant='body'>
-          Game account names must be 12 characters or less. You are allowed spaces within your name, but any spaces at
-          the start or end of your name will be removed upon account creation.
-        </BodyText>
-        <Form onSubmit={handleGameAccountCreation}>
-          <Field
-            required
-            id='account-name'
-            label='Account Name'
-            type='text'
-            variant='standard'
-            onChange={handleAccountNameChange}
-            inputProps={{ maxLength: 12 }}
-            autoComplete='username'
-          />
-          <Field
-            required
-            id='password'
-            label='Password'
-            type='password'
-            variant='standard'
-            onChange={handlePasswordChange}
-            inputProps={{ maxLength: 20 }}
-            autoComplete='new-password'
-          />
-          <Field
-            required
-            id='confirmPassword'
-            label='Confirm Password'
-            type='password'
-            variant='standard'
-            onChange={handleConfirmPasswordChange}
-            inputProps={{ maxLength: 20 }}
-            autoComplete='new-password'
-          />
-          <FieldValidationMessage>{validationError}</FieldValidationMessage>
-          <RulesAcceptanceCheckbox onChange={handleRulesCheck} />
-          <FormButton variant='contained' type='submit' disabled={submitDisabled}>
-            Submit
-          </FormButton>
-        </Form>
-      </ContentBlock>
+      {!UserIsLoggedIn(user) ? (
+        <NotLoggedIn />
+      ) : process.env.NEXT_PUBLIC_GAME_ACCOUNTS_DISABLE_CREATION === 'true' ? (
+        <ContentBlock>
+          <PageHeading>Temporarily Disabled</PageHeading>
+          <BodyText variant='body' bodyTextAlign='center'>
+            Game account creations are temporarily disabled until further notice.
+          </BodyText>
+        </ContentBlock>
+      ) : (
+        <ContentBlock>
+          <PageHeading>Create Game Account</PageHeading>
+          <BodyText variant='body'>
+            Game account names must be 12 characters or less. You are allowed spaces within your name, but any spaces at
+            the start or end of your name will be removed upon account creation.
+          </BodyText>
+          <Form onSubmit={handleGameAccountCreation}>
+            <Field
+              required
+              id='account-name'
+              label='Account Name'
+              type='text'
+              variant='standard'
+              onChange={handleAccountNameChange}
+              inputProps={{ maxLength: 12 }}
+              autoComplete='username'
+            />
+            <Field
+              required
+              id='password'
+              label='Password'
+              type='password'
+              variant='standard'
+              onChange={handlePasswordChange}
+              inputProps={{ maxLength: 20 }}
+              autoComplete='new-password'
+            />
+            <Field
+              required
+              id='confirmPassword'
+              label='Confirm Password'
+              type='password'
+              variant='standard'
+              onChange={handleConfirmPasswordChange}
+              inputProps={{ maxLength: 20 }}
+              autoComplete='new-password'
+            />
+            <FieldValidationMessage>{validationError}</FieldValidationMessage>
+            <RulesAcceptanceCheckbox onChange={handleRulesCheck} />
+            <FormButton variant='contained' type='submit' disabled={submitDisabled}>
+              Submit
+            </FormButton>
+          </Form>
+        </ContentBlock>
+      )}
     </>
   )
 }
 
-export default CreateGameAccount
+export default CreateGameAccountPage
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getIronSession(req, res, sessionOptions)
+  const user: User = session?.user || NullUser
+
+  return {
+    props: {
+      user: JSON.parse(JSON.stringify(user)),
+    },
+  }
+}

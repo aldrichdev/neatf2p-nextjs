@@ -3,7 +3,6 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { renderHead } from '@helpers/renderUtils'
-import useAuthentication from '@hooks/useAuthentication'
 import { Spinner } from '@molecules/Spinner'
 import axios, { AxiosError } from 'axios'
 import Link from 'next/link'
@@ -18,8 +17,15 @@ import { FormButton } from '@atoms/FormButton/FormButton'
 import { User } from '@globalTypes/User'
 import { UserExists } from '@helpers/users/users'
 import usePasswordHashing from '@hooks/usePasswordHashing'
+import { sessionOptions } from '@models/session'
+import { getIronSession } from 'iron-session'
+import { GetServerSideProps } from 'next'
 
-const ChangeEmailByIdPage = () => {
+type ChangeEmailByIdPageProps = {
+  user: User
+}
+
+const ChangeEmailByIdPage = ({ user }: ChangeEmailByIdPageProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const [password, setPassword] = useState('')
   const [validationError, setValidationError] = useState('')
@@ -29,7 +35,6 @@ const ChangeEmailByIdPage = () => {
   const { query } = useRouter()
   const accountId = query?.id
   const newEmail = query?.email
-  const user = useAuthentication()
   const { passwordValid } = usePasswordHashing()
 
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -147,47 +152,57 @@ const ChangeEmailByIdPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accountId, newEmail, user.emailAddress, userValidated])
 
-  if (isLoading) {
-    return (
-      <>
-        {renderHead('Change Email Address')}
-        <Spinner />
-      </>
-    )
-  }
-
-  return !emailUpdated ? (
+  return (
     <>
       {renderHead('Change Email Address')}
-      <ContentBlock>
-        <PageHeading>Change Email Address</PageHeading>
-        <BodyText variant='body' bodyTextAlign='center'>
-          Please enter your password to continue.
-        </BodyText>
-        <Form onSubmit={handleSubmit}>
-          <Field
-            required
-            id='password'
-            label='Password'
-            type='password'
-            variant='standard'
-            onChange={handlePasswordChange}
-          />
-          <FieldValidationMessage>{validationError}</FieldValidationMessage>
-          <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
-            Submit
-          </FormButton>
-        </Form>
-      </ContentBlock>
+      {!emailUpdated ? (
+        <>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <ContentBlock>
+              <PageHeading>Change Email Address</PageHeading>
+              <BodyText variant='body' bodyTextAlign='center'>
+                Please enter your password to continue.
+              </BodyText>
+              <Form onSubmit={handleSubmit}>
+                <Field
+                  required
+                  id='password'
+                  label='Password'
+                  type='password'
+                  variant='standard'
+                  onChange={handlePasswordChange}
+                />
+                <FieldValidationMessage>{validationError}</FieldValidationMessage>
+                <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
+                  Submit
+                </FormButton>
+              </Form>
+            </ContentBlock>
+          )}
+        </>
+      ) : (
+        <ContentBlock>
+          <PageHeading>Update Complete</PageHeading>
+          <BodyText variant='body' bodyTextAlign='center'>
+            Your email has been updated. You can go back to your <Link href='/account'>account</Link> page.
+          </BodyText>
+        </ContentBlock>
+      )}
     </>
-  ) : (
-    <ContentBlock>
-      <PageHeading>Update Complete</PageHeading>
-      <BodyText variant='body' bodyTextAlign='center'>
-        Your email has been updated. You can go back to your <Link href='/account'>account</Link> page.
-      </BodyText>
-    </ContentBlock>
   )
 }
 
 export default ChangeEmailByIdPage
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getIronSession(req, res, sessionOptions)
+  const user: User = session?.user || NullUser
+
+  return {
+    props: {
+      user: JSON.parse(JSON.stringify(user)),
+    },
+  }
+}

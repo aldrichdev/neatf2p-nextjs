@@ -8,9 +8,11 @@ import { DiscordLink } from '@atoms/DiscordLink'
 import { PageHeading } from '@atoms/PageHeading'
 import { BodyText } from '@atoms/BodyText'
 import { TabletAndDesktopBanner } from '@atoms/TabletAndDesktopBanner/TabletAndDesktopBanner'
+import { renderHead } from '@helpers/renderUtils'
 
 const Homepage = () => (
   <div>
+    {renderHead('Home')}
     <ContentBlock isWide>
       <OnlinePlayers />
     </ContentBlock>

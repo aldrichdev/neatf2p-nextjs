@@ -6,25 +6,30 @@ import { Form } from '@atoms/Form'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { PageHeading } from '@atoms/PageHeading'
 import { BugType } from '@globalTypes/BugType'
+import { User } from '@globalTypes/User'
 import { renderHead } from '@helpers/renderUtils'
 import { UserIsLoggedIn } from '@helpers/users/users'
-import useAuthentication from '@hooks/useAuthentication'
+import { NullUser } from '@models/NullUser'
+import { sessionOptions } from '@models/session'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
-import { Spinner } from '@molecules/Spinner'
 import { InputLabel, Select, SelectChangeEvent } from '@mui/material'
 import { BugTypeDropdown, BugTypeMenuItem, IssuesLink } from '@styledPages/ReportABug.styled'
+import { getIronSession } from 'iron-session'
+import { GetServerSideProps } from 'next'
 import { Octokit } from 'octokit'
 import { ChangeEvent, FormEvent, ReactNode, useState } from 'react'
 
-const BugReportsPage = () => {
-  const [isLoading, setIsLoading] = useState(true)
+type BugReportsPageProps = {
+  user: User
+}
+
+const BugReportsPage = ({ user }: BugReportsPageProps) => {
   const [bugTitle, setBugTitle] = useState('')
   const [bugDescription, setBugDescription] = useState('')
   const [bugType, setBugType] = useState<BugType>('Game')
   const [buttonDisabled, setButtonDisabled] = useState(false)
   const [validationMessage, setValidationMessage] = useState<ReactNode>(<></>)
   const [validationMessageColor, setValidationMessageColor] = useState('')
-  const user = useAuthentication(setIsLoading)
 
   const handleBugTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setBugTitle(event.target.value)
@@ -83,69 +88,73 @@ const BugReportsPage = () => {
       })
   }
 
-  if (isLoading) {
-    return (
-      <>
-        {renderHead('Report a Bug')}
-        <Spinner />
-      </>
-    )
-  }
-
-  if (!UserIsLoggedIn(user)) {
-    return <NotLoggedIn />
-  }
-
   return (
     <>
       {renderHead('Report a Bug')}
-      <ContentBlock>
-        <PageHeading>Report a Bug</PageHeading>
-        <BodyText variant='body'>
-          Use the below form to submit a bug. Don&apos;t abuse this form, it could get you in trouble.
-        </BodyText>
-        <Form onSubmit={handleBugCreation} desktopWidth='100%'>
-          <Field
-            required
-            id='title'
-            label='Title'
-            placeholder='Short summary of the bug'
-            variant='outlined'
-            inputProps={{ maxLength: 100 }}
-            onChange={handleBugTitleChange}
-          />
-          <Field
-            required
-            id='description'
-            label='Description'
-            placeholder='Describe the bug. If you can provide steps to reproduce it, please do'
-            variant='outlined'
-            multiline
-            rows={5}
-            inputProps={{ maxLength: 10000 }}
-            onChange={handleBugDescriptionChange}
-          />
-          <BugTypeDropdown>
-            <InputLabel id='label-bug-type'>Bug Type</InputLabel>
-            <Select
-              labelId='label-bug-type'
-              id='bug-type'
-              label='Bug Type'
-              value={bugType}
-              onChange={handleBugTypeChange}
-            >
-              <BugTypeMenuItem value='Game'>Game</BugTypeMenuItem>
-              <BugTypeMenuItem value='Website'>Website</BugTypeMenuItem>
-            </Select>
-          </BugTypeDropdown>
-          <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
-            Submit
-          </FormButton>
-          <FieldValidationMessage color={validationMessageColor}>{validationMessage}</FieldValidationMessage>
-        </Form>
-      </ContentBlock>
+      {!UserIsLoggedIn(user) ? (
+        <NotLoggedIn />
+      ) : (
+        <ContentBlock>
+          <PageHeading>Report a Bug</PageHeading>
+          <BodyText variant='body'>
+            Use the below form to submit a bug. Don&apos;t abuse this form, it could get you in trouble.
+          </BodyText>
+          <Form onSubmit={handleBugCreation} desktopWidth='100%'>
+            <Field
+              required
+              id='title'
+              label='Title'
+              placeholder='Short summary of the bug'
+              variant='outlined'
+              inputProps={{ maxLength: 100 }}
+              onChange={handleBugTitleChange}
+            />
+            <Field
+              required
+              id='description'
+              label='Description'
+              placeholder='Describe the bug. If you can provide steps to reproduce it, please do'
+              variant='outlined'
+              multiline
+              rows={5}
+              inputProps={{ maxLength: 10000 }}
+              onChange={handleBugDescriptionChange}
+            />
+            <BugTypeDropdown>
+              <InputLabel id='label-bug-type'>Bug Type</InputLabel>
+              <Select
+                labelId='label-bug-type'
+                id='bug-type'
+                label='Bug Type'
+                value={bugType}
+                onChange={handleBugTypeChange}
+              >
+                <BugTypeMenuItem value='Game'>Game</BugTypeMenuItem>
+                <BugTypeMenuItem value='Website'>Website</BugTypeMenuItem>
+              </Select>
+            </BugTypeDropdown>
+            <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
+              Submit
+            </FormButton>
+            <FieldValidationMessage color={validationMessageColor}>{validationMessage}</FieldValidationMessage>
+          </Form>
+        </ContentBlock>
+      )}
     </>
   )
 }
 
 export default BugReportsPage
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getIronSession(req, res, sessionOptions)
+
+  // We need to coalesce to `NullUser` here so that we don't try to parse `undefined`
+  const user: User = session?.user || NullUser
+
+  return {
+    props: {
+      user: JSON.parse(JSON.stringify(user)),
+    },
+  }
+}
