@@ -7,6 +7,9 @@ export type Event = {
   resource?: string
   /** Short, mobile-only description of where the event takes place */
   location?: string
+  /** Whether the event recurs */
+  recurring: boolean
+  recursEvery?: string
 }
 
 /** Database verison of `Event`. The structure that lives in the database.
@@ -20,4 +23,6 @@ export type DatabaseEvent = {
   RelativeUrl: string
   Location: string
   EmojiName?: string
+  Recurring: number
+  RecursEvery?: string
 }

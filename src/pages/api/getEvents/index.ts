@@ -9,8 +9,10 @@ import { getDateFromMillis } from '@helpers/date/date'
 const handler = async (req: NextApiRequest, res: NextApiResponse<DatabaseEvent>) => {
   try {
     const list: Event[] = []
-    const query = `SELECT e.Id, e.Title, e.StartDate, e.EndDate, e.RelativeUrl, e.Location, e.EmojiName
-      FROM events e`
+    const query = `
+      SELECT e.Id, e.Title, e.StartDate, e.EndDate, e.RelativeUrl, e.Location, e.EmojiName, e.Recurring, e.RecursEvery
+      FROM events e
+    `
 
     const response: Array<DatabaseEvent> | ErrorResult = await queryDatabase('website', query)
 
@@ -27,6 +29,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<DatabaseEvent>)
           end: getDateFromMillis(rowDataPacket.EndDate),
           resource: rowDataPacket.RelativeUrl,
           location: rowDataPacket.Location,
+          recurring: rowDataPacket.Recurring === 1 ? true : false,
+          recursEvery: rowDataPacket.RecursEvery,
         }
         list.push(newObject)
       })
