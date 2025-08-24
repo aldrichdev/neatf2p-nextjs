@@ -8,6 +8,11 @@ import { useState } from 'react'
 import { renderHead } from '@helpers/renderUtils'
 import { getProtocol } from '@helpers/envUtils'
 
+/** Unused. This is the other version of the webclient that uses the webclient files that exist in this repository
+ * to run the webclient. While it does automatically load the client (not requiring the privacy warning to
+ * be accepted), when players log in, it always returns, "Sorry! Unable to connect". Never found out why.
+ * Probably, this file and the related logic / Java files should be removed from the project.
+ */
 const WebclientV2Page = () => {
   const [hideAds, setHideAds] = useState(false)
   const [hideRunescapeBanners, setHideRunescapeBanners] = useState(false)

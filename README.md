@@ -4,7 +4,7 @@ The source code for the [Neat F2P website](https://www.neatf2p.com/).
 
 ## Requirements
 
-- Node 16
+- Node 22
 
 ## Setup
 
