@@ -38,11 +38,13 @@ export const getStaticProps: GetStaticProps = async context => {
       props: {
         newsPost: newsPosts[0],
       },
+      revalidate: 60,
     }
   }
 
   return {
     notFound: true,
+    revalidate: 60,
   }
 }
 
