@@ -173,7 +173,7 @@ export const getStaticProps: GetStaticProps = async context => {
       accountName,
       allNpcHiscores,
     },
-    revalidate: 30,
+    revalidate: 5,
   }
 }
 
