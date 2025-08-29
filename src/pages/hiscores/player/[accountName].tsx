@@ -191,11 +191,13 @@ export const getStaticProps: GetStaticProps = async context => {
         hiscoresData: hiscores,
         lastLogin,
       },
+      revalidate: 60,
     }
   }
 
   return {
     notFound: true,
+    revalidate: 60,
   }
 }
 
