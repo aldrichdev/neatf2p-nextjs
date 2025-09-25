@@ -4,23 +4,24 @@ import { css } from '@mui/system'
 export const AgendaViewBody = styled('div')(
   ({ theme }) => css`
     margin-top: 40px;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 20px;
 
+    ${theme.breakpoints.up('tablet')} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
     ${theme.breakpoints.up('desktop')} {
-      flex-direction: row;
+      grid-template-columns: repeat(3, 1fr);
     }
   `,
 )
 export const EventCard = styled('div')(
-  ({ theme }) => css`
+  () => css`
     border: 1px solid black;
     font-family: Source Sans Pro;
-
-    ${theme.breakpoints.up('tablet')} {
-      width: 400px;
-    }
+    width: 100%;
   `,
 )
 
