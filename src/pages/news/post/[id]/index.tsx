@@ -1,6 +1,6 @@
 import { ContentBlock } from '@atoms/ContentBlock'
 import { NewsPost } from '@globalTypes/NewsPost'
-import { NewsPostDetailItem } from '@atoms/NewsPostDetailItem'
+import { NewsPostDetailItem } from '@molecules/NewsPostDetailItem'
 import { renderHead } from '@helpers/renderUtils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { getWebsiteBaseUrl } from '@helpers/envUtils'

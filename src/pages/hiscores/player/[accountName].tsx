@@ -1,12 +1,12 @@
 import { BackToLink } from '@atoms/BackToLink/BackToLink'
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
-import { HiscoreTableHeaderCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
+import { HiscoreTableHeaderCell } from '@molecules/HiscoresTable/HiscoresTable.styled'
 import { PageHeading } from '@atoms/PageHeading'
 import { PageTabs } from '@atoms/PageTabs'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
 import { PlayerHiscoresRank } from '@atoms/PlayerHiscoresRank'
-import { PlayerHiscoreTable } from '@atoms/PlayerHiscoreTable'
+import { PlayerHiscoreTable } from '@organisms/PlayerHiscoreTable'
 import {
   ExperienceCell,
   HiscoreSkillIcon,
@@ -14,7 +14,7 @@ import {
   HiscoreTableRow,
   PlayerHiscoreTableCell,
   SkillLink,
-} from '@atoms/PlayerHiscoreTable/PlayerHiscoreTable.styled'
+} from '@organisms/PlayerHiscoreTable/PlayerHiscoreTable.styled'
 import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
 import { PlayerHiscoresSortField } from '@globalTypes/Database/PlayerHiscoresSortField'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'

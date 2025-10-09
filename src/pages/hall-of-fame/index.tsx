@@ -1,7 +1,7 @@
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
-import { CommunityAchievementsTable } from '@molecules/CommunityAchievementsTable'
+import { CommunityAchievementsTable } from '@atoms/CommunityAchievementsTable'
 import { renderHead } from '@helpers/renderUtils'
 
 const HallOfFamePage = () => (

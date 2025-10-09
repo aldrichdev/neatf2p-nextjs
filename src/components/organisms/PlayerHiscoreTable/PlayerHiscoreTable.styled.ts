@@ -1,4 +1,4 @@
-import { HiscoreTableCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
+import { HiscoreTableCell } from '@molecules/HiscoresTable/HiscoresTable.styled'
 import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 import { TableBody, TableCell, TableHead, TableRow } from '@mui/material'
 import { styled } from '@mui/material/styles'

@@ -1,5 +1,5 @@
 import { TableContainer, Paper } from '@mui/material'
-import { HiscoreTable } from '@atoms/HiscoresTable/HiscoresTable.styled'
+import { HiscoreTable } from '@molecules/HiscoresTable/HiscoresTable.styled'
 import { HiscoreTableRow, PlayerHiscoreTableBody, PlayerHiscoreTableHead } from './PlayerHiscoreTable.styled'
 import { ReactNode } from 'react'
 

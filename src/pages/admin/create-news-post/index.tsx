@@ -1,132 +1,67 @@
-import { useEffect, useState } from 'react'
-import { convertBlobToBase64String } from '@helpers/base64'
-import {
-  StyledForm,
-  SubmitArea,
-  SubmitButton,
-  SubmitMessage,
-  VisuallyHiddenInput,
-  PreviewImage,
-  FileUploadButton,
-  ImageArea,
-  ImageLabel,
-  ImageHelperText,
-  ImageButtonContainer,
-  ClearButton,
-  PreviewButtonContainer,
-  ForHtmlOutput,
-} from '@styledPages/NewsPostForm.styled'
 import { MustBeAdminBlock } from '@molecules/MustBeAdminBlock'
 import { PageHeading } from '@atoms/PageHeading'
-import ReactMarkdown from 'react-markdown'
-import { Modal } from '@molecules/Modal'
-import { Button } from '@mui/material'
-import { NewsPostTitle } from '@organisms/NewsPostListItem/NewsPostListItem.styled'
-import { Field } from '@atoms/Field'
-import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { ContentBlock } from '@atoms/ContentBlock'
-import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { renderHead } from '@helpers/renderUtils'
-import { AxiosError } from 'axios'
 import { User } from '@globalTypes/User'
 import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
+import { NewsPostForm } from '@molecules/NewsPostForm'
 
 type CreateNewsPostPageProps = {
   user: User
 }
 
 const CreateNewsPostPage = ({ user }: CreateNewsPostPageProps) => {
-  const [image, setImage] = useState<string>('')
-  const [imagePreviewUrl, setImagePreviewUrl] = useState<string>()
-  const [alt, setAlt] = useState<string>('')
-  const [title, setTitle] = useState<string>('')
-  const [body, setBody] = useState<string>('')
-  const [bodyHtml, setBodyHtml] = useState<string>('')
-  const [previewModalIsOpen, setPreviewModalIsOpen] = useState(false)
-  const [submitDisabled, setSubmitDisabled] = useState(false)
-  const [submitResult, setSubmitResult] = useState<{ answer: string; code: string }>()
+  // const [image, setImage] = useState<string>('')
+  // const [imagePreviewUrl, setImagePreviewUrl] = useState<string>()
+  // const [alt, setAlt] = useState<string>('')
+  // const [title, setTitle] = useState<string>('')
+  // const [body, setBody] = useState<string>('')
+  // const [bodyHtml, setBodyHtml] = useState<string>('')
+  // const [previewModalIsOpen, setPreviewModalIsOpen] = useState(false)
+  // const [submitDisabled, setSubmitDisabled] = useState(false)
+  // const [submitResult, setSubmitResult] = useState<{ answer: string; code: string }>()
 
-  if (previewModalIsOpen) {
-    // Prevent scrolling
-    document.body.style.overflow = 'hidden'
-  }
+  // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault()
+  //   setSubmitDisabled(true)
+  //   sendDataToApi(image, alt, title, bodyHtml, body)
+  // }
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0]
-      setImagePreviewUrl(URL.createObjectURL(i))
-      convertBlobToBase64String(i, (base64: string) => {
-        setImage(base64)
-      })
-    }
-  }
+  // const sendDataToApi = (imageBase64: string, alt: string, title: string, body: string, bodyInput: string) => {
+  //   sendApiRequest('POST', '/api/createNewsPost', {
+  //     userId: user.id,
+  //     image: imageBase64,
+  //     alt,
+  //     title,
+  //     datePosted: new Date(),
+  //     body,
+  //     bodyInput,
+  //   })
+  //     .then(response => {
+  //       setSubmitResult({
+  //         answer: response?.data,
+  //         code: response?.data?.includes('Success') ? 'green' : 'red',
+  //       })
+  //     })
+  //     .catch((error: AxiosError<string>) => {
+  //       setSubmitResult({
+  //         answer: error?.response?.data || '',
+  //         code: 'red',
+  //       })
+  //       handleForbiddenRedirect(error)
+  //     })
+  // }
 
-  const handleAltChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAlt(event.target.value)
-  }
-
-  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value)
-  }
-
-  const handleBodyChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setBody(event.target.value)
-  }
-
-  const handleClearButtonClick = () => {
-    setImage('')
-    setImagePreviewUrl('')
-  }
-
-  const handlePreviewClick = () => {
-    setPreviewModalIsOpen(true)
-  }
-
-  const handlePreviewModalClose = () => {
-    setPreviewModalIsOpen(false)
-    document.body.style.overflow = 'unset'
-  }
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setSubmitDisabled(true)
-    sendDataToApi(image, alt, title, bodyHtml)
-  }
-
-  const sendDataToApi = (imageBase64: string, alt: string, title: string, body: string) => {
-    sendApiRequest('POST', '/api/submitNewsPost', {
-      userId: user.id,
-      image: imageBase64,
-      alt,
-      title,
-      datePosted: new Date(),
-      body,
-    })
-      .then(response => {
-        setSubmitResult({
-          answer: response?.data,
-          code: response?.data?.includes('Success') ? 'green' : 'red',
-        })
-      })
-      .catch((error: AxiosError<string>) => {
-        setSubmitResult({
-          answer: error?.response?.data || '',
-          code: 'red',
-        })
-        handleForbiddenRedirect(error)
-      })
-  }
-
-  useEffect(() => {
-    const el = document.querySelector('.news-post-body-markdown-html')
-    if (el) {
-      const mdHTML = el.innerHTML
-      setBodyHtml(mdHTML)
-    }
-  }, [body])
+  // useEffect(() => {
+  //   const el = document.querySelector('.news-post-body-markdown-html')
+  //   if (el) {
+  //     const mdHTML = el.innerHTML
+  //     setBodyHtml(mdHTML)
+  //   }
+  // }, [body])
 
   return (
     <>
@@ -136,7 +71,8 @@ const CreateNewsPostPage = ({ user }: CreateNewsPostPageProps) => {
       ) : (
         <ContentBlock>
           <PageHeading>Create a News Post</PageHeading>
-          <StyledForm onSubmit={handleSubmit}>
+          <NewsPostForm userId={user.id} />
+          {/* <StyledForm onSubmit={handleSubmit}>
             <ImageArea>
               <ImageLabel>Image</ImageLabel>
               <ImageHelperText>
@@ -192,7 +128,7 @@ const CreateNewsPostPage = ({ user }: CreateNewsPostPageProps) => {
               </SubmitButton>
             </SubmitArea>
             <SubmitMessage color={submitResult?.code}>{submitResult?.answer}</SubmitMessage>
-          </StyledForm>
+          </StyledForm> */}
         </ContentBlock>
       )}
     </>

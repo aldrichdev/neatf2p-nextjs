@@ -6,11 +6,11 @@ import { AccountTable, AccountTableContainer, MobileBodyText, MobileSpinner } fr
 import { GameAccountsTableProps } from '@organisms/GameAccountsTable/GameAccountsTable.types'
 import { RenameAccountModal } from '@organisms/RenameAccountModal'
 import { PasswordModal } from '@organisms/PasswordModal'
-import { GameAccountRowMobile } from '@atoms/GameAccountRowMobile'
+import { GameAccountRowMobile } from '@molecules/GameAccountRowMobile'
 import { getPrettyDateStringFromMillis } from '@helpers/date/date'
 import useGameAccounts from '@hooks/useGameAccounts'
 import { CharacterInfoButton } from '@atoms/CharacterInfoButton'
-import { CharacterInfoModal } from '@molecules/CharacterInfoModal'
+import { CharacterInfoModal } from '@organisms/CharacterInfoModal'
 
 const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
   const {

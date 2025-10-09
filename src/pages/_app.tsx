@@ -4,13 +4,13 @@ import { ThemeProvider } from '@mui/material/styles'
 import theme from '@theme/theme'
 import '@theme/styles.css'
 import { Container, HomepageLink, Logo, PaddedContainer } from '@styledPages/App.styled'
-import { MainNavigation } from '@atoms/MainNavigation'
+import { MainNavigation } from '@molecules/MainNavigation'
 import { AccountWidget } from '@molecules/AccountWidget'
 import useAuthentication from '@hooks/useAuthentication'
 import emailjs from '@emailjs/browser'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { Footer } from '@molecules/Footer'
+import { Footer } from '@atoms/Footer'
 
 export default function App({ Component, pageProps }: AppProps) {
   const user = useAuthentication()

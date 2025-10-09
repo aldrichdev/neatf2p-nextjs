@@ -8,7 +8,7 @@ import { RenameAccountModal } from '@organisms/RenameAccountModal'
 import { PasswordModal } from '@organisms/PasswordModal'
 import { StyledTableCell } from '@atoms/StyledTableCell'
 import useGameAccounts from '@hooks/useGameAccounts'
-import { CharacterInfoModal } from '@molecules/CharacterInfoModal'
+import { CharacterInfoModal } from '@organisms/CharacterInfoModal'
 
 const GameAccountsTable = (props: GameAccountsTableProps) => {
   const {

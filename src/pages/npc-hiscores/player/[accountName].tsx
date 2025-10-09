@@ -2,7 +2,7 @@ import { BackToLink } from '@atoms/BackToLink/BackToLink'
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
-import { PlayerHiscoreTable } from '@atoms/PlayerHiscoreTable'
+import { PlayerHiscoreTable } from '@organisms/PlayerHiscoreTable'
 import { NpcHiscoreType, NpcHiscoreTypes } from '@globalTypes/Hiscores/HiscoreType'
 import {
   compareNpcHiscores,
@@ -15,8 +15,12 @@ import { PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
 import { useEffect, useState } from 'react'
 import { PlayerNpcHiscoreRow } from '@globalTypes/Hiscores/PlayerNpcHiscoreRow'
 import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
-import { HiscoreTableHeaderCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
-import { HiscoreTableRow, PlayerHiscoreTableCell, SkillLink } from '@atoms/PlayerHiscoreTable/PlayerHiscoreTable.styled'
+import { HiscoreTableHeaderCell } from '@molecules/HiscoresTable/HiscoresTable.styled'
+import {
+  HiscoreTableRow,
+  PlayerHiscoreTableCell,
+  SkillLink,
+} from '@organisms/PlayerHiscoreTable/PlayerHiscoreTable.styled'
 import { PageTabs } from '@atoms/PageTabs'
 import { redirectTo } from '@helpers/window'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'

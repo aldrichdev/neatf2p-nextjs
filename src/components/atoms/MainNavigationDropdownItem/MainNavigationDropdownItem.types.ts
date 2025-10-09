@@ -1,4 +1,4 @@
-import { SubNavigationItem } from '@atoms/MainNavigation/MainNavigation.types'
+import { SubNavigationItem } from '@molecules/MainNavigation/MainNavigation.types'
 
 export type MainNavigationDropdownItemProps = {
   /** Title which appears on the button. */

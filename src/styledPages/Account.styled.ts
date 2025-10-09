@@ -1,3 +1,4 @@
+import { Heading } from '@atoms/PageHeading/PageHeading.styled'
 import { Button } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
@@ -5,7 +6,7 @@ import Link from 'next/link'
 
 export const AccountNavigationContainer = styled('div')(
   ({ theme }) => css`
-    margin-top: 20px;
+    margin: 20px 0;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -38,5 +39,27 @@ export const AccountNavigationItem = styled(Link)(
     &:hover {
       background-color: var(--faded-green-bg-color);
     }
+  `,
+)
+
+export const AdminToolsSection = styled('div')(
+  () => css`
+    margin-top: 20px;
+  `,
+)
+
+export const AdminToolsHeading = styled(Heading)(
+  () => css`
+    margin-bottom: 20px;
+  `,
+)
+
+export const AdminToolsButtonArea = styled('div')(
+  () => css`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
   `,
 )
