@@ -8,7 +8,7 @@ import {
   HiscoreTableCell,
   HiscoreUsername,
   HiscoreTableHeaderCell,
-} from '@atoms/HiscoresTable/HiscoresTable.styled'
+} from '@molecules/HiscoresTable/HiscoresTable.styled'
 import { getNpcNameById } from '@helpers/hiscores/hiscoresUtils'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'

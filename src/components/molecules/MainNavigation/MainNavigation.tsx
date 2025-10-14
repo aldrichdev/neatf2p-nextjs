@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { NavUnorderedList, NavLink, NavContainer } from './MainNavigation.styled'
 import { NavigationItem } from './MainNavigation.types'
-import { MainNavigationDropdownItem } from 'src/components/MainNavigationDropdownItem'
+import { MainNavigationDropdownItem } from '@atoms/MainNavigationDropdownItem'
 
 const MainNavigation = () => {
   const { asPath } = useRouter()

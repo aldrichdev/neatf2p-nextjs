@@ -8,24 +8,32 @@ import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
 import { NewsPostForm } from '@organisms/NewsPostForm'
+import { NewsPost } from '@globalTypes/NewsPost'
+import { getWebsiteBaseUrl } from '@helpers/envUtils'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { AxiosError } from 'axios'
 import { NewsPostSubmitProps } from '@organisms/NewsPostForm/NewsPostForm.types'
 
-type CreateNewsPostPageProps = {
+type UpdateNewsPostPageProps = {
+  /** The news post that is being updated. */
+  newsPost: NewsPost
   user: User
 }
 
-const CreateNewsPostPage = ({ user }: CreateNewsPostPageProps) => {
-  const handleCreateNewsPost = (props: NewsPostSubmitProps) => {
+const UpdateNewsPostPage = ({ newsPost, user }: UpdateNewsPostPageProps) => {
+  const handleUpdateNewsPost = (props: NewsPostSubmitProps) => {
     const { image, alt, title, bodyHtml, bodyInput, setSubmitResult } = props
 
-    sendApiRequest('POST', '/api/createNewsPost', {
+    if (newsPost?.id === null) {
+      return
+    }
+
+    sendApiRequest('POST', '/api/updateNewsPost', {
       userId: user.id,
+      newsPostId: newsPost?.id,
       image,
       alt,
       title,
-      datePosted: new Date(),
       body: bodyHtml,
       bodyInput,
     })
@@ -47,28 +55,39 @@ const CreateNewsPostPage = ({ user }: CreateNewsPostPageProps) => {
 
   return (
     <>
-      {renderHead('Create News Post')}
+      {renderHead('Update News Post')}
       {!user?.isAdmin ? (
         <MustBeAdminBlock />
       ) : (
         <ContentBlock>
-          <PageHeading>Create a News Post</PageHeading>
-          <NewsPostForm userId={user.id} submitForm={handleCreateNewsPost} />
+          <PageHeading>Update a News Post</PageHeading>
+          <NewsPostForm newsPost={newsPost} userId={user.id} submitForm={handleUpdateNewsPost} />
         </ContentBlock>
       )}
     </>
   )
 }
 
-export default CreateNewsPostPage
+export default UpdateNewsPostPage
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res, params }) => {
+  const fetchUrl = `${getWebsiteBaseUrl()}/api/getNewsPosts${params?.id ? `?id=${params.id}` : ''}`
+  const response = await fetch(fetchUrl)
+  const newsPosts = await response.json()
+
   const session = await getIronSession(req, res, sessionOptions)
   const user: User = session?.user || NullUser
 
+  if (newsPosts.length === 1) {
+    return {
+      props: {
+        newsPost: newsPosts[0],
+        user: JSON.parse(JSON.stringify(user)),
+      },
+    }
+  }
+
   return {
-    props: {
-      user: JSON.parse(JSON.stringify(user)),
-    },
+    notFound: true,
   }
 }

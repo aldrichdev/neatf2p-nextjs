@@ -89,7 +89,7 @@ const AccountLoginPage = ({ user }: AccountLoginPageProps) => {
         }
 
         // If we get this far, it's a match. Log them in and redirect to homepage
-        const user: User = { ...result }
+        const user: User = { ...result, isAdmin: Boolean(result?.isAdmin || 0) }
 
         sendApiRequest('POST', '/api/ironLogin', { ...user })
           .then(response => {

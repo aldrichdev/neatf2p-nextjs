@@ -5,4 +5,5 @@ export interface NewsPost {
   title: string
   datePosted: string
   body: string
+  bodyInput: string
 }

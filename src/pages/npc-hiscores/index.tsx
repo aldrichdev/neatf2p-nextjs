@@ -2,18 +2,18 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { useState } from 'react'
 import { NpcHiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { useRouter } from 'next/router'
-import { PlayerLookup } from '@molecules/PlayerLookup'
+import { PlayerLookup } from '@atoms/PlayerLookup'
 import { PageHeading } from '@atoms/PageHeading'
 import { push } from '@helpers/router'
 import { renderHead } from '@helpers/renderUtils'
-import NpcHiscoresMenu from '@atoms/NpcHiscoresMenu/NpcHiscoresMenu'
+import NpcHiscoresMenu from '@organisms/NpcHiscoresMenu/NpcHiscoresMenu'
 import {
   filterGroupAndSortHiscores,
   getNpcIdsByInitialId,
   getNpcNameById,
   isNpcHiscoreType,
 } from '@helpers/hiscores/hiscoresUtils'
-import { NpcHiscoresTable } from '@atoms/NpcHiscoresTable'
+import { NpcHiscoresTable } from '@organisms/NpcHiscoresTable'
 import { PageTabs } from '@atoms/PageTabs'
 import { redirectTo } from '@helpers/window'
 import { NpcKillsLevelMenu } from '@molecules/NpcKillsLevelMenu'

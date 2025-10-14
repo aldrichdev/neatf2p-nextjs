@@ -1,5 +1,5 @@
 import { NpcHiscoreTypes } from '@globalTypes/Hiscores/HiscoreType'
-import { NpcHiscoresMenuItem } from '@atoms/NpcHiscoresMenuItem'
+import { NpcHiscoresMenuItem } from '@molecules/NpcHiscoresMenuItem'
 import { getNpcNameByIdForMenu, getNpcNameByIdForMenuKey } from '@helpers/hiscores/hiscoresUtils'
 import { NpcHiscoresMenuProps } from './NpcHiscoresMenu.types'
 import { NpcHiscoresMenuItemList } from '@styledPages/NpcHiscores.styled'

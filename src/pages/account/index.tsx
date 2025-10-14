@@ -1,7 +1,14 @@
 import { useState } from 'react'
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
-import { AccountNavigationContainer, AccountNavigationButton, AccountNavigationItem } from '@styledPages/Account.styled'
+import {
+  AccountNavigationContainer,
+  AccountNavigationButton,
+  AccountNavigationItem,
+  AdminToolsHeading,
+  AdminToolsButtonArea,
+  AccountPageDivider,
+} from '@styledPages/Account.styled'
 import Menu from '@mui/material/Menu'
 import { UserIsLoggedIn } from '@helpers/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
@@ -12,6 +19,7 @@ import { getIronSession } from 'iron-session'
 import { sessionOptions } from '@models/session'
 import { NullUser } from '@models/NullUser'
 import { User } from '@globalTypes/User'
+import Button from '@mui/material/Button'
 
 type AccountPageProps = {
   user: User
@@ -27,6 +35,24 @@ const AccountPage = ({ user }: AccountPageProps) => {
 
   const handleClose = () => {
     setAnchorEl(null)
+  }
+
+  const handleUpdateNewsPostClick = () => {
+    const userInput = prompt('Enter the ID of the news post you wish to update:')
+
+    if (userInput === null) {
+      // User cancelled the prompt
+      return
+    }
+
+    const userInteger = parseInt(userInput, 10)
+
+    if (isNaN(userInteger)) {
+      alert("That's not a valid integer. Please try again.")
+      return
+    }
+
+    window.location.href = `/admin/update-news-post/${userInteger}`
   }
 
   return (
@@ -72,11 +98,31 @@ const AccountPage = ({ user }: AccountPageProps) => {
             </Menu>
             <AccountNavigationButton href='/account/game-accounts'>Manage Game Accounts</AccountNavigationButton>
           </AccountNavigationContainer>
+          {user?.isAdmin && (
+            <>
+              <AccountPageDivider />
+              <div>
+                <AdminToolsHeading variant='h3'>🧰 Admin Tools 🧰</AdminToolsHeading>
+                <BodyText variant='body' bodyTextAlign='center' topMargin={0}>
+                  Below are some admin tools to help you manage content on this site.
+                </BodyText>
+                <AdminToolsButtonArea>
+                  <Button variant='contained' href='/admin/create-news-post'>
+                    ➕ Create News Post
+                  </Button>
+                  <Button variant='contained' onClick={handleUpdateNewsPostClick}>
+                    📝 Update News Post
+                  </Button>
+                </AdminToolsButtonArea>
+              </div>
+            </>
+          )}
         </ContentBlock>
       )}
     </>
   )
 }
+
 export default AccountPage
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {

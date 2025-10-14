@@ -2,7 +2,7 @@ import { BackToLink } from '@atoms/BackToLink/BackToLink'
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
-import { PlayerHiscoreTable } from '@atoms/PlayerHiscoreTable'
+import { PlayerHiscoreTable } from '@organisms/PlayerHiscoreTable'
 import { NpcHiscoreType, NpcHiscoreTypes } from '@globalTypes/Hiscores/HiscoreType'
 import {
   compareNpcHiscores,
@@ -15,14 +15,18 @@ import { PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
 import { useEffect, useState } from 'react'
 import { PlayerNpcHiscoreRow } from '@globalTypes/Hiscores/PlayerNpcHiscoreRow'
 import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
-import { HiscoreTableHeaderCell } from '@atoms/HiscoresTable/HiscoresTable.styled'
-import { HiscoreTableRow, PlayerHiscoreTableCell, SkillLink } from '@atoms/PlayerHiscoreTable/PlayerHiscoreTable.styled'
+import { HiscoreTableHeaderCell } from '@molecules/HiscoresTable/HiscoresTable.styled'
+import {
+  HiscoreTableRow,
+  PlayerHiscoreTableCell,
+  SkillLink,
+} from '@organisms/PlayerHiscoreTable/PlayerHiscoreTable.styled'
 import { PageTabs } from '@atoms/PageTabs'
 import { redirectTo } from '@helpers/window'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
 import { PlayerHiscoresRank } from '@atoms/PlayerHiscoresRank'
 import { HiscoresTabs } from '@models/HiscoresTabs'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { getWebsiteBaseUrl } from '@helpers/envUtils'
 
 type PlayerNpcHiscorePageProps = {
@@ -156,8 +160,7 @@ const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores }: PlayerNpcHiscoreP
 
 export default PlayerNpcHiscorePage
 
-export const getStaticProps: GetStaticProps = async context => {
-  const { params } = context
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const accountName = Array.isArray(params?.accountName) ? 'Unknown Player' : params?.accountName || 'Unknown Player'
 
   // First fetch the data
@@ -173,14 +176,5 @@ export const getStaticProps: GetStaticProps = async context => {
       accountName,
       allNpcHiscores,
     },
-    revalidate: 5,
-  }
-}
-
-// Next.js requires this to be here for dynamic routes
-export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-  return {
-    paths: [],
-    fallback: 'blocking',
   }
 }

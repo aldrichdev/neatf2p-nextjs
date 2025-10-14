@@ -6,7 +6,7 @@ import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { shouldBlockApiCall } from '@helpers/api/apiUtils'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
-  const { userId, image, alt, title, datePosted, body } = req.body
+  const { userId, image, alt, title, datePosted, body, bodyInput } = req.body
   const sessionCookie = req.cookies?.['neat-f2p-session']
 
   if (await shouldBlockApiCall(userId, sessionCookie)) {
@@ -39,12 +39,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
     const insertedImageId = (isOkPacket(insertImageResponse) && insertImageResponse?.insertId) || null
 
     // Next, build the insertNewsPost command and execute, then return results.
-    const insertNewsPostQuery = `INSERT INTO newsPosts (image, title, datePosted, body) SELECT ?, ?, ?, ? FROM newsPosts WHERE (SELECT COUNT(*) FROM users WHERE id = ? AND isAdmin = 1) > 0 LIMIT 1`
+    const insertNewsPostQuery = `INSERT INTO newsPosts (image, title, datePosted, body, bodyInput) SELECT ?, ?, ?, ?, ? FROM newsPosts WHERE (SELECT COUNT(*) FROM users WHERE id = ? AND isAdmin = 1) > 0 LIMIT 1`
     const insertNewsPostResponse: OkPacket | ErrorResult = await queryDatabase('website', insertNewsPostQuery, [
       insertedImageId,
       title,
       datePosted,
       body,
+      bodyInput,
       userId,
     ])
 
@@ -64,7 +65,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(`Success! Created news post with ID ${insertedNewsPostId}.`))
   } catch (error) {
-    console.log('An error occurred in the submitNewsPost API: ', error)
+    console.log('An error occurred in the createNewsPost API: ', error)
     res.statusCode = 500
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(`${error?.toString()}`))
