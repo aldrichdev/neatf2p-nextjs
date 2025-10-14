@@ -44,17 +44,15 @@ const NewsPostForm = (props: NewsPostFormProps) => {
     document.body.style.overflow = 'hidden'
   }
 
-  const convertAndSetImage = (image: File) => {
-    setImagePreviewUrl(URL.createObjectURL(image))
-    convertBlobToBase64String(image, (base64: string) => {
-      setImage(base64)
-    })
-  }
-
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const i = event.target.files[0]
-      convertAndSetImage(i)
+      setImagePreviewUrl(URL.createObjectURL(i))
+
+      convertBlobToBase64String(i, (base64: string) => {
+        setImage(base64)
+      })
+
       setSubmitDisabled(false)
     }
   }

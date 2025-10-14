@@ -7,10 +7,10 @@ import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
-import { NewsPostForm } from '@molecules/NewsPostForm'
+import { NewsPostForm } from '@organisms/NewsPostForm'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { AxiosError } from 'axios'
-import { NewsPostSubmitProps } from '@molecules/NewsPostForm/NewsPostForm.types'
+import { NewsPostSubmitProps } from '@organisms/NewsPostForm/NewsPostForm.types'
 
 type CreateNewsPostPageProps = {
   user: User
@@ -59,6 +59,7 @@ const CreateNewsPostPage = ({ user }: CreateNewsPostPageProps) => {
     </>
   )
 }
+
 export default CreateNewsPostPage
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {

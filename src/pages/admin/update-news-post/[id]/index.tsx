@@ -7,12 +7,12 @@ import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
-import { NewsPostForm } from '@molecules/NewsPostForm'
+import { NewsPostForm } from '@organisms/NewsPostForm'
 import { NewsPost } from '@globalTypes/NewsPost'
 import { getWebsiteBaseUrl } from '@helpers/envUtils'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { AxiosError } from 'axios'
-import { NewsPostSubmitProps } from '@molecules/NewsPostForm/NewsPostForm.types'
+import { NewsPostSubmitProps } from '@organisms/NewsPostForm/NewsPostForm.types'
 
 type UpdateNewsPostPageProps = {
   /** The news post that is being updated. */

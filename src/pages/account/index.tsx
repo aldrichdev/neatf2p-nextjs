@@ -37,7 +37,7 @@ const AccountPage = ({ user }: AccountPageProps) => {
     setAnchorEl(null)
   }
 
-  const handleUpdateNewsPost = () => {
+  const handleUpdateNewsPostClick = () => {
     const userInput = prompt('Enter the ID of the news post you wish to update:')
 
     if (userInput === null) {
@@ -110,7 +110,7 @@ const AccountPage = ({ user }: AccountPageProps) => {
                   <Button variant='contained' href='/admin/create-news-post'>
                     ➕ Create News Post
                   </Button>
-                  <Button variant='contained' onClick={handleUpdateNewsPost}>
+                  <Button variant='contained' onClick={handleUpdateNewsPostClick}>
                     📝 Update News Post
                   </Button>
                 </AdminToolsButtonArea>
