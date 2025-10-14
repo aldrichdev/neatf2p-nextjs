@@ -57,7 +57,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(`Success! Updated news post with ID ${newsPostId}.`))
   } catch (error) {
-    console.log('An error occurred in the updateNewsPost API: ', error)
+    console.error('An error occurred in the updateNewsPost API: ', error)
     res.statusCode = 500
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(`${error?.toString()}`))

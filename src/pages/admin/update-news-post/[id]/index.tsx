@@ -10,6 +10,9 @@ import { GetServerSideProps } from 'next'
 import { NewsPostForm } from '@molecules/NewsPostForm'
 import { NewsPost } from '@globalTypes/NewsPost'
 import { getWebsiteBaseUrl } from '@helpers/envUtils'
+import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
+import { AxiosError } from 'axios'
+import { NewsPostSubmitProps } from '@molecules/NewsPostForm/NewsPostForm.types'
 
 type UpdateNewsPostPageProps = {
   /** The news post that is being updated. */
@@ -18,6 +21,38 @@ type UpdateNewsPostPageProps = {
 }
 
 const UpdateNewsPostPage = ({ newsPost, user }: UpdateNewsPostPageProps) => {
+  const handleUpdateNewsPost = (props: NewsPostSubmitProps) => {
+    const { image, alt, title, bodyHtml, bodyInput, setSubmitResult } = props
+
+    if (newsPost?.id === null) {
+      return
+    }
+
+    sendApiRequest('POST', '/api/updateNewsPost', {
+      userId: user.id,
+      newsPostId: newsPost?.id,
+      image,
+      alt,
+      title,
+      body: bodyHtml,
+      bodyInput,
+    })
+      .then(response => {
+        setSubmitResult({
+          answer: response?.data,
+          code: response?.data?.includes('Success') ? 'green' : 'red',
+        })
+      })
+      .catch((error: AxiosError<string>) => {
+        setSubmitResult({
+          answer: error?.response?.data || '',
+          code: 'red',
+        })
+
+        handleForbiddenRedirect(error)
+      })
+  }
+
   return (
     <>
       {renderHead('Update News Post')}
@@ -26,7 +61,7 @@ const UpdateNewsPostPage = ({ newsPost, user }: UpdateNewsPostPageProps) => {
       ) : (
         <ContentBlock>
           <PageHeading>Update a News Post</PageHeading>
-          <NewsPostForm newsPost={newsPost} userId={user.id} />
+          <NewsPostForm newsPost={newsPost} userId={user.id} submitForm={handleUpdateNewsPost} />
         </ContentBlock>
       )}
     </>
@@ -37,8 +72,8 @@ export default UpdateNewsPostPage
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res, params }) => {
   const fetchUrl = `${getWebsiteBaseUrl()}/api/getNewsPosts${params?.id ? `?id=${params.id}` : ''}`
-  const apiResponse = await fetch(fetchUrl)
-  const newsPosts = await apiResponse.json()
+  const response = await fetch(fetchUrl)
+  const newsPosts = await response.json()
 
   const session = await getIronSession(req, res, sessionOptions)
   const user: User = session?.user || NullUser
@@ -56,11 +91,3 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, params 
     notFound: true,
   }
 }
-
-// TODO: This can't be used with getServerSideProps, do we need it?
-// export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-//   return {
-//     paths: [],
-//     fallback: 'blocking',
-//   }
-// }

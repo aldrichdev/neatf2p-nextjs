@@ -23,15 +23,12 @@ import { NewsPostFormProps } from './NewsPostForm.types'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { useEffect, useState } from 'react'
 import { convertBlobToBase64String } from '@helpers/base64'
-import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
-import { AxiosError } from 'axios'
 import { Modal } from '@molecules/Modal'
 import { getNewsPostImageUrl } from '@helpers/imageUtils'
 
 /** A reusable form for creating or updating a news post. */
 const NewsPostForm = (props: NewsPostFormProps) => {
-  const { newsPost, userId } = props
-  console.log('newsPost', newsPost)
+  const { newsPost, submitForm } = props
   const [image, setImage] = useState<string>(newsPost?.image || '')
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string>()
   const [alt, setAlt] = useState<string>(newsPost?.alt || '')
@@ -58,24 +55,29 @@ const NewsPostForm = (props: NewsPostFormProps) => {
     if (event.target.files && event.target.files[0]) {
       const i = event.target.files[0]
       convertAndSetImage(i)
+      setSubmitDisabled(false)
     }
   }
 
   const handleAltChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAlt(event.target.value)
+    setSubmitDisabled(false)
   }
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value)
+    setSubmitDisabled(false)
   }
 
   const handleBodyChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setBodyInput(event.target.value)
+    setSubmitDisabled(false)
   }
 
   const handleClearButtonClick = () => {
     setImage('')
     setImagePreviewUrl('')
+    setSubmitDisabled(false)
   }
 
   const handlePreviewClick = () => {
@@ -91,66 +93,15 @@ const NewsPostForm = (props: NewsPostFormProps) => {
     event.preventDefault()
     setSubmitDisabled(true)
 
-    if (newsPost?.id) {
-      updateNewsPost()
-    } else {
-      createNewsPost()
-    }
-  }
-
-  // TODO: Should these be callback functions that are provided to this component?
-  const createNewsPost = () => {
-    sendApiRequest('POST', '/api/createNewsPost', {
-      userId,
+    // Submit the form using the callback provided (will create or update a news post)
+    submitForm({
       image,
       alt,
       title,
-      datePosted: new Date(),
-      body: bodyHtml,
+      bodyHtml: bodyHtml || '',
       bodyInput,
+      setSubmitResult,
     })
-      .then(response => {
-        setSubmitResult({
-          answer: response?.data,
-          code: response?.data?.includes('Success') ? 'green' : 'red',
-        })
-      })
-      .catch((error: AxiosError<string>) => {
-        setSubmitResult({
-          answer: error?.response?.data || '',
-          code: 'red',
-        })
-        handleForbiddenRedirect(error)
-      })
-  }
-
-  const updateNewsPost = () => {
-    if (newsPost?.id === null) {
-      return
-    }
-
-    sendApiRequest('POST', '/api/updateNewsPost', {
-      userId,
-      newsPostId: newsPost?.id,
-      image,
-      alt,
-      title,
-      body: bodyHtml,
-      bodyInput,
-    })
-      .then(response => {
-        setSubmitResult({
-          answer: response?.data,
-          code: response?.data?.includes('Success') ? 'green' : 'red',
-        })
-      })
-      .catch((error: AxiosError<string>) => {
-        setSubmitResult({
-          answer: error?.response?.data || '',
-          code: 'red',
-        })
-        handleForbiddenRedirect(error)
-      })
   }
 
   useEffect(() => {
@@ -163,17 +114,16 @@ const NewsPostForm = (props: NewsPostFormProps) => {
   }, [bodyInput])
 
   useEffect(() => {
-    setImagePreviewUrl(getNewsPostImageUrl(newsPost?.image || ''))
+    if (newsPost?.image) {
+      setImagePreviewUrl(getNewsPostImageUrl(newsPost.image))
+    }
   }, [newsPost?.image])
 
   useEffect(() => {
     const turndownService = new TurndownService()
-
     setBodyHtml(newsPost?.body || '')
     setBodyInput(turndownService.turndown(newsPost?.body || ''))
   }, [newsPost?.body])
-
-  console.log('imagePreviewUrl', imagePreviewUrl, 'bodyHtml', bodyHtml, 'bodyInput', bodyInput)
 
   return (
     <StyledForm onSubmit={handleSubmit}>
@@ -196,14 +146,7 @@ const NewsPostForm = (props: NewsPostFormProps) => {
         <PreviewImage src={imagePreviewUrl} alt='' />
       </ImageArea>
       <Field id='imageAlt' label='Alt Text' variant='outlined' onChange={handleAltChange} value={alt} />
-      <Field
-        id='postTitle'
-        label='Title'
-        variant='outlined'
-        onChange={handleTitleChange}
-        value={newsPost?.title}
-        required
-      />
+      <Field id='postTitle' label='Title' variant='outlined' onChange={handleTitleChange} value={title} required />
       <Field
         id='postBody'
         label='Body'

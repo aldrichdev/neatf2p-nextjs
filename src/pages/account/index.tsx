@@ -108,10 +108,10 @@ const AccountPage = ({ user }: AccountPageProps) => {
                 </BodyText>
                 <AdminToolsButtonArea>
                   <Button variant='contained' href='/admin/create-news-post'>
-                    Create News Post
+                    ➕ Create News Post
                   </Button>
                   <Button variant='contained' onClick={handleUpdateNewsPost}>
-                    Update News Post
+                    📝 Update News Post
                   </Button>
                 </AdminToolsButtonArea>
               </div>
@@ -122,6 +122,7 @@ const AccountPage = ({ user }: AccountPageProps) => {
     </>
   )
 }
+
 export default AccountPage
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {

@@ -26,7 +26,7 @@ import { redirectTo } from '@helpers/window'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
 import { PlayerHiscoresRank } from '@atoms/PlayerHiscoresRank'
 import { HiscoresTabs } from '@models/HiscoresTabs'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { getWebsiteBaseUrl } from '@helpers/envUtils'
 
 type PlayerNpcHiscorePageProps = {
@@ -160,8 +160,7 @@ const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores }: PlayerNpcHiscoreP
 
 export default PlayerNpcHiscorePage
 
-export const getStaticProps: GetStaticProps = async context => {
-  const { params } = context
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const accountName = Array.isArray(params?.accountName) ? 'Unknown Player' : params?.accountName || 'Unknown Player'
 
   // First fetch the data
@@ -177,14 +176,5 @@ export const getStaticProps: GetStaticProps = async context => {
       accountName,
       allNpcHiscores,
     },
-    revalidate: 5,
-  }
-}
-
-// Next.js requires this to be here for dynamic routes
-export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-  return {
-    paths: [],
-    fallback: 'blocking',
   }
 }

@@ -26,7 +26,7 @@ import { renderHead } from '@helpers/renderUtils'
 import { redirectTo } from '@helpers/window'
 import { HiscoresTabs } from '@models/HiscoresTabs'
 import { PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { useEffect, useState } from 'react'
 
 type PlayerHiscorePageProps = {
@@ -165,16 +165,13 @@ const PlayerHiscorePage = ({ accountName, hiscoresData, lastLogin }: PlayerHisco
 
 export default PlayerHiscorePage
 
-// TODO: Change `getStaticProps` to `getServerSideProps` for all dynamic routes,
-// because `params` can be extracted and used within `getServerSideProps`!!!
-export const getStaticProps: GetStaticProps = async context => {
-  const { params } = context
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const accountName = Array.isArray(params?.accountName) ? 'Unknown Player' : params?.accountName || 'Unknown Player'
   const fetchUrl = `${getWebsiteBaseUrl()}/api/getPlayerHiscore`
   const fetchBody = { username: accountName.toLowerCase() }
 
-  const res = await fetch(fetchUrl, { method: 'POST', body: JSON.stringify(fetchBody) })
-  const output = await res.json()
+  const response = await fetch(fetchUrl, { method: 'POST', body: JSON.stringify(fetchBody) })
+  const output = await response.json()
 
   if (output) {
     const hiscores: PlayerHiscoreDataRow[] = output
@@ -193,20 +190,10 @@ export const getStaticProps: GetStaticProps = async context => {
         hiscoresData: hiscores,
         lastLogin,
       },
-      revalidate: 5,
     }
   }
 
   return {
     notFound: true,
-    revalidate: 5,
-  }
-}
-
-// Next.js requires this to be here for dynamic routes
-export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-  return {
-    paths: [],
-    fallback: 'blocking',
   }
 }
