@@ -176,7 +176,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   if (output) {
     const hiscores: PlayerHiscoreDataRow[] = output
 
-    // Get player last login date as a millis number
+    // Get player last login date as a millis number.
+    // A value of 0 for millis means the user has never logged in. Likewise for undefined.
     const lastLoginMillis = hiscores.find(
       (row: PlayerHiscoreDataRow) => row.username.toLowerCase() === accountName.toLowerCase(),
     )?.login_date
