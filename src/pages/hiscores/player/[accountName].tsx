@@ -165,6 +165,8 @@ const PlayerHiscorePage = ({ accountName, hiscoresData, lastLogin }: PlayerHisco
 
 export default PlayerHiscorePage
 
+// TODO: Change `getStaticProps` to `getServerSideProps` for all dynamic routes,
+// because `params` can be extracted and used within `getServerSideProps`!!!
 export const getStaticProps: GetStaticProps = async context => {
   const { params } = context
   const accountName = Array.isArray(params?.accountName) ? 'Unknown Player' : params?.accountName || 'Unknown Player'

@@ -5,9 +5,9 @@ import {
   AccountNavigationContainer,
   AccountNavigationButton,
   AccountNavigationItem,
-  AdminToolsSection,
   AdminToolsHeading,
   AdminToolsButtonArea,
+  AccountPageDivider,
 } from '@styledPages/Account.styled'
 import Menu from '@mui/material/Menu'
 import { UserIsLoggedIn } from '@helpers/users/users'
@@ -38,7 +38,7 @@ const AccountPage = ({ user }: AccountPageProps) => {
   }
 
   const handleUpdateNewsPost = () => {
-    const userInput = prompt('Please enter an integer:')
+    const userInput = prompt('Enter the ID of the news post you wish to update:')
 
     if (userInput === null) {
       // User cancelled the prompt
@@ -100,8 +100,8 @@ const AccountPage = ({ user }: AccountPageProps) => {
           </AccountNavigationContainer>
           {user?.isAdmin && (
             <>
-              <hr />
-              <AdminToolsSection>
+              <AccountPageDivider />
+              <div>
                 <AdminToolsHeading variant='h3'>🧰 Admin Tools 🧰</AdminToolsHeading>
                 <BodyText variant='body' bodyTextAlign='center' topMargin={0}>
                   Below are some admin tools to help you manage content on this site.
@@ -114,7 +114,7 @@ const AccountPage = ({ user }: AccountPageProps) => {
                     Update News Post
                   </Button>
                 </AdminToolsButtonArea>
-              </AdminToolsSection>
+              </div>
             </>
           )}
         </ContentBlock>

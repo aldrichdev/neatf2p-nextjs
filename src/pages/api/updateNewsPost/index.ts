@@ -6,7 +6,7 @@ import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { shouldBlockApiCall } from '@helpers/api/apiUtils'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
-  const { userId, newsPostId, imageId, image, alt, title, body, bodyInput } = req.body
+  const { userId, newsPostId, image, alt, title, body, bodyInput } = req.body
   const sessionCookie = req.cookies?.['neat-f2p-session']
 
   if (await shouldBlockApiCall(userId, sessionCookie)) {
@@ -20,9 +20,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
     let updateImageResponse: OkPacket | ErrorResult | null = null
 
     // Only update the image record if there is actually an image to update
-    if (image && imageId) {
-      const updateImageQuery = `UPDATE images SET image = ?, alt = ? WHERE id = ? AND (SELECT COUNT(*) FROM users WHERE id = ? AND isAdmin = 1) > 0 LIMIT 1`
-      updateImageResponse = await queryDatabase('website', updateImageQuery, [image, alt, imageId, userId])
+    if (image) {
+      const updateImageQuery = `UPDATE images SET image = ?, alt = ? WHERE id = (SELECT image FROM newsPosts WHERE id = ?) AND (SELECT COUNT(*) FROM users WHERE id = ? AND isAdmin = 1) > 0 LIMIT 1`
+      updateImageResponse = await queryDatabase('website', updateImageQuery, [image, alt, newsPostId, userId])
     }
 
     if (updateImageResponse && !isOkPacket(updateImageResponse)) {

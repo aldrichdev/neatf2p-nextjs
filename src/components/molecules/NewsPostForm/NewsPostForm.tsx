@@ -2,6 +2,7 @@ import { Field } from '@atoms/Field'
 import { Button } from '@mui/material'
 import { NewsPostTitle } from '@organisms/NewsPostListItem/NewsPostListItem.styled'
 import ReactMarkdown from 'react-markdown'
+import TurndownService from 'turndown'
 import {
   ClearButton,
   FileUploadButton,
@@ -25,16 +26,18 @@ import { convertBlobToBase64String } from '@helpers/base64'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { AxiosError } from 'axios'
 import { Modal } from '@molecules/Modal'
+import { getNewsPostImageUrl } from '@helpers/imageUtils'
 
 /** A reusable form for creating or updating a news post. */
 const NewsPostForm = (props: NewsPostFormProps) => {
-  const { newsPostId, imageId, userId } = props
-  const [image, setImage] = useState<string>('')
+  const { newsPost, userId } = props
+  console.log('newsPost', newsPost)
+  const [image, setImage] = useState<string>(newsPost?.image || '')
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string>()
-  const [alt, setAlt] = useState<string>('')
-  const [title, setTitle] = useState<string>('')
-  const [bodyInput, setBodyInput] = useState<string>('')
-  const [bodyHtml, setBodyHtml] = useState<string>('')
+  const [alt, setAlt] = useState<string>(newsPost?.alt || '')
+  const [title, setTitle] = useState<string>(newsPost?.title || '')
+  const [bodyInput, setBodyInput] = useState<string>(newsPost?.bodyInput || '')
+  const [bodyHtml, setBodyHtml] = useState<string>()
   const [previewModalIsOpen, setPreviewModalIsOpen] = useState(false)
   const [submitDisabled, setSubmitDisabled] = useState(false)
   const [submitResult, setSubmitResult] = useState<{ answer: string; code: string }>()
@@ -44,13 +47,17 @@ const NewsPostForm = (props: NewsPostFormProps) => {
     document.body.style.overflow = 'hidden'
   }
 
+  const convertAndSetImage = (image: File) => {
+    setImagePreviewUrl(URL.createObjectURL(image))
+    convertBlobToBase64String(image, (base64: string) => {
+      setImage(base64)
+    })
+  }
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const i = event.target.files[0]
-      setImagePreviewUrl(URL.createObjectURL(i))
-      convertBlobToBase64String(i, (base64: string) => {
-        setImage(base64)
-      })
+      convertAndSetImage(i)
     }
   }
 
@@ -84,7 +91,7 @@ const NewsPostForm = (props: NewsPostFormProps) => {
     event.preventDefault()
     setSubmitDisabled(true)
 
-    if (newsPostId) {
+    if (newsPost?.id) {
       updateNewsPost()
     } else {
       createNewsPost()
@@ -118,14 +125,13 @@ const NewsPostForm = (props: NewsPostFormProps) => {
   }
 
   const updateNewsPost = () => {
-    if (newsPostId === null) {
+    if (newsPost?.id === null) {
       return
     }
 
     sendApiRequest('POST', '/api/updateNewsPost', {
       userId,
-      newsPostId,
-      imageId,
+      newsPostId: newsPost?.id,
       image,
       alt,
       title,
@@ -156,6 +162,19 @@ const NewsPostForm = (props: NewsPostFormProps) => {
     }
   }, [bodyInput])
 
+  useEffect(() => {
+    setImagePreviewUrl(getNewsPostImageUrl(newsPost?.image || ''))
+  }, [newsPost?.image])
+
+  useEffect(() => {
+    const turndownService = new TurndownService()
+
+    setBodyHtml(newsPost?.body || '')
+    setBodyInput(turndownService.turndown(newsPost?.body || ''))
+  }, [newsPost?.body])
+
+  console.log('imagePreviewUrl', imagePreviewUrl, 'bodyHtml', bodyHtml, 'bodyInput', bodyInput)
+
   return (
     <StyledForm onSubmit={handleSubmit}>
       <ImageArea>
@@ -176,8 +195,15 @@ const NewsPostForm = (props: NewsPostFormProps) => {
         </ImageButtonContainer>
         <PreviewImage src={imagePreviewUrl} alt='' />
       </ImageArea>
-      <Field id='imageAlt' label='Alt Text' variant='outlined' onChange={handleAltChange} />
-      <Field id='postTitle' label='Title' variant='outlined' onChange={handleTitleChange} required />
+      <Field id='imageAlt' label='Alt Text' variant='outlined' onChange={handleAltChange} value={alt} />
+      <Field
+        id='postTitle'
+        label='Title'
+        variant='outlined'
+        onChange={handleTitleChange}
+        value={newsPost?.title}
+        required
+      />
       <Field
         id='postBody'
         label='Body'
@@ -185,13 +211,14 @@ const NewsPostForm = (props: NewsPostFormProps) => {
         helperText='Supports markdown'
         onChange={handleBodyChange}
         multiline
+        value={bodyInput}
         required
       />
       <ForHtmlOutput>
         <ReactMarkdown className='news-post-body-markdown-html'>{bodyInput}</ReactMarkdown>
       </ForHtmlOutput>
       <PreviewButtonContainer>
-        <Button variant='outlined' onClick={handlePreviewClick} disabled={!bodyInput}>
+        <Button variant='outlined' onClick={handlePreviewClick} disabled={!(bodyInput || bodyHtml)}>
           Preview
         </Button>
       </PreviewButtonContainer>

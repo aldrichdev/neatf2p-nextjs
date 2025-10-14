@@ -16,7 +16,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
     const hasId = id && typeof id === 'string' && !isNaN(Number(id))
     const hasLimit = limit && typeof limit === 'string' && !isNaN(Number(limit))
 
-    const query = `SELECT np.id, i.image, i.alt, np.title, np.datePosted, np.body
+    const query = `SELECT np.id, i.image, i.alt, np.title, np.datePosted, np.body, np.bodyInput
       FROM newsposts np
       LEFT OUTER JOIN images i ON np.image = i.id
       ${hasId ? `WHERE np.id = ${Number(id)}` : ''}

@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 export const AccountNavigationContainer = styled('div')(
   ({ theme }) => css`
-    margin: 20px 0;
+    margin-top: 40px;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -20,7 +20,6 @@ export const AccountNavigationContainer = styled('div')(
 
 export const AccountNavigationButton = styled(Button)(
   () => css`
-    margin-top: 10px;
     font-family: Source Sans Pro;
     color: green;
     font-size: 20px;
@@ -42,9 +41,9 @@ export const AccountNavigationItem = styled(Link)(
   `,
 )
 
-export const AdminToolsSection = styled('div')(
+export const AccountPageDivider = styled('hr')(
   () => css`
-    margin-top: 20px;
+    margin: 40px 0;
   `,
 )
 
@@ -60,6 +59,6 @@ export const AdminToolsButtonArea = styled('div')(
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-    margin-top: 20px;
+    margin-top: 40px;
   `,
 )
