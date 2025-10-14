@@ -32,10 +32,10 @@ import { useEffect, useState } from 'react'
 type PlayerHiscorePageProps = {
   accountName: string
   hiscoresData: PlayerHiscoreDataRow[]
-  lastLogin: string
+  lastLoginMillis: number | undefined
 }
 
-const PlayerHiscorePage = ({ accountName, hiscoresData, lastLogin }: PlayerHiscorePageProps) => {
+const PlayerHiscorePage = ({ accountName, hiscoresData, lastLoginMillis }: PlayerHiscorePageProps) => {
   const [playerHiscores, setPlayerHiscores] = useState<PlayerHiscoreRow[] | undefined>()
 
   const isMatchingUser = (hiscoreDataRow: PlayerHiscoreDataRow) =>
@@ -153,7 +153,7 @@ const PlayerHiscorePage = ({ accountName, hiscoresData, lastLogin }: PlayerHisco
               />
             </PlayerHiscoreTableContainer>
             <BodyText variant='body' bodyTextAlign='center'>
-              <strong>Last Login:</strong> {lastLogin}
+              <strong>Last Login:</strong> {lastLoginMillis ? getPrettyDateStringFromMillis(lastLoginMillis) : 'Never'}
             </BodyText>
           </>
         )}
@@ -176,19 +176,17 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   if (output) {
     const hiscores: PlayerHiscoreDataRow[] = output
 
-    // Get player last login date
+    // Get player last login date as a millis number.
+    // A value of 0 for millis means the user has never logged in. Likewise for undefined.
     const lastLoginMillis = hiscores.find(
       (row: PlayerHiscoreDataRow) => row.username.toLowerCase() === accountName.toLowerCase(),
     )?.login_date
-
-    // A value of 0 for millis means the user has never logged in. Likewise for undefined.
-    const lastLogin = lastLoginMillis ? getPrettyDateStringFromMillis(lastLoginMillis) : 'Never'
 
     return {
       props: {
         accountName,
         hiscoresData: hiscores,
-        lastLogin,
+        lastLoginMillis,
       },
     }
   }
