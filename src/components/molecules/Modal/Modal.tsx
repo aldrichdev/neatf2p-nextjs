@@ -35,11 +35,11 @@ const Modal = (props: ModalProps) => {
     <ModalOverlay>
       <ModalRoot>
         <CloseBar>
+          <ModalHeader variant='h3'>{heading}</ModalHeader>
           <CloseButton onClick={handleClose}>
             <CloseIcon src='/img/close-icon.webp' alt='' />
           </CloseButton>
         </CloseBar>
-        <ModalHeader variant='h3'>{heading}</ModalHeader>
         {bodyScrollable ? (
           <ScrollableContainer>
             <ScrollableBody variant='body' component='span' bodyTextAlign='left'>

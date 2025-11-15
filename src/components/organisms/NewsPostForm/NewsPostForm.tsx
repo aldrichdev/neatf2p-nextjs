@@ -104,10 +104,13 @@ const NewsPostForm = (props: NewsPostFormProps) => {
 
   useEffect(() => {
     const el = document.querySelector('.news-post-body-markdown-html')
+
     if (el) {
       const mdHTML = el.innerHTML
+      const htmlWithLinkTargets = mdHTML.replace(/a href/g, "a target='_blank' href")
+
       // Set the converted body text in state
-      setBodyHtml(mdHTML)
+      setBodyHtml(htmlWithLinkTargets)
     }
   }, [bodyInput])
 
@@ -170,7 +173,7 @@ const NewsPostForm = (props: NewsPostFormProps) => {
         body={
           <>
             <NewsPostTitle variant='body'>{title}</NewsPostTitle>
-            <ReactMarkdown className='news-post-body-markdown'>{bodyInput}</ReactMarkdown>
+            {bodyHtml && <div dangerouslySetInnerHTML={{ __html: bodyHtml }} />}
           </>
         }
         bodyScrollable
