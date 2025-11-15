@@ -22,7 +22,7 @@ export const ModalRoot = styled('div')(
     right: 0;
     top: 0;
     background-color: white;
-    padding: 16px 32px 32px 32px;
+    padding: 32px;
 
     ${theme.breakpoints.up('tablet')} {
       left: 25%;
@@ -35,7 +35,7 @@ export const ModalRoot = styled('div')(
 export const CloseBar = styled('div')(
   () => css`
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
   `,
 )
 
