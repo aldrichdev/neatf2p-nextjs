@@ -136,8 +136,8 @@ export const communityAchievements = [
   },
   {
     achievement: 'First to 99 Smithing',
-    playerName: 'TBD',
-    date: 'TBD',
+    playerName: 'V A H O V A',
+    date: '11/23/2025',
   },
   {
     achievement: 'First to 99 Mining',
