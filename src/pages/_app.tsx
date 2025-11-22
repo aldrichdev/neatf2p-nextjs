@@ -15,7 +15,7 @@ import { Footer } from '@atoms/Footer'
 export default function App({ Component, pageProps }: AppProps) {
   const user = useAuthentication()
   const router = useRouter()
-  const isWebclientPage = router.asPath === '/webclient' || router.asPath === '/webclientV2'
+  const isWebclientPage = router.asPath === '/webclient'
 
   useEffect(() => emailjs.init('NnydzXPqox79rXZ4M'), [])
 

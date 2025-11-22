@@ -12,6 +12,5 @@
         "ignoreRestSiblings": false
       }
     ]
-  },
-  "ignorePatterns": ["public/client"]
+  }
 }
