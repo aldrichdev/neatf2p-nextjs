@@ -14,7 +14,7 @@ const WebclientPrivacy = () => {
 
   return (
     <>
-      {renderHead('Webclient Privacy')}
+      {renderHead('Webclient Privacy', 'Follow the instructions on this page carefully.')}
       <ContentBlock isWide>
         <PageHeading>Before You Continue...</PageHeading>
         <BodyText variant='body' bodyTextAlign='center'>

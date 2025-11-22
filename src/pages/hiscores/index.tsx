@@ -54,7 +54,7 @@ const Hiscores = ({ skill }: HiscoresProps) => {
 
   return (
     <>
-      {renderHead(`${skill} Hiscores`)}
+      {renderHead(`${skill} Hiscores`, `The latest player rankings in the ${skill} skill.`)}
       <ContentBlock isWide>
         <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
         <PageHeading>{`${hiscoreType} Hiscores`}</PageHeading>

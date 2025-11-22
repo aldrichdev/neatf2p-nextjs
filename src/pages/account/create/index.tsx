@@ -145,7 +145,10 @@ const CreateAccountPage = ({ user }: CreateAccountPageProps) => {
 
   return (
     <>
-      {renderHead('Register')}
+      {renderHead(
+        'Register',
+        'By creating a website account, you can add or rename game accounts, update passwords, and some other nifty things.',
+      )}
       {UserExists(user) ? (
         <AlreadyLoggedIn message='You already have an account! If you wish to create a new one, please log out first.' />
       ) : (

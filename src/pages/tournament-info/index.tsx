@@ -7,7 +7,7 @@ import { TournamentBanner } from '@styledPages/TournamentInfo.styled'
 const TournamentInfo = () => {
   return (
     <>
-      {renderHead('Tournament Information')}
+      {renderHead('Tournament Information', 'Important information about how the Pure PK Tournaments work.')}
       <ContentBlock>
         <PageHeading>Tournament Info</PageHeading>
         <TournamentBanner src='/img/banners/pk-tourney-banner.png' alt='Pure PK Tournament' />
@@ -65,9 +65,8 @@ const TournamentInfo = () => {
           For example, if players <strong>A</strong>, <strong>B</strong> and <strong>C</strong> are left, there will be
           3 matches in the semi-finals: <strong>A</strong> vs <strong>B</strong>, <strong>B</strong> vs{' '}
           <strong>C</strong>, and <strong>A</strong> vs <strong>C</strong>. If a player wins their two matches (2-0),
-          they win the tournament. If two players go 1-1 (one win, one loss), those two players will fight each other to
-          decide 1st place. If all players go 1-1, then all fights will need to be done again, until there is a
-          different result.
+          they win the tournament and 1st place. If all 3 players go 1-1, then all fights will need to be done again
+          (1-round deathmatches this time) until there is a different result.
         </BodyText>
         <BodyText variant='body' mobileTextAlign='left'>
           <em>5-Way Semi-Final</em>

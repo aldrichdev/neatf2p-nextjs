@@ -114,7 +114,7 @@ const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores }: PlayerNpcHiscoreP
 
   return (
     <>
-      {renderHead(`${accountName} | NPC Hiscores`)}
+      {renderHead(`${accountName} | NPC Hiscores`, `NPC kill rankings for ${accountName}.`)}
       <ContentBlock>
         <PageHeading>{accountName || 'Unknown Player'}</PageHeading>
         <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[1]} setActiveTab={tab => handleSetActiveTab(tab)} />

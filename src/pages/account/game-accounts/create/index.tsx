@@ -108,7 +108,7 @@ const CreateGameAccountPage = ({ user }: CreateGameAccountPageProps) => {
 
   return (
     <>
-      {renderHead('Create Game Account')}
+      {renderHead('Create Game Account', 'Create game accounts for the Neat F2P server here.')}
       {!UserIsLoggedIn(user) ? (
         <NotLoggedIn />
       ) : process.env.NEXT_PUBLIC_GAME_ACCOUNTS_DISABLE_CREATION === 'true' ? (

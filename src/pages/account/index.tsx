@@ -57,7 +57,7 @@ const AccountPage = ({ user }: AccountPageProps) => {
 
   return (
     <>
-      {renderHead('Account')}
+      {renderHead('Account', 'The account page allows you to modify your website account and create in-game accounts.')}
       {!UserIsLoggedIn(user) ? (
         <NotLoggedIn />
       ) : (

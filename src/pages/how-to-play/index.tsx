@@ -14,7 +14,7 @@ import { Callout } from '@atoms/Callout'
 
 const HowToPlay = () => (
   <>
-    {renderHead('How to Play')}
+    {renderHead('How to Play', 'This page contains important information for how to play Neat F2P. Read it carefully.')}
     <ContentBlock isWide>
       <PageHeading>How To Play</PageHeading>
       <Callout variant='warning'>

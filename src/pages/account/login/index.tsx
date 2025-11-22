@@ -125,7 +125,7 @@ const AccountLoginPage = ({ user }: AccountLoginPageProps) => {
 
   return (
     <>
-      {renderHead('Login')}
+      {renderHead('Login', 'Log into your Neat F2P website account here.')}
       {userIsLoggedIn ? (
         <AlreadyLoggedIn />
       ) : (

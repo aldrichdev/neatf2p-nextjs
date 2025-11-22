@@ -41,7 +41,7 @@ const WebclientPage = () => {
 
   return (
     <>
-      {renderHead('Web Client')}
+      {renderHead('Web Client', 'Play RSC in your browser.')}
       <ContentBlock>
         {!hideAds && <WebclientBanner bannerType='Ad' bannerPlacement='top' />}
         <Webclient url={webclientUrl} />

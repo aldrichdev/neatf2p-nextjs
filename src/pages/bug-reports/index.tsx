@@ -90,7 +90,10 @@ const BugReportsPage = ({ user }: BugReportsPageProps) => {
 
   return (
     <>
-      {renderHead('Report a Bug')}
+      {renderHead(
+        'Report a Bug',
+        "Use the form on this page to submit a bug. Don't abuse this form, it could get you in trouble.",
+      )}
       {!UserIsLoggedIn(user) ? (
         <NotLoggedIn />
       ) : (

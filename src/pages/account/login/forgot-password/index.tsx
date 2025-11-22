@@ -57,7 +57,7 @@ const ForgotPasswordPage = ({ user }: ForgotPasswordPageProps) => {
 
   return (
     <>
-      {renderHead('Forgot Password')}
+      {renderHead('Forgot Password', 'If you forgot your website account password, you can reset it here.')}
       {userIsLoggedIn ? (
         <AlreadyLoggedIn />
       ) : (
