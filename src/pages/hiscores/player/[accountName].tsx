@@ -116,7 +116,7 @@ const PlayerHiscorePage = ({ accountName, hiscoresData, lastLoginMillis }: Playe
 
   return (
     <>
-      {renderHead(`${accountName} | Player Hiscores`)}
+      {renderHead(`${accountName} | Player Hiscores`, `Skill rankings for ${accountName}.`)}
       <ContentBlock>
         <PageHeading>{accountName}</PageHeading>
         <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />

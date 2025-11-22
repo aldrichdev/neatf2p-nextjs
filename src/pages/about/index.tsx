@@ -7,7 +7,10 @@ import { renderHead } from '@helpers/renderUtils'
 
 const About = () => (
   <>
-    {renderHead('About')}
+    {renderHead(
+      'About',
+      'Neat F2P is an F2P-only, 1x EXP, authentic RuneScape Classic private server that runs on the Open RSC framework.',
+    )}
     <ContentBlock>
       <PageHeading>Our Spin on RSC</PageHeading>
       <BodyText variant='body' bodyTextAlign='center'>

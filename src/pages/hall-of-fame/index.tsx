@@ -6,7 +6,10 @@ import { renderHead } from '@helpers/renderUtils'
 
 const HallOfFamePage = () => (
   <>
-    {renderHead('Hall of Fame')}
+    {renderHead(
+      'Hall of Fame',
+      'A list of achievements the players in our community have unlocked so far (banned players excluded).',
+    )}
     <ContentBlock isWide>
       <PageHeading>Hall of Fame</PageHeading>
       <BodyText variant='body' fontFamily='Source Sans Pro' marginBottom='20px'>

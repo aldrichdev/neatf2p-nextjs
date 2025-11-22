@@ -14,7 +14,7 @@ const NewsPostDetail = ({ newsPost }: NewsPostDetailProps) => {
 
   return (
     <>
-      {renderHead(newsPost.title)}
+      {renderHead(newsPost.title, newsPost.body.replace(/(<([^>]+)>)/gi, ''))}
       <ContentBlock>
         <NewsPostDetailItem newsPost={newsPost} />
       </ContentBlock>

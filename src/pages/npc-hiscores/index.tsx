@@ -35,7 +35,8 @@ const NpcHiscores = ({ hiscores, npcHiscoreType, npcSubTypes }: NpcHiscoresPageP
   const router = useRouter()
   const { query } = router
   const [hiscoresPage, setHiscoresPage] = useState(1)
-  const pageTitle = `${getNpcNameById(npcHiscoreType)} Kill Hiscores`
+  const npcName = getNpcNameById(npcHiscoreType)
+  const pageTitle = `${npcName} Kill Hiscores`
 
   const handleMenuItemClick = (npcHiscoreType: NpcHiscoreType) => {
     setHiscoresPage(1)
@@ -52,7 +53,7 @@ const NpcHiscores = ({ hiscores, npcHiscoreType, npcSubTypes }: NpcHiscoresPageP
 
   return (
     <>
-      {renderHead(pageTitle)}
+      {renderHead(pageTitle, `Who's killed the most ${npcName} NPCs?`)}
       <ContentBlock isWide>
         <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[1]} setActiveTab={tab => handleSetActiveTab(tab)} />
         <PageHeading>{pageTitle}</PageHeading>

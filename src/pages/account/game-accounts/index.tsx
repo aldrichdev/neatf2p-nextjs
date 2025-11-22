@@ -49,7 +49,10 @@ const GameAccountsPage = ({ user }: GameAccountsPageProps) => {
 
   return (
     <>
-      {renderHead('Game Accounts')}
+      {renderHead(
+        'Game Accounts',
+        'View your current game accounts, create new ones, rename them, and update passwords.',
+      )}
       {!isLoggedIn ? (
         <NotLoggedIn />
       ) : (

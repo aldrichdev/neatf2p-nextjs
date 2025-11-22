@@ -9,7 +9,10 @@ import { renderHead } from '@helpers/renderUtils'
 const RscPlusInfoPage = () => {
   return (
     <>
-      {renderHead('How to Play with RSC+')}
+      {renderHead(
+        'How to Play with RSC+',
+        'Read this if you wish to set up and use the RSC+ client for playing on our server.',
+      )}
       <ContentBlock>
         <PageHeading>How to Play with RSC+</PageHeading>
         <BodyText variant='body'>
