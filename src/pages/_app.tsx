@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
           content='Neat F2P is a Runescape Classic (RSC) private server that is F2P only (no members) and is 100% free.'
         />
         <meta
-          key='keywords'
+          name='keywords'
           content='neatf2p, neat f2p, f2p, f2p neat, rsc f2p, f2p rsc, rscf2p, f2prsc, runescapeclassic, runescape classic, rs classic, runescape classic f2p'
         />
       </Head>
