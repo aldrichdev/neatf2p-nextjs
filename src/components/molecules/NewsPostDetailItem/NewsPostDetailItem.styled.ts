@@ -45,6 +45,7 @@ export const NewsPostDetailBody = styled(Typography)<ExtendedTypographyProps>(
   ({ theme }) => css`
     display: block;
     margin: 20px 0 0;
+    overflow-wrap: break-word;
 
     ${theme.breakpoints.up('tablet')} {
       margin: 40px 0 0;
