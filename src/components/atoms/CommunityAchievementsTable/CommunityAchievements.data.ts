@@ -111,8 +111,8 @@ export const communityAchievements = [
   },
   {
     achievement: 'First to 99 Cooking',
-    playerName: 'TBD',
-    date: 'TBD',
+    playerName: 'sir prysin',
+    date: '12/28/2025',
   },
   {
     achievement: 'First to 99 Woodcut',
@@ -126,8 +126,8 @@ export const communityAchievements = [
   },
   {
     achievement: 'First to 99 Firemaking',
-    playerName: 'TBD',
-    date: 'TBD',
+    playerName: 'sir prysin',
+    date: '12/28/2025',
   },
   {
     achievement: 'First to 99 Crafting',
