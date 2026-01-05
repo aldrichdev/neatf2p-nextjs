@@ -96,8 +96,8 @@ export const communityAchievements = [
   },
   {
     achievement: 'First to 99 Ranged',
-    playerName: 'TBD',
-    date: 'TBD',
+    playerName: 'Parsakaali',
+    date: '1/5/2026',
   },
   {
     achievement: 'First to 99 Prayer',
