@@ -91,8 +91,8 @@ export const communityAchievements = [
   },
   {
     achievement: 'First to 99 Hits',
-    playerName: 'sir prysin',
-    date: '3/14/2025',
+    playerName: 'OutlawKing',
+    date: '11/12/2025',
   },
   {
     achievement: 'First to 99 Ranged',
@@ -111,8 +111,8 @@ export const communityAchievements = [
   },
   {
     achievement: 'First to 99 Cooking',
-    playerName: 'sir prysin',
-    date: '12/28/2025',
+    playerName: 'TBD',
+    date: 'TBD',
   },
   {
     achievement: 'First to 99 Woodcut',
@@ -126,8 +126,8 @@ export const communityAchievements = [
   },
   {
     achievement: 'First to 99 Firemaking',
-    playerName: 'sir prysin',
-    date: '12/28/2025',
+    playerName: 'TBD',
+    date: 'TBD',
   },
   {
     achievement: 'First to 99 Crafting',
