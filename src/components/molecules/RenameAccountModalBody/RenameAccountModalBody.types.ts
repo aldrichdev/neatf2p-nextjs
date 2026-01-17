@@ -6,4 +6,5 @@ export type RenameAccountModalBodyProps = {
   playerRenamedMaximumAmount: boolean
   onRestoreUsername: () => void
   restoreSuccessMessage: string
+  restoreErrorMessage: string
 }

@@ -1,11 +1,19 @@
 import { BodyText } from '@atoms/BodyText'
+import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import Button from '@mui/material/Button'
 import { useState } from 'react'
 import { Warning } from './RenameAccountModalBody.styled'
 import { RenameAccountModalBodyProps } from './RenameAccountModalBody.types'
 
 const RenameAccountModalBody = (props: RenameAccountModalBodyProps) => {
-  const { account, playerRenamedOnce, playerRenamedMaximumAmount, onRestoreUsername, restoreSuccessMessage } = props
+  const {
+    account,
+    playerRenamedOnce,
+    playerRenamedMaximumAmount,
+    onRestoreUsername,
+    restoreSuccessMessage,
+    restoreErrorMessage,
+  } = props
   const [restoreButtonDisabled, setRestoreButtonDisabled] = useState<boolean>()
 
   const handleRestore = () => {
@@ -52,6 +60,7 @@ const RenameAccountModalBody = (props: RenameAccountModalBodyProps) => {
             {restoreSuccessMessage}
           </BodyText>
         )}
+        {restoreErrorMessage && <FieldValidationMessage>{restoreErrorMessage}</FieldValidationMessage>}
       </>
     )
   }

@@ -98,6 +98,7 @@ const RenameAccountModal = (props: RenameAccountModalProps) => {
           playerRenamedMaximumAmount={playerRenamedMaximumAmount}
           onRestoreUsername={handleRestoreUsername}
           restoreSuccessMessage={successMessage}
+          restoreErrorMessage={validationError}
         />
       }
       hasForm={!playerRenamedOnce}
