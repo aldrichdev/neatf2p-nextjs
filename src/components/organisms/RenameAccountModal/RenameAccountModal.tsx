@@ -1,11 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
-import { Warning } from './RenameAccountModal.styled'
 import { Modal } from '@molecules/Modal'
 import { Field } from '@atoms/Field'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { User } from '@globalTypes/User'
 import { AxiosError } from 'axios'
+import { RenameAccountModalBody } from '@molecules/RenameAccountModalBody'
 
 type RenameAccountModalProps = {
   account: PlayerDataRow
@@ -19,7 +19,8 @@ const RenameAccountModal = (props: RenameAccountModalProps) => {
   const [newName, setNewName] = useState<string>('')
   const [validationError, setValidationError] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
-  const playerAlreadyRenamed = account.former_name?.length > 0
+  const playerRenamedOnce = account.former_name?.length > 0
+  const playerRenamedMaximumAmount = playerRenamedOnce && account.former_name.startsWith('#')
 
   if (open) {
     // Prevent scrolling
@@ -36,27 +37,12 @@ const RenameAccountModal = (props: RenameAccountModalProps) => {
     document.body.style.overflow = 'unset'
   }
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const newAccountName = newName.trim()
-
-    // Check for names that are just spaces
-    if (newAccountName === '') {
-      setValidationError('You cannot have a username with only spaces.')
-      return
-    }
-
-    // Check for the same name
-    if (newAccountName === account.username) {
-      setValidationError('The account name entered is the same as your current name.')
-      return
-    }
-
+  const updateUsername = (currentName: string, newName: string) => {
     sendApiRequest('POST', '/api/updateGameAccountUsername', {
       userId: user?.id,
       accountId: account.id,
-      currentName: account.username,
-      newName: newAccountName,
+      currentName,
+      newName,
     })
       .then(response => {
         if (typeof response?.data === 'number') {
@@ -77,10 +63,25 @@ const RenameAccountModal = (props: RenameAccountModalProps) => {
           // (There cannot be multiple account names that only differ in casing, only one can login)
           setValidationError('The new name entered is taken. Please try another one.')
           return
+        } else {
+          setValidationError(error?.response?.data || '')
         }
 
         handleForbiddenRedirect(error)
       })
+  }
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const newAccountName = newName.trim()
+
+    updateUsername(account.username, newAccountName)
+  }
+
+  const handleRestoreUsername = () => {
+    // For the current `account`, change its username to `account.former_name` and its former_name to `#account.username`
+    // (hash indicates they have restored once and used maximum renames)
+    updateUsername(`#${account.username}`, account.former_name)
   }
 
   if (!open) return null
@@ -91,24 +92,16 @@ const RenameAccountModal = (props: RenameAccountModalProps) => {
       handleClose={handleClose}
       heading='Rename Account'
       body={
-        playerAlreadyRenamed ? (
-          <>
-            <p>
-              {' '}
-              You have already renamed your character ({account.username}) once, so you cannot rename again. If you
-              think this is a mistake, please contact the admin directly over Discord private message.
-            </p>
-            <p>Your previous name was {account.former_name}.</p>
-          </>
-        ) : (
-          <>
-            <strong>Please log {account.username} out of the game before continuing.</strong>{' '}
-            <Warning>You can only rename an account once</Warning>, so please choose wisely when picking a new account
-            name. Any spaces at the beginning or end of your new name will not be counted, but spaces within are fine.
-          </>
-        )
+        <RenameAccountModalBody
+          account={account}
+          playerRenamedOnce={playerRenamedOnce}
+          playerRenamedMaximumAmount={playerRenamedMaximumAmount}
+          onRestoreUsername={handleRestoreUsername}
+          restoreSuccessMessage={successMessage}
+          restoreErrorMessage={validationError}
+        />
       }
-      hasForm={!playerAlreadyRenamed}
+      hasForm={!playerRenamedOnce}
       handleSubmit={handleSubmit}
       renderFields={() => (
         <>

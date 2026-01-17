@@ -85,7 +85,11 @@ const PasswordModal = (props: PasswordModalProps) => {
       open={open}
       handleClose={handleClose}
       heading='Update Password'
-      body={<>Please log {account.username} out of the game before continuing.</>}
+      body={
+        <>
+          Please log <code>{account.username}</code> out of the game before continuing.
+        </>
+      }
       hasForm
       handleSubmit={handleSubmit}
       renderFields={() => (
