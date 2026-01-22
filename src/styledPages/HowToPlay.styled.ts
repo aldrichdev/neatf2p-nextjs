@@ -8,7 +8,7 @@ export const CalloutLink = styled(Link)(
   `,
 )
 
-export const ThreeColumnLayout = styled('div')(
+export const PlayOptionsGrid = styled('div')(
   ({ theme }) => css`
     font-family: Saros;
     display: grid;
@@ -16,7 +16,7 @@ export const ThreeColumnLayout = styled('div')(
     grid-gap: 30px;
 
     ${theme.breakpoints.up('tablet')} {
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       grid-gap: 0;
     }
   `,
