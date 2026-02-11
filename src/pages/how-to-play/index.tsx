@@ -11,6 +11,7 @@ import {
 import Link from 'next/link'
 import { renderHead } from '@helpers/renderUtils'
 import { Callout } from '@atoms/Callout'
+import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 
 const HowToPlay = () => (
   <>
@@ -30,9 +31,8 @@ const HowToPlay = () => (
         the game client, it will <strong>not</strong> work!
       </Callout>
       <BodyText variant='body' bodyTextAlign='center'>
-        There are many ways to play Neat F2P, including WinRune, RSC+, the Web client, or Android.{' '}
-        <strong>You need Java</strong> for all platforms except Android. If you do not have Java installed or are not
-        sure,{' '}
+        There are many ways to play Neat F2P, including RSC+, WebClient, WinRune, and Android.{' '}
+        <strong>You need Java</strong> for WinRune and RSC+. If you do not have Java installed or are not sure,{' '}
         <Link href='https://www.java.com/en/download/help/download_options.html' target='_blank'>
           install it
         </Link>{' '}
@@ -40,14 +40,6 @@ const HowToPlay = () => (
       </BodyText>
       <ContentBlock topMargin={40}>
         <PlayOptionsGrid>
-          <div>
-            <ClientButton href='/downloads/NeatF2P.exe'>
-              <ClientButtonImage src='/img/buttons/play-with-winrune.png' alt='Play with WinRune' />
-            </ClientButton>
-            <ClientRemarks>
-              Fastest way to get in game, older mechanics, shorter AFK timer, requires Windows, nostalgic interface
-            </ClientRemarks>
-          </div>
           <div>
             <ClientButton href='/how-to-play/rscplus'>
               <ClientButtonImage src='/img/buttons/play-with-rscplus.png' alt='Play with RSC+' />
@@ -58,12 +50,22 @@ const HowToPlay = () => (
             </ClientRemarks>
           </div>
           <div>
-            <ClientButton href='/webclient-privacy'>
+            <ClientButton href='/client/mudclient.html'>
               <ClientButtonImage src='/img/buttons/play-with-webclient.png' alt='Play with Webclient' />
             </ClientButton>
             <ClientRemarks>
-              Similar to WinRune but in your browser, requires a privacy warning to be accepted, nostalgic interface
+              <strong>New Version!</strong> RSC in your browser. No installation required, cross-platform, uses{' '}
+              <HoverUnderlineLink href='https://github.com/2003scape/rsc-c' target='_blank'>
+                RSC-C client
+              </HoverUnderlineLink>
+              , works well on mobile (e.g. iOS)
             </ClientRemarks>
+          </div>
+          <div>
+            <ClientButton href='/downloads/NeatF2P.exe'>
+              <ClientButtonImage src='/img/buttons/play-with-winrune.png' alt='Play with WinRune' />
+            </ClientButton>
+            <ClientRemarks>Nostalgic interface, older mechanics, shorter AFK timer, requires Windows</ClientRemarks>
           </div>
           <div>
             <ClientButton href='/downloads/neatf2p.apk'>

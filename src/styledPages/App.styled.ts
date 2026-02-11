@@ -36,7 +36,7 @@ export const PaddedContainer = styled('div', {
   shouldForwardProp: prop => prop !== 'isWebClient',
 })<{ isWebClient?: boolean }>(
   ({ isWebClient }) => css`
-    padding: 40px 20px 60px;
+    padding: ${isWebClient ? '0' : '40px 20px 60px'};
     background-color: ${isWebClient ? 'black' : 'white'};
   `,
 )
