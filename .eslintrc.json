@@ -13,5 +13,5 @@
       }
     ]
   },
-  "ignorePatterns": ["public/client", "public/client2"]
+  "ignorePatterns": ["public/client"]
 }
