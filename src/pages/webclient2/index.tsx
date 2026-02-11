@@ -13,10 +13,8 @@ const Webclient2Page = () => {
   const [hideAds, setHideAds] = useState(false)
   const [hideRunescapeBanners, setHideRunescapeBanners] = useState(false)
   const [showHelpModal, setShowHelpModal] = useState(false)
-  const gameServerHost = process.env.NEXT_PUBLIC_GAME_SERVER_HOST
   const websiteHost = process.env.NEXT_PUBLIC_WEBSITE_HOST
-  const gameServerRsaPublicKey = process.env.NEXT_PUBLIC_GAME_SERVER_RSA_PUBLIC_KEY
-  const webclientUrl = `https://${websiteHost}/client/index.html#free,${gameServerHost},43494,65537,${gameServerRsaPublicKey},true`
+  const webclientUrl = `https://${websiteHost}/client2/mudclient.html`
 
   const handleHideAdsCheck = () => {
     setHideAds(!hideAds)
