@@ -113,6 +113,9 @@ const AccountPage = ({ user }: AccountPageProps) => {
                   <Button variant='contained' onClick={handleUpdateNewsPostClick}>
                     📝 Update News Post
                   </Button>
+                  <Button variant='contained' href='/admin/create-event'>
+                    🌃 Create Event
+                  </Button>
                 </AdminToolsButtonArea>
               </div>
             </>

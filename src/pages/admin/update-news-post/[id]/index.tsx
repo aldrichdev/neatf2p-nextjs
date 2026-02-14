@@ -61,7 +61,7 @@ const UpdateNewsPostPage = ({ newsPost, user }: UpdateNewsPostPageProps) => {
       ) : (
         <ContentBlock>
           <PageHeading>Update a News Post</PageHeading>
-          <NewsPostForm newsPost={newsPost} userId={user.id} submitForm={handleUpdateNewsPost} />
+          <NewsPostForm newsPost={newsPost} onSubmitForm={handleUpdateNewsPost} />
         </ContentBlock>
       )}
     </>

@@ -18,7 +18,7 @@ import {
   SubmitButton,
   SubmitMessage,
   VisuallyHiddenInput,
-} from './NewsPostForm.styled'
+} from '@styledPages/Form.styled'
 import { NewsPostFormProps } from './NewsPostForm.types'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { useEffect, useState } from 'react'
@@ -28,7 +28,7 @@ import { getNewsPostImageUrl } from '@helpers/imageUtils'
 
 /** A reusable form for creating or updating a news post. */
 const NewsPostForm = (props: NewsPostFormProps) => {
-  const { newsPost, submitForm } = props
+  const { newsPost, onSubmitForm } = props
   const [image, setImage] = useState<string>(newsPost?.image || '')
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string>()
   const [alt, setAlt] = useState<string>(newsPost?.alt || '')
@@ -92,7 +92,7 @@ const NewsPostForm = (props: NewsPostFormProps) => {
     setSubmitDisabled(true)
 
     // Submit the form using the callback provided (will create or update a news post)
-    submitForm({
+    onSubmitForm({
       image,
       alt,
       title,

@@ -7,33 +7,46 @@ import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
-import { NewsPostForm } from '@organisms/NewsPostForm'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { AxiosError } from 'axios'
-import { NewsPostSubmitProps } from '@organisms/NewsPostForm/NewsPostForm.types'
+import { EventSubmitProps } from '@molecules/EventForm/EventForm.types'
+import { EventForm } from '@molecules/EventForm'
+import { redirectTo } from '@helpers/window'
 
-type CreateNewsPostPageProps = {
+type CreateEventPageProps = {
   user: User
 }
 
-const CreateNewsPostPage = ({ user }: CreateNewsPostPageProps) => {
-  const handleCreateNewsPost = (props: NewsPostSubmitProps) => {
-    const { image, alt, title, bodyHtml, bodyInput, setSubmitResult } = props
+const CreateEventPage = ({ user }: CreateEventPageProps) => {
+  const handleCreateEvent = (props: EventSubmitProps) => {
+    console.log('handleCreateEvent called')
+    const { id, title, startDate, endDate, relativeUrl, location, emojiName, recurring, recursEvery, setSubmitResult } =
+      props
 
-    sendApiRequest('POST', '/api/createNewsPost', {
+    sendApiRequest('POST', '/api/upsertEvent', {
       userId: user.id,
-      image,
-      alt,
+      id,
       title,
-      datePosted: new Date(),
-      body: bodyHtml,
-      bodyInput,
+      startDate,
+      endDate,
+      relativeUrl,
+      location,
+      emojiName,
+      recurring,
+      recursEvery,
     })
       .then(response => {
         setSubmitResult({
           answer: response?.data,
           code: response?.data?.includes('Success') ? 'green' : 'red',
         })
+
+        // If response was successful, redirect to /events page after a delay
+        if (response?.data?.includes('Success')) {
+          setTimeout(() => {
+            redirectTo('/events')
+          }, 5000)
+        }
       })
       .catch((error: AxiosError<string>) => {
         setSubmitResult({
@@ -47,20 +60,20 @@ const CreateNewsPostPage = ({ user }: CreateNewsPostPageProps) => {
 
   return (
     <>
-      {renderHead('Create News Post')}
+      {renderHead('Create Event')}
       {!user?.isAdmin ? (
         <MustBeAdminBlock />
       ) : (
         <ContentBlock>
-          <PageHeading>Create a News Post</PageHeading>
-          <NewsPostForm onSubmitForm={handleCreateNewsPost} />
+          <PageHeading>Create an Event</PageHeading>
+          <EventForm onSubmitForm={handleCreateEvent} />
         </ContentBlock>
       )}
     </>
   )
 }
 
-export default CreateNewsPostPage
+export default CreateEventPage
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getIronSession(req, res, sessionOptions)
