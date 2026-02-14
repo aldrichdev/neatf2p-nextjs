@@ -22,12 +22,23 @@ export const PlayOptionsGrid = styled('div')(
   `,
 )
 
+export const ClientButtonAndRemarks = styled('div')(
+  ({ theme }) => css`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  `,
+)
+
 export const ClientButton = styled(Link)(
   ({ theme }) => css`
+    display: flex;
     width: 266px;
     font-weight: 700;
+    justify-content: center;
+    align-items: center;
     justify-self: center;
-    display: flex;
     border: 3px solid transparent;
 
     &:hover,
@@ -61,13 +72,8 @@ export const ClientButtonImage = styled('img')(
 
 export const ClientRemarks = styled('p')(
   ({ theme }) => css`
-    display: none;
-
-    ${theme.breakpoints.up('tablet')} {
-      display: block;
-      width: 206px;
-      justify-self: center;
-    }
+    width: 206px;
+    justify-self: center;
 
     ${theme.breakpoints.up('desktop')} {
       width: 266px;

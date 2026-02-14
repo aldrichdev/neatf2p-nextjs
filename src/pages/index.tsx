@@ -1,5 +1,5 @@
 import { ContentBlock } from '@atoms/ContentBlock'
-import { DiscordIcon } from '@styledPages/Homepage.styled'
+import { DiscordIcon, PlayNowButton } from '@styledPages/Homepage.styled'
 import { OnlinePlayers } from '@organisms/OnlinePlayers'
 import { NewsAndUpdates } from '@organisms/NewsAndUpdates'
 import Link from 'next/link'
@@ -23,6 +23,11 @@ const Homepage = () => (
         F2P-only world and economy to explore and enjoy. For more information, check out the{' '}
         <Link href='/about'>About page</Link>.
       </BodyText>
+    </ContentBlock>
+    <ContentBlock isWide topMargin={40}>
+      <PlayNowButton variant='contained' href='/how-to-play'>
+        Play Now
+      </PlayNowButton>
     </ContentBlock>
     <ContentBlock isWide topMargin={40}>
       <TabletAndDesktopBanner src='/img/banners/HomepageBanner.png' alt='Relive It All' />
