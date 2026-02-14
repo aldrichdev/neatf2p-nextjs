@@ -48,7 +48,7 @@ const BugReportsPage = ({ user }: BugReportsPageProps) => {
     setButtonDisabled(true)
 
     const repoOwner = 'aldrichdev'
-    const repo = bugType === 'Game' ? 'Neat-F2P' : 'neatf2p-nextjs'
+    const repo = ['Game', 'Android'].includes(bugType) ? 'Neat-F2P' : 'neatf2p-nextjs'
     const issuesPageUrl = `https://github.com/${repoOwner}/${repo}/issues`
 
     const octokit = new Octokit({
@@ -63,7 +63,7 @@ const BugReportsPage = ({ user }: BugReportsPageProps) => {
         title: bugTitle,
         body: `Reported by ${user.username}: \r\n \r\n ${bugDescription}`,
         assignees: [repoOwner],
-        labels: ['bug'],
+        labels: ['bug', bugType],
         headers: {
           'X-GitHub-Api-Version': '2022-11-28',
         },
@@ -134,6 +134,8 @@ const BugReportsPage = ({ user }: BugReportsPageProps) => {
               >
                 <BugTypeMenuItem value='Game'>Game</BugTypeMenuItem>
                 <BugTypeMenuItem value='Website'>Website</BugTypeMenuItem>
+                <BugTypeMenuItem value='Android'>Android Client</BugTypeMenuItem>
+                <BugTypeMenuItem value='WebClient'>Web Client</BugTypeMenuItem>
               </Select>
             </BugTypeDropdown>
             <FormButton variant='contained' type='submit' disabled={buttonDisabled}>

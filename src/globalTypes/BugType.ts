@@ -1,1 +1,1 @@
-export type BugType = 'Game' | 'Website'
+export type BugType = 'Game' | 'Website' | 'Android' | 'WebClient'

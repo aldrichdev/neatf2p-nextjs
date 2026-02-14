@@ -7,6 +7,7 @@ import {
   ClientRemarks,
   ClientButtonImage,
   CalloutLink,
+  ClientButtonAndRemarks,
 } from '@styledPages/HowToPlay.styled'
 import Link from 'next/link'
 import { renderHead } from '@helpers/renderUtils'
@@ -40,7 +41,7 @@ const HowToPlay = () => (
       </BodyText>
       <ContentBlock topMargin={40}>
         <PlayOptionsGrid>
-          <div>
+          <ClientButtonAndRemarks>
             <ClientButton href='/how-to-play/rscplus'>
               <ClientButtonImage src='/img/buttons/play-with-rscplus.png' alt='Play with RSC+' />
             </ClientButton>
@@ -48,8 +49,8 @@ const HowToPlay = () => (
               <strong>(Recommended)</strong> Newer mechanics, tons of quality of life settings and overlays, requires a
               bit of setup before using, cross-platform
             </ClientRemarks>
-          </div>
-          <div>
+          </ClientButtonAndRemarks>
+          <ClientButtonAndRemarks>
             <ClientButton href='/client/mudclient.html'>
               <ClientButtonImage src='/img/buttons/play-with-webclient.png' alt='Play with Webclient' />
             </ClientButton>
@@ -60,14 +61,14 @@ const HowToPlay = () => (
               </HoverUnderlineLink>
               , works well on mobile (e.g. iOS)
             </ClientRemarks>
-          </div>
-          <div>
+          </ClientButtonAndRemarks>
+          <ClientButtonAndRemarks>
             <ClientButton href='/downloads/NeatF2P.exe'>
               <ClientButtonImage src='/img/buttons/play-with-winrune.png' alt='Play with WinRune' />
             </ClientButton>
             <ClientRemarks>Nostalgic interface, older mechanics, shorter AFK timer, requires Windows</ClientRemarks>
-          </div>
-          <div>
+          </ClientButtonAndRemarks>
+          <ClientButtonAndRemarks>
             <ClientButton href='/downloads/neatf2p.apk'>
               <ClientButtonImage src='/img/buttons/play-with-android-client.png' alt='Play with Android Client' />
             </ClientButton>
@@ -75,7 +76,7 @@ const HowToPlay = () => (
               <strong>New! </strong>Play Neat F2P on your Android phone or tablet. Similar functionality to the Open RSC
               android app
             </ClientRemarks>
-          </div>
+          </ClientButtonAndRemarks>
         </PlayOptionsGrid>
       </ContentBlock>
     </ContentBlock>
