@@ -31,9 +31,9 @@ const CreateEventPage = ({ user }: CreateEventPageProps) => {
       endDate,
       relativeUrl,
       location,
-      emojiName,
+      emojiName: emojiName === '' ? null : emojiName,
       recurring,
-      recursEvery,
+      recursEvery: recursEvery === '' ? null : recursEvery,
     })
       .then(response => {
         setSubmitResult({

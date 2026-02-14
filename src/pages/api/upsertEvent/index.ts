@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { queryDatabase, isOkPacket } from '@helpers/db'
-import { NewsPost } from '@globalTypes/NewsPost'
 import { OkPacket } from 'mysql'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { shouldBlockApiCall } from '@helpers/api/apiUtils'

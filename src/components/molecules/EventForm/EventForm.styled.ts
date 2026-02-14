@@ -14,3 +14,17 @@ export const EventSubmitArea = styled(SubmitArea)(
     width: 100%;
   `,
 )
+
+export const DateTimePickerArea = styled('div')(
+  () => css`
+    display: flex;
+    width: 100%;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+
+    & .MuiStack-root {
+      width: 100%;
+    }
+  `,
+)

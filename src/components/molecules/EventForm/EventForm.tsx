@@ -3,20 +3,24 @@ import { Checkbox, FormControlLabel } from '@mui/material'
 import { StyledForm, SubmitButton, SubmitMessage } from '@styledPages/Form.styled'
 import { EventFormProps } from './EventForm.types'
 import { ChangeEvent, useState } from 'react'
-import { NUMERIC_INPUT_PROPS } from 'src/consts'
-import { EventFormGroup, EventSubmitArea } from './EventForm.styled'
+import { DateTimePickerArea, EventFormGroup, EventSubmitArea } from './EventForm.styled'
+import { DateTimePicker } from '@atoms/DateTimePicker'
+import { PickerValue } from '@mui/x-date-pickers/internals'
+import { DateTimeValidationError, PickerChangeHandlerContext } from '@mui/x-date-pickers/models'
+import dayjs, { Dayjs } from 'dayjs'
+import { convertMillisToEpochTimestamp } from '@helpers/date/date'
 
 /** A reusable form for creating or updating an event. */
 const EventForm = (props: EventFormProps) => {
   const { websiteEvent, onSubmitForm } = props
   const [title, setTitle] = useState<string>(websiteEvent?.title || '')
-  const [startDate, setStartDate] = useState<number>(websiteEvent?.startDate || 0)
-  const [endDate, setEndDate] = useState<number>(websiteEvent?.endDate || 0)
+  const [startDate, setStartDate] = useState<Dayjs>(dayjs(websiteEvent?.startDate))
+  const [endDate, setEndDate] = useState<Dayjs>(dayjs(websiteEvent?.endDate))
   const [relativeUrl, setRelativeUrl] = useState<string>(websiteEvent?.relativeUrl || '')
   const [location, setLocation] = useState<string>(websiteEvent?.location || '')
-  const [emojiName, setEmojiName] = useState<string | null>(websiteEvent?.emojiName || null)
+  const [emojiName, setEmojiName] = useState<string | null>(websiteEvent?.emojiName || '')
   const [recurring, setRecurring] = useState<boolean>(Boolean(websiteEvent?.recurring || 0))
-  const [recursEvery, setRecursEvery] = useState<string | null>(websiteEvent?.recursEvery || null)
+  const [recursEvery, setRecursEvery] = useState<string | null>(websiteEvent?.recursEvery || '')
   const [submitDisabled, setSubmitDisabled] = useState(false)
   const [submitResult, setSubmitResult] = useState<{ answer: string; code: string }>()
 
@@ -27,17 +31,23 @@ const EventForm = (props: EventFormProps) => {
     enableSubmit()
   }
 
-  const handleStartDateChange = (event: ChangeEvent<HTMLInputElement>) => {
-    // Replace any non-digit characters with an empty string
-    const numericValue = event.target.value.replace(/[^0-9]/g, '')
-    setStartDate(Number(numericValue))
+  const handleStartDateChange = (value: PickerValue, context: PickerChangeHandlerContext<DateTimeValidationError>) => {
+    console.log('value', value, 'context', context)
+    if (!value) {
+      return
+    }
+
+    setStartDate(value)
     enableSubmit()
   }
 
-  const handleEndDateChange = (event: ChangeEvent<HTMLInputElement>) => {
-    // Replace any non-digit characters with an empty string
-    const numericValue = event.target.value.replace(/[^0-9]/g, '')
-    setEndDate(Number(numericValue))
+  const handleEndDateChange = (value: PickerValue, context: PickerChangeHandlerContext<DateTimeValidationError>) => {
+    console.log('value', value, 'context', context)
+    if (!value) {
+      return
+    }
+
+    setEndDate(value)
     enableSubmit()
   }
 
@@ -70,12 +80,15 @@ const EventForm = (props: EventFormProps) => {
     event.preventDefault()
     setSubmitDisabled(true)
 
+    console.log('startDate', convertMillisToEpochTimestamp(startDate.toDate().getTime()))
+    console.log('endDate', convertMillisToEpochTimestamp(endDate.toDate().getTime()))
+
     // Submit the form using the callback provided (will create or update an event)
     onSubmitForm({
       id: websiteEvent ? websiteEvent.id : 0,
       title,
-      startDate,
-      endDate,
+      startDate: convertMillisToEpochTimestamp(startDate.toDate().getTime()),
+      endDate: convertMillisToEpochTimestamp(endDate.toDate().getTime()),
       relativeUrl,
       location,
       emojiName,
@@ -88,24 +101,28 @@ const EventForm = (props: EventFormProps) => {
   return (
     <StyledForm onSubmit={handleSubmit}>
       <Field id='title' label='Title' variant='outlined' onChange={handleTitleChange} value={title} required />
-      <Field
-        id='startDate'
-        label='Start Date'
-        variant='outlined'
-        onChange={handleStartDateChange}
-        value={startDate || ''}
-        required
-        inputProps={NUMERIC_INPUT_PROPS}
-      />
-      <Field
-        id='endDate'
-        label='End Date'
-        variant='outlined'
-        onChange={handleEndDateChange}
-        value={endDate || ''}
-        required
-        inputProps={NUMERIC_INPUT_PROPS}
-      />
+      <DateTimePickerArea>
+        <DateTimePicker
+          label='Start Date'
+          value={startDate}
+          onChange={handleStartDateChange}
+          slotProps={{
+            textField: {
+              required: true,
+            },
+          }}
+        />
+        <DateTimePicker
+          label='End Date'
+          value={endDate}
+          onChange={handleEndDateChange}
+          slotProps={{
+            textField: {
+              required: true,
+            },
+          }}
+        />
+      </DateTimePickerArea>
       <Field
         id='relativeUrl'
         label='Relative URL'
