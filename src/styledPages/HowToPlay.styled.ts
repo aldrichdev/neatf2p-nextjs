@@ -23,7 +23,7 @@ export const PlayOptionsGrid = styled('div')(
 )
 
 export const ClientButtonAndRemarks = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
