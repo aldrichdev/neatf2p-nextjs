@@ -55,6 +55,24 @@ const AccountPage = ({ user }: AccountPageProps) => {
     window.location.href = `/admin/update-news-post/${userInteger}`
   }
 
+  const handleUpdateEventClick = () => {
+    const userInput = prompt('Enter the ID of the event you wish to update:')
+
+    if (userInput === null) {
+      // User cancelled the prompt
+      return
+    }
+
+    const userInteger = parseInt(userInput, 10)
+
+    if (isNaN(userInteger)) {
+      alert("That's not a valid integer. Please try again.")
+      return
+    }
+
+    window.location.href = `/admin/update-event/${userInteger}`
+  }
+
   return (
     <>
       {renderHead('Account', 'The account page allows you to modify your website account and create in-game accounts.')}
@@ -115,6 +133,9 @@ const AccountPage = ({ user }: AccountPageProps) => {
                   </Button>
                   <Button variant='contained' href='/admin/create-event'>
                     🌃 Create Event
+                  </Button>
+                  <Button variant='contained' onClick={handleUpdateEventClick}>
+                    ✍ Update Event
                   </Button>
                 </AdminToolsButtonArea>
               </div>

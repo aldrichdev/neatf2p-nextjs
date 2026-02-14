@@ -46,7 +46,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<WebsiteEvent>) 
       // Return a JSON result indicating success
       res.statusCode = 200
       res.setHeader('Content-Type', 'application/json')
-      res.end(JSON.stringify(`Success! Updated event with ID ${id}.`))
+      res.end(JSON.stringify(`Success! Updated event with ID ${id}. Redirecting you to the Events page...`))
     } else {
       // Insert new event
       const insertEventQuery =
@@ -77,7 +77,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<WebsiteEvent>) 
       // Return a JSON result indicating success
       res.statusCode = 200
       res.setHeader('Content-Type', 'application/json')
-      res.end(JSON.stringify(`Success! Created event with ID ${insertedEventId}.`))
+      res.end(
+        JSON.stringify(`Success! Created event with ID ${insertedEventId}. Redirecting you to the Events page...`),
+      )
     }
   } catch (error) {
     console.log('An error occurred in the createNewsPost API: ', error)
