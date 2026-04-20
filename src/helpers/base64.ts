@@ -1,4 +1,4 @@
-export const convertBlobToBase64String = (blob: any, callback: (base64: string) => void) => {
+export const convertBlobToBase64String = (blob: Blob, callback: (base64: string) => void) => {
   const reader = new FileReader()
   reader.onload = function () {
     const dataUrl = reader.result as string

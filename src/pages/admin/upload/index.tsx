@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { convertBlobToBase64String, convertBase64StringToBlob } from '@helpers/base64'
 import { MustBeAdminBlock } from '@molecules/MustBeAdminBlock'
 import { User } from '@globalTypes/User'
@@ -20,7 +20,7 @@ const UploadPage = ({ user }: UploadPageProps) => {
   const [createObjectURL, setCreateObjectURL] = useState('')
   const [convertedBlobUrl, setConvertedBlobUrl] = useState('')
 
-  const uploadToClient = (event: any) => {
+  const uploadToClient = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const i = event.target.files[0]
       console.log('i (aka the image)', i)
