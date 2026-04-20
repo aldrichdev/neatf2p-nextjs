@@ -46,7 +46,7 @@ const NewsPostForm = (props: NewsPostFormProps) => {
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0]
+      const i: File = event.target.files[0]
       setImagePreviewUrl(URL.createObjectURL(i))
 
       convertBlobToBase64String(i, (base64: string) => {

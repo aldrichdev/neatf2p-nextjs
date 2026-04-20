@@ -1,11 +1,12 @@
 import { BodyText } from '@atoms/BodyText'
-import { Table, TableContainer } from '@mui/material'
+import { PaperTypeMap, Table, TableContainer } from '@mui/material'
+import { OverridableComponent } from '@mui/material/OverridableComponent'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
 export const AccountTableContainer = styled(TableContainer, {
   shouldForwardProp: prop => prop !== 'component',
-})<{ component: any }>(
+})<{ component: OverridableComponent<PaperTypeMap<Record<string, never>, 'div'>> }>(
   ({ theme }) => css`
     display: none;
     margin-top: 40px;

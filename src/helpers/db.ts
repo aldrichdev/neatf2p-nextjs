@@ -1,4 +1,5 @@
 // https://www.simplenextjs.com/posts/next-mysql
+import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { OkPacket } from 'mysql'
 import mysql from 'serverless-mysql'
 
@@ -42,6 +43,6 @@ export const queryDatabase = async <T>(
   }
 }
 
-export const isOkPacket = (o: any): o is OkPacket => {
-  return o && 'insertId' in o && typeof o.insertId === 'number'
+export const isOkPacket = (o: OkPacket | ErrorResult | null): o is OkPacket => {
+  return !!o && 'insertId' in o && typeof o.insertId === 'number'
 }
