@@ -2,9 +2,11 @@ import { useRouter } from 'next/router'
 import { NavUnorderedList, NavLink, NavContainer } from './MainNavigation.styled'
 import { NavigationItem } from './MainNavigation.types'
 import { MainNavigationDropdownItem } from '@atoms/MainNavigationDropdownItem'
+import { useEffect } from 'react'
 
 const MainNavigation = () => {
-  const { asPath } = useRouter()
+  const { asPath, prefetch } = useRouter()
+
   const navigationItems: NavigationItem[] = [
     {
       path: '/',
@@ -70,6 +72,14 @@ const MainNavigation = () => {
 
     return linkPath === asPath
   }
+
+  useEffect(() => {
+    // Warm up nav route chunks to remove delay previously seen when clicking around
+    navigationItems.forEach(item => {
+      if (item.path) prefetch(item.path)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <NavContainer>
