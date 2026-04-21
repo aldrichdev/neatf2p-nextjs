@@ -1,9 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { queryDatabase } from '@helpers/db'
+import { queryDatabase } from '@utils/db'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { DatabaseEvent, Event } from '@organisms/EventCalendar/EventCalendar.types'
-import { getEmojiByName } from '@helpers/string/stringUtils'
-import { getDateFromMillis } from '@helpers/date/date'
+import { getEmojiByName } from '@utils/string/stringUtils'
+import { getDateFromMillis } from '@utils/date/date'
+import { handleError } from '@utils/api/apiUtils'
 
 /** Handler for the getEvents API endpoint.*/
 const handler = async (req: NextApiRequest, res: NextApiResponse<DatabaseEvent>) => {
@@ -42,9 +43,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<DatabaseEvent>)
       throw new Error(response.error?.toString())
     }
   } catch (error) {
-    res.statusCode = 500
-    res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify(error?.toString()))
+    handleError(res, error, 'getEvents')
   }
 }
 

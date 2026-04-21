@@ -1,8 +1,8 @@
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
-import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
-import { renderHead } from '@helpers/renderUtils'
+import { handleForbiddenRedirect, sendApiRequest } from '@utils/api/apiUtils'
+import { renderHead } from '@utils/renderUtils'
 import { Spinner } from '@molecules/Spinner'
 import axios, { AxiosError } from 'axios'
 import Link from 'next/link'
@@ -15,7 +15,7 @@ import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { Form } from '@atoms/Form'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { User } from '@globalTypes/User'
-import { UserExists } from '@helpers/users/users'
+import { UserExists } from '@utils/users/users'
 import usePasswordHashing from '@hooks/usePasswordHashing'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
@@ -139,11 +139,11 @@ const ChangeEmailByIdPage = ({ user }: ChangeEmailByIdPageProps) => {
                   })
               })
               .catch((error: string) => {
-                console.log('An error occurred on logout: ', error)
+                console.error('An error occurred on logout: ', error)
               })
           })
           .catch((error: string) => {
-            console.log('An error occurred sending the confirm email to the old address: ', error)
+            console.error('An error occurred sending the confirm email to the old address: ', error)
           })
       })
       .catch((error: AxiosError<string>) => {

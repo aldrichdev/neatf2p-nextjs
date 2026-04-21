@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { PlayersOnlineBox, PlayersOnlineMessage, OnlineCount } from './OnlinePlayers.styled'
 import { Spinner } from '@molecules/Spinner'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { sendApiRequest } from '@utils/api/apiUtils'
 
 const OnlinePlayers = () => {
   const [isLoading, setIsLoading] = useState(true)

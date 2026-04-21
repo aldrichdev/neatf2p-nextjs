@@ -1,12 +1,12 @@
-import { getProtocol } from '@helpers/envUtils'
-import { redirectTo } from '@helpers/window'
+import { getProtocol } from '@utils/envUtils'
+import { redirectTo } from '@utils/window'
 import axios, { AxiosError } from 'axios'
 import { NextApiResponse } from 'next'
 
 /** This type comprises all the possible types of values in body properties. */
 type BodyValueType = string | number | string[] | undefined | boolean | Date
 
-/** Used for sending internal (i.e. `/api/xyz`) API requests. Do NOT use this for external / 3rdparty APIs. */
+/** Used for sending internal (i.e. `/api/xyz`) API requests. Do NOT use this for external / 3rd-party APIs. */
 export const sendApiRequest = (
   method: 'GET' | 'POST',
   endpointUrl: string,
@@ -49,15 +49,15 @@ export const shouldBlockApiCall = async (userId: string, sessionCookie: string |
 
       if (typeof count !== 'number' || Number(count) < 1) {
         // No user found for current session - block API call.
-        console.log('BLOCKING api call')
+        console.info('BLOCKING api call')
         returnValue = true
       } else {
         // Allow API call, and proceed as usual.
-        console.log('Allowing api call')
+        console.info('Allowing api call')
       }
     })
     .catch((error: string) => {
-      console.log('An error occurred in shouldBlockApiCall calling checkWebsiteUserSession: ', error)
+      console.error('An error occurred in shouldBlockApiCall calling checkWebsiteUserSession: ', error)
       returnValue = true
     })
 
@@ -81,7 +81,15 @@ export const handleForbiddenRedirect = (error: AxiosError<string>) => {
         redirectTo('/account/session-expired')
       })
       .catch((error: string) => {
-        console.log('An error occurred on logout (expired session): ', error)
+        console.error('An error occurred on logout (expired session): ', error)
       })
   }
+}
+
+/** Handles errors in API calls by logging the error and throwing a 500. */
+export const handleError = <T>(res: NextApiResponse<T>, error: unknown, source: string) => {
+  console.error(`An error occurred in the ${source} API handler: ${error}`)
+  res.statusCode = 500
+  res.setHeader('Content-Type', 'application/json')
+  res.end(JSON.stringify(error?.toString()))
 }

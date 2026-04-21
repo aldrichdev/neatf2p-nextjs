@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { CharacterInfoModalProps } from './CharacterInfoModal.types'
 import { Modal } from '@molecules/Modal'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { sendApiRequest } from '@utils/api/apiUtils'
 import { KdrTooltip, KillsAndDeaths, LoadingText, ViewButton } from './CharacterInfoModal.styled'
-import { convertNumberToTwoDecimalPoints, isNilString, pluralize } from '@helpers/string/stringUtils'
-import { getPrettyDateStringFromMillis } from '@helpers/date/date'
-import { isNilNumber } from '@helpers/numberUtils'
+import { convertNumberToTwoDecimalPoints, isNilString, pluralize } from '@utils/string/stringUtils'
+import { getPrettyDateStringFromMillis } from '@utils/date/date'
+import { isNilNumber } from '@utils/numberUtils'
 
 const CharacterInfoModal = (props: CharacterInfoModalProps) => {
   const { account, open, setOpen } = props
@@ -37,7 +37,7 @@ const CharacterInfoModal = (props: CharacterInfoModalProps) => {
 
         setIsLoading(false)
       })
-      .catch((error: string) => console.log(error))
+      .catch((error: string) => console.error(error))
   }
 
   const renderKdr = () => {

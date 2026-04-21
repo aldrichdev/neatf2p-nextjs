@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { User } from '@globalTypes/User'
-import { handleManipulate } from '@helpers/api/apiHandler'
-import { shouldBlockApiCall } from '@helpers/api/apiUtils'
+import { handleManipulate } from '@utils/api/apiHandler'
+import { shouldBlockApiCall } from '@utils/api/apiUtils'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   const { userId, accountId, newPassword } = req.body

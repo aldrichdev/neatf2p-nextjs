@@ -2,9 +2,9 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
 import { Field } from '@atoms/Field'
 import { Modal } from '@molecules/Modal'
-import { hashPassword } from '@helpers/password'
-import { sanitizeRunescapePassword } from '@helpers/string/stringUtils'
-import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
+import { hashPassword } from '@utils/password'
+import { sanitizeRunescapePassword } from '@utils/string/stringUtils'
+import { handleForbiddenRedirect, sendApiRequest } from '@utils/api/apiUtils'
 import { User } from '@globalTypes/User'
 import { AxiosError } from 'axios'
 
@@ -70,7 +70,7 @@ const PasswordModal = (props: PasswordModalProps) => {
           }, 3000)
         } else {
           const errorMessage = `Non-number response type in PasswordModal: ${response?.data}`
-          console.log(errorMessage)
+          console.error(errorMessage)
         }
       })
       .catch((error: AxiosError<string>) => {

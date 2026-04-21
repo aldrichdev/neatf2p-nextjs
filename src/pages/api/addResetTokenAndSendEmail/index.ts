@@ -1,9 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { GetRandomToken } from '@helpers/string/stringUtils'
-import { queryDatabase, isOkPacket } from '@helpers/db'
+import { GetRandomToken } from '@utils/string/stringUtils'
+import { queryDatabase, isOkPacket } from '@utils/db'
 import { OkPacket } from 'mysql'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { mailOptions, transporter } from 'src/config/nodemailer'
+import { handleError } from '@utils/api/apiUtils'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { userId, recipientEmail } = req.body
@@ -49,9 +50,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify('OK'))
   } catch (error) {
-    res.statusCode = 500
-    res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify(`An error occurred in the addResetTokenAndSendEmail API: ${error}`))
+    handleError(res, error, 'addResetTokenAndSendEmail')
   }
 }
 

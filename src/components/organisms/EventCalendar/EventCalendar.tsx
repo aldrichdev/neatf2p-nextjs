@@ -1,6 +1,6 @@
 import { EventCalendarContainer } from './EventCalendar.styled'
 import { AgendaView } from '@molecules/AgendaView'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { sendApiRequest } from '@utils/api/apiUtils'
 import { useEffect, useState } from 'react'
 import { Event } from './EventCalendar.types'
 import { Spinner } from '@molecules/Spinner'
@@ -20,7 +20,7 @@ const EventCalendar = () => {
         .catch((error: string) => {
           const errorMsg = `Error getting events: ${error}`
           setFetchError(errorMsg)
-          console.log(errorMsg)
+          console.error(errorMsg)
         })
     }
 

@@ -1,9 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { User } from '@globalTypes/User'
-import { handleQuery } from '@helpers/api/apiHandler'
+import { handleQuery } from '@utils/api/apiHandler'
 import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
 
-const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse<PlayerHiscoreDataRow>) => {
   const { username } = JSON.parse(req.body)
 
   if (!username) {
@@ -21,7 +20,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
     FROM maxstats ms
     JOIN players p ON p.id = ms.playerID JOIN experience e ON e.playerID = p.id WHERE p.group_id = 10 AND p.banned = 0`
 
-  return handleQuery<PlayerHiscoreDataRow>('game', query, res)
+  return handleQuery('game', query, res)
 }
 
 export default handler

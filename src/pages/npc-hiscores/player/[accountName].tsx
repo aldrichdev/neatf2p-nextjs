@@ -9,8 +9,8 @@ import {
   filterGroupAndSortHiscores,
   getNpcNameByIdForMenuKey,
   groupByUsername,
-} from '@helpers/hiscores/hiscoresUtils'
-import { renderHead } from '@helpers/renderUtils'
+} from '@utils/hiscores/hiscoresUtils'
+import { renderHead } from '@utils/renderUtils'
 import { PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
 import { useEffect, useState } from 'react'
 import { PlayerNpcHiscoreRow } from '@globalTypes/Hiscores/PlayerNpcHiscoreRow'
@@ -22,12 +22,12 @@ import {
   SkillLink,
 } from '@organisms/PlayerHiscoreTable/PlayerHiscoreTable.styled'
 import { PageTabs } from '@atoms/PageTabs'
-import { redirectTo } from '@helpers/window'
+import { redirectTo } from '@utils/window'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
 import { PlayerHiscoresRank } from '@atoms/PlayerHiscoresRank'
 import { HiscoresTabs } from '@models/HiscoresTabs'
 import { GetServerSideProps } from 'next'
-import { getWebsiteBaseUrl } from '@helpers/envUtils'
+import { getWebsiteBaseUrl } from '@utils/envUtils'
 
 type PlayerNpcHiscorePageProps = {
   accountName: string

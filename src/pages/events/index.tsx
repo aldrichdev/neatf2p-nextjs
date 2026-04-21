@@ -1,6 +1,6 @@
 import { ContentBlock } from '@atoms/ContentBlock'
 import { EventCalendar } from '@organisms/EventCalendar'
-import { renderHead } from '@helpers/renderUtils'
+import { renderHead } from '@utils/renderUtils'
 
 const EventsPage = () => {
   return (

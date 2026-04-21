@@ -1,7 +1,7 @@
 import { Button, TableRow } from '@mui/material'
 import { StyledTableCell } from '@atoms/StyledTableCell'
 import { GameAccountRowProps } from './GameAccountRow.types'
-import { getPrettyDateStringFromMillis } from '@helpers/date/date'
+import { getPrettyDateStringFromMillis } from '@utils/date/date'
 import { CharacterInfoButton } from '@atoms/CharacterInfoButton'
 
 const GameAccountRow = (props: GameAccountRowProps) => {

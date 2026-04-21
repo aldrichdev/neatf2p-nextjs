@@ -1,9 +1,9 @@
 import { AccountArea, Username, AccountAreaLink } from './AccountWidget.styled'
 import { Typography } from '@mui/material'
 import { User } from '@globalTypes/User'
-import { redirectTo } from '@helpers/window'
-import { UserIsLoggedIn } from '@helpers/users/users'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { redirectTo } from '@utils/window'
+import { UserIsLoggedIn } from '@utils/users/users'
+import { sendApiRequest } from '@utils/api/apiUtils'
 
 interface AccountWidgetProps {
   user: User
@@ -19,7 +19,7 @@ const AccountWidget = (props: AccountWidgetProps) => {
         redirectTo('/')
       })
       .catch((error: string) => {
-        console.log('An error occurred on logout: ', error)
+        console.error('An error occurred on logout: ', error)
       })
   }
 

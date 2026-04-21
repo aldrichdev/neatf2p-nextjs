@@ -1,6 +1,6 @@
 import { MenuItem, CurrentMenuItemLabel, MenuItemButton } from '@atoms/HiscoresMenuItem/HiscoresMenuItem.styled'
 import { NpcHiscoresMenuItemProps } from './NpcHiscoresMenuItem.types'
-import { getNpcIdsByInitialId, getNpcNameByIdForMenu } from '@helpers/hiscores/hiscoresUtils'
+import { getNpcIdsByInitialId, getNpcNameByIdForMenu } from '@utils/hiscores/hiscoresUtils'
 
 const NpcHiscoresMenuItem = (props: NpcHiscoresMenuItemProps) => {
   const { menuItemNpcId, hiscoreType, buttonOnClick } = props

@@ -8,15 +8,15 @@ import { Field } from '@atoms/Field'
 import { InlineLink } from '@atoms/InlineLink'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { User } from '@globalTypes/User'
-import { redirectTo } from '@helpers/window'
+import { redirectTo } from '@utils/window'
 import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
-import { UserExists, UserIsLoggedIn } from '@helpers/users/users'
+import { UserExists, UserIsLoggedIn } from '@utils/users/users'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { PageHeading } from '@atoms/PageHeading'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { sendApiRequest } from '@utils/api/apiUtils'
 import axios from 'axios'
-import { renderHead } from '@helpers/renderUtils'
+import { renderHead } from '@utils/renderUtils'
 import usePasswordHashing from '@hooks/usePasswordHashing'
 import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
@@ -135,7 +135,14 @@ const AccountLoginPage = ({ user }: AccountLoginPageProps) => {
             Log in to your website account below.
           </BodyText>
           <Form onSubmit={handleLogin}>
-            <Field required id='email' label='Email' variant='standard' onChange={handleEmailChange} />
+            <Field
+              required
+              id='email'
+              label='Email'
+              variant='standard'
+              onChange={handleEmailChange}
+              autoComplete='username'
+            />
             <Field
               required
               id='password'
@@ -143,6 +150,7 @@ const AccountLoginPage = ({ user }: AccountLoginPageProps) => {
               type='password'
               variant='standard'
               onChange={handlePasswordChange}
+              autoComplete='current-password'
             />
             <FieldValidationMessage>{validationError}</FieldValidationMessage>
             <ForgotPasswordBlock variant='body' topMargin={20} bodyTextAlign='left'>

@@ -2,7 +2,7 @@ import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
 import { CommunityAchievementsTable } from '@atoms/CommunityAchievementsTable'
-import { renderHead } from '@helpers/renderUtils'
+import { renderHead } from '@utils/renderUtils'
 
 const HallOfFamePage = () => (
   <>

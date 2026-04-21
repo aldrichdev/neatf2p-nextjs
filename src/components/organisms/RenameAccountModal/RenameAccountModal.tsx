@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
 import { Modal } from '@molecules/Modal'
 import { Field } from '@atoms/Field'
-import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
+import { handleForbiddenRedirect, sendApiRequest } from '@utils/api/apiUtils'
 import { User } from '@globalTypes/User'
 import { AxiosError } from 'axios'
 import { RenameAccountModalBody } from '@molecules/RenameAccountModalBody'
@@ -54,7 +54,7 @@ const RenameAccountModal = (props: RenameAccountModalProps) => {
           }, 3000)
         } else {
           const errorMessage = `Non-number response type in RenameAccountModal: ${response?.data}`
-          console.log(errorMessage)
+          console.error(errorMessage)
         }
       })
       .catch((error: AxiosError<string>) => {

@@ -3,7 +3,7 @@ import { BodyText } from '@atoms/BodyText'
 import { PageHeading } from '@atoms/PageHeading'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { renderHead } from '@helpers/renderUtils'
+import { renderHead } from '@utils/renderUtils'
 
 const ChangeEmailSuccessPage = () => {
   const router = useRouter()

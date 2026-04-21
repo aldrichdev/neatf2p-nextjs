@@ -4,25 +4,25 @@ import { NpcHiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { useRouter } from 'next/router'
 import { PlayerLookup } from '@atoms/PlayerLookup'
 import { PageHeading } from '@atoms/PageHeading'
-import { push } from '@helpers/router'
-import { renderHead } from '@helpers/renderUtils'
+import { push } from '@utils/router'
+import { renderHead } from '@utils/renderUtils'
 import NpcHiscoresMenu from '@organisms/NpcHiscoresMenu/NpcHiscoresMenu'
 import {
   filterGroupAndSortHiscores,
   getNpcIdsByInitialId,
   getNpcNameById,
   isNpcHiscoreType,
-} from '@helpers/hiscores/hiscoresUtils'
+} from '@utils/hiscores/hiscoresUtils'
 import { NpcHiscoresTable } from '@organisms/NpcHiscoresTable'
 import { PageTabs } from '@atoms/PageTabs'
-import { redirectTo } from '@helpers/window'
+import { redirectTo } from '@utils/window'
 import { NpcKillsLevelMenu } from '@molecules/NpcKillsLevelMenu'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
 import { NpcHiscoresPageContainer } from '@styledPages/NpcHiscores.styled'
 import { HiscoresTabs } from '@models/HiscoresTabs'
 import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
 import { GetServerSideProps } from 'next'
-import { getWebsiteBaseUrl } from '@helpers/envUtils'
+import { getWebsiteBaseUrl } from '@utils/envUtils'
 import { DEFAULT_NPC_ID } from 'src/consts'
 
 type NpcHiscoresPageProps = {

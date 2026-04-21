@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { User } from '@globalTypes/User'
-import { handleManipulate } from '@helpers/api/apiHandler'
+import { handleManipulate } from '@utils/api/apiHandler'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   const { userId, userIp } = req.body

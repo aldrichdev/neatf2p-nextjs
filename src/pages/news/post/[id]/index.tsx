@@ -1,9 +1,9 @@
 import { ContentBlock } from '@atoms/ContentBlock'
 import { NewsPost } from '@globalTypes/NewsPost'
 import { NewsPostDetailItem } from '@molecules/NewsPostDetailItem'
-import { renderHead } from '@helpers/renderUtils'
+import { renderHead } from '@utils/renderUtils'
 import { GetServerSideProps } from 'next'
-import { getWebsiteBaseUrl } from '@helpers/envUtils'
+import { getWebsiteBaseUrl } from '@utils/envUtils'
 
 type NewsPostDetailProps = {
   newsPost: NewsPost

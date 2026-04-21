@@ -7,7 +7,7 @@ import { GameAccountsTableProps } from '@organisms/GameAccountsTable/GameAccount
 import { RenameAccountModal } from '@organisms/RenameAccountModal'
 import { PasswordModal } from '@organisms/PasswordModal'
 import { GameAccountRowMobile } from '@molecules/GameAccountRowMobile'
-import { getPrettyDateStringFromMillis } from '@helpers/date/date'
+import { getPrettyDateStringFromMillis } from '@utils/date/date'
 import useGameAccounts from '@hooks/useGameAccounts'
 import { CharacterInfoButton } from '@atoms/CharacterInfoButton'
 import { CharacterInfoModal } from '@organisms/CharacterInfoModal'

@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { handleManipulate } from '@helpers/api/apiHandler'
+import { handleManipulate } from '@utils/api/apiHandler'
 import { User } from '@globalTypes/User'
-import { ResetTokenHasExpired } from '@helpers/users/users'
+import { ResetTokenHasExpired } from '@utils/users/users'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   const { userId, resetToken, dateModifiedMillis, newPassword, newPasswordSalt } = req.body

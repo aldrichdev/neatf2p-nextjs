@@ -10,10 +10,10 @@ import {
   HiscoresTableRow,
   HiscoreTableHeaderCell,
 } from './HiscoresTable.styled'
-import { convertExp, getTotalExp } from '@helpers/hiscores/hiscoresUtils'
+import { convertExp, getTotalExp } from '@utils/hiscores/hiscoresUtils'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { push } from '@helpers/router'
+import { push } from '@utils/router'
 import { HiscoresControls } from '@atoms/HiscoresControls'
 import useHiscoresPagination from '@hooks/useHiscoresPagination'
 

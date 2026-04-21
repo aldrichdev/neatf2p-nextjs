@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { queryDatabase, isOkPacket } from '@helpers/db'
+import { queryDatabase, isOkPacket } from '@utils/db'
 import { NewsPost } from '@globalTypes/NewsPost'
 import { OkPacket } from 'mysql'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
-import { shouldBlockApiCall } from '@helpers/api/apiUtils'
+import { handleError, shouldBlockApiCall } from '@utils/api/apiUtils'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
   const { userId, newsPostId, image, alt, title, body, bodyInput } = req.body
@@ -57,10 +57,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(`Success! Updated news post with ID ${newsPostId}.`))
   } catch (error) {
-    console.error('An error occurred in the updateNewsPost API: ', error)
-    res.statusCode = 500
-    res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify(`${error?.toString()}`))
+    handleError(res, error, 'updateNewsPost')
   }
 }
 

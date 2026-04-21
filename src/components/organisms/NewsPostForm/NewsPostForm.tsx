@@ -22,9 +22,9 @@ import {
 import { NewsPostFormProps } from './NewsPostForm.types'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { useEffect, useState } from 'react'
-import { convertBlobToBase64String } from '@helpers/base64'
+import { convertBlobToBase64String } from '@utils/base64'
 import { Modal } from '@molecules/Modal'
-import { getNewsPostImageUrl } from '@helpers/imageUtils'
+import { getNewsPostImageUrl } from '@utils/imageUtils'
 
 /** A reusable form for creating or updating a news post. */
 const NewsPostForm = (props: NewsPostFormProps) => {

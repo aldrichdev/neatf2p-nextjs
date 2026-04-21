@@ -1,6 +1,6 @@
 import { NpcHiscoreTypes } from '@globalTypes/Hiscores/HiscoreType'
 import { NpcHiscoresMenuItem } from '@molecules/NpcHiscoresMenuItem'
-import { getNpcNameByIdForMenu, getNpcNameByIdForMenuKey } from '@helpers/hiscores/hiscoresUtils'
+import { getNpcNameByIdForMenu, getNpcNameByIdForMenuKey } from '@utils/hiscores/hiscoresUtils'
 import { NpcHiscoresMenuProps } from './NpcHiscoresMenu.types'
 import { NpcHiscoresMenuItemList } from '@styledPages/NpcHiscores.styled'
 

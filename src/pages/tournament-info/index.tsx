@@ -1,7 +1,7 @@
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
-import { renderHead } from '@helpers/renderUtils'
+import { renderHead } from '@utils/renderUtils'
 import { TournamentBanner } from '@styledPages/TournamentInfo.styled'
 
 const TournamentInfo = () => {
