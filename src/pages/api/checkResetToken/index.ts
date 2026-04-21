@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { User } from '@globalTypes/User'
 import { handleQuery } from '@utils/api/apiHandler'
-import { UserDataRow } from '@globalTypes/Database/Users/UserDataRow'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   const resetToken = req.headers?.['resettoken']
@@ -22,7 +21,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   const query = `SELECT id, dateModified FROM users WHERE resetToken = ?
     AND TIMESTAMP(dateModified) > UTC_TIMESTAMP() - INTERVAL 10 MINUTE`
 
-  return handleQuery<UserDataRow>('website', query, res, [resetToken])
+  return handleQuery('website', query, res, [resetToken])
 }
 
 export default handler

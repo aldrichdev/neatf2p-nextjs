@@ -1,15 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { User } from '@globalTypes/User'
 import { handleQuery } from '@utils/api/apiHandler'
-import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
+import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
 
-const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse<NpcHiscoreDataRow>) => {
   const query = `SELECT p.username, nk.npcID, nk.killCount FROM npckills nk
     JOIN players p ON nk.playerID = p.id
     WHERE p.banned = 0
     ORDER BY killCount DESC`
 
-  return handleQuery<PlayerHiscoreDataRow>('game', query, res)
+  return handleQuery('game', query, res)
 }
 
 export default handler

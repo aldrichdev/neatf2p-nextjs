@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { User } from '@globalTypes/User'
 import { handleQuery } from '@utils/api/apiHandler'
-import { UserDataRow } from '@globalTypes/Database/Users/UserDataRow'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   const { userId } = req.query
@@ -22,7 +21,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
 
   const query = `SELECT COUNT(id) FROM users WHERE session = ? AND id = ?`
 
-  return handleQuery<UserDataRow>('website', query, res, [sessionCookie, userId])
+  return handleQuery('website', query, res, [sessionCookie, userId])
 }
 
 export default handler
