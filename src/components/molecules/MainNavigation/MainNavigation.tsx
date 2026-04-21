@@ -78,7 +78,8 @@ const MainNavigation = () => {
     navigationItems.forEach(item => {
       if (item.path) prefetch(item.path)
     })
-  }, [navigationItems, prefetch])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <NavContainer>
