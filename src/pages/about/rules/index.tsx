@@ -3,7 +3,7 @@ import { PageHeading } from '@atoms/PageHeading'
 import { Callout } from '@atoms/Callout'
 import { RuleListItem } from '@styledPages/Rules.styled'
 import { BodyText } from '@atoms/BodyText'
-import { renderHead } from '@helpers/renderUtils'
+import { renderHead } from '@utils/renderUtils'
 
 const RulesPage = () => (
   <>

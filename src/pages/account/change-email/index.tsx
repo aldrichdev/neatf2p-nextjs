@@ -6,11 +6,11 @@ import { PageHeading } from '@atoms/PageHeading'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import emailjs from '@emailjs/browser'
 import { Form } from '@atoms/Form'
-import { redirectTo } from '@helpers/window'
+import { redirectTo } from '@utils/window'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
-import { renderHead } from '@helpers/renderUtils'
-import { sendApiRequest } from '@helpers/api/apiUtils'
-import { UserExists } from '@helpers/users/users'
+import { renderHead } from '@utils/renderUtils'
+import { sendApiRequest } from '@utils/api/apiUtils'
+import { UserExists } from '@utils/users/users'
 import { AxiosError } from 'axios'
 import { User } from '@globalTypes/User'
 import { NullUser } from '@models/NullUser'
@@ -65,7 +65,7 @@ const ChangeEmailPage = ({ user }: ChangeEmailPageProps) => {
         }
       })
       .catch((error: AxiosError<string>) => {
-        console.log('Could not get user in change-email checks. Error:', error)
+        console.error('Could not get user in change-email checks. Error:', error)
       })
   }
 

@@ -2,7 +2,7 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { PageTabs } from '@atoms/PageTabs'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
 import { NpcHiscoreType } from '@globalTypes/Hiscores/HiscoreType'
-import { getNpcCombatLevelById } from '@helpers/hiscores/hiscoresUtils'
+import { getNpcCombatLevelById } from '@utils/hiscores/hiscoresUtils'
 import { NpcKillsLevelMenuProps } from './NpcKillsLevelMenu.types'
 
 const NpcKillsLevelMenu = (props: NpcKillsLevelMenuProps) => {

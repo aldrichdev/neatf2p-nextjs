@@ -4,14 +4,14 @@ import { Form } from '@atoms/Form'
 import { BodyText } from '@atoms/BodyText'
 import { Field } from '@atoms/Field'
 import { InlineLink } from '@atoms/InlineLink'
-import { redirectTo } from '@helpers/window'
-import { UserExists, UserIsLoggedIn } from '@helpers/users/users'
+import { redirectTo } from '@utils/window'
+import { UserExists, UserIsLoggedIn } from '@utils/users/users'
 import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { DiscordLink } from '@atoms/DiscordLink'
 import { PageHeading } from '@atoms/PageHeading'
-import { sendApiRequest } from '@helpers/api/apiUtils'
-import { renderHead } from '@helpers/renderUtils'
+import { sendApiRequest } from '@utils/api/apiUtils'
+import { renderHead } from '@utils/renderUtils'
 import { User } from '@globalTypes/User'
 import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
@@ -44,7 +44,7 @@ const ForgotPasswordPage = ({ user }: ForgotPasswordPageProps) => {
             userId: result.id,
             recipientEmail: result.emailAddress,
           }).catch(error => {
-            console.log(error)
+            console.error(error)
           })
         }
 

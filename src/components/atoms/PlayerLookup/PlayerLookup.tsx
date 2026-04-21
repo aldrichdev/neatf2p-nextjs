@@ -6,7 +6,7 @@ import {
   LookupForm,
   PlayerLookupContainer,
 } from './PlayerLookup.styled'
-import { redirectTo } from '@helpers/window'
+import { redirectTo } from '@utils/window'
 
 type PlayerLookupProps = {
   isNpcHiscores?: boolean

@@ -3,7 +3,7 @@ import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
 import { BodyText } from '@atoms/BodyText'
 import Link from 'next/link'
-import { renderHead } from '@helpers/renderUtils'
+import { renderHead } from '@utils/renderUtils'
 
 const About = () => (
   <>

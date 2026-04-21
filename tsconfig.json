@@ -23,7 +23,7 @@
       "@theme/*": ["src/theme/*"],
       "@contexts/*": ["src/contexts/*"],
       "@globalTypes/*": ["src/globalTypes/*"],
-      "@helpers/*": ["src/helpers/*"],
+      "@utils/*": ["src/utils/*"],
       "@hooks/*": ["src/hooks/*"],
       "@models/*": ["src/models/*"]
     }

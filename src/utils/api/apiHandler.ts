@@ -1,21 +1,21 @@
 import { NextApiResponse } from 'next'
-import { queryDatabase, isOkPacket } from '@helpers/db'
+import { queryDatabase, isOkPacket } from '@utils/db'
 import { OkPacket } from 'mysql'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
-import { User } from '@globalTypes/User'
+import { handleError } from './apiUtils'
 
 /** Helper for querying database records.
- * For <T>, use the type of data array you would like returned.
- * For example, a PlayerHiscoreDataRow.
+ * For <T>, use the type of data array you would like returned (e.g. `PlayerHiscoreDataRow`).
  */
 export const handleQuery = async <T>(
   databaseType: 'website' | 'game',
   sqlQuery: string,
-  res: NextApiResponse<User>,
+  res: NextApiResponse<T>,
   sqlParams?: string[],
 ): Promise<void> => {
   try {
     const response: T[] | ErrorResult = await queryDatabase(databaseType, sqlQuery, sqlParams)
+
     if (response instanceof Array) {
       res.statusCode = 200
       res.setHeader('Content-Type', 'application/json')
@@ -24,10 +24,7 @@ export const handleQuery = async <T>(
       throw new Error(response.error?.toString())
     }
   } catch (error) {
-    console.log('An error occurred in the handleQuery API handler: ', error)
-    res.statusCode = 500
-    res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify(`${error?.toString()}`))
+    handleError<T>(res, error, 'handleQuery')
   }
 }
 
@@ -35,7 +32,7 @@ export const handleQuery = async <T>(
 export const handleManipulate = async (
   databaseType: 'website' | 'game',
   sqlQuery: string,
-  res: NextApiResponse<User>,
+  res: NextApiResponse,
   sqlParams?: string[] | Record<string, string>,
   noRowsAffectedErrorMessage?: string,
   returnLastInsertedId?: boolean,
@@ -56,9 +53,6 @@ export const handleManipulate = async (
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(returnLastInsertedId ? response?.insertId : response?.affectedRows))
   } catch (error) {
-    console.log('An error occurred in the handleManipulate API handler: ', error)
-    res.statusCode = 500
-    res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify(error?.toString()))
+    handleError(res, error, 'handleManipulate')
   }
 }

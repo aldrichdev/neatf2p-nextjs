@@ -1,5 +1,5 @@
 import { ContentBlock } from '@atoms/ContentBlock'
-import { renderHead } from '@helpers/renderUtils'
+import { renderHead } from '@utils/renderUtils'
 import { NewsAndUpdates } from '@organisms/NewsAndUpdates'
 
 const News = () => (

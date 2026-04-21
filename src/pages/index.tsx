@@ -8,7 +8,7 @@ import { DiscordLink } from '@atoms/DiscordLink'
 import { PageHeading } from '@atoms/PageHeading'
 import { BodyText } from '@atoms/BodyText'
 import { TabletAndDesktopBanner } from '@atoms/TabletAndDesktopBanner/TabletAndDesktopBanner'
-import { renderHead } from '@helpers/renderUtils'
+import { renderHead } from '@utils/renderUtils'
 
 const Homepage = () => (
   <div>

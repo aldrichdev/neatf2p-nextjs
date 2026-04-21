@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { YouTubeVideo } from '@atoms/YouTubeVideo'
 import { PageHeading } from '@atoms/PageHeading'
 import { BackToLink } from '@atoms/BackToLink/BackToLink'
-import { renderHead } from '@helpers/renderUtils'
+import { renderHead } from '@utils/renderUtils'
 
 const RscPlusInfoPage = () => {
   return (

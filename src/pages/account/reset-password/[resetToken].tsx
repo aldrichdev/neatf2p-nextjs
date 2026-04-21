@@ -4,16 +4,16 @@ import { Form } from '@atoms/Form'
 import { Field } from '@atoms/Field'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
-import { redirectTo } from '@helpers/window'
+import { redirectTo } from '@utils/window'
 import { FormButton } from '@atoms/FormButton/FormButton'
-import { hashPassword } from '@helpers/password'
+import { hashPassword } from '@utils/password'
 import { PageHeading } from '@atoms/PageHeading'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { sendApiRequest } from '@utils/api/apiUtils'
 import { User } from '@globalTypes/User'
 import { Spinner } from '@molecules/Spinner'
 import { BodyText } from '@atoms/BodyText'
 import { InlineLink } from '@atoms/InlineLink'
-import { renderHead } from '@helpers/renderUtils'
+import { renderHead } from '@utils/renderUtils'
 
 const ResetPassword = () => {
   const { query } = useRouter()
@@ -61,7 +61,7 @@ const ResetPassword = () => {
         redirectTo('/account/reset-password/success')
       } else {
         const errorMessage = `Non-number response type in reset-password/id: ${response?.data}`
-        console.log(errorMessage)
+        console.error(errorMessage)
         setValidationError(`Something went wrong. Please try again later. Error: ${errorMessage}`)
       }
     })

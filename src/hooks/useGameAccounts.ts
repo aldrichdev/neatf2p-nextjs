@@ -1,5 +1,5 @@
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
-import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
+import { handleForbiddenRedirect, sendApiRequest } from '@utils/api/apiUtils'
 import { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
 
@@ -13,7 +13,7 @@ const useGameAccounts = (userId: string | undefined) => {
           setAccounts(response.data)
         })
         .catch((error: AxiosError<string>) => {
-          console.log('Error getting game accounts:', error)
+          console.error('Error getting game accounts:', error)
           handleForbiddenRedirect(error)
         })
     }

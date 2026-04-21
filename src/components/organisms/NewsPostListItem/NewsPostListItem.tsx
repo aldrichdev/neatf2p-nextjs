@@ -9,9 +9,9 @@ import {
   NewsPostBody,
 } from './NewsPostListItem.styled'
 import { NewsPostItemProps } from '@globalTypes/NewsPostItemProps'
-import { getPrettyDateStringFromISOString } from '@helpers/date/date'
+import { getPrettyDateStringFromISOString } from '@utils/date/date'
 import ReadMore from '@molecules/ReadMore/ReadMore'
-import { getNewsPostImageUrl } from '@helpers/imageUtils'
+import { getNewsPostImageUrl } from '@utils/imageUtils'
 
 const NewsPostListItem = (props: NewsPostItemProps) => {
   const { newsPost } = props

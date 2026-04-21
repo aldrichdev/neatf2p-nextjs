@@ -9,10 +9,10 @@ import {
   HiscoreUsername,
   HiscoreTableHeaderCell,
 } from '@molecules/HiscoresTable/HiscoresTable.styled'
-import { getNpcNameById } from '@helpers/hiscores/hiscoresUtils'
+import { getNpcNameById } from '@utils/hiscores/hiscoresUtils'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { push } from '@helpers/router'
+import { push } from '@utils/router'
 import { HiscoresControls } from '@atoms/HiscoresControls'
 import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
 import useHiscoresPagination from '@hooks/useHiscoresPagination'

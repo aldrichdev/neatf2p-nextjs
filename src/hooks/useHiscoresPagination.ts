@@ -1,4 +1,4 @@
-import { push } from '@helpers/router'
+import { push } from '@utils/router'
 import { useRouter } from 'next/router'
 
 const useHiscoresPagination = (

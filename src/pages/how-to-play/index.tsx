@@ -10,7 +10,7 @@ import {
   ClientButtonAndRemarks,
 } from '@styledPages/HowToPlay.styled'
 import Link from 'next/link'
-import { renderHead } from '@helpers/renderUtils'
+import { renderHead } from '@utils/renderUtils'
 import { Callout } from '@atoms/Callout'
 import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 

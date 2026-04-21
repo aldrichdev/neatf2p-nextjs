@@ -2,7 +2,7 @@ import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
 import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
 import { PlayerHiscoresSortField } from '@globalTypes/Database/PlayerHiscoresSortField'
 import { HiscoreType, NpcHiscoreType, NpcHiscoreTypes } from '@globalTypes/Hiscores/HiscoreType'
-import { groupArrayByProperty } from '@helpers/arrayUtils'
+import { groupArrayByProperty } from '@utils/arrayUtils'
 
 export const getTotalExp = (hiscoreRow: PlayerHiscoreDataRow) =>
   hiscoreRow.attackxp +

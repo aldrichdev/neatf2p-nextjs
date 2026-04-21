@@ -1,6 +1,6 @@
 import { AgendaViewProps } from './AgendaView.types'
 import { AgendaViewBody, EventCard, EventCardBody, EventCardBodyLine, EventCardTitle } from './AgendaView.styled'
-import { getPrettyDateString } from '@helpers/date/date'
+import { getPrettyDateString } from '@utils/date/date'
 import { BodyText } from '@atoms/BodyText'
 import Link from 'next/link'
 import { PageHeading } from '@atoms/PageHeading'

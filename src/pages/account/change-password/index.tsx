@@ -5,11 +5,11 @@ import { FormButton } from '@atoms/FormButton/FormButton'
 import { PageHeading } from '@atoms/PageHeading'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { Form } from '@atoms/Form'
-import { redirectTo } from '@helpers/window'
+import { redirectTo } from '@utils/window'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
-import { hashPassword } from '@helpers/password'
-import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
-import { renderHead } from '@helpers/renderUtils'
+import { hashPassword } from '@utils/password'
+import { handleForbiddenRedirect, sendApiRequest } from '@utils/api/apiUtils'
+import { renderHead } from '@utils/renderUtils'
 import { AxiosError } from 'axios'
 import { User } from '@globalTypes/User'
 import { NullUser } from '@models/NullUser'
@@ -63,7 +63,7 @@ const ChangePasswordPage = ({ user }: ChangePasswordPageProps) => {
           redirectTo('/account/change-password/success')
         } else {
           const errorMessage = `Non-number response type in change-password: ${response?.data}`
-          console.log(errorMessage)
+          console.error(errorMessage)
           setFormValidationError(`Something went wrong. Please try again later. Error: ${errorMessage}`)
         }
       })

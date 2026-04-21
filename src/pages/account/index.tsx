@@ -10,10 +10,10 @@ import {
   AccountPageDivider,
 } from '@styledPages/Account.styled'
 import Menu from '@mui/material/Menu'
-import { UserIsLoggedIn } from '@helpers/users/users'
+import { UserIsLoggedIn } from '@utils/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { PageHeading } from '@atoms/PageHeading'
-import { renderHead } from '@helpers/renderUtils'
+import { renderHead } from '@utils/renderUtils'
 import { GetServerSideProps } from 'next'
 import { getIronSession } from 'iron-session'
 import { sessionOptions } from '@models/session'

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { User } from '@globalTypes/User'
-import { handleQuery } from '@helpers/api/apiHandler'
+import { handleQuery } from '@utils/api/apiHandler'
 import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {

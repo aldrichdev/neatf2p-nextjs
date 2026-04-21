@@ -6,7 +6,7 @@ import { NewsPost } from '@globalTypes/NewsPost'
 import { NewsPostListItem } from '@organisms/NewsPostListItem'
 import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { sendApiRequest } from '@utils/api/apiUtils'
 
 interface NewsAndUpdatesProps {
   heading: string
