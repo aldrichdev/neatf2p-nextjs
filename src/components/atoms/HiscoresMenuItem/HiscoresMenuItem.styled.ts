@@ -1,60 +1,65 @@
-import { Button } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
-export const MenuItem = styled('li')(
-  ({ theme }) => css`
+export const MenuItem = styled('li', {
+  shouldForwardProp: prop => prop !== 'isSelected',
+})<{ isSelected?: boolean }>(
+  ({ theme, isSelected }) => css`
     display: flex;
+    gap: 5px;
     align-items: center;
     list-style-type: none;
     text-align: center;
+    color: ${isSelected ? theme.palette.custom.tableHeaderText : theme.palette.primary.dark};
+    font-size: 14px;
+    cursor: pointer;
+    border: 0.5px solid ${theme.palette.divider};
+    border-radius: 20px;
+    border-color: ${isSelected ? theme.palette.primary.main : theme.palette.divider};
+    padding: 5px 10px;
+    background-color: ${isSelected ? theme.palette.primary.main : theme.palette.background.paper};
+    height: fit-content;
 
     ${theme.breakpoints.up('mobile')} {
+      gap: 8px;
+      width: auto;
+      border: 0;
+      padding: 7px 14px;
+      border-radius: 0;
+      color: ${theme.palette.primary.dark};
+      ${isSelected && `border-left: 3px solid ${theme.palette.primary.main};`}
+      ${isSelected && 'padding-left: 11px;'}
       text-align: left;
+      background-color: ${isSelected ? theme.palette.primary.light : 'transparent'};
     }
   `,
 )
 
 export const HiscoreMenuSkillIcon = styled('img')(
-  () => css`
-    width: 16px;
-    margin-right: 12px;
-    background-color: transparent;
-  `,
-)
-export const CurrentMenuItemLabel = styled('span', {
-  shouldForwardProp: prop => prop !== 'isNpcMenu',
-})<{ isNpcMenu?: boolean }>(
-  ({ theme, isNpcMenu }) => css`
-    font-family: Verdana;
-    font-weight: 500;
-    font-size: ${isNpcMenu ? '14px' : '18px'};
-    line-height: 2;
-    color: blue;
+  ({ theme }) => css`
+    display: none;
 
-    ${theme.breakpoints.up('mobile')} {
-      font-size: 18px;
+    ${theme.breakpoints.up('tablet')} {
+      display: block;
+      width: 16px;
+      background-color: transparent;
     }
   `,
 )
 
-export const MenuItemButton = styled(Button, {
-  shouldForwardProp: prop => prop !== 'isNpcMenu',
-})<{ isNpcMenu?: boolean }>(
-  ({ theme, isNpcMenu }) => css`
-    font-family: Verdana;
+export const SkillName = styled('span')(
+  ({ theme }) => css`
+    font-size: 12px;
+    line-height: 1;
+
+    ${theme.breakpoints.up('tablet')} {
+      font-size: 14px;
+    }
+  `,
+)
+
+export const SelectedSkillText = styled(SkillName)(
+  ({ theme }) => css`
     font-weight: 500;
-    color: black;
-    font-size: ${isNpcMenu ? '14px' : '18px'};
-    justify-content: flex-start;
-
-    :hover {
-      color: var(--faded-blue-bg-color);
-    }
-
-    ${theme.breakpoints.up('mobile')} {
-      font-size: 18px;
-      justify-content: flex-start;
-    }
   `,
 )

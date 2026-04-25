@@ -11,7 +11,6 @@ import {
   groupByUsername,
 } from '@utils/hiscores/hiscoresUtils'
 import { renderHead } from '@utils/renderUtils'
-import { PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
 import { useEffect, useState } from 'react'
 import { PlayerNpcHiscoreRow } from '@globalTypes/Hiscores/PlayerNpcHiscoreRow'
 import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
@@ -124,7 +123,7 @@ const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores }: PlayerNpcHiscoreP
           </BodyText>
         ) : (
           <>
-            <PlayerHiscoreTableContainer>
+            <div data-todo-cleanup=''>
               <PlayerHiscoreTable
                 isNpcTable
                 accountName={accountName}
@@ -149,7 +148,7 @@ const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores }: PlayerNpcHiscoreP
                   </HiscoreTableRow>
                 ))}
               />
-            </PlayerHiscoreTableContainer>
+            </div>
           </>
         )}
         <BackToLink href='/npc-hiscores'>{'<'} Return to Hiscores</BackToLink>

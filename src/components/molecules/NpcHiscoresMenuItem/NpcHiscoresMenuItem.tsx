@@ -28,7 +28,7 @@ const NpcHiscoresMenuItem = (props: NpcHiscoresMenuItemProps) => {
       {JSON.stringify(hiscoreType) === JSON.stringify(menuItemNpcId) || isHiscoreTypeRelatedToMenuItem() ? (
         <CurrentMenuItemLabel isNpcMenu>{npcName}</CurrentMenuItemLabel>
       ) : (
-        <MenuItemButton variant='text' onClick={() => buttonOnClick(menuItemNpcId)} isNpcMenu>
+        <MenuItemButton variant='text' onClick={() => buttonOnClick(menuItemNpcId)}>
           {npcName}
         </MenuItemButton>
       )}

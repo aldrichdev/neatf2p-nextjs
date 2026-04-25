@@ -15,7 +15,14 @@ const nth = (d: number) => {
 export const getTimeZoneAbbreviation = (date: Date) =>
   date.toLocaleTimeString('en-us', { timeZoneName: 'short' }).split(' ')[2]
 
-export const getPrettyDateString = (date: Date) => {
+export const isToday = (date: Date | string | number): boolean => {
+  const d = new Date(date)
+  const now = new Date()
+
+  return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth() && d.getDate() === now.getDate()
+}
+
+export const getPrettyDateString = (date: Date, useToday?: boolean) => {
   const month = date.toLocaleString('default', { month: 'long' })
   const dayInt = date.getDate()
   const day = `${dayInt}${nth(dayInt)}`
@@ -26,7 +33,11 @@ export const getPrettyDateString = (date: Date) => {
   const minutes = date.getMinutes()
   const period = date.getHours() >= 12 ? 'PM' : 'AM'
 
-  return `${month} ${day}, ${year} ${hours === 0 ? 12 : hours}:${minutes < 10 ? '0' : ''}${minutes} ${period}`
+  const isDateToday = isToday(date)
+  const dayPart = `${isDateToday && useToday ? 'Today,' : `${month} ${day}, ${year}`}`
+  const timePart = `${hours === 0 ? 12 : hours}:${minutes < 10 ? '0' : ''}${minutes} ${period}`
+
+  return `${dayPart} ${timePart}`
 }
 
 export const getPrettyDateStringFromISOString = (dateString: string) => {
@@ -40,8 +51,8 @@ export const getDateFromMillis = (millis: number): Date => {
   return new Date(millis * 1000)
 }
 
-export const getPrettyDateStringFromMillis = (millis: number): string => {
+export const getPrettyDateStringFromMillis = (millis: number, useToday?: boolean): string => {
   const date = getDateFromMillis(millis)
 
-  return getPrettyDateString(date)
+  return getPrettyDateString(date, useToday)
 }

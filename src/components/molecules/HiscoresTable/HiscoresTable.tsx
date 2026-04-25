@@ -1,14 +1,20 @@
 import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
-import { TableBody, TableHead, Paper } from '@mui/material'
+import { TableBody, Paper } from '@mui/material'
 import {
   RootContainer,
   HiscoreTableContainer,
   HiscoreTable,
   HiscoreTableCell,
-  HiscoreUsername,
   HiscoresTableRow,
   HiscoreTableHeaderCell,
+  HiscoresTableHead,
+  TopBadge,
+  GoldBadge,
+  SilverBadge,
+  BronzeBadge,
+  NormalRankBadge,
+  RankBadge,
 } from './HiscoresTable.styled'
 import { convertExp, getTotalExp } from '@utils/hiscores/hiscoresUtils'
 import { useEffect } from 'react'
@@ -16,6 +22,7 @@ import { useRouter } from 'next/router'
 import { push } from '@utils/router'
 import { HiscoresControls } from '@atoms/HiscoresControls'
 import useHiscoresPagination from '@hooks/useHiscoresPagination'
+import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 
 type HiscoresTableProps = {
   hiscores: PlayerHiscoreDataRow[]
@@ -63,26 +70,41 @@ const HiscoresTable = (props: HiscoresTableProps) => {
     <RootContainer>
       <HiscoreTableContainer component={Paper}>
         <HiscoreTable aria-label={`${hiscoreType} Hiscores Table`}>
-          <TableHead>
+          <HiscoresTableHead>
             <HiscoresTableRow>
-              <HiscoreTableHeaderCell>Rank</HiscoreTableHeaderCell>
+              <HiscoreTableHeaderCell sx={{ borderRadius: '8px 0 0 0' }}>Rank</HiscoreTableHeaderCell>
               <HiscoreTableHeaderCell>Name</HiscoreTableHeaderCell>
               <HiscoreTableHeaderCell>Level</HiscoreTableHeaderCell>
-              <HiscoreTableHeaderCell>EXP</HiscoreTableHeaderCell>
+              <HiscoreTableHeaderCell sx={{ borderRadius: '0 8px 0 0' }}>EXP</HiscoreTableHeaderCell>
             </HiscoresTableRow>
-          </TableHead>
+          </HiscoresTableHead>
           <TableBody>
             {hiscores?.slice(startingRecord, endingRecord).map((hiscoreRow, index) => {
               rank++
+              const rankToDisplay = startingRecord === 0 ? index + 1 : rank
+
               return (
                 <HiscoresTableRow key={hiscoreRow.username}>
                   <HiscoreTableCell component='th' scope='row'>
-                    {startingRecord === 0 ? index + 1 : rank}
+                    {rankToDisplay === 1 ? (
+                      <GoldBadge>1</GoldBadge>
+                    ) : rankToDisplay === 2 ? (
+                      <SilverBadge>2</SilverBadge>
+                    ) : rankToDisplay === 3 ? (
+                      <BronzeBadge>3</BronzeBadge>
+                    ) : (
+                      <RankBadge>{rankToDisplay}</RankBadge>
+                    )}
                   </HiscoreTableCell>
-                  <HiscoreTableCell>
-                    <HiscoreUsername href={`/hiscores/player/${hiscoreRow.username}`}>
+                  <HiscoreTableCell sx={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                    <HoverUnderlineLink href={`/hiscores/player/${hiscoreRow.username}`}>
                       {hiscoreRow.username}
-                    </HiscoreUsername>
+                    </HoverUnderlineLink>
+                    {rankToDisplay === 1 ? (
+                      <span>
+                        <TopBadge>top</TopBadge>
+                      </span>
+                    ) : null}
                   </HiscoreTableCell>
                   <HiscoreTableCell>{getHiscoreValue(hiscoreRow)}</HiscoreTableCell>
                   <HiscoreTableCell>{convertExp(getHiscoreSkillXP(hiscoreRow))}</HiscoreTableCell>

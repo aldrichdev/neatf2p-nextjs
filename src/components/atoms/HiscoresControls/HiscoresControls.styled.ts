@@ -9,23 +9,36 @@ export const HiscoresControlsContainer = styled('div')(
     justify-content: center;
     align-items: center;
     column-gap: 30px;
-    margin-top: 40px;
+    margin-top: 16px;
   `,
 )
 
 export const HiscoresPagination = styled(Pagination)(
-  () => css`
+  ({ theme }) => css`
+    width: calc(100% - 10px);
+
     & .MuiPaginationItem-text {
-      font-family: Verdana;
+      font-family: Inter, sans-serif;
       font-size: 14px;
     }
 
     & .MuiPaginationItem-root.Mui-selected {
-      background-color: var(--faded-blue-bg-color);
+      background-color: ${theme.palette.primary.main};
+    }
+
+    & .MuiPaginationItem-root.Mui-selected:hover {
+      background-color: ${theme.palette.primary.dark};
     }
 
     & .MuiPaginationItem-root:not(.Mui-selected) {
       color: black;
+    }
+
+    & .MuiPagination-ul {
+      color: magenta;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: center;
     }
   `,
 )

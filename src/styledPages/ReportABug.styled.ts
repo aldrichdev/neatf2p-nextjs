@@ -20,14 +20,14 @@ export const BugTypeMenuItem = styled(MenuItem)(
     font-family: Source Sans Pro;
 
     &:hover {
-      background-color: var(--faded-green-bg-color);
+      background-color: var(--color-primary-dark);
     }
 
     &&.Mui-selected {
       background-color: lightgray;
 
       &:hover {
-        background-color: var(--faded-green-bg-color);
+        background-color: var(--color-primary-dark);
       }
     }
 
@@ -38,7 +38,7 @@ export const BugTypeMenuItem = styled(MenuItem)(
 )
 
 export const IssuesLink = styled(Link)(
-  () => css`
-    color: green;
+  ({ theme }) => css`
+    color: ${theme.palette.primary.main};
   `,
 )

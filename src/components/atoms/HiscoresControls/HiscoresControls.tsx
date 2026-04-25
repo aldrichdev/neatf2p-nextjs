@@ -1,4 +1,4 @@
-import { HiscoresControlsContainer, HiscoresPagination, ScrollToTopButton } from './HiscoresControls.styled'
+import { HiscoresControlsContainer, HiscoresPagination } from './HiscoresControls.styled'
 import { HiscoresControlsProps } from './HiscoresControls.types'
 
 const HiscoresControls = (props: HiscoresControlsProps) => {
@@ -13,7 +13,6 @@ const HiscoresControls = (props: HiscoresControlsProps) => {
         color='primary'
         onChange={handlePageChange}
       />
-      <ScrollToTopButton onClick={handleScrollToTop} />
     </HiscoresControlsContainer>
   )
 }

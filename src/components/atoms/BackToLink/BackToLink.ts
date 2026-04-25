@@ -3,17 +3,16 @@ import { css } from '@mui/system'
 import Link from 'next/link'
 
 export const BackToLink = styled(Link)(
-  () => css`
+  ({ theme }) => css`
     font-family: Source Sans Pro;
     display: block;
-    margin-top: 20px;
-    font-size: 20px;
-    color: purple;
+    margin-top: 16px;
+    font-size: 14px;
+    color: ${theme.palette.primary.main};
     text-decoration: none;
 
     :hover {
-      color: darkpurple;
-      text-decoration: underline;
+      color: ${theme.palette.secondary.main};
     }
   `,
 )

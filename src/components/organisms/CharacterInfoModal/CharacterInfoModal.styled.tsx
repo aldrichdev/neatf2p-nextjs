@@ -6,7 +6,7 @@ import { Tooltip, TooltipProps, tooltipClasses } from '@mui/material'
 export const ViewButton = styled(Button)(
   () => css`
     color: black;
-    font-family: Saros;
+    font-family: Inter, sans-serif;
     font-size: 20px;
     height: 24px;
     padding-bottom: 6px;

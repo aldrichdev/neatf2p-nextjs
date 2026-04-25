@@ -1,5 +1,5 @@
 import { PlayerHiscoresRankProps } from './PlayerHiscoresRank.types'
-import { RankOneIcon, RankOneIconContainer } from './PlayerHiscoresRank.styled'
+import { NoRank, RankOne, StyledRank } from './PlayerHiscoresRank.styled'
 
 /** Renders a player's rank in the player hiscores. */
 const PlayerHiscoresRank = (props: PlayerHiscoresRankProps) => {
@@ -7,15 +7,15 @@ const PlayerHiscoresRank = (props: PlayerHiscoresRankProps) => {
 
   switch (rank) {
     case 0:
-      return <RankOneIconContainer>{'--'}</RankOneIconContainer>
+      return <NoRank>{'--'}</NoRank>
     case 1:
-      return (
-        <RankOneIconContainer>
-          <RankOneIcon src='/img/skills/rankone.png' alt='' />
-        </RankOneIconContainer>
-      )
+      return <RankOne title='#1'>👑</RankOne>
     default:
-      return <RankOneIconContainer>{rank}</RankOneIconContainer>
+      return (
+        <StyledRank id={rank === 1 ? 'rank-one' : ''} rank={rank}>
+          #{rank}
+        </StyledRank>
+      )
   }
 }
 

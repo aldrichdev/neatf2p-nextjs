@@ -1,12 +1,13 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import {
   PlayerNameField,
-  LookupSubmitButton,
   LookupHeading,
   LookupForm,
   PlayerLookupContainer,
+  LookupSubmitButton,
 } from './PlayerLookup.styled'
 import { redirectTo } from '@utils/window'
+import { FormButton } from '@atoms/FormButton/FormButton'
 
 type PlayerLookupProps = {
   isNpcHiscores?: boolean
@@ -35,7 +36,7 @@ const PlayerLookup = (props: PlayerLookupProps) => {
         <PlayerNameField
           required
           type='text'
-          label='Player Name'
+          placeholder='Player name...'
           onChange={handlePlayerNameChange}
           inputProps={{ maxLength: 12 }}
           value={playerName}
@@ -43,7 +44,7 @@ const PlayerLookup = (props: PlayerLookupProps) => {
           Player Name
         </PlayerNameField>
         <LookupSubmitButton type='submit' variant='contained'>
-          Check
+          Search
         </LookupSubmitButton>
       </LookupForm>
     </PlayerLookupContainer>

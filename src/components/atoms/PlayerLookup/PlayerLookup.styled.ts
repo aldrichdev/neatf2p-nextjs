@@ -6,10 +6,10 @@ import { css } from '@mui/system'
 
 export const PlayerLookupContainer = styled('div')(
   ({ theme }) => css`
-    max-width: 200px;
-    background-color: var(--gold-bg-color);
-    border: 2px solid var(--gold-border-color);
-    padding: 10px 16px;
+    background-color: ${theme.palette.custom.sidebarBg};
+    border: 0.5px solid ${theme.palette.divider};
+    border-radius: 8px;
+    padding: 14px;
 
     ${theme.breakpoints.between('tablet', 'desktop')} {
       flex-basis: 100%;
@@ -19,9 +19,10 @@ export const PlayerLookupContainer = styled('div')(
 
 export const LookupHeading = styled(Typography)(
   () => css`
-    font-family: Source Sans Pro;
-    font-size: 24px;
-    font-weight: 700;
+    font-family: Cinzel, serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
   `,
 )
 
@@ -35,26 +36,24 @@ export const LookupForm = styled('form')(
 
 export const PlayerNameField = styled(Field)(
   ({ theme }) => css`
-    font-family: Source Sans Pro;
-    margin-top: 23px;
+    margin-top: 10px;
+    color: ${theme.palette.primary.main};
 
-    ${theme.breakpoints.up('tablet')} {
-      margin-top: 43px;
+    & .MuiOutlinedInput-root:hover {
+      outline: none;
+    }
+
+    & .MuiOutlinedInput-input {
+      background-color: ${theme.palette.background.paper};
     }
   `,
 )
 
 export const LookupSubmitButton = styled(FormButton)(
   ({ theme }) => css`
-    background-color: var(--faded-blue-bg-color);
-    margin: 20px 0 12px;
-
-    :hover {
-      background-color: darkblue;
-    }
-
-    ${theme.breakpoints.up('tablet')} {
-      margin: 40px 0 35px;
-    }
+    margin-top: 10px;
+    font-size: 18px;
+    width: 100%;
+    color: ${theme.palette.custom.tableHeaderText};
   `,
 )

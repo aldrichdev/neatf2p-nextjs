@@ -1,7 +1,59 @@
-import { createTheme } from '@mui/material/styles'
+import { createTheme, PaletteOptions } from '@mui/material/styles'
 import { CSSProperties } from 'react'
 
+// ─── Color tokens ───────────────────────────────────────────────────────────
+// Single source of truth. Reference these via theme.palette everywhere.
+// When you add dark mode, you'll pass a different palette object to createTheme.
+
+interface CustomPaletteTokens {
+  navBg: string
+  sidebarBg: string
+  tableHeaderBg: string
+  tableHeaderText: string
+  rankGold: { bg: string; text: string; altText: string }
+  rankSilver: { bg: string; text: string }
+  rankBronze: { bg: string; text: string }
+  levelProgressBg: string
+}
+
+const palette: PaletteOptions = {
+  primary: {
+    main: '#2d5c2d', // forest green — buttons, links, active states
+    dark: '#1a3a1a', // nav bg, hover states
+    light: '#e0ede0', // sidebar active bg, subtle tints
+  },
+  secondary: {
+    main: '#7c5cbf', // purple — rank badges, accents, hover on names
+    light: '#f0ecfa', // purple pill bg
+    dark: '#5c3d9a', // purple pill text
+  },
+  background: {
+    default: '#f9faf9', // page bg
+    paper: '#ffffff', // table/card surfaces
+  },
+  text: {
+    primary: '#1a2e1a', // headings
+    secondary: '#4a6a4a', // muted values, EXP column
+    disabled: '#7a9a7a', // hints, helper text
+  },
+  divider: '#d0dcd0', // table row borders, panel borders
+  // Custom tokens beyond MUI's built-in slots:
+  custom: {
+    navBg: '#1a3a1a',
+    sidebarBg: '#f4f6f4',
+    tableHeaderBg: '#2d5c2d',
+    tableHeaderText: '#d8edd8',
+    rankGold: { bg: '#f5e6c0', text: '#8a6a10', altText: '#c49a00' },
+    rankSilver: { bg: '#e8e8e8', text: '#5a5a6a' },
+    rankBronze: { bg: '#f0e0d0', text: '#7a4a2a' },
+    levelProgressBg: '#e8efe8',
+  },
+}
+
+// ─── Theme ──────────────────────────────────────────────────────────────────
+
 let theme = createTheme({
+  palette,
   breakpoints: {
     values: {
       mobile: 600,
@@ -10,7 +62,7 @@ let theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Saros,Vecna',
+    fontFamily: 'Inter, Saros, Vecna, sans-serif',
     body1: undefined,
     body2: undefined,
     subtitle1: undefined,
@@ -26,38 +78,64 @@ let theme = createTheme({
         },
       },
     },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: theme.palette.divider,
+            borderWidth: '1px',
+            borderRadius: '0px',
+          },
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: theme.palette.primary.light,
+            borderWidth: '1px',
+          },
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: theme.palette.primary.main,
+            borderWidth: '1px',
+          },
+          '&.Mui-focused:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: theme.palette.primary.main,
+            borderWidth: '1px',
+          },
+        }),
+        input: {
+          outline: 'none',
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
-        containedPrimary: {
-          backgroundColor: 'green',
-          fontFamily: 'Source Sans Pro',
+        containedPrimary: ({ theme }) => ({
+          backgroundColor: theme.palette.primary.main,
+          fontFamily: 'Inter, sans-serif',
           textTransform: 'none',
           fontSize: '16px',
           padding: '10px 40px',
 
           '&:hover': {
-            backgroundColor: 'darkgreen',
+            backgroundColor: theme.palette.primary.dark,
           },
-        },
-        outlinedPrimary: {
-          color: 'green',
+        }),
+        outlinedPrimary: ({ theme }) => ({
+          color: theme.palette.primary.main,
           backgroundColor: 'transparent',
-          borderColor: 'green',
+          borderColor: theme.palette.primary.main,
           borderWidth: '2px',
-          fontFamily: 'Source Sans Pro',
+          fontFamily: 'Inter, sans-serif',
           textTransform: 'none',
           fontSize: '16px',
           padding: '10px 40px',
 
           '&:hover': {
-            color: 'darkgreen',
-            borderColor: 'darkgreen',
+            color: theme.palette.primary.dark,
+            borderColor: theme.palette.primary.dark,
             borderWidth: '2px',
           },
-        },
-        textPrimary: {
-          color: 'green',
-          fontFamily: 'Source Sans Pro',
+        }),
+        textPrimary: ({ theme }) => ({
+          color: theme.palette.primary.main,
+          fontFamily: 'Inter, Cinzel, sans-serif',
           textTransform: 'none',
           textAlign: 'left',
           padding: 0,
@@ -66,10 +144,10 @@ let theme = createTheme({
           lineHeight: 2,
 
           '&:hover': {
-            color: 'darkgreen',
+            color: theme.palette.primary.dark,
             backgroundColor: 'transparent',
           },
-        },
+        }),
       },
     },
   },
@@ -81,7 +159,7 @@ theme = createTheme(theme, {
       fontWeight: '600',
       fontSize: '36px',
       lineHeight: '36px',
-      fontFamily: 'Arial',
+      fontFamily: '"Cinzel", serif',
 
       [theme.breakpoints.up('tablet')]: {
         fontSize: '46px',
@@ -97,7 +175,7 @@ theme = createTheme(theme, {
       fontWeight: '600',
       fontSize: '36px',
       lineHeight: '36px',
-      fontFamily: 'Vecna',
+      fontFamily: '"Cinzel", serif',
 
       [theme.breakpoints.up('desktop')]: {
         fontSize: '60px',
@@ -105,13 +183,16 @@ theme = createTheme(theme, {
       },
     },
     body: {
-      fontFamily: 'Saros',
+      fontFamily: 'Inter, Saros, sans-serif',
       fontWeight: '300',
       fontSize: '20px',
       lineHeight: '28px',
+      color: theme.palette.text.primary,
     },
   },
 })
+
+// ─── Type augmentation ───────────────────────────────────────────────────────
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -131,6 +212,14 @@ declare module '@mui/material/styles' {
 
   interface TypographyVariantsOptions {
     body?: CSSProperties
+  }
+
+  // Teach TypeScript about theme.palette.custom
+  interface Palette {
+    custom: CustomPaletteTokens
+  }
+  interface PaletteOptions {
+    custom?: CustomPaletteTokens
   }
 }
 

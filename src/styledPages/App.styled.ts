@@ -30,8 +30,12 @@ export const Logo = styled('img')(
 )
 
 export const PaddedContainer = styled('div')(
-  () => css`
-    padding: 40px 20px 60px;
+  ({ theme }) => css`
+    padding: 20px 20px 40px;
     background-color: white;
+
+    ${theme.breakpoints.up('tablet')} {
+      padding: 40px 20px 40px;
+    }
   `,
 )

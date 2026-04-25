@@ -1,6 +1,6 @@
-import { TableContainer, Paper } from '@mui/material'
-import { HiscoreTable } from '@molecules/HiscoresTable/HiscoresTable.styled'
-import { HiscoreTableRow, PlayerHiscoreTableBody, PlayerHiscoreTableHead } from './PlayerHiscoreTable.styled'
+import { TableContainer, Paper, TableBody } from '@mui/material'
+import { HiscoresTableHead, HiscoreTable } from '@molecules/HiscoresTable/HiscoresTable.styled'
+import { HiscoreTableRow } from './PlayerHiscoreTable.styled'
 import { ReactNode } from 'react'
 
 type HiscoreTableProps = {
@@ -23,10 +23,12 @@ const PlayerHiscoreTable = (props: HiscoreTableProps) => {
   return (
     <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
       <HiscoreTable aria-label={`${accountName} Hiscore Table`}>
-        <PlayerHiscoreTableHead>
-          <HiscoreTableRow isNpcTable={isNpcTable}>{columns}</HiscoreTableRow>
-        </PlayerHiscoreTableHead>
-        <PlayerHiscoreTableBody>{body}</PlayerHiscoreTableBody>
+        <HiscoresTableHead>
+          <HiscoreTableRow isHeaderRow={true} isNpcTable={isNpcTable}>
+            {columns}
+          </HiscoreTableRow>
+        </HiscoresTableHead>
+        <TableBody>{body}</TableBody>
       </HiscoreTable>
     </TableContainer>
   )

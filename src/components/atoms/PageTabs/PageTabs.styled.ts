@@ -6,10 +6,10 @@ export const TabsContainer = styled('div')(
     display: flex;
     width: 100%;
     flex-wrap: nowrap;
-    border: 2px solid black;
-    margin-bottom: 40px;
     height: 40px;
     box-sizing: border-box;
+    border-radius: 8px 8px 0 0;
+    overflow: hidden;
 
     button {
       box-sizing: content-box;
@@ -20,18 +20,16 @@ export const TabsContainer = styled('div')(
 export const PageTab = styled('button', {
   shouldForwardProp: prop => !['active', 'defaultColor', 'activeColor', 'hoverColor'].includes(prop.toString()),
 })<{ active?: boolean; defaultColor?: string; activeColor?: string; hoverColor?: string }>(
-  ({ active, defaultColor, activeColor, hoverColor }) => css`
-    font-family: Saros;
+  ({ theme, active, defaultColor, activeColor, hoverColor }) => css`
+    font-family: Inter, sans-serif;
     font-size: 18px;
     flex-basis: 100%;
     padding: 8px;
-    background-color: ${active ? activeColor || 'green' : defaultColor || 'darkgreen'};
+    background-color: ${active
+      ? activeColor || theme.palette.primary.main
+      : defaultColor || theme.palette.primary.dark};
     cursor: pointer;
-    color: white;
-
-    &:not(:last-child) {
-      border-right: 1px solid black;
-    }
+    color: ${theme.palette.custom.tableHeaderText};
 
     &:only-child {
       cursor: auto;
@@ -40,7 +38,7 @@ export const PageTab = styled('button', {
     ${!active &&
     `
       &:hover {
-        background-color: ${hoverColor || '#228B22'};
+        background-color: ${hoverColor || theme.palette.primary.main};
       }
     `}
   `,
