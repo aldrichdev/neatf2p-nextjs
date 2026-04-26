@@ -24,7 +24,7 @@ export const SearchBox = styled('input')(
     padding: 6px 8px;
     border: 0.5px solid ${theme.palette.divider};
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 16px;
     color: ${theme.palette.primary.dark};
     background-color: ${theme.palette.background.paper};
     outline: none;
