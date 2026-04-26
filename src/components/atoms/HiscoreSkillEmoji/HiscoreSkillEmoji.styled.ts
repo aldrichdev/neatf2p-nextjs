@@ -4,5 +4,8 @@ import { css } from '@mui/system'
 export const SkillEmoji = styled('span')(
   () => css`
     font-size: 16px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
   `,
 )
