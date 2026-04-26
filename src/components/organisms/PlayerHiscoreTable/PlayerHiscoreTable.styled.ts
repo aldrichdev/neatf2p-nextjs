@@ -1,35 +1,34 @@
-import { HiscoreTableCell } from '@molecules/HiscoresTable/HiscoresTable.styled'
-import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
-import { TableBody, TableCell, TableHead, TableRow } from '@mui/material'
+import { HiscoreTableValueCell } from '@molecules/HiscoresTable/HiscoresTable.styled'
+import { TableCell, TableRow } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
 export const HiscoreTableRow = styled(TableRow, {
-  shouldForwardProp: prop => prop !== 'isNpcTable',
-})<{ isNpcTable?: boolean }>(
-  ({ theme, isNpcTable }) => css`
+  shouldForwardProp: prop => !['isHeaderRow', 'isNpcTable'].includes(prop.toString()),
+})<{ isHeaderRow?: boolean; isNpcTable?: boolean }>(
+  ({ theme, isHeaderRow, isNpcTable }) => css`
     display: grid;
     grid-template-columns: ${isNpcTable ? '50% 20% 30%' : '30% 20% 20% 30%'};
     font-size: 14px;
+    border-bottom: 0.5px solid ${theme.palette.divider};
+    height: fit-content;
+    align-items: center;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    ${!isHeaderRow &&
+    `
+      cursor: pointer;
+      
+      &:hover {
+        background-color: ${theme.palette.divider};
+      }
+    `}
 
     ${theme.breakpoints.up('tablet')} {
       font-size: 16px;
-    }
-  `,
-)
-
-export const PlayerHiscoreTableHead = styled(TableHead)(
-  () => css`
-    .MuiTableRow-root {
-      border-bottom: 1px solid black;
-    }
-  `,
-)
-
-export const PlayerHiscoreTableBody = styled(TableBody)(
-  () => css`
-    .MuiTableRow-root:not(:last-child) {
-      border-bottom: 1px solid black;
     }
   `,
 )
@@ -39,8 +38,8 @@ export const HiscoreSkillTableCell = styled(TableCell)(
     display: flex;
     align-items: center;
     border: 0;
-    border-right: 1px solid black;
     padding: 8px;
+    gap: 8px;
 
     ${theme.breakpoints.up('tablet')} {
       padding: 16px;
@@ -48,36 +47,29 @@ export const HiscoreSkillTableCell = styled(TableCell)(
   `,
 )
 
-export const HiscoreSkillIcon = styled('img')(
-  ({ theme }) => css`
-    display: none;
-
-    ${theme.breakpoints.up('tablet')} {
-      display: block;
-      width: 20px;
-      margin-right: 8px;
-      background-color: transparent;
-    }
-  `,
-)
-
-export const PlayerHiscoreTableCell = styled(HiscoreTableCell)(
+export const PlayerHiscoreTableCell = styled(HiscoreTableValueCell)(
   () => css`
     display: flex;
+    align-items: center;
     gap: 10px;
   `,
 )
 
-export const SkillLink = styled(HoverUnderlineLink)(
-  () => css`
-    color: black;
+export const ExperienceCell = styled(HiscoreTableValueCell)(
+  ({ theme }) => css`
+    display: none;
+
+    ${theme.breakpoints.up('tablet')} {
+      display: table-cell;
+      min-width: 100px;
+    }
   `,
 )
 
-export const ExperienceCell = styled(HiscoreTableCell)(
+export const MobileExperienceCell = styled(HiscoreTableValueCell)(
   ({ theme }) => css`
     ${theme.breakpoints.up('tablet')} {
-      min-width: 100px;
+      display: none;
     }
   `,
 )

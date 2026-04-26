@@ -42,3 +42,11 @@ export const getEmojiByName = (emojiName: string) => {
 }
 
 export const isNilString = (input: string | undefined) => input === undefined || input === null || input.length < 1
+
+/** Formats a RuneScape EXP amount to shorthand. e.g. 24,800,000 => 24.8M. */
+export const formatExp = (exp: string | number): string => {
+  const n = typeof exp === 'string' ? parseInt(exp.replace(/,/g, ''), 10) : exp
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`
+  if (n >= 1_000) return `${(n / 1_000).toFixed(1)}K`
+  return n.toString()
+}

@@ -45,6 +45,8 @@
     "@babel/core": "^7.21.3",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-typescript": "^7.21.0",
+    "@swc/core": "^1.15.30",
+    "@swc/jest": "^0.2.39",
     "@testing-library/react": "^14.0.0",
     "@types/bcryptjs": "^2.4.4",
     "@types/jest": "^29.5.0",

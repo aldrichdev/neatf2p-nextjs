@@ -8,7 +8,7 @@ export const PlayersOnlineBox = styled('div')`
 
 export const PlayersOnlineMessage = styled('p')(
   ({ theme }) => css`
-    font-family: Verdana;
+    font-family: Inter, sans-serif;
     font-size: 20px;
     text-align: center;
     margin: 20px 0;
@@ -19,7 +19,9 @@ export const PlayersOnlineMessage = styled('p')(
   `,
 )
 
-export const OnlineCount = styled('span')`
-  font-weight: 600;
-  color: green;
-`
+export const OnlineCount = styled('span')(
+  ({ theme }) => css`
+    font-weight: 600;
+    color: ${theme.palette.primary.main};
+  `,
+)

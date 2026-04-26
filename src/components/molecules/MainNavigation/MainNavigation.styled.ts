@@ -42,12 +42,13 @@ export const NavUnorderedList = styled('ul')(
 export const NavLink = styled(Link, {
   shouldForwardProp: prop => prop !== 'isActive',
 })<{ isActive?: boolean }>(
-  ({ isActive }) => css`
+  ({ theme, isActive }) => css`
     ${getBaseNavItemStyles(isActive)}
     text-decoration: none;
 
     :hover {
-      border-bottom: 2px solid green;
+      color: ${theme.palette.background.paper};
+      border-bottom: 2px solid ${theme.palette.primary.main};
     }
   `,
 )

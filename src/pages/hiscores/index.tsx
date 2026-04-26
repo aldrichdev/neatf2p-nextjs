@@ -1,14 +1,12 @@
 import { ContentBlock } from '@atoms/ContentBlock'
 import { useEffect, useState } from 'react'
-import { HiscoresPageContainer } from '@styledPages/hiscores.styled'
+import { HiscoresColumnTwo, HiscoresPageContainer, HiscoresPageHeading } from '@styledPages/hiscores.styled'
 import { HiscoresTable } from '@molecules/HiscoresTable'
 import { HiscoresMenu } from '@molecules/HiscoresMenu'
 import useHiscores from '@hooks/useHiscores'
 import { HiscoreTypes, HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { useRouter } from 'next/router'
-import { Spinner } from '@molecules/Spinner'
 import { PlayerLookup } from '@atoms/PlayerLookup'
-import { PageHeading } from '@atoms/PageHeading'
 import { push } from '@utils/router'
 import { renderHead } from '@utils/renderUtils'
 import { PageTabs } from '@atoms/PageTabs'
@@ -24,7 +22,6 @@ type HiscoresProps = {
 const Hiscores = ({ skill }: HiscoresProps) => {
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
-  const { query } = router
   const [hiscoresPage, setHiscoresPage] = useState(1)
   const isHiscoreType = (x: string): x is HiscoreType => HiscoreTypes.includes(x as HiscoreType)
   const [hiscoreType, setHiscoreType] = useState<HiscoreType>('Overall')
@@ -33,7 +30,6 @@ const Hiscores = ({ skill }: HiscoresProps) => {
   const handleMenuItemClick = (hiscoreType: HiscoreType) => {
     setHiscoreType(hiscoreType)
     setHiscoresPage(1)
-    router.query.page = '1'
     router.query.skill = hiscoreType
     push(router, '/hiscores', router.query)
   }
@@ -55,21 +51,21 @@ const Hiscores = ({ skill }: HiscoresProps) => {
   return (
     <>
       {renderHead(`${skill} Hiscores`, `The latest player rankings in the ${skill} skill.`)}
-      <ContentBlock isWide>
+      <ContentBlock customWidth={900}>
         <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
-        <PageHeading>{`${hiscoreType} Hiscores`}</PageHeading>
         <HiscoresPageContainer>
           <HiscoresMenu hiscoreType={hiscoreType} buttonOnClick={handleMenuItemClick} />
-          {isLoading || !hiscores ? (
-            <Spinner hiscores />
-          ) : (
+          <HiscoresColumnTwo>
+            <HiscoresPageHeading variant='h2' sx={{ marginBottom: 2 }}>{`${hiscoreType} Hiscores`}</HiscoresPageHeading>
             <HiscoresTable
               hiscores={hiscores}
+              isLoading={isLoading}
               hiscoreType={hiscoreType}
-              page={query.page ? Number(query.page) : hiscoresPage}
+              page={hiscoresPage}
               setPage={setHiscoresPage}
             />
-          )}
+          </HiscoresColumnTwo>
+
           <PlayerLookup />
         </HiscoresPageContainer>
       </ContentBlock>

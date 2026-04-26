@@ -1,6 +1,6 @@
-import { HiscoresMenuItemList } from '@styledPages/hiscores.styled'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { HiscoresMenuItem } from '@atoms/HiscoresMenuItem'
+import { HiscoresMenuItemList } from './HiscoresMenu.styled'
 
 type HiscoresMenuProps = {
   hiscoreType: HiscoreType

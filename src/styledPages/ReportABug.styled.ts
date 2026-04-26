@@ -16,18 +16,18 @@ export const BugTypeDropdown = styled(FormControl)(
 )
 
 export const BugTypeMenuItem = styled(MenuItem)(
-  () => css`
+  ({ theme }) => css`
     font-family: Source Sans Pro;
 
     &:hover {
-      background-color: var(--faded-green-bg-color);
+      background-color: ${theme.palette.primary.light};
     }
 
     &&.Mui-selected {
       background-color: lightgray;
 
       &:hover {
-        background-color: var(--faded-green-bg-color);
+        background-color: ${theme.palette.primary.light};
       }
     }
 
@@ -38,7 +38,7 @@ export const BugTypeMenuItem = styled(MenuItem)(
 )
 
 export const IssuesLink = styled(Link)(
-  () => css`
-    color: green;
+  ({ theme }) => css`
+    color: ${theme.palette.primary.main};
   `,
 )

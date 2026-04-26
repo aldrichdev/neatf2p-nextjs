@@ -1,4 +1,4 @@
-import { MenuItem, CurrentMenuItemLabel, MenuItemButton } from '@atoms/HiscoresMenuItem/HiscoresMenuItem.styled'
+import { MenuItem } from '@atoms/HiscoresMenuItem/HiscoresMenuItem.styled'
 import { NpcHiscoresMenuItemProps } from './NpcHiscoresMenuItem.types'
 import { getNpcIdsByInitialId, getNpcNameByIdForMenu } from '@utils/hiscores/hiscoresUtils'
 
@@ -23,15 +23,11 @@ const NpcHiscoresMenuItem = (props: NpcHiscoresMenuItemProps) => {
     }
   }
 
+  const isSelected = JSON.stringify(hiscoreType) === JSON.stringify(menuItemNpcId) || isHiscoreTypeRelatedToMenuItem()
+
   return (
-    <MenuItem>
-      {JSON.stringify(hiscoreType) === JSON.stringify(menuItemNpcId) || isHiscoreTypeRelatedToMenuItem() ? (
-        <CurrentMenuItemLabel isNpcMenu>{npcName}</CurrentMenuItemLabel>
-      ) : (
-        <MenuItemButton variant='text' onClick={() => buttonOnClick(menuItemNpcId)} isNpcMenu>
-          {npcName}
-        </MenuItemButton>
-      )}
+    <MenuItem isSelected={isSelected} onClick={() => buttonOnClick(menuItemNpcId)}>
+      {npcName}
     </MenuItem>
   )
 }

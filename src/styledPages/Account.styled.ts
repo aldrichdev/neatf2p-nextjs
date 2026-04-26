@@ -19,24 +19,25 @@ export const AccountNavigationContainer = styled('div')(
 )
 
 export const AccountNavigationButton = styled(Button)(
-  () => css`
+  ({ theme }) => css`
     font-family: Source Sans Pro;
-    color: green;
+    color: ${theme.palette.primary.main};
     font-size: 20px;
     text-transform: none;
   `,
 )
 export const AccountNavigationItem = styled(Link)(
-  () => css`
+  ({ theme }) => css`
     display: block;
     font-family: Source Sans Pro;
-    color: unset;
+    color: black;
     padding: 16px;
     text-align: left;
     text-decoration: none;
 
     &:hover {
-      background-color: var(--faded-green-bg-color);
+      color: black;
+      background-color: ${theme.palette.primary.light};
     }
   `,
 )

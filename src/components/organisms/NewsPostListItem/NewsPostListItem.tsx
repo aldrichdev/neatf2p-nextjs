@@ -38,7 +38,9 @@ const NewsPostListItem = (props: NewsPostItemProps) => {
           }
           secondary={
             <>
-              <Typography variant='body'>{getPrettyDateStringFromISOString(newsPost.datePosted)}</Typography>
+              <Typography variant='body' sx={{ color: 'gray' }}>
+                {getPrettyDateStringFromISOString(newsPost.datePosted)}
+              </Typography>
               <NewsPostBody variant='body' color='black' component='span'>
                 <ReadMore linkHref={newsPostUrl}>{newsPost.body}</ReadMore>
               </NewsPostBody>

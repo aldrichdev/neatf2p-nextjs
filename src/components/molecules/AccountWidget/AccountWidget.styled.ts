@@ -9,7 +9,7 @@ export const AccountArea = styled('div')(
     color: black;
     align-items: center;
     gap: 10px;
-    font-family: Saros;
+    font-family: Inter, sans-serif;
     position: absolute;
     top: 10px;
     right: 10px;
@@ -31,9 +31,9 @@ export const AccountArea = styled('div')(
 export const Username = styled(InlineLink, {
   shouldForwardProp: prop => prop !== 'useHoverUnderline',
 })<{ useHoverUnderline?: boolean }>(
-  () => css`
+  ({ theme }) => css`
     font-weight: 600;
-    color: green;
+    color: ${theme.palette.primary.main};
   `,
 )
 

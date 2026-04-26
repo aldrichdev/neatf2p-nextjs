@@ -1,8 +1,7 @@
 import { ExtendedTableContainerProps } from '@globalTypes/MUI/ExtendedTableContainerProps'
-import { Table, TableCell, TableContainer, TableRow } from '@mui/material'
+import { Table, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
-import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 
 export const RootContainer = styled('div')(
   () => css`
@@ -16,6 +15,7 @@ export const RootContainer = styled('div')(
 export const HiscoreTableContainer = styled(TableContainer)<ExtendedTableContainerProps>(
   ({ theme }) => css`
     box-shadow: none;
+    border-radius: 8px 8px 0 0;
 
     ${theme.breakpoints.up('tablet')} {
       flex-basis: 100%;
@@ -31,16 +31,28 @@ export const HiscoreTableContainer = styled(TableContainer)<ExtendedTableContain
 export const HiscoreTable = styled(Table, {
   shouldForwardProp: prop => prop !== 'aria-label',
 })(
-  () => css`
-    font-family: Verdana;
-    background-color: var(--gold-bg-color);
-    border: 2px solid var(--gold-border-color);
+  ({ theme }) => css`
+    font-family: Inter, sans-serif;
+    background-color: ${theme.palette.background.paper};
+    border-radius: 8px;
+  `,
+)
+
+export const HiscoresTableHead = styled(TableHead)(
+  ({ theme }) => css`
+    background-color: ${theme.palette.primary.main};
+    color: ${theme.palette.custom.tableHeaderText};
+    height: fit-content;
+
+    tr {
+      border-bottom: none;
+    }
   `,
 )
 
 export const HiscoresTableRow = styled(TableRow)(
   ({ theme }) => css`
-    border-bottom: 1px solid black;
+    border-bottom: 0.5px solid ${theme.palette.divider};
     font-size: 14px;
 
     ${theme.breakpoints.up('tablet')} {
@@ -49,30 +61,26 @@ export const HiscoresTableRow = styled(TableRow)(
   `,
 )
 
-export const HiscoreTableCell = styled(TableCell)(
+export const HiscoreTableValueCell = styled(TableCell)(
   ({ theme }) => css`
     font-weight: 400;
-    padding: 8px;
+    font-size: 14px;
+    padding: 9px 14px;
     border: 0;
 
-    &:not(:last-child) {
-      border-right: 1px solid black;
-    }
-
     ${theme.breakpoints.up('tablet')} {
-      padding: 16px;
+      font-size: 16px;
     }
   `,
 )
 
-export const HiscoreTableHeaderCell = styled(HiscoreTableCell)(
-  () => css`
+export const HiscoreTableHeaderCell = styled(TableCell)(
+  ({ theme }) => css`
+    color: ${theme.palette.custom.tableHeaderText};
     font-weight: 700;
-  `,
-)
-
-export const HiscoreUsername = styled(HoverUnderlineLink)(
-  () => css`
-    color: black;
+    font-size: 14px;
+    padding: 9px 14px;
+    border: 0;
+    text-transform: uppercase;
   `,
 )

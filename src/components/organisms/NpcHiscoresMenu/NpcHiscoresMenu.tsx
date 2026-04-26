@@ -2,13 +2,13 @@ import { NpcHiscoreTypes } from '@globalTypes/Hiscores/HiscoreType'
 import { NpcHiscoresMenuItem } from '@molecules/NpcHiscoresMenuItem'
 import { getNpcNameByIdForMenu, getNpcNameByIdForMenuKey } from '@utils/hiscores/hiscoresUtils'
 import { NpcHiscoresMenuProps } from './NpcHiscoresMenu.types'
-import { NpcHiscoresMenuItemList } from '@styledPages/NpcHiscores.styled'
+import { HiscoresMenuItemList } from '@molecules/HiscoresMenu/HiscoresMenu.styled'
 
 const NpcHiscoresMenu = (props: NpcHiscoresMenuProps) => {
   const { activeNpcHiscoreType, buttonOnClick } = props
 
   return (
-    <NpcHiscoresMenuItemList>
+    <HiscoresMenuItemList isNpcMenu>
       {NpcHiscoreTypes.map(npcHiscoreType => {
         if (getNpcNameByIdForMenu(npcHiscoreType) !== '') {
           return (
@@ -21,7 +21,7 @@ const NpcHiscoresMenu = (props: NpcHiscoresMenuProps) => {
           )
         }
       })}
-    </NpcHiscoresMenuItemList>
+    </HiscoresMenuItemList>
   )
 }
 

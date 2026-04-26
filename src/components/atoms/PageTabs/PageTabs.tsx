@@ -12,22 +12,38 @@ import { PageTabsProps, Tab } from './PageTabs.types'
  *    </ContentBlock>
  */
 const PageTabs = (props: PageTabsProps) => {
-  const { tabs, activeTab, setActiveTab, defaultTabColor, activeTabColor, hoverTabColor } = props
+  const {
+    tabs,
+    activeTab,
+    setActiveTab,
+    fullyRounded,
+    defaultTabBgColor,
+    defaultTabTextColor,
+    activeTabBgColor,
+    activeTabTextColor,
+    hoverTabBgColor,
+    hoverTabTextColor,
+    fontSize,
+  } = props
 
   const handleTabClick = (tab: Tab) => {
     setActiveTab(tab)
   }
 
   return (
-    <TabsContainer>
+    <TabsContainer fullyRounded={fullyRounded}>
       {tabs.map(tab => (
         <PageTab
           key={Array.isArray(tab.id) ? tab.id.join(',') : tab.id}
           onClick={() => handleTabClick(tab)}
           active={tab.label === activeTab.label}
-          defaultColor={defaultTabColor}
-          activeColor={activeTabColor}
-          hoverColor={hoverTabColor}
+          defaultBgColor={defaultTabBgColor}
+          defaultTextColor={defaultTabTextColor}
+          activeBgColor={activeTabBgColor}
+          activeTextColor={activeTabTextColor}
+          hoverBgColor={hoverTabBgColor}
+          hoverTextColor={hoverTabTextColor}
+          fontSize={fontSize}
         >
           {tab.label}
         </PageTab>

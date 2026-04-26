@@ -2,32 +2,35 @@ import { BackToLink } from '@atoms/BackToLink/BackToLink'
 import { BodyText } from '@atoms/BodyText'
 import { ContentBlock } from '@atoms/ContentBlock'
 import { HiscoreTableHeaderCell } from '@molecules/HiscoresTable/HiscoresTable.styled'
-import { PageHeading } from '@atoms/PageHeading'
 import { PageTabs } from '@atoms/PageTabs'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
 import { PlayerHiscoresRank } from '@atoms/PlayerHiscoresRank'
 import { PlayerHiscoreTable } from '@organisms/PlayerHiscoreTable'
 import {
   ExperienceCell,
-  HiscoreSkillIcon,
   HiscoreSkillTableCell,
   HiscoreTableRow,
+  MobileExperienceCell,
   PlayerHiscoreTableCell,
-  SkillLink,
 } from '@organisms/PlayerHiscoreTable/PlayerHiscoreTable.styled'
 import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
 import { PlayerHiscoresSortField } from '@globalTypes/Database/PlayerHiscoresSortField'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { PlayerHiscoreRow } from '@globalTypes/Hiscores/PlayerHiscoreRow'
-import { getPrettyDateStringFromMillis } from '@utils/date/date'
 import { getWebsiteBaseUrl } from '@utils/envUtils'
 import { compareHiscores, convertExp, getTotalExp, isNotBaselineExp } from '@utils/hiscores/hiscoresUtils'
 import { renderHead } from '@utils/renderUtils'
 import { redirectTo } from '@utils/window'
 import { HiscoresTabs } from '@models/HiscoresTabs'
-import { PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
+import { HiscoreTabsContainer, LevelProgressBar, LevelProgressBarFill } from '@styledPages/hiscores.styled'
 import { GetServerSideProps } from 'next'
 import { useEffect, useState } from 'react'
+import { formatExp } from '@utils/string/stringUtils'
+import { HiscoreSkillEmoji } from '@atoms/HiscoreSkillEmoji'
+import { useRouter } from 'next/router'
+import { PlayerHiscoreTableRowsSkeleton } from '@atoms/PlayerHiscoreTableRowsSkeleton'
+import { PlayerHiscoreHeader } from '@molecules/PlayerHiscoreHeader'
+import { StatisticCardProps } from '@atoms/StatisticCard/StatisticCard.types'
 
 type PlayerHiscorePageProps = {
   accountName: string
@@ -37,6 +40,10 @@ type PlayerHiscorePageProps = {
 
 const PlayerHiscorePage = ({ accountName, hiscoresData, lastLoginMillis }: PlayerHiscorePageProps) => {
   const [playerHiscores, setPlayerHiscores] = useState<PlayerHiscoreRow[] | undefined>()
+  const router = useRouter()
+  const overallHiscoreRecord = playerHiscores?.[0]
+
+  const getLevelProgressPercentage = (level: number, isTotal: boolean) => (isTotal ? 1 : level === 1 ? 0 : level / 99)
 
   const isMatchingUser = (hiscoreDataRow: PlayerHiscoreDataRow) =>
     hiscoreDataRow.username.toLowerCase() === accountName.toLowerCase()
@@ -114,50 +121,96 @@ const PlayerHiscorePage = ({ accountName, hiscoresData, lastLoginMillis }: Playe
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hiscoresData])
 
+  const overallRank = overallHiscoreRecord?.rank
+  const skillTotal = overallHiscoreRecord?.level
+  const totalExp = overallHiscoreRecord?.exp
+  const totalExpShorthand = totalExp ? formatExp(totalExp) : ''
+
+  const statCards: StatisticCardProps[] = [
+    {
+      label: 'Overall rank',
+      children: `#${overallRank}`,
+      footnote: 'of all players',
+      isRank: true,
+    },
+    {
+      label: 'Skill total',
+      children: skillTotal,
+      footnote: 'across 14 skills',
+    },
+    {
+      label: 'Total exp',
+      children: totalExpShorthand,
+      footnote: totalExp ? `${totalExp} xp` : '',
+    },
+  ]
+
   return (
     <>
       {renderHead(`${accountName} | Player Hiscores`, `Skill rankings for ${accountName}.`)}
       <ContentBlock>
-        <PageHeading>{accountName}</PageHeading>
-        <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
-        {typeof accountName !== 'string' || !playerHiscores || !hiscoresData?.find(isMatchingUser) ? (
+        <HiscoreTabsContainer>
+          <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
+        </HiscoreTabsContainer>
+        {typeof accountName !== 'string' || !hiscoresData?.find(isMatchingUser) ? (
           <BodyText variant='body' bodyTextAlign='center'>
             No hiscore found for this player.
           </BodyText>
         ) : (
           <>
-            <PlayerHiscoreTableContainer>
-              <PlayerHiscoreTable
-                accountName={accountName}
-                columns={
-                  <>
-                    <HiscoreTableHeaderCell>Skill</HiscoreTableHeaderCell>
-                    <HiscoreTableHeaderCell>Rank</HiscoreTableHeaderCell>
-                    <HiscoreTableHeaderCell>Level</HiscoreTableHeaderCell>
-                    <HiscoreTableHeaderCell>EXP</HiscoreTableHeaderCell>
-                  </>
-                }
-                body={playerHiscores.map(playerHiscoreRow => (
-                  <HiscoreTableRow key={playerHiscoreRow.skill}>
-                    <HiscoreSkillTableCell>
-                      <HiscoreSkillIcon src={`/img/skills/${playerHiscoreRow.skill}.png`} alt='' />
-                      <SkillLink href={`/hiscores?skill=${playerHiscoreRow.skill}`}>{playerHiscoreRow.skill}</SkillLink>
-                    </HiscoreSkillTableCell>
-                    <PlayerHiscoreTableCell>
-                      <PlayerHiscoresRank rank={playerHiscoreRow.rank} />
-                    </PlayerHiscoreTableCell>
-                    <PlayerHiscoreTableCell>{playerHiscoreRow.level}</PlayerHiscoreTableCell>
-                    <ExperienceCell>{playerHiscoreRow.exp}</ExperienceCell>
-                  </HiscoreTableRow>
-                ))}
-              />
-            </PlayerHiscoreTableContainer>
-            <BodyText variant='body' bodyTextAlign='center'>
-              <strong>Last Login:</strong> {lastLoginMillis ? getPrettyDateStringFromMillis(lastLoginMillis) : 'Never'}
-            </BodyText>
+            <PlayerHiscoreHeader
+              isLoading={!playerHiscores}
+              accountName={accountName}
+              lastLoginMillis={lastLoginMillis}
+              statCards={statCards}
+            />
+            <PlayerHiscoreTable
+              accountName={accountName}
+              columns={
+                <>
+                  <HiscoreTableHeaderCell>Skill</HiscoreTableHeaderCell>
+                  <HiscoreTableHeaderCell>Rank</HiscoreTableHeaderCell>
+                  <HiscoreTableHeaderCell>Level</HiscoreTableHeaderCell>
+                  <HiscoreTableHeaderCell>EXP</HiscoreTableHeaderCell>
+                </>
+              }
+              body={
+                !playerHiscores ? (
+                  <PlayerHiscoreTableRowsSkeleton />
+                ) : (
+                  playerHiscores.map(playerHiscoreRow => (
+                    <HiscoreTableRow
+                      key={playerHiscoreRow.skill}
+                      onClick={() => router.push(`/hiscores?skill=${playerHiscoreRow.skill}`)}
+                    >
+                      <HiscoreSkillTableCell sx={{ fontWeight: 500 }}>
+                        <HiscoreSkillEmoji skill={playerHiscoreRow.skill} />
+                        {playerHiscoreRow.skill}
+                      </HiscoreSkillTableCell>
+                      <PlayerHiscoreTableCell>
+                        <PlayerHiscoresRank rank={playerHiscoreRow.rank} />
+                      </PlayerHiscoreTableCell>
+                      <PlayerHiscoreTableCell sx={{ fontWeight: 500 }}>
+                        <span>{playerHiscoreRow.level}</span>
+                        <LevelProgressBar>
+                          <LevelProgressBarFill
+                            completed={getLevelProgressPercentage(
+                              playerHiscoreRow.level,
+                              playerHiscoreRow.skill === 'Overall',
+                            )}
+                          />
+                        </LevelProgressBar>
+                      </PlayerHiscoreTableCell>
+                      <ExperienceCell>{playerHiscoreRow.exp}</ExperienceCell>
+                      <MobileExperienceCell>{formatExp(playerHiscoreRow.exp)}</MobileExperienceCell>
+                    </HiscoreTableRow>
+                  ))
+                )
+              }
+            />
           </>
         )}
-        <BackToLink href='/hiscores'>{'<'} Return to Hiscores</BackToLink>
+        <BackToLink href='/hiscores'>← Return to Hiscores</BackToLink>
       </ContentBlock>
     </>
   )
@@ -186,7 +239,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       props: {
         accountName,
         hiscoresData: hiscores,
-        lastLoginMillis,
+        lastLoginMillis: lastLoginMillis ?? 0,
       },
     }
   }
