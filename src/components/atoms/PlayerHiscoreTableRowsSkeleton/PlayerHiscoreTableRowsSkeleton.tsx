@@ -1,4 +1,3 @@
-import Skeleton from '@mui/material/Skeleton'
 import {
   ExpSkeleton,
   LevelSkeleton,

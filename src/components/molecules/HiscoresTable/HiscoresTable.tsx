@@ -5,25 +5,24 @@ import {
   RootContainer,
   HiscoreTableContainer,
   HiscoreTable,
-  HiscoreTableCell,
+  HiscoreTableValueCell,
   HiscoresTableRow,
   HiscoreTableHeaderCell,
   HiscoresTableHead,
-  TopBadge,
-  GoldBadge,
-  SilverBadge,
-  BronzeBadge,
-  NormalRankBadge,
-  RankBadge,
 } from './HiscoresTable.styled'
 import { convertExp, getTotalExp } from '@utils/hiscores/hiscoresUtils'
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
-import { push } from '@utils/router'
 import { HiscoresControls } from '@atoms/HiscoresControls'
 import useHiscoresPagination from '@hooks/useHiscoresPagination'
 import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
-import { DesktopHiscoreTableCell, MobileHiscoreTableCell } from '@styledPages/hiscores.styled'
+import {
+  BronzeBadge,
+  DesktopHiscoreTableCell,
+  GoldBadge,
+  MobileHiscoreTableCell,
+  RankBadge,
+  SilverBadge,
+  TopBadge,
+} from '@styledPages/hiscores.styled'
 import { formatExp } from '@utils/string/stringUtils'
 import { HiscoresTableRowsSkeleton } from '@atoms/HiscoresTableRowsSkeleton'
 
@@ -37,8 +36,7 @@ type HiscoresTableProps = {
 
 const HiscoresTable = (props: HiscoresTableProps) => {
   const { hiscores, isLoading, hiscoreType, page, setPage } = props
-  const router = useRouter()
-  const { startingRecord, endingRecord, pageCount, handlePageChange, handleScrollToTop } = useHiscoresPagination(
+  const { startingRecord, endingRecord, pageCount, handlePageChange } = useHiscoresPagination(
     false,
     hiscores?.length || 0,
     page,
@@ -76,10 +74,10 @@ const HiscoresTable = (props: HiscoresTableProps) => {
         <HiscoreTable aria-label={`${hiscoreType} Hiscores Table`}>
           <HiscoresTableHead>
             <HiscoresTableRow>
-              <HiscoreTableHeaderCell sx={{ borderRadius: '8px 0 0 0' }}>Rank</HiscoreTableHeaderCell>
+              <HiscoreTableHeaderCell>Rank</HiscoreTableHeaderCell>
               <HiscoreTableHeaderCell>Name</HiscoreTableHeaderCell>
               <HiscoreTableHeaderCell>Level</HiscoreTableHeaderCell>
-              <HiscoreTableHeaderCell sx={{ borderRadius: '0 8px 0 0' }}>EXP</HiscoreTableHeaderCell>
+              <HiscoreTableHeaderCell>EXP</HiscoreTableHeaderCell>
             </HiscoresTableRow>
           </HiscoresTableHead>
           <TableBody>
@@ -92,7 +90,7 @@ const HiscoresTable = (props: HiscoresTableProps) => {
 
                 return (
                   <HiscoresTableRow key={hiscoreRow.username}>
-                    <HiscoreTableCell component='th' scope='row'>
+                    <HiscoreTableValueCell>
                       {rankToDisplay === 1 ? (
                         <GoldBadge>1</GoldBadge>
                       ) : rankToDisplay === 2 ? (
@@ -102,14 +100,14 @@ const HiscoresTable = (props: HiscoresTableProps) => {
                       ) : (
                         <RankBadge>{rankToDisplay}</RankBadge>
                       )}
-                    </HiscoreTableCell>
-                    <HiscoreTableCell sx={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                      <HoverUnderlineLink href={`/hiscores/player/${hiscoreRow.username}`}>
+                    </HiscoreTableValueCell>
+                    <HiscoreTableValueCell sx={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                      <HoverUnderlineLink href={`/hiscores/player/${hiscoreRow.username}`} sx={{ fontWeight: 500 }}>
                         {hiscoreRow.username}
                       </HoverUnderlineLink>
                       {rankToDisplay === 1 ? <TopBadge>top</TopBadge> : null}
-                    </HiscoreTableCell>
-                    <HiscoreTableCell>{getHiscoreValue(hiscoreRow)}</HiscoreTableCell>
+                    </HiscoreTableValueCell>
+                    <HiscoreTableValueCell>{getHiscoreValue(hiscoreRow)}</HiscoreTableValueCell>
                     <DesktopHiscoreTableCell>{convertExp(getHiscoreSkillXP(hiscoreRow))}</DesktopHiscoreTableCell>
                     <MobileHiscoreTableCell>
                       {formatExp(convertExp(getHiscoreSkillXP(hiscoreRow)))}
@@ -121,14 +119,7 @@ const HiscoresTable = (props: HiscoresTableProps) => {
           </TableBody>
         </HiscoreTable>
       </HiscoreTableContainer>
-      {pageCount > 1 && (
-        <HiscoresControls
-          page={page}
-          pageCount={pageCount}
-          handlePageChange={handlePageChange}
-          handleScrollToTop={handleScrollToTop}
-        />
-      )}
+      {pageCount > 1 && <HiscoresControls page={page} pageCount={pageCount} handlePageChange={handlePageChange} />}
     </RootContainer>
   )
 }

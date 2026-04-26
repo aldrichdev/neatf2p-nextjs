@@ -3,16 +3,11 @@ import { PageHeading } from '@atoms/PageHeading'
 import { PlayerHiscoreHeaderSkeleton } from '@atoms/PlayerHiscoreHeaderSkeleton'
 import { PlayerStatCard } from '@atoms/PlayerStatCard'
 import { getPrettyDateStringFromMillis } from '@utils/date/date'
-import { formatExp } from '@utils/string/stringUtils'
 import { LastLoginDate, LastLoginLabel, PlayerStatsContainer } from './PlayerHiscoreHeader.styled'
 import { PlayerHiscoreHeaderProps } from './PlayerHiscoreHeader.types'
 
 const PlayerHiscoreHeader = (props: PlayerHiscoreHeaderProps) => {
-  const { isLoading, accountName, lastLoginMillis, overallHiscoreRecord } = props
-  const overallRank = overallHiscoreRecord?.rank
-  const skillTotal = overallHiscoreRecord?.level
-  const totalExp = overallHiscoreRecord?.exp
-  const totalExpShorthand = totalExp ? formatExp(totalExp) : ''
+  const { isLoading, accountName, lastLoginMillis, statCards } = props
 
   return isLoading ? (
     <PlayerHiscoreHeaderSkeleton />
@@ -26,15 +21,11 @@ const PlayerHiscoreHeader = (props: PlayerHiscoreHeaderProps) => {
         </LastLoginDate>
       </BodyText>
       <PlayerStatsContainer>
-        <PlayerStatCard label='Overall rank' footnote='of all players' isRank>
-          {`#${overallRank}`}
-        </PlayerStatCard>
-        <PlayerStatCard label='Skill total' footnote='across 14 skills'>
-          {skillTotal}
-        </PlayerStatCard>
-        <PlayerStatCard label='Total exp' footnote={totalExp ? `${totalExp} xp` : ''}>
-          {totalExpShorthand}
-        </PlayerStatCard>
+        {statCards.slice(0, 3).map(card => (
+          <PlayerStatCard key={card.label} label={card.label} footnote={card.footnote} isRank={card.isRank}>
+            {card.children}
+          </PlayerStatCard>
+        ))}
       </PlayerStatsContainer>
     </>
   )

@@ -1,21 +1,20 @@
 import { NpcHiscoreType } from '@globalTypes/Hiscores/HiscoreType'
-import { TableBody, TableHead, Paper } from '@mui/material'
+import { TableBody, Paper } from '@mui/material'
 import {
   RootContainer,
-  HiscoreTableContainer,
   HiscoreTable,
   HiscoresTableRow,
-  HiscoreTableCell,
+  HiscoreTableValueCell,
   HiscoreTableHeaderCell,
+  HiscoresTableHead,
 } from '@molecules/HiscoresTable/HiscoresTable.styled'
 import { getNpcNameById } from '@utils/hiscores/hiscoresUtils'
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
-import { push } from '@utils/router'
 import { HiscoresControls } from '@atoms/HiscoresControls'
 import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
 import useHiscoresPagination from '@hooks/useHiscoresPagination'
 import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
+import { GoldBadge, SilverBadge, BronzeBadge, RankBadge, TopBadge } from '@styledPages/hiscores.styled'
+import { NpcHiscoreTableContainer } from './NpcHiscoresTable.styled'
 
 type NpcHiscoresTableProps = {
   hiscores: NpcHiscoreDataRow[]
@@ -26,8 +25,7 @@ type NpcHiscoresTableProps = {
 
 const NpcHiscoresTable = (props: NpcHiscoresTableProps) => {
   const { hiscores, npcHiscoreType, page, setPage } = props
-  const router = useRouter()
-  const { startingRecord, endingRecord, pageCount, handlePageChange, handleScrollToTop } = useHiscoresPagination(
+  const { startingRecord, endingRecord, pageCount, handlePageChange } = useHiscoresPagination(
     true,
     hiscores.length,
     page,
@@ -43,43 +41,47 @@ const NpcHiscoresTable = (props: NpcHiscoresTableProps) => {
 
   return (
     <RootContainer>
-      <HiscoreTableContainer component={Paper}>
+      <NpcHiscoreTableContainer component={Paper}>
         <HiscoreTable aria-label={`${getNpcNameById(npcHiscoreType)} Hiscores Table`}>
-          <TableHead>
+          <HiscoresTableHead>
             <HiscoresTableRow>
               <HiscoreTableHeaderCell>Rank</HiscoreTableHeaderCell>
               <HiscoreTableHeaderCell>Name</HiscoreTableHeaderCell>
               <HiscoreTableHeaderCell>Kills</HiscoreTableHeaderCell>
             </HiscoresTableRow>
-          </TableHead>
+          </HiscoresTableHead>
           <TableBody>
             {hiscores?.slice(startingRecord, endingRecord).map((hiscoreRow, index) => {
               rank++
+              const rankToDisplay: number = startingRecord === 0 ? index + 1 : rank
+
               return (
                 <HiscoresTableRow key={hiscoreRow.username}>
-                  <HiscoreTableCell component='th' scope='row'>
-                    {startingRecord === 0 ? index + 1 : rank}
-                  </HiscoreTableCell>
-                  <HiscoreTableCell>
-                    <HoverUnderlineLink href={`/npc-hiscores/player/${hiscoreRow.username}`}>
+                  <HiscoreTableValueCell>
+                    {rankToDisplay === 1 ? (
+                      <GoldBadge>1</GoldBadge>
+                    ) : rankToDisplay === 2 ? (
+                      <SilverBadge>2</SilverBadge>
+                    ) : rankToDisplay === 3 ? (
+                      <BronzeBadge>3</BronzeBadge>
+                    ) : (
+                      <RankBadge>{rankToDisplay}</RankBadge>
+                    )}
+                  </HiscoreTableValueCell>
+                  <HiscoreTableValueCell sx={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                    <HoverUnderlineLink href={`/npc-hiscores/player/${hiscoreRow.username}`} sx={{ fontWeight: 500 }}>
                       {hiscoreRow.username}
                     </HoverUnderlineLink>
-                  </HiscoreTableCell>
-                  <HiscoreTableCell>{hiscoreRow.killCount.toLocaleString()}</HiscoreTableCell>
+                    {rankToDisplay === 1 ? <TopBadge>top</TopBadge> : null}
+                  </HiscoreTableValueCell>
+                  <HiscoreTableValueCell>{hiscoreRow.killCount.toLocaleString()}</HiscoreTableValueCell>
                 </HiscoresTableRow>
               )
             })}
           </TableBody>
         </HiscoreTable>
-      </HiscoreTableContainer>
-      {pageCount > 1 && (
-        <HiscoresControls
-          page={page}
-          pageCount={pageCount}
-          handlePageChange={handlePageChange}
-          handleScrollToTop={handleScrollToTop}
-        />
-      )}
+      </NpcHiscoreTableContainer>
+      {pageCount > 1 && <HiscoresControls page={page} pageCount={pageCount} handlePageChange={handlePageChange} />}
     </RootContainer>
   )
 }

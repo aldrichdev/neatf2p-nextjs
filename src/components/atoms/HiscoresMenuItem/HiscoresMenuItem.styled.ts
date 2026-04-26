@@ -2,7 +2,7 @@ import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
 export const MenuItem = styled('li', {
-  shouldForwardProp: prop => prop !== 'isSelected',
+  shouldForwardProp: prop => !['isSelected'].includes(prop.toString()),
 })<{ isSelected?: boolean }>(
   ({ theme, isSelected }) => css`
     display: flex;
@@ -19,7 +19,7 @@ export const MenuItem = styled('li', {
     padding: 5px 10px;
     background-color: ${isSelected ? theme.palette.primary.main : theme.palette.background.paper};
     height: fit-content;
-    -webkit-tap-highlight-color: transparent;
+    white-space: nowrap;
 
     ${theme.breakpoints.up('mobile')} {
       gap: 8px;
@@ -64,7 +64,7 @@ export const SkillName = styled('span')(
 )
 
 export const SelectedSkillText = styled(SkillName)(
-  ({ theme }) => css`
+  () => css`
     font-weight: 500;
   `,
 )

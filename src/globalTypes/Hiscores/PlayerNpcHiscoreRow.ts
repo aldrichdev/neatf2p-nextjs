@@ -6,5 +6,5 @@ export type PlayerNpcHiscoreRow = {
   npcId: NpcHiscoreType
   npcName: string | undefined
   rank: number
-  killCount: string
+  killCount: number
 }

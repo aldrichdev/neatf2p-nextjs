@@ -6,7 +6,6 @@ import { CSSProperties } from 'react'
 // When you add dark mode, you'll pass a different palette object to createTheme.
 
 interface CustomPaletteTokens {
-  navBg: string
   sidebarBg: string
   tableHeaderBg: string
   tableHeaderText: string
@@ -40,7 +39,6 @@ const palette: PaletteOptions = {
   divider: '#d0dcd0', // table row borders, panel borders
   // Custom tokens beyond MUI's built-in slots:
   custom: {
-    navBg: '#1a3a1a',
     sidebarBg: '#f4f6f4',
     tableHeaderBg: '#2d5c2d',
     tableHeaderText: '#d8edd8',

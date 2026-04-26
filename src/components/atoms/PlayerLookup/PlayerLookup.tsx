@@ -7,7 +7,6 @@ import {
   LookupSubmitButton,
 } from './PlayerLookup.styled'
 import { redirectTo } from '@utils/window'
-import { FormButton } from '@atoms/FormButton/FormButton'
 
 type PlayerLookupProps = {
   isNpcHiscores?: boolean

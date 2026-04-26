@@ -1,5 +1,5 @@
 import { ExtendedTableContainerProps } from '@globalTypes/MUI/ExtendedTableContainerProps'
-import { Badge, Table, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { Table, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
@@ -12,9 +12,11 @@ export const RootContainer = styled('div')(
   `,
 )
 
+// TODO: Should the border-radius style below be global for all MUI Paper components?
 export const HiscoreTableContainer = styled(TableContainer)<ExtendedTableContainerProps>(
   ({ theme }) => css`
     box-shadow: none;
+    border-radius: 8px 8px 0 0;
 
     ${theme.breakpoints.up('tablet')} {
       flex-basis: 100%;
@@ -62,77 +64,29 @@ export const HiscoresTableRow = styled(TableRow)(
   `,
 )
 
-export const HiscoreTableCell = styled(TableCell)(
-  () => css`
-    font-weight: 500;
+// issues.
+// 1) impacts headings - should not
+// 2) doesn't impact Skill values - should
+export const HiscoreTableValueCell = styled(TableCell)(
+  ({ theme }) => css`
+    font-weight: 400;
     font-size: 14px;
     padding: 9px 14px;
     border: 0;
-  `,
-)
-
-export const RankBadge = styled(Badge)(
-  ({ theme }) => css`
-    width: 22px;
-    height: 22px;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: ${theme.palette.text.secondary};
-  `,
-)
-
-export const GoldBadge = styled(RankBadge)(
-  ({ theme }) => css`
-    background-color: ${theme.palette.custom.rankGold.bg};
-    color: ${theme.palette.custom.rankGold.text};
-  `,
-)
-
-export const SilverBadge = styled(RankBadge)(
-  ({ theme }) => css`
-    background-color: ${theme.palette.custom.rankSilver.bg};
-    color: ${theme.palette.custom.rankSilver.text};
-  `,
-)
-
-export const BronzeBadge = styled(RankBadge)(
-  ({ theme }) => css`
-    background-color: ${theme.palette.custom.rankBronze.bg};
-    color: ${theme.palette.custom.rankBronze.text};
-  `,
-)
-
-export const NormalRankBadge = styled(RankBadge)(
-  () => css`
-    background-color: lightgray;
-    color: gray;
-  `,
-)
-
-export const TopBadge = styled(Badge)(
-  ({ theme }) => css`
-    display: none;
 
     ${theme.breakpoints.up('tablet')} {
-      display: block;
-      background-color: ${theme.palette.secondary.light};
-      color: ${theme.palette.secondary.dark};
-      font-size: 11px;
-      font-weight: 500;
-      padding: 2px 8px;
-      border-radius: 10px;
+      font-size: 16px;
     }
   `,
 )
 
-export const HiscoreTableHeaderCell = styled(HiscoreTableCell)(
+export const HiscoreTableHeaderCell = styled(TableCell)(
   ({ theme }) => css`
     color: ${theme.palette.custom.tableHeaderText};
     font-weight: 700;
+    font-size: 14px;
+    padding: 9px 14px;
+    border: 0;
     text-transform: uppercase;
   `,
 )

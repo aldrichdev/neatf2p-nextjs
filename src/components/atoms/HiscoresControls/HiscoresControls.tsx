@@ -2,7 +2,7 @@ import { HiscoresControlsContainer, HiscoresPagination } from './HiscoresControl
 import { HiscoresControlsProps } from './HiscoresControls.types'
 
 const HiscoresControls = (props: HiscoresControlsProps) => {
-  const { page, pageCount, handlePageChange, handleScrollToTop } = props
+  const { page, pageCount, handlePageChange } = props
 
   return (
     <HiscoresControlsContainer>

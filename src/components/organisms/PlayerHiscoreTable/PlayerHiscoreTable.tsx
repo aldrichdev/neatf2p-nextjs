@@ -21,7 +21,7 @@ const PlayerHiscoreTable = (props: HiscoreTableProps) => {
   const { accountName, columns, body, isNpcTable } = props
 
   return (
-    <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
+    <TableContainer component={Paper} sx={{ boxShadow: 'none', borderRadius: '8px 8px 0 0' }}>
       <HiscoreTable aria-label={`${accountName} Hiscore Table`}>
         <HiscoresTableHead>
           <HiscoreTableRow isHeaderRow={true} isNpcTable={isNpcTable}>

@@ -1,6 +1,6 @@
 import { ContentBlock } from '@atoms/ContentBlock'
 import { useEffect, useState } from 'react'
-import { HiscoresPageContainer, HiscoresPageHeading } from '@styledPages/hiscores.styled'
+import { HiscoresColumnTwo, HiscoresPageContainer, HiscoresPageHeading } from '@styledPages/hiscores.styled'
 import { HiscoresTable } from '@molecules/HiscoresTable'
 import { HiscoresMenu } from '@molecules/HiscoresMenu'
 import useHiscores from '@hooks/useHiscores'
@@ -22,7 +22,6 @@ type HiscoresProps = {
 const Hiscores = ({ skill }: HiscoresProps) => {
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
-  const { query } = router
   const [hiscoresPage, setHiscoresPage] = useState(1)
   const isHiscoreType = (x: string): x is HiscoreType => HiscoreTypes.includes(x as HiscoreType)
   const [hiscoreType, setHiscoreType] = useState<HiscoreType>('Overall')
@@ -56,8 +55,8 @@ const Hiscores = ({ skill }: HiscoresProps) => {
         <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
         <HiscoresPageContainer>
           <HiscoresMenu hiscoreType={hiscoreType} buttonOnClick={handleMenuItemClick} />
-          <div>
-            <HiscoresPageHeading variant='h2'>{`${hiscoreType} Hiscores`}</HiscoresPageHeading>
+          <HiscoresColumnTwo>
+            <HiscoresPageHeading variant='h2' sx={{ marginBottom: 2 }}>{`${hiscoreType} Hiscores`}</HiscoresPageHeading>
             <HiscoresTable
               hiscores={hiscores}
               isLoading={isLoading}
@@ -65,7 +64,7 @@ const Hiscores = ({ skill }: HiscoresProps) => {
               page={hiscoresPage}
               setPage={setHiscoresPage}
             />
-          </div>
+          </HiscoresColumnTwo>
 
           <PlayerLookup />
         </HiscoresPageContainer>

@@ -1,4 +1,4 @@
-import { HiscoreTableCell } from '@molecules/HiscoresTable/HiscoresTable.styled'
+import { HiscoreTableValueCell } from '@molecules/HiscoresTable/HiscoresTable.styled'
 import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 import { TableCell, TableRow } from '@mui/material'
 import { styled } from '@mui/material/styles'
@@ -14,6 +14,10 @@ export const HiscoreTableRow = styled(TableRow, {
     border-bottom: 0.5px solid ${theme.palette.divider};
     height: fit-content;
     align-items: center;
+
+    &:last-child {
+      border-bottom: none;
+    }
 
     ${!isHeaderRow &&
     `
@@ -61,7 +65,7 @@ export const HiscoreSkillIcon = styled('img')(
   `,
 )
 
-export const PlayerHiscoreTableCell = styled(HiscoreTableCell)(
+export const PlayerHiscoreTableCell = styled(HiscoreTableValueCell)(
   () => css`
     display: flex;
     align-items: center;
@@ -76,7 +80,7 @@ export const SkillLink = styled(HoverUnderlineLink)(
   `,
 )
 
-export const ExperienceCell = styled(HiscoreTableCell)(
+export const ExperienceCell = styled(HiscoreTableValueCell)(
   ({ theme }) => css`
     display: none;
 
@@ -87,7 +91,7 @@ export const ExperienceCell = styled(HiscoreTableCell)(
   `,
 )
 
-export const MobileExperienceCell = styled(HiscoreTableCell)(
+export const MobileExperienceCell = styled(HiscoreTableValueCell)(
   ({ theme }) => css`
     ${theme.breakpoints.up('tablet')} {
       display: none;

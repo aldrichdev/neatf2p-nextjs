@@ -18,16 +18,11 @@ const useHiscoresPagination = (
     push(router, isNpcHiscores ? '/npc-hiscores' : '/hiscores', router.query)
   }
 
-  const handleScrollToTop = () => {
-    window.scrollTo({ top: 525, behavior: 'smooth' })
-  }
-
   return {
     startingRecord,
     endingRecord,
     pageCount,
     handlePageChange,
-    handleScrollToTop,
   }
 }
 

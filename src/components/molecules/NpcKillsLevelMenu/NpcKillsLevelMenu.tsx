@@ -1,20 +1,23 @@
-import { ContentBlock } from '@atoms/ContentBlock'
 import { PageTabs } from '@atoms/PageTabs'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
 import { NpcHiscoreType } from '@globalTypes/Hiscores/HiscoreType'
+import theme from '@theme/theme'
 import { getNpcCombatLevelById } from '@utils/hiscores/hiscoresUtils'
+import { LevelMenuContainer } from './NpcKillsLevelMenu.styled'
 import { NpcKillsLevelMenuProps } from './NpcKillsLevelMenu.types'
 
+/** A navigation bar of tabs that link to different combat level kill menus of the same NPC.
+ * Also displays a context label showing the NPC name and currently selected combat level.
+ */
 const NpcKillsLevelMenu = (props: NpcKillsLevelMenuProps) => {
   const { npcHiscoreType, npcSubTypes, menuItemOnClick } = props
+  const firstId = Array.isArray(npcSubTypes[0]) ? npcSubTypes[0][0] : npcSubTypes[0]
+  const firstTabName = `Level ${getNpcCombatLevelById(firstId)}`
 
   /** Some NPCs have the same name but up to 4 different combat levels.
    * This method generates the tabs needed for the inner navigation, below the heading.
    */
   const getTabsForNpcType = (): Array<Tab> => {
-    const firstId = Array.isArray(npcSubTypes[0]) ? npcSubTypes[0][0] : npcSubTypes[0]
-    const firstTabName = `Level ${getNpcCombatLevelById(firstId)}`
-
     let secondTabName = ''
     let thirdTabName = ''
     let fourthTabName = '' // Shouldn't be more than 4 (Skele...)
@@ -57,16 +60,19 @@ const NpcKillsLevelMenu = (props: NpcKillsLevelMenuProps) => {
     getTabsForNpcType()[0]
 
   return (
-    <ContentBlock topMargin={40} isWide>
+    <LevelMenuContainer>
       <PageTabs
         tabs={pageTabs}
         activeTab={activeTab}
         setActiveTab={tab => handleSetActiveTab(tab)}
-        defaultTabColor='#301934'
-        activeTabColor='#6e3a76'
-        hoverTabColor='#985aa5'
+        fullyRounded
+        defaultTabBgColor={theme.palette.custom.sidebarBg}
+        defaultTabTextColor={theme.palette.text.secondary}
+        hoverTabBgColor={theme.palette.primary.light}
+        hoverTabTextColor={theme.palette.primary.dark}
+        fontSize={14}
       />
-    </ContentBlock>
+    </LevelMenuContainer>
   )
 }
 
