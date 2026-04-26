@@ -2,7 +2,6 @@ import { HiscoreTableValueCell } from '@molecules/HiscoresTable/HiscoresTable.st
 import { Badge, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
-import Link from 'next/link'
 
 export const HiscoresPageContainer = styled('div')(
   ({ theme }) => css`
