@@ -12,7 +12,6 @@ export const RootContainer = styled('div')(
   `,
 )
 
-// TODO: Should the border-radius style below be global for all MUI Paper components?
 export const HiscoreTableContainer = styled(TableContainer)<ExtendedTableContainerProps>(
   ({ theme }) => css`
     box-shadow: none;

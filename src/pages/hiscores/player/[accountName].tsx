@@ -164,52 +164,50 @@ const PlayerHiscorePage = ({ accountName, hiscoresData, lastLoginMillis }: Playe
               lastLoginMillis={lastLoginMillis}
               statCards={statCards}
             />
-            <div data-todo-cleanup=''>
-              <PlayerHiscoreTable
-                accountName={accountName}
-                columns={
-                  <>
-                    <HiscoreTableHeaderCell>Skill</HiscoreTableHeaderCell>
-                    <HiscoreTableHeaderCell>Rank</HiscoreTableHeaderCell>
-                    <HiscoreTableHeaderCell>Level</HiscoreTableHeaderCell>
-                    <HiscoreTableHeaderCell>EXP</HiscoreTableHeaderCell>
-                  </>
-                }
-                body={
-                  !playerHiscores ? (
-                    <PlayerHiscoreTableRowsSkeleton />
-                  ) : (
-                    playerHiscores.map(playerHiscoreRow => (
-                      <HiscoreTableRow
-                        key={playerHiscoreRow.skill}
-                        onClick={() => router.push(`/hiscores?skill=${playerHiscoreRow.skill}`)}
-                      >
-                        <HiscoreSkillTableCell sx={{ fontWeight: 500 }}>
-                          <HiscoreSkillEmoji skill={playerHiscoreRow.skill} />
-                          {playerHiscoreRow.skill}
-                        </HiscoreSkillTableCell>
-                        <PlayerHiscoreTableCell>
-                          <PlayerHiscoresRank rank={playerHiscoreRow.rank} />
-                        </PlayerHiscoreTableCell>
-                        <PlayerHiscoreTableCell sx={{ fontWeight: 500 }}>
-                          <span>{playerHiscoreRow.level}</span>
-                          <LevelProgressBar>
-                            <LevelProgressBarFill
-                              completed={getLevelProgressPercentage(
-                                playerHiscoreRow.level,
-                                playerHiscoreRow.skill === 'Overall',
-                              )}
-                            />
-                          </LevelProgressBar>
-                        </PlayerHiscoreTableCell>
-                        <ExperienceCell>{playerHiscoreRow.exp}</ExperienceCell>
-                        <MobileExperienceCell>{formatExp(playerHiscoreRow.exp)}</MobileExperienceCell>
-                      </HiscoreTableRow>
-                    ))
-                  )
-                }
-              />
-            </div>
+            <PlayerHiscoreTable
+              accountName={accountName}
+              columns={
+                <>
+                  <HiscoreTableHeaderCell>Skill</HiscoreTableHeaderCell>
+                  <HiscoreTableHeaderCell>Rank</HiscoreTableHeaderCell>
+                  <HiscoreTableHeaderCell>Level</HiscoreTableHeaderCell>
+                  <HiscoreTableHeaderCell>EXP</HiscoreTableHeaderCell>
+                </>
+              }
+              body={
+                !playerHiscores ? (
+                  <PlayerHiscoreTableRowsSkeleton />
+                ) : (
+                  playerHiscores.map(playerHiscoreRow => (
+                    <HiscoreTableRow
+                      key={playerHiscoreRow.skill}
+                      onClick={() => router.push(`/hiscores?skill=${playerHiscoreRow.skill}`)}
+                    >
+                      <HiscoreSkillTableCell sx={{ fontWeight: 500 }}>
+                        <HiscoreSkillEmoji skill={playerHiscoreRow.skill} />
+                        {playerHiscoreRow.skill}
+                      </HiscoreSkillTableCell>
+                      <PlayerHiscoreTableCell>
+                        <PlayerHiscoresRank rank={playerHiscoreRow.rank} />
+                      </PlayerHiscoreTableCell>
+                      <PlayerHiscoreTableCell sx={{ fontWeight: 500 }}>
+                        <span>{playerHiscoreRow.level}</span>
+                        <LevelProgressBar>
+                          <LevelProgressBarFill
+                            completed={getLevelProgressPercentage(
+                              playerHiscoreRow.level,
+                              playerHiscoreRow.skill === 'Overall',
+                            )}
+                          />
+                        </LevelProgressBar>
+                      </PlayerHiscoreTableCell>
+                      <ExperienceCell>{playerHiscoreRow.exp}</ExperienceCell>
+                      <MobileExperienceCell>{formatExp(playerHiscoreRow.exp)}</MobileExperienceCell>
+                    </HiscoreTableRow>
+                  ))
+                )
+              }
+            />
           </>
         )}
         <BackToLink href='/hiscores'>← Return to Hiscores</BackToLink>

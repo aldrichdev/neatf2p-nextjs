@@ -23,20 +23,3 @@ export const NpcHiscoresMenuItemList = styled('ul')(
     }
   `,
 )
-
-// TODO: Tear down
-// export const NpcHiscoresPageContainer = styled('div')(() => css``)
-
-// TODO: Tear down
-export const NpcHiscoresLayout = styled('div')(
-  ({ theme }) => css`
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    gap: 16px;
-    align-items: start;
-
-    ${theme.breakpoints.up('tablet')} {
-      grid-template-columns: 1fr 200px;
-    }
-  `,
-)

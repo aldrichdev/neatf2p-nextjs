@@ -651,7 +651,7 @@ export const groupByUsername = (filteredHiscores: NpcHiscoreDataRow[]) => {
       npcID: 0, // Shouldn't matter
       username: record?.[0],
       killCount: record?.[1]?.reduce((n, { killCount }) => n + killCount, 0),
-      login_date: 0, // TODO: Does this need to be an accurate login date?
+      login_date: 0, // Value does not matter here
     }
 
     newArray.push(newObject)

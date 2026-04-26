@@ -73,13 +73,6 @@ export const LevelProgressBarFill = styled('div', {
   `,
 )
 
-/** TODO: Tear down */
-export const ClickableHiscoreTableRow = styled(Link)(
-  () => css`
-    text-decoration: none;
-  `,
-)
-
 export const DesktopHiscoreTableCell = styled(HiscoreTableValueCell)(
   ({ theme }) => css`
     display: none;
@@ -130,14 +123,6 @@ export const BronzeBadge = styled(RankBadge)(
   ({ theme }) => css`
     background-color: ${theme.palette.custom.rankBronze.bg};
     color: ${theme.palette.custom.rankBronze.text};
-  `,
-)
-
-/** TODO: Tear down */
-export const NormalRankBadge = styled(RankBadge)(
-  () => css`
-    background-color: lightgray;
-    color: gray;
   `,
 )
 

@@ -51,32 +51,11 @@ export const HiscoreSkillTableCell = styled(TableCell)(
   `,
 )
 
-/** TODO: Tear down */
-export const HiscoreSkillIcon = styled('img')(
-  ({ theme }) => css`
-    display: none;
-
-    ${theme.breakpoints.up('tablet')} {
-      display: block;
-      width: 20px;
-      margin-right: 8px;
-      background-color: transparent;
-    }
-  `,
-)
-
 export const PlayerHiscoreTableCell = styled(HiscoreTableValueCell)(
   () => css`
     display: flex;
     align-items: center;
     gap: 10px;
-  `,
-)
-
-/** TODO: Tear down */
-export const SkillLink = styled(HoverUnderlineLink)(
-  () => css`
-    color: black;
   `,
 )
 

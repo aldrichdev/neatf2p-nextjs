@@ -62,12 +62,6 @@ const HiscoresTable = (props: HiscoresTableProps) => {
     }
   }
 
-  // TODO: Do we need this? Used to add page to query strings, but that's been removed.
-  // useEffect(() => {
-  //   push(router, '/hiscores', router.query)
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [page])
-
   return (
     <RootContainer>
       <HiscoreTableContainer component={Paper}>

@@ -33,12 +33,6 @@ const NpcHiscoresTable = (props: NpcHiscoresTableProps) => {
   )
   let rank = startingRecord
 
-  // TODO: Still necessary? (Used to add `page` qs which we don't want anymore)
-  // useEffect(() => {
-  //   push(router, '/npc-hiscores', router.query)
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [page])
-
   return (
     <RootContainer>
       <NpcHiscoreTableContainer component={Paper}>
