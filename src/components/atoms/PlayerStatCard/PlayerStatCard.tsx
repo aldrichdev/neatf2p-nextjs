@@ -6,7 +6,7 @@ import { PlayerStatCardProps } from './PlayerStatCard.types'
  */
 const PlayerStatCard = (props: PlayerStatCardProps) => {
   const { label, children, footnote, isRank } = props
-  console.log('label', label, 'isRank', isRank)
+
   return (
     <StatCard>
       <StatCardLabel>{label}</StatCardLabel>

@@ -115,12 +115,17 @@ export const NormalRankBadge = styled(RankBadge)(
 
 export const TopBadge = styled(Badge)(
   ({ theme }) => css`
-    background-color: ${theme.palette.secondary.light};
-    color: ${theme.palette.secondary.dark};
-    font-size: 11px;
-    font-weight: 500;
-    padding: 2px 8px;
-    border-radius: 10px;
+    display: none;
+
+    ${theme.breakpoints.up('tablet')} {
+      display: block;
+      background-color: ${theme.palette.secondary.light};
+      color: ${theme.palette.secondary.dark};
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
   `,
 )
 

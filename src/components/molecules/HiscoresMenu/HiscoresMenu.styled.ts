@@ -26,6 +26,7 @@ export const HiscoresMenuItemList = styled('ul')(
       height: auto;
       border-radius: 8px;
       padding: 8px 0 0 0;
+      border-top: 0.5px solid ${theme.palette.divider};
       column-gap: 0;
       flex-basis: calc(30% - 30px);
     }

@@ -5,25 +5,26 @@ import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
 export const HiscoreTableRow = styled(TableRow, {
-  shouldForwardProp: prop => !['isHeaderRow', 'isRankOneRow', 'isNpcTable'].includes(prop.toString()),
-})<{ isHeaderRow?: boolean; isRankOneRow?: boolean; isNpcTable?: boolean }>(
-  ({ theme, isHeaderRow, isRankOneRow, isNpcTable }) => css`
+  shouldForwardProp: prop => !['isHeaderRow', 'isNpcTable'].includes(prop.toString()),
+})<{ isHeaderRow?: boolean; isNpcTable?: boolean }>(
+  ({ theme, isHeaderRow, isNpcTable }) => css`
     display: grid;
-    grid-template-columns: ${isNpcTable ? '50% 20% 30%' : 'repeat(4, 1fr)'};
+    grid-template-columns: ${isNpcTable ? '50% 20% 30%' : '30% 20% 20% 30%'};
     font-size: 14px;
     border-bottom: 0.5px solid ${theme.palette.divider};
     height: fit-content;
     align-items: center;
 
     ${!isHeaderRow &&
-    `    
-        &:hover {
-          background-color: ${theme.palette.divider};
+    `
+      cursor: pointer;
+      &:hover {
+        background-color: ${theme.palette.divider};
 
-          #rank-one {
-            color: ${theme.palette.custom.rankGold.altText};
-          }
+        #rank-one {
+          color: ${theme.palette.custom.rankGold.altText};
         }
+      }
     `}
 
     ${theme.breakpoints.up('tablet')} {
@@ -38,6 +39,7 @@ export const HiscoreSkillTableCell = styled(TableCell)(
     align-items: center;
     border: 0;
     padding: 8px;
+    gap: 8px;
 
     ${theme.breakpoints.up('tablet')} {
       padding: 16px;
@@ -45,6 +47,7 @@ export const HiscoreSkillTableCell = styled(TableCell)(
   `,
 )
 
+/** TODO: Tear down */
 export const HiscoreSkillIcon = styled('img')(
   ({ theme }) => css`
     display: none;
@@ -66,6 +69,7 @@ export const PlayerHiscoreTableCell = styled(HiscoreTableCell)(
   `,
 )
 
+/** TODO: Tear down */
 export const SkillLink = styled(HoverUnderlineLink)(
   () => css`
     color: black;

@@ -14,6 +14,7 @@ interface CustomPaletteTokens {
   rankSilver: { bg: string; text: string }
   rankBronze: { bg: string; text: string }
   levelProgressBg: string
+  skillItemHover: string
 }
 
 const palette: PaletteOptions = {
@@ -47,6 +48,7 @@ const palette: PaletteOptions = {
     rankSilver: { bg: '#e8e8e8', text: '#5a5a6a' },
     rankBronze: { bg: '#f0e0d0', text: '#7a4a2a' },
     levelProgressBg: '#e8efe8',
+    skillItemHover: '#eaf0ea', // Hover color of menu list items
   },
 }
 

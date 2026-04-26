@@ -23,20 +23,24 @@ import { push } from '@utils/router'
 import { HiscoresControls } from '@atoms/HiscoresControls'
 import useHiscoresPagination from '@hooks/useHiscoresPagination'
 import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
+import { DesktopHiscoreTableCell, MobileHiscoreTableCell } from '@styledPages/hiscores.styled'
+import { formatExp } from '@utils/string/stringUtils'
+import { HiscoresTableRowsSkeleton } from '@atoms/HiscoresTableRowsSkeleton'
 
 type HiscoresTableProps = {
-  hiscores: PlayerHiscoreDataRow[]
+  hiscores: PlayerHiscoreDataRow[] | undefined
+  isLoading: boolean
   hiscoreType: HiscoreType
   page: number
   setPage: (value: number) => void
 }
 
 const HiscoresTable = (props: HiscoresTableProps) => {
-  const { hiscores, hiscoreType, page, setPage } = props
+  const { hiscores, isLoading, hiscoreType, page, setPage } = props
   const router = useRouter()
   const { startingRecord, endingRecord, pageCount, handlePageChange, handleScrollToTop } = useHiscoresPagination(
     false,
-    hiscores.length,
+    hiscores?.length || 0,
     page,
     setPage,
   )
@@ -79,38 +83,41 @@ const HiscoresTable = (props: HiscoresTableProps) => {
             </HiscoresTableRow>
           </HiscoresTableHead>
           <TableBody>
-            {hiscores?.slice(startingRecord, endingRecord).map((hiscoreRow, index) => {
-              rank++
-              const rankToDisplay = startingRecord === 0 ? index + 1 : rank
+            {isLoading || !hiscores ? (
+              <HiscoresTableRowsSkeleton />
+            ) : (
+              hiscores?.slice(startingRecord, endingRecord).map((hiscoreRow, index) => {
+                rank++
+                const rankToDisplay = startingRecord === 0 ? index + 1 : rank
 
-              return (
-                <HiscoresTableRow key={hiscoreRow.username}>
-                  <HiscoreTableCell component='th' scope='row'>
-                    {rankToDisplay === 1 ? (
-                      <GoldBadge>1</GoldBadge>
-                    ) : rankToDisplay === 2 ? (
-                      <SilverBadge>2</SilverBadge>
-                    ) : rankToDisplay === 3 ? (
-                      <BronzeBadge>3</BronzeBadge>
-                    ) : (
-                      <RankBadge>{rankToDisplay}</RankBadge>
-                    )}
-                  </HiscoreTableCell>
-                  <HiscoreTableCell sx={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                    <HoverUnderlineLink href={`/hiscores/player/${hiscoreRow.username}`}>
-                      {hiscoreRow.username}
-                    </HoverUnderlineLink>
-                    {rankToDisplay === 1 ? (
-                      <span>
-                        <TopBadge>top</TopBadge>
-                      </span>
-                    ) : null}
-                  </HiscoreTableCell>
-                  <HiscoreTableCell>{getHiscoreValue(hiscoreRow)}</HiscoreTableCell>
-                  <HiscoreTableCell>{convertExp(getHiscoreSkillXP(hiscoreRow))}</HiscoreTableCell>
-                </HiscoresTableRow>
-              )
-            })}
+                return (
+                  <HiscoresTableRow key={hiscoreRow.username}>
+                    <HiscoreTableCell component='th' scope='row'>
+                      {rankToDisplay === 1 ? (
+                        <GoldBadge>1</GoldBadge>
+                      ) : rankToDisplay === 2 ? (
+                        <SilverBadge>2</SilverBadge>
+                      ) : rankToDisplay === 3 ? (
+                        <BronzeBadge>3</BronzeBadge>
+                      ) : (
+                        <RankBadge>{rankToDisplay}</RankBadge>
+                      )}
+                    </HiscoreTableCell>
+                    <HiscoreTableCell sx={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                      <HoverUnderlineLink href={`/hiscores/player/${hiscoreRow.username}`}>
+                        {hiscoreRow.username}
+                      </HoverUnderlineLink>
+                      {rankToDisplay === 1 ? <TopBadge>top</TopBadge> : null}
+                    </HiscoreTableCell>
+                    <HiscoreTableCell>{getHiscoreValue(hiscoreRow)}</HiscoreTableCell>
+                    <DesktopHiscoreTableCell>{convertExp(getHiscoreSkillXP(hiscoreRow))}</DesktopHiscoreTableCell>
+                    <MobileHiscoreTableCell>
+                      {formatExp(convertExp(getHiscoreSkillXP(hiscoreRow)))}
+                    </MobileHiscoreTableCell>
+                  </HiscoresTableRow>
+                )
+              })
+            )}
           </TableBody>
         </HiscoreTable>
       </HiscoreTableContainer>

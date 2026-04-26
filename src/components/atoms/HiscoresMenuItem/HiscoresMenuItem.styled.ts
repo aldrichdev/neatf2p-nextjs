@@ -19,6 +19,7 @@ export const MenuItem = styled('li', {
     padding: 5px 10px;
     background-color: ${isSelected ? theme.palette.primary.main : theme.palette.background.paper};
     height: fit-content;
+    -webkit-tap-highlight-color: transparent;
 
     ${theme.breakpoints.up('mobile')} {
       gap: 8px;
@@ -31,6 +32,10 @@ export const MenuItem = styled('li', {
       ${isSelected && 'padding-left: 11px;'}
       text-align: left;
       background-color: ${isSelected ? theme.palette.primary.light : 'transparent'};
+
+      &:hover {
+        background-color: ${isSelected ? theme.palette.primary.light : theme.palette.custom.skillItemHover};
+      }
     }
   `,
 )

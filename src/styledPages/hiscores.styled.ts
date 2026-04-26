@@ -1,5 +1,6 @@
 import { PageHeading } from '@atoms/PageHeading'
 import { PageTabs } from '@atoms/PageTabs'
+import { HiscoreTableCell } from '@molecules/HiscoresTable/HiscoresTable.styled'
 import { Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
@@ -47,37 +48,19 @@ export const PlayerHiscoreTabsContainer = styled('div')(
   `,
 )
 
-export const LastLoginLabel = styled('span')(
-  ({ theme }) => css`
-    color: ${theme.palette.text.disabled};
-    font-size: 14px;
-  `,
-)
-
-export const LastLoginDate = styled('strong')(
-  ({ theme }) => css`
-    color: ${theme.palette.text.secondary};
-    font-size: 14px;
-  `,
-)
-
-export const PlayerStatsContainer = styled('div')(
-  () => css`
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin: 16px 0;
-  `,
-)
-
 export const LevelProgressBar = styled('div')(
   ({ theme }) => css`
-    flex: 1;
-    height: 4px;
-    background-color: ${theme.palette.custom.levelProgressBg};
-    border-radius: 2px;
-    overflow: hidden;
-    max-width: 80px;
+    display: none;
+
+    ${theme.breakpoints.up('tablet')} {
+      display: block;
+      flex: 1;
+      height: 4px;
+      background-color: ${theme.palette.custom.levelProgressBg};
+      border-radius: 2px;
+      overflow: hidden;
+      max-width: 80px;
+    }
   `,
 )
 
@@ -92,8 +75,27 @@ export const LevelProgressBarFill = styled('div', {
   `,
 )
 
+/** TODO: Tear down */
 export const ClickableHiscoreTableRow = styled(Link)(
-  ({ theme }) => css`
+  () => css`
     text-decoration: none;
+  `,
+)
+
+export const DesktopHiscoreTableCell = styled(HiscoreTableCell)(
+  ({ theme }) => css`
+    display: none;
+
+    ${theme.breakpoints.up('tablet')} {
+      display: table-cell;
+    }
+  `,
+)
+
+export const MobileHiscoreTableCell = styled(HiscoreTableCell)(
+  ({ theme }) => css`
+    ${theme.breakpoints.up('tablet')} {
+      display: none;
+    }
   `,
 )

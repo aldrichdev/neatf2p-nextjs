@@ -6,7 +6,6 @@ import { HiscoresMenu } from '@molecules/HiscoresMenu'
 import useHiscores from '@hooks/useHiscores'
 import { HiscoreTypes, HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { useRouter } from 'next/router'
-import { Spinner } from '@molecules/Spinner'
 import { PlayerLookup } from '@atoms/PlayerLookup'
 import { push } from '@utils/router'
 import { renderHead } from '@utils/renderUtils'
@@ -15,7 +14,6 @@ import { redirectTo } from '@utils/window'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
 import { HiscoresTabs } from '@models/HiscoresTabs'
 import { GetServerSideProps } from 'next'
-import { Typography } from '@mui/material'
 
 type HiscoresProps = {
   skill: HiscoreType
@@ -61,16 +59,13 @@ const Hiscores = ({ skill }: HiscoresProps) => {
           <HiscoresMenu hiscoreType={hiscoreType} buttonOnClick={handleMenuItemClick} />
           <div>
             <HiscoresPageHeading variant='h2'>{`${hiscoreType} Hiscores`}</HiscoresPageHeading>
-            {isLoading || !hiscores ? (
-              <Spinner hiscores />
-            ) : (
-              <HiscoresTable
-                hiscores={hiscores}
-                hiscoreType={hiscoreType}
-                page={query.page ? Number(query.page) : hiscoresPage}
-                setPage={setHiscoresPage}
-              />
-            )}
+            <HiscoresTable
+              hiscores={hiscores}
+              isLoading={isLoading}
+              hiscoreType={hiscoreType}
+              page={query.page ? Number(query.page) : hiscoresPage}
+              setPage={setHiscoresPage}
+            />
           </div>
 
           <PlayerLookup />
