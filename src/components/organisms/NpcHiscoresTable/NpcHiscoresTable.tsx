@@ -6,7 +6,6 @@ import {
   HiscoreTable,
   HiscoresTableRow,
   HiscoreTableCell,
-  HiscoreUsername,
   HiscoreTableHeaderCell,
 } from '@molecules/HiscoresTable/HiscoresTable.styled'
 import { getNpcNameById } from '@utils/hiscores/hiscoresUtils'
@@ -16,6 +15,7 @@ import { push } from '@utils/router'
 import { HiscoresControls } from '@atoms/HiscoresControls'
 import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
 import useHiscoresPagination from '@hooks/useHiscoresPagination'
+import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 
 type NpcHiscoresTableProps = {
   hiscores: NpcHiscoreDataRow[]
@@ -35,11 +35,11 @@ const NpcHiscoresTable = (props: NpcHiscoresTableProps) => {
   )
   let rank = startingRecord
 
-  useEffect(() => {
-    router.query.page = page.toString()
-    push(router, '/npc-hiscores', router.query)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page])
+  // TODO: Still necessary? (Used to add `page` qs which we don't want anymore)
+  // useEffect(() => {
+  //   push(router, '/npc-hiscores', router.query)
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [page])
 
   return (
     <RootContainer>
@@ -61,9 +61,9 @@ const NpcHiscoresTable = (props: NpcHiscoresTableProps) => {
                     {startingRecord === 0 ? index + 1 : rank}
                   </HiscoreTableCell>
                   <HiscoreTableCell>
-                    <HiscoreUsername href={`/npc-hiscores/player/${hiscoreRow.username}`}>
+                    <HoverUnderlineLink href={`/npc-hiscores/player/${hiscoreRow.username}`}>
                       {hiscoreRow.username}
-                    </HiscoreUsername>
+                    </HoverUnderlineLink>
                   </HiscoreTableCell>
                   <HiscoreTableCell>{hiscoreRow.killCount.toLocaleString()}</HiscoreTableCell>
                 </HiscoresTableRow>

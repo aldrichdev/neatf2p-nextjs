@@ -31,7 +31,6 @@ const Hiscores = ({ skill }: HiscoresProps) => {
   const handleMenuItemClick = (hiscoreType: HiscoreType) => {
     setHiscoreType(hiscoreType)
     setHiscoresPage(1)
-    router.query.page = '1'
     router.query.skill = hiscoreType
     push(router, '/hiscores', router.query)
   }
@@ -63,7 +62,7 @@ const Hiscores = ({ skill }: HiscoresProps) => {
               hiscores={hiscores}
               isLoading={isLoading}
               hiscoreType={hiscoreType}
-              page={query.page ? Number(query.page) : hiscoresPage}
+              page={hiscoresPage}
               setPage={setHiscoresPage}
             />
           </div>

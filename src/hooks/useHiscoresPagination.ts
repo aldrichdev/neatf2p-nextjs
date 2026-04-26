@@ -15,7 +15,6 @@ const useHiscoresPagination = (
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value)
-    router.query.page = value.toString()
     push(router, isNpcHiscores ? '/npc-hiscores' : '/hiscores', router.query)
   }
 

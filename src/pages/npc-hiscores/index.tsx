@@ -40,7 +40,6 @@ const NpcHiscores = ({ hiscores, npcHiscoreType, npcSubTypes }: NpcHiscoresPageP
 
   const handleMenuItemClick = (npcHiscoreType: NpcHiscoreType) => {
     setHiscoresPage(1)
-    router.query.page = '1'
     router.query.npc = Array.isArray(npcHiscoreType) ? npcHiscoreType.join(',') : npcHiscoreType.toString()
     push(router, '/npc-hiscores', router.query)
   }
@@ -67,7 +66,7 @@ const NpcHiscores = ({ hiscores, npcHiscoreType, npcSubTypes }: NpcHiscoresPageP
           <NpcHiscoresTable
             hiscores={hiscores}
             npcHiscoreType={npcHiscoreType}
-            page={query.page ? Number(query.page) : hiscoresPage}
+            page={hiscoresPage}
             setPage={setHiscoresPage}
           />
           <PlayerLookup isNpcHiscores />
