@@ -1,7 +1,7 @@
 import { BodyText } from '@atoms/BodyText'
 import { PageHeading } from '@atoms/PageHeading'
 import { PlayerHiscoreHeaderSkeleton } from '@atoms/PlayerHiscoreHeaderSkeleton'
-import { PlayerStatCard } from '@atoms/PlayerStatCard'
+import { StatisticCard } from '@atoms/StatisticCard'
 import { getPrettyDateStringFromMillis } from '@utils/date/date'
 import { LastLoginDate, LastLoginLabel, PlayerStatsContainer } from './PlayerHiscoreHeader.styled'
 import { PlayerHiscoreHeaderProps } from './PlayerHiscoreHeader.types'
@@ -22,9 +22,9 @@ const PlayerHiscoreHeader = (props: PlayerHiscoreHeaderProps) => {
       </BodyText>
       <PlayerStatsContainer>
         {statCards.slice(0, 3).map(card => (
-          <PlayerStatCard key={card.label} label={card.label} footnote={card.footnote} isRank={card.isRank}>
+          <StatisticCard key={card.label} label={card.label} footnote={card.footnote} isRank={card.isRank}>
             {card.children}
-          </PlayerStatCard>
+          </StatisticCard>
         ))}
       </PlayerStatsContainer>
     </>

@@ -6,9 +6,7 @@ import { getNpcCombatLevelById } from '@utils/hiscores/hiscoresUtils'
 import { LevelMenuContainer } from './NpcKillsLevelMenu.styled'
 import { NpcKillsLevelMenuProps } from './NpcKillsLevelMenu.types'
 
-/** A navigation bar of tabs that link to different combat level kill menus of the same NPC.
- * Also displays a context label showing the NPC name and currently selected combat level.
- */
+/** A navigation bar of tabs that link to different combat level kill menus of the same NPC. */
 const NpcKillsLevelMenu = (props: NpcKillsLevelMenuProps) => {
   const { npcHiscoreType, npcSubTypes, menuItemOnClick } = props
   const firstId = Array.isArray(npcSubTypes[0]) ? npcSubTypes[0][0] : npcSubTypes[0]

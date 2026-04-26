@@ -9,7 +9,7 @@ const HiscoresTableRowsSkeleton = () => (
           <Skeleton variant='circular' width={24} height={24} />
         </Cell>
         <Cell>
-          <Skeleton variant='text' width={`${Math.random() * 40 + 40}%`} />
+          <Skeleton variant='text' width={`${40 + (i % 5) * 10}%`} />
         </Cell>
         <Cell width='80px'>
           <Skeleton variant='text' width={40} />

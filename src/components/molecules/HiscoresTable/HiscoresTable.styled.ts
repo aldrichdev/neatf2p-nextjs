@@ -41,7 +41,6 @@ export const HiscoreTable = styled(Table, {
 export const HiscoresTableHead = styled(TableHead)(
   ({ theme }) => css`
     background-color: ${theme.palette.primary.main};
-    border-radius: 8px 8px 0 0;
     color: ${theme.palette.custom.tableHeaderText};
     height: fit-content;
 
@@ -55,7 +54,6 @@ export const HiscoresTableRow = styled(TableRow)(
   ({ theme }) => css`
     border-bottom: 0.5px solid ${theme.palette.divider};
     font-size: 14px;
-    border-radius: 8px 8px 0 0;
 
     ${theme.breakpoints.up('tablet')} {
       font-size: 16px;
@@ -63,9 +61,6 @@ export const HiscoresTableRow = styled(TableRow)(
   `,
 )
 
-// issues.
-// 1) impacts headings - should not
-// 2) doesn't impact Skill values - should
 export const HiscoreTableValueCell = styled(TableCell)(
   ({ theme }) => css`
     font-weight: 400;

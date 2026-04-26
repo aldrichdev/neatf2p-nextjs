@@ -21,12 +21,9 @@ export const HiscoreTableRow = styled(TableRow, {
     ${!isHeaderRow &&
     `
       cursor: pointer;
+      
       &:hover {
         background-color: ${theme.palette.divider};
-
-        #rank-one {
-          color: ${theme.palette.custom.rankGold.altText};
-        }
       }
     `}
 

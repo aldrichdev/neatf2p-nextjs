@@ -20,6 +20,7 @@ export const MenuItem = styled('li', {
     background-color: ${isSelected ? theme.palette.primary.main : theme.palette.background.paper};
     height: fit-content;
     white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
 
     ${theme.breakpoints.up('mobile')} {
       gap: 8px;
@@ -36,18 +37,6 @@ export const MenuItem = styled('li', {
       &:hover {
         background-color: ${isSelected ? theme.palette.primary.light : theme.palette.custom.skillItemHover};
       }
-    }
-  `,
-)
-
-export const HiscoreMenuSkillIcon = styled('img')(
-  ({ theme }) => css`
-    display: none;
-
-    ${theme.breakpoints.up('tablet')} {
-      display: block;
-      width: 16px;
-      background-color: transparent;
     }
   `,
 )

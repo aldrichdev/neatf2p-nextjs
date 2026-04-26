@@ -35,7 +35,6 @@ export const HiscoresPagination = styled(Pagination)(
     }
 
     & .MuiPagination-ul {
-      color: magenta;
       flex-wrap: nowrap;
       align-items: center;
       justify-content: center;

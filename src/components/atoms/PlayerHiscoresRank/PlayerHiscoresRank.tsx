@@ -11,11 +11,7 @@ const PlayerHiscoresRank = (props: PlayerHiscoresRankProps) => {
     case 1:
       return <RankOne title='#1'>👑</RankOne>
     default:
-      return (
-        <StyledRank id={rank === 1 ? 'rank-one' : ''} rank={rank}>
-          #{rank}
-        </StyledRank>
-      )
+      return <StyledRank rank={rank}>#{rank}</StyledRank>
   }
 }
 

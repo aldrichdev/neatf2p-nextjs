@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-export type PlayerStatCardProps = {
+export type StatisticCardProps = {
   /** The text that appears above the statistic value. */
   label: string
   /** The statistic value, provided as a child of the component. */

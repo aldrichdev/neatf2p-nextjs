@@ -22,7 +22,7 @@ import { GetServerSideProps } from 'next'
 import { getWebsiteBaseUrl } from '@utils/envUtils'
 import { HiscoreTabsContainer } from '@styledPages/hiscores.styled'
 import { PlayerHiscoreHeader } from '@molecules/PlayerHiscoreHeader'
-import { PlayerStatCardProps } from '@atoms/PlayerStatCard/PlayerStatCard.types'
+import { StatisticCardProps } from '@atoms/StatisticCard/StatisticCard.types'
 import { formatExp } from '@utils/string/stringUtils'
 import { NpcPlayerHiscoreFilterBar } from '@atoms/NpcPlayerHiscoreFilterBar'
 import { NpcPlayerHiscoreFilter } from '@atoms/NpcPlayerHiscoreFilterBar/NpcPlayerHiscoreFilterBar.types'
@@ -85,7 +85,7 @@ const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores, lastLoginMillis }: 
 
     if (!killCount) return 0
 
-    return killCount // .toLocaleString() - to show large numbers with commas - that can be applied later when we render it!
+    return killCount
   }
 
   const getPlayerNpcHiscoreRow = (npcHiscoreType: NpcHiscoreType) => ({
@@ -136,16 +136,12 @@ const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores, lastLoginMillis }: 
     hiscore => hiscore.npcName?.toLowerCase().includes(search.toLowerCase()),
   )
 
-  // If "Top 3" is selected, we want to change the results in the Ranked table to be just the top 3 ranks!
-  // So we want to change the rows passed to that table to be:
-  // (if top 3 is not selected, searchedRankedNpcHiscores; otherwise,
-  // sort searchedRankedNpcHiscores alphabetically by rank and then take the first 3 rows)
   const rankedTableRows =
     activeFilter === 'Top 3'
       ? searchedRankedNpcHiscores?.sort((a, b) => a.rank - b.rank).slice(0, 3)
       : searchedRankedNpcHiscores
 
-  const statCards: PlayerStatCardProps[] = [
+  const statCards: StatisticCardProps[] = [
     {
       label: 'Total kills',
       children: totalKillsShorthand,
@@ -163,16 +159,6 @@ const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores, lastLoginMillis }: 
       isRank: true,
     },
   ]
-
-  console.log(
-    'search',
-    search,
-    'activeFilter',
-    activeFilter,
-    playerNpcHiscoreRows?.filter(row => row.rank > 0)?.sort((a, b) => a.rank - b.rank),
-    'highestRankedNpcHiscore',
-    highestRankedNpcHiscore,
-  )
 
   return (
     <>
@@ -200,7 +186,6 @@ const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores, lastLoginMillis }: 
               activeFilter={activeFilter}
               setActiveFilter={setActiveFilter}
             />
-
             {searchedRankedNpcHiscores && searchedRankedNpcHiscores.length > 0 && (
               <>
                 {/** Ranked Table */}
@@ -236,13 +221,7 @@ const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores, lastLoginMillis }: 
                         <HiscoreTableHeaderCell>Kills</HiscoreTableHeaderCell>
                       </>
                     }
-                    body={
-                      <NpcPlayerHiscoreRows
-                        playerNpcHiscoreRows={npcHiscoresWithZeroKills?.filter(
-                          hiscore => hiscore.npcName?.toLowerCase().includes(search.toLowerCase()),
-                        )}
-                      />
-                    }
+                    body={<NpcPlayerHiscoreRows playerNpcHiscoreRows={searchedNpcHiscoresWithZeroKills} />}
                   />
                 </>
               )}

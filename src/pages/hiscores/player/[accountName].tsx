@@ -30,7 +30,7 @@ import { HiscoreSkillEmoji } from '@atoms/HiscoreSkillEmoji'
 import { useRouter } from 'next/router'
 import { PlayerHiscoreTableRowsSkeleton } from '@atoms/PlayerHiscoreTableRowsSkeleton'
 import { PlayerHiscoreHeader } from '@molecules/PlayerHiscoreHeader'
-import { PlayerStatCardProps } from '@atoms/PlayerStatCard/PlayerStatCard.types'
+import { StatisticCardProps } from '@atoms/StatisticCard/StatisticCard.types'
 
 type PlayerHiscorePageProps = {
   accountName: string
@@ -126,7 +126,7 @@ const PlayerHiscorePage = ({ accountName, hiscoresData, lastLoginMillis }: Playe
   const totalExp = overallHiscoreRecord?.exp
   const totalExpShorthand = totalExp ? formatExp(totalExp) : ''
 
-  const statCards: PlayerStatCardProps[] = [
+  const statCards: StatisticCardProps[] = [
     {
       label: 'Overall rank',
       children: `#${overallRank}`,

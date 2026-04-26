@@ -21,15 +21,6 @@ export const StyledRank = styled('span', {
     font-weight: 600;
     font-size: 14px;
 
-    ${rank === 1 &&
-    `
-        font-family: Impact;
-        font-style: italic;
-        font-weight: 700;
-        text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
-        transition: color 0.2s ease;
-      `}
-
     ${theme.breakpoints.up('tablet')} {
       font-size: 16px;
     }
