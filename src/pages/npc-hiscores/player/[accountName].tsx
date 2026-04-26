@@ -248,7 +248,7 @@ const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores, lastLoginMillis }: 
               )}
           </>
         )}
-        <BackToLink href='/npc-hiscores'>{'<'} Return to Hiscores</BackToLink>
+        <BackToLink href='/npc-hiscores'>← Return to Hiscores</BackToLink>
       </ContentBlock>
     </>
   )

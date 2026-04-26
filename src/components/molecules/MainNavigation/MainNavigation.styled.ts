@@ -47,6 +47,7 @@ export const NavLink = styled(Link, {
     text-decoration: none;
 
     :hover {
+      color: ${theme.palette.background.paper};
       border-bottom: 2px solid ${theme.palette.primary.main};
     }
   `,

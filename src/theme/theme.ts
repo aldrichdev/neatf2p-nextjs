@@ -7,7 +7,6 @@ import { CSSProperties } from 'react'
 
 interface CustomPaletteTokens {
   sidebarBg: string
-  tableHeaderBg: string
   tableHeaderText: string
   rankGold: { bg: string; text: string; altText: string }
   rankSilver: { bg: string; text: string }
@@ -40,7 +39,6 @@ const palette: PaletteOptions = {
   // Custom tokens beyond MUI's built-in slots:
   custom: {
     sidebarBg: '#f4f6f4',
-    tableHeaderBg: '#2d5c2d',
     tableHeaderText: '#d8edd8',
     rankGold: { bg: '#f5e6c0', text: '#8a6a10', altText: '#c49a00' },
     rankSilver: { bg: '#e8e8e8', text: '#5a5a6a' },
@@ -114,6 +112,7 @@ let theme = createTheme({
           padding: '10px 40px',
 
           '&:hover': {
+            color: theme.palette.background.paper,
             backgroundColor: theme.palette.primary.dark,
           },
         }),
@@ -187,7 +186,7 @@ theme = createTheme(theme, {
       fontWeight: '300',
       fontSize: '20px',
       lineHeight: '28px',
-      color: theme.palette.text.primary,
+      color: 'black',
     },
   },
 })

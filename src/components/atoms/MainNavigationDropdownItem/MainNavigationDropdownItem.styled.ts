@@ -62,5 +62,9 @@ export const NavSubLink = styled(Link)(
     padding: 8px;
     display: block;
     font-size: 18px;
+
+    &:hover {
+      color: white;
+    }
   `,
 )

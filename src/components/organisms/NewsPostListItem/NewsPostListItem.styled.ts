@@ -56,6 +56,10 @@ export const NewsPostTitleLink = styled(HoverUnderlineLink)`
   color: unset;
   display: block;
   width: fit-content;
+
+  &:hover {
+    color: black;
+  }
 `
 
 export const NewsPostTitle = styled(Typography)`

@@ -27,16 +27,17 @@ export const AccountNavigationButton = styled(Button)(
   `,
 )
 export const AccountNavigationItem = styled(Link)(
-  () => css`
+  ({ theme }) => css`
     display: block;
     font-family: Source Sans Pro;
-    color: unset;
+    color: black;
     padding: 16px;
     text-align: left;
     text-decoration: none;
 
     &:hover {
-      background-color: var(--color-primary-dark);
+      color: black;
+      background-color: ${theme.palette.primary.light};
     }
   `,
 )
