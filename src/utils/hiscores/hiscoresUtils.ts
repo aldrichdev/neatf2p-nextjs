@@ -22,7 +22,7 @@ export const getTotalExp = (hiscoreRow: PlayerHiscoreDataRow) =>
 
 export const convertExp = (skillXP: number) => {
   // Open RSC Core Framework experience numbers are 4 times what the actual RS exp number is.
-  return Math.round(skillXP / 4).toLocaleString()
+  return Math.floor(skillXP / 4).toLocaleString()
 }
 
 export const isNotBaselineExp = (hiscore: PlayerHiscoreDataRow, propName: string) => {
