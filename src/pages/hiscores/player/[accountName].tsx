@@ -184,7 +184,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   const response = await fetch(fetchUrl, { method: 'POST', body: JSON.stringify(fetchBody) })
   const output: PlayerHiscoreDataRow[] = await response.json()
-  console.log('output', output)
 
   if (output && Array.isArray(output) && output.length > 0) {
     return {
