@@ -8,6 +8,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<NpcHiscoreDataR
     FROM npckills nk
     JOIN players p ON nk.playerID = p.id
     WHERE p.banned = 0
+    AND p.group_id = 10
     ORDER BY killCount DESC
   `
 

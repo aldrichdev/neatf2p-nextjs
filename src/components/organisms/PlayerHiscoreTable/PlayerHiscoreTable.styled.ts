@@ -1,5 +1,5 @@
 import { HiscoreTableValueCell } from '@molecules/HiscoresTable/HiscoresTable.styled'
-import { TableCell, TableRow } from '@mui/material'
+import { TableRow } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
