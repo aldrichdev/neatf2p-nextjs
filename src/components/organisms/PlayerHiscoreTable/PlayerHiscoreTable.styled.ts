@@ -1,5 +1,5 @@
 import { HiscoreTableValueCell } from '@molecules/HiscoresTable/HiscoresTable.styled'
-import { TableCell, TableRow } from '@mui/material'
+import { TableRow } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
@@ -33,43 +33,10 @@ export const HiscoreTableRow = styled(TableRow, {
   `,
 )
 
-export const HiscoreSkillTableCell = styled(TableCell)(
-  ({ theme }) => css`
-    display: flex;
-    align-items: center;
-    border: 0;
-    padding: 8px;
-    gap: 8px;
-
-    ${theme.breakpoints.up('tablet')} {
-      padding: 16px;
-    }
-  `,
-)
-
 export const PlayerHiscoreTableCell = styled(HiscoreTableValueCell)(
   () => css`
     display: flex;
     align-items: center;
     gap: 10px;
-  `,
-)
-
-export const ExperienceCell = styled(HiscoreTableValueCell)(
-  ({ theme }) => css`
-    display: none;
-
-    ${theme.breakpoints.up('tablet')} {
-      display: table-cell;
-      min-width: 100px;
-    }
-  `,
-)
-
-export const MobileExperienceCell = styled(HiscoreTableValueCell)(
-  ({ theme }) => css`
-    ${theme.breakpoints.up('tablet')} {
-      display: none;
-    }
   `,
 )

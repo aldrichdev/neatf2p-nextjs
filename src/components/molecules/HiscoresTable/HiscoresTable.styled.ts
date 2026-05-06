@@ -22,7 +22,6 @@ export const HiscoreTableContainer = styled(TableContainer)<ExtendedTableContain
     }
 
     ${theme.breakpoints.up('desktop')} {
-      min-height: 1000px;
       width: 100%;
     }
   `,
