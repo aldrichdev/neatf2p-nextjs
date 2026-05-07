@@ -1,5 +1,5 @@
 import { Checkbox } from '@mui/material'
-import { RulesFormControlLabel } from './RulesAcceptanceCheckbox.styled'
+import { RulesField } from './RulesAcceptanceCheckbox.styled'
 import { RulesAcceptanceCheckboxProps } from './RulesAcceptanceCheckbox.types'
 import { InlineLink } from '@atoms/InlineLink'
 
@@ -7,7 +7,7 @@ const RulesAcceptanceCheckbox = (props: RulesAcceptanceCheckboxProps) => {
   const { onChange } = props
 
   return (
-    <RulesFormControlLabel
+    <RulesField
       control={<Checkbox color='success' onChange={onChange} required />}
       label={
         <>

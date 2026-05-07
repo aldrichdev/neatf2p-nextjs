@@ -26,7 +26,6 @@ import { GetServerSideProps } from 'next'
 const ForgotPasswordBlock = styled(BodyText)(
   () => css`
     flex-basis: 100%;
-    font-family: Source Sans Pro;
     font-size: 16px;
     text-align: left;
   `,

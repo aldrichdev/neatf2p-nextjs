@@ -25,25 +25,21 @@ const About = () => (
         less players.
       </BodyText>
       <FeatureList>
-        <Feature>Based on Open RSC&apos;s Core Framework with Few Added Changes</Feature>
-        <Feature>Open Source (Game & Website) Forever</Feature>
-        <Feature>F2P Mode Enabled (Forever) - Only F2P Areas, Features, Items, Quests, Spells, Prayers, Etc.</Feature>
-        <Feature>1 Page Bank (Authentic F2P Behavior)</Feature>
+        <Feature>Based on Open RSC&apos;s Core Framework</Feature>
+        <Feature>Open Source Forever</Feature>
+        <Feature>F2P Mode Enabled — Only F2P Areas, Features, Items, Etc.</Feature>
         <Feature>1x EXP Rates</Feature>
-        <Feature>Play with RSC+, WinRune, or Web Client</Feature>
-        <Feature>Skip Tutorial Option Enabled (RSC+ Only)</Feature>
-        <Feature>Max 2 Characters Logged In At Once</Feature>
-        <Feature>No QOL - Straight RSC</Feature>
+        <Feature>No QOL — Straight RSC</Feature>
         <Feature>No Global Chat or Kill Feed</Feature>
         <Feature>No Transfers From Other Servers</Feature>
-        <Feature>No Cheating</Feature>
-        <Feature>Launched Saturday, February 24th, 2024</Feature>
+        <Feature>Max 2 Characters Logged In At Once</Feature>
+        <Feature>Launched February 24th, 2024</Feature>
       </FeatureList>
       <BodyText variant='body' bodyTextAlign='center'>
         So, <Link href='/how-to-play'>jump in today</Link> and experience what a F2P-only economy can be!
       </BodyText>
       <BodyText variant='body' bodyTextAlign='center'>
-        You can read our server rules <Link href='/about/rules'>here</Link>.
+        Read our server rules <Link href='/about/rules'>here</Link>.
       </BodyText>
     </ContentBlock>
   </>

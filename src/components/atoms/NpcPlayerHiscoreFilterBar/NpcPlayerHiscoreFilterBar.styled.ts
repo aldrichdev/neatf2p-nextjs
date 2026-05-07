@@ -46,7 +46,7 @@ export const ClearSearchButton = styled('button')(
     background-color: transparent;
     border: none;
     cursor: pointer;
-    color: ${theme.palette.text.disabled};
+    color: ${theme.palette.custom.tertiaryText};
     font-size: 16px;
     line-height: 1;
     padding: 0;

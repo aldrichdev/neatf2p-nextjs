@@ -5,7 +5,6 @@ import Link from 'next/link'
 
 export const AchievementsTable = styled(Table)(
   () => css`
-    font-family: Source Sans Pro;
     background-color: var(--dark-gray);
     border: 2px solid black;
   `,

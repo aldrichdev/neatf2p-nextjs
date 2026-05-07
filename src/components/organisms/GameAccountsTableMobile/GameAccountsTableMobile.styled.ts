@@ -19,7 +19,6 @@ export const AccountTable = styled(Table, {
 })(
   () => css`
     margin-top: 40px;
-    font-family: Source Sans Pro;
     border: 1px solid black;
   `,
 )

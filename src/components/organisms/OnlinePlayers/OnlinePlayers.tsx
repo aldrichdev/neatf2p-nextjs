@@ -28,12 +28,12 @@ const OnlinePlayers = () => {
     return <Spinner />
   }
 
-  if (playerCount != 0 && !playerCount) return null
+  if (!playerCount) return null
 
   return (
     <PlayersOnlineBox>
       <PlayersOnlineMessage>
-        There {verb} currently <OnlineCount>{playerCount}</OnlineCount> player(s) online.
+        There {verb} currently <OnlineCount>{playerCount}</OnlineCount> player{playerCount > 1 ? 's' : ''} online.
       </PlayersOnlineMessage>
     </PlayersOnlineBox>
   )

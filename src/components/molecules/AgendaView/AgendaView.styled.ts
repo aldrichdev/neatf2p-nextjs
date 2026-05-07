@@ -20,7 +20,6 @@ export const AgendaViewBody = styled('div')(
 export const EventCard = styled('div')(
   () => css`
     border: 1px solid black;
-    font-family: Source Sans Pro;
     width: 100%;
   `,
 )

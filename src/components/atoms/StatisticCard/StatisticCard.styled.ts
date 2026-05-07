@@ -8,7 +8,7 @@ export const StatCard = styled('div')(
     padding: 10px 14px;
     text-align: left;
     border-radius: 8px;
-    color: ${theme.palette.text.disabled};
+    color: ${theme.palette.custom.tertiaryText};
     background-color: ${theme.palette.custom.sidebarBg};
   `,
 )

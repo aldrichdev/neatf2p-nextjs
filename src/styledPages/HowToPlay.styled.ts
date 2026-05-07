@@ -3,17 +3,21 @@ import { css } from '@mui/system'
 import Link from 'next/link'
 
 export const CalloutLink = styled(Link)(
-  () => css`
-    color: var(--faded-blue-bg-color);
+  ({ theme }) => css`
+    color: ${theme.palette.custom.calloutWarningText};
+
+    &:hover {
+      color: #5c2a00;
+    }
   `,
 )
 
 export const PlayOptionsGrid = styled('div')(
   ({ theme }) => css`
-    font-family: Saros;
     display: grid;
     grid-template-rows: 1fr 0.5fr;
     grid-gap: 30px;
+    align-items: flex-start;
 
     ${theme.breakpoints.up('tablet')} {
       grid-template-columns: 1fr 1fr;
@@ -27,7 +31,7 @@ export const ClientButtonAndRemarks = styled('div')(
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
   `,
 )
 

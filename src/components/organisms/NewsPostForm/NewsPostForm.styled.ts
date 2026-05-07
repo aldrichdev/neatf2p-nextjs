@@ -8,7 +8,6 @@ export const StyledForm = styled('form')(
     display: flex;
     text-align: left;
     flex-wrap: wrap;
-    font-family: Source Sans Pro;
   `,
 )
 

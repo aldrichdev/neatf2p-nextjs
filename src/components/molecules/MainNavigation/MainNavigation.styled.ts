@@ -19,8 +19,6 @@ export const NavUnorderedList = styled('ul')(
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    font-family: Source Sans Pro;
-    font-size: 20px;
     gap: 16px;
     background-color: var(--dark-gray);
     border: 0;
@@ -39,6 +37,13 @@ export const NavUnorderedList = styled('ul')(
   `,
 )
 
+export const NavListItem = styled('li')(
+  () => css`
+    display: flex;
+    align-items: center;
+  `,
+)
+
 export const NavLink = styled(Link, {
   shouldForwardProp: prop => prop !== 'isActive',
 })<{ isActive?: boolean }>(
@@ -46,9 +51,8 @@ export const NavLink = styled(Link, {
     ${getBaseNavItemStyles(isActive)}
     text-decoration: none;
 
-    :hover {
-      color: ${theme.palette.background.paper};
-      border-bottom: 2px solid ${theme.palette.primary.main};
+    &:hover {
+      color: ${isActive ? theme.palette.secondary.main : theme.palette.custom.navLinkHover};
     }
   `,
 )

@@ -83,10 +83,9 @@ export const FooterNavigationItem = styled('li')(
 )
 
 export const FooterLink = styled(HoverUnderlineLink)(
-  () => css`
-    color: #fffafa;
+  ({ theme }) => css`
+    color: ${theme.palette.background.paper};
     font-size: 20px;
-    font-family: Source Sans Pro;
   `,
 )
 

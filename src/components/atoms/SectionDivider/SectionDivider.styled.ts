@@ -9,7 +9,7 @@ export const SectionDividerContainer = styled('div')(
     padding: 4px 0;
     margin: 10px 0 8px;
     font-size: 12px;
-    color: ${theme.palette.text.disabled};
+    color: ${theme.palette.custom.tertiaryText};
     white-space: nowrap;
 
     ${theme.breakpoints.up('tablet')} {

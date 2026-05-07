@@ -5,7 +5,6 @@ import Link from 'next/link'
 
 export const BugTypeDropdown = styled(FormControl)(
   () => css`
-    font-family: Source Sans Pro;
     flex-basis: 100%;
     margin-top: 20px;
 
@@ -17,8 +16,6 @@ export const BugTypeDropdown = styled(FormControl)(
 
 export const BugTypeMenuItem = styled(MenuItem)(
   ({ theme }) => css`
-    font-family: Source Sans Pro;
-
     &:hover {
       background-color: ${theme.palette.primary.light};
     }

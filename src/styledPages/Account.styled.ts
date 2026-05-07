@@ -20,7 +20,6 @@ export const AccountNavigationContainer = styled('div')(
 
 export const AccountNavigationButton = styled(Button)(
   ({ theme }) => css`
-    font-family: Source Sans Pro;
     color: ${theme.palette.primary.main};
     font-size: 20px;
     text-transform: none;
@@ -29,7 +28,6 @@ export const AccountNavigationButton = styled(Button)(
 export const AccountNavigationItem = styled(Link)(
   ({ theme }) => css`
     display: block;
-    font-family: Source Sans Pro;
     color: black;
     padding: 16px;
     text-align: left;

@@ -29,7 +29,6 @@ export const KdrTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
   [`& .${tooltipClasses.tooltip}`]: {
-    fontFamily: 'Source Sans Pro',
     backgroundColor: 'black',
     color: 'white',
     boxShadow: theme.shadows[1],

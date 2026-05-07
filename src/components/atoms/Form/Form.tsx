@@ -6,7 +6,6 @@ export const Form = styled('form', {
 })<{ desktopWidth?: string }>(
   ({ theme, desktopWidth }) => css`
     margin-top: 20px;
-    font-family: Source Sans Pro;
     display: flex;
     flex-wrap: wrap;
     width: 100%;

@@ -1,10 +1,6 @@
 :root {
-  --gold-bg-color: rgba(218, 165, 32, 0.8);
-  --gold-border-color: rgb(160, 82, 45);
-  --faded-blue-bg-color: #2055da;
   --dark-gray: #181818;
   --color-primary: #2d5c2d;
-  --color-primary-dark: #1a3a1a;
   --color-secondary: #7c5cbf;
 }
 
@@ -28,27 +24,6 @@ button {
 
 strong {
   font-weight: bold;
-}
-
-@font-face {
-  font-family: 'Vecna';
-  font-style: normal;
-  font-weight: normal;
-  src: url('/fonts/Vecna-oppx.ttf');
-}
-
-@font-face {
-  font-family: 'Saros';
-  font-style: normal;
-  font-weight: normal;
-  src: url('/fonts/Saros-Regular.otf');
-}
-
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: normal;
-  src: url('/fonts/SourceSansPro-Regular.ttf');
 }
 
 @font-face {

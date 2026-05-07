@@ -13,6 +13,12 @@ interface CustomPaletteTokens {
   rankBronze: { bg: string; text: string }
   levelProgressBg: string
   skillItemHover: string
+  tertiaryText: string
+  calloutWarningBg: string
+  calloutWarningBorder: string
+  calloutWarningText: string
+  calloutWarningLink: string
+  navLinkHover: string
 }
 
 const palette: PaletteOptions = {
@@ -33,7 +39,7 @@ const palette: PaletteOptions = {
   text: {
     primary: '#1a2e1a', // headings
     secondary: '#4a6a4a', // muted values, EXP column
-    disabled: '#7a9a7a', // hints, helper text
+    disabled: '#9e9e9e', // disabled input values, placeholders
   },
   divider: '#d0dcd0', // table row borders, panel borders
   // Custom tokens beyond MUI's built-in slots:
@@ -45,6 +51,12 @@ const palette: PaletteOptions = {
     rankBronze: { bg: '#f0e0d0', text: '#7a4a2a' },
     levelProgressBg: '#e8efe8',
     skillItemHover: '#eaf0ea', // Hover color of menu list items
+    tertiaryText: '#7a9a7a', // hints, helper text
+    calloutWarningBg: '#fef3e2',
+    calloutWarningBorder: '#e6a817',
+    calloutWarningText: '#7c3a00',
+    calloutWarningLink: '#7c3a00',
+    navLinkHover: '#a989d4',
   },
 }
 
@@ -60,7 +72,7 @@ let theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Inter, Saros, Vecna, sans-serif',
+    fontFamily: 'Inter, sans-serif',
     body1: undefined,
     body2: undefined,
     subtitle1: undefined,
@@ -76,6 +88,45 @@ let theme = createTheme({
         },
       },
     },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          color: theme.palette.text.disabled,
+          '&.Mui-focused': {
+            color: theme.palette.text.disabled,
+          },
+        }),
+      },
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          color: theme.palette.text.disabled,
+        }),
+      },
+    },
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          '&:hover:not(.Mui-disabled)::before': {
+            borderBottomColor: '#000000',
+          },
+          '&.Mui-focused::after': {
+            borderBottomColor: '#000000',
+          },
+        },
+      },
+    },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          color: theme.palette.primary.main,
+          '&.Mui-checked': {
+            color: theme.palette.primary.main,
+          },
+        }),
+      },
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         root: ({ theme }) => ({
@@ -85,21 +136,22 @@ let theme = createTheme({
             borderRadius: '0px',
           },
           '&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.palette.primary.light,
+            borderColor: theme.palette.divider,
             borderWidth: '1px',
           },
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.palette.primary.main,
+            borderColor: '#000000',
             borderWidth: '1px',
           },
           '&.Mui-focused:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.palette.primary.main,
+            borderColor: '#000000',
             borderWidth: '1px',
           },
         }),
-        input: {
+        input: ({ theme }) => ({
           outline: 'none',
-        },
+          color: 'black',
+        }),
       },
     },
     MuiButton: {
@@ -182,7 +234,7 @@ theme = createTheme(theme, {
       },
     },
     body: {
-      fontFamily: 'Inter, Saros, sans-serif',
+      fontFamily: 'Inter, sans-serif',
       fontWeight: '300',
       fontSize: '20px',
       lineHeight: '28px',
