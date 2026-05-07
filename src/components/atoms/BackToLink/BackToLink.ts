@@ -4,7 +4,6 @@ import Link from 'next/link'
 
 export const BackToLink = styled(Link)(
   ({ theme }) => css`
-    font-family: Source Sans Pro;
     display: block;
     margin-top: 16px;
     font-size: 14px;

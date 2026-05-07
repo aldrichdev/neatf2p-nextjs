@@ -1,7 +1,6 @@
 import { Pagination } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
-import VerticalAlignTopIcon from '@mui/icons-material/VerticalAlignTop'
 
 export const HiscoresControlsContainer = styled('div')(
   () => css`
@@ -38,18 +37,6 @@ export const HiscoresPagination = styled(Pagination)(
       flex-wrap: nowrap;
       align-items: center;
       justify-content: center;
-    }
-  `,
-)
-
-export const ScrollToTopButton = styled(VerticalAlignTopIcon)(
-  () => css`
-    cursor: pointer;
-    width: 24px;
-    height: 24px;
-
-    &:hover {
-      color: var(--faded-blue-bg-color);
     }
   `,
 )

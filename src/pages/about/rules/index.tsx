@@ -13,7 +13,7 @@ const RulesPage = () => (
     )}
     <ContentBlock>
       <PageHeading>Rules</PageHeading>
-      <BodyText variant='body' fontFamily='Source Sans Pro' marginBottom='20px'>
+      <BodyText variant='body' marginBottom='20px'>
         Please read these rules carefully. Note that they apply both to the game server and our Discord.
       </BodyText>
       <ol>

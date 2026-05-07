@@ -8,6 +8,7 @@ export const StyledTableCell = styled(TableCell, {
   ({ theme, bold }) => css`
     text-align: left;
     font-weight: ${bold ? 700 : 400};
+    border-bottom: 1px solid ${theme.palette.divider};
 
     ${theme.breakpoints.up('tablet')} {
       text-align: center;

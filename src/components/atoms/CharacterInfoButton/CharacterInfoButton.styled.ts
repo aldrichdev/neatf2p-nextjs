@@ -12,7 +12,7 @@ export const InfoButton = styled(IconButton)(
     }
 
     & .MuiSvgIcon-root {
-      fill: var(--faded-blue-bg-color);
+      fill: ${theme.palette.secondary.main};
     }
 
     ${theme.breakpoints.up('tablet')} {

@@ -11,7 +11,7 @@ export const PlayersOnlineMessage = styled('p')(
     font-family: Inter, sans-serif;
     font-size: 20px;
     text-align: center;
-    margin: 20px 0;
+    margin: 20px 0 0;
 
     ${theme.breakpoints.up('tablet')} {
       margin: 0;

@@ -3,7 +3,7 @@ import { css } from '@mui/system'
 
 export const LastLoginLabel = styled('span')(
   ({ theme }) => css`
-    color: ${theme.palette.text.disabled};
+    color: ${theme.palette.custom.tertiaryText};
     font-size: 14px;
   `,
 )

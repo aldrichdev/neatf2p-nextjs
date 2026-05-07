@@ -14,10 +14,9 @@ export const NavButton = styled(Button, {
 })<{ isActive?: boolean }>(
   ({ theme, isActive }) => css`
     ${getBaseNavItemStyles(isActive)}
-    font-family: Source Sans Pro;
-    font-size: 20px;
     border-radius: 0;
     height: 43px;
+    font-weight: 400;
 
     :hover {
       color: white;
@@ -48,23 +47,19 @@ export const NavSubItem = styled('li')(
   () => css`
     list-style-type: none;
     background-color: #100c08;
-
-    :hover {
-      background-color: #36454f;
-    }
   `,
 )
 
 export const NavSubLink = styled(Link)(
-  () => css`
+  ({ theme }) => css`
     color: white;
     text-decoration: none;
     padding: 8px;
     display: block;
-    font-size: 18px;
+    font-size: 16px;
 
     &:hover {
-      color: white;
+      color: ${theme.palette.custom.navLinkHover};
     }
   `,
 )

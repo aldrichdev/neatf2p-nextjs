@@ -1,7 +1,7 @@
 import { css } from '@emotion/react'
 
 export const getBaseNavItemStyles = (isActive?: boolean) => css`
-  color: white;
-  border-bottom: ${isActive ? '2px solid var(--color-primary)' : 'none'};
+  color: ${isActive ? 'var(--color-secondary)' : 'white'};
+  font-size: 18px;
   padding: 8px;
 `

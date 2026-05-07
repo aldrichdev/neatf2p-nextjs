@@ -1,5 +1,5 @@
 import { BodyText } from '@atoms/BodyText'
-import { PaperTypeMap, Table, TableContainer } from '@mui/material'
+import { PaperTypeMap, TableContainer } from '@mui/material'
 import { OverridableComponent } from '@mui/material/OverridableComponent'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
@@ -14,14 +14,6 @@ export const AccountTableContainer = styled(TableContainer, {
     ${theme.breakpoints.up('tablet')} {
       display: block;
     }
-  `,
-)
-
-export const AccountTable = styled(Table, {
-  shouldForwardProp: prop => !['aria-label'].includes(prop.toString()),
-})(
-  () => css`
-    font-family: Source Sans Pro;
   `,
 )
 

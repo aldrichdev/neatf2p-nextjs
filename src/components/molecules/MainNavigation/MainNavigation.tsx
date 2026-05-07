@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { NavUnorderedList, NavLink, NavContainer } from './MainNavigation.styled'
+import { NavUnorderedList, NavLink, NavContainer, NavListItem } from './MainNavigation.styled'
 import { NavigationItem } from './MainNavigation.types'
 import { MainNavigationDropdownItem } from '@atoms/MainNavigationDropdownItem'
 import { useEffect } from 'react'
@@ -85,7 +85,7 @@ const MainNavigation = () => {
     <NavContainer>
       <NavUnorderedList>
         {navigationItems.map((item: NavigationItem) => (
-          <li key={item.path || item.subItems?.[0]?.path}>
+          <NavListItem key={item.path || item.subItems?.[0]?.path}>
             {item.path ? (
               <NavLink
                 href={item.path}
@@ -101,7 +101,7 @@ const MainNavigation = () => {
                 isItemActive={isLinkActive}
               />
             )}
-          </li>
+          </NavListItem>
         ))}
       </NavUnorderedList>
     </NavContainer>

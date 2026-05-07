@@ -61,7 +61,7 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
   return (
     <AccountTableContainer component={Paper}>
       {accounts?.map(account => (
-        <AccountTable aria-label='simple table' key={`mobile-${account.id}`}>
+        <AccountTable aria-label='Player Account' key={`mobile-${account.id}`}>
           <TableBody>
             <GameAccountRowMobile account={account} rowLabel='Id' rowValue={account.id} />
             <GameAccountRowMobile account={account} rowLabel='Account Name' rowValue={account.username} />

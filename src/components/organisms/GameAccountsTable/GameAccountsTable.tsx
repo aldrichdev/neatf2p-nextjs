@@ -1,7 +1,7 @@
 import { Spinner } from '@molecules/Spinner'
-import { TableBody, TableHead, TableRow, Paper } from '@mui/material'
+import { TableBody, TableHead, TableRow, Paper, Table } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { AccountTable, AccountTableContainer, DesktopSpinner, TabletDesktopBodyText } from './GameAccountsTable.styled'
+import { AccountTableContainer, DesktopSpinner, TabletDesktopBodyText } from './GameAccountsTable.styled'
 import { GameAccountRow } from '@molecules/GameAccountRow'
 import { GameAccountsTableProps } from './GameAccountsTable.types'
 import { RenameAccountModal } from '@organisms/RenameAccountModal'
@@ -49,7 +49,7 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
 
   return (
     <AccountTableContainer component={Paper}>
-      <AccountTable aria-label='Game Accounts Table'>
+      <Table aria-label='Game Accounts Table'>
         <TableHead>
           <TableRow>
             <StyledTableCell align='right' bold>
@@ -86,7 +86,7 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
             />
           ))}
         </TableBody>
-      </AccountTable>
+      </Table>
       {renameModalVisible && activeAccount && (
         <RenameAccountModal
           account={activeAccount}

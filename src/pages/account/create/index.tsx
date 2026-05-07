@@ -159,8 +159,8 @@ const CreateAccountPage = ({ user }: CreateAccountPageProps) => {
             things.
           </BodyText>
           <Callout variant='warning'>
-            <strong>Note:</strong> The account you are creating on this page is NOT a game account, it is an account for
-            the website. Once you log into the site, you will be able to create game accounts that you can log into the
+            <strong>Important:</strong> The account you are creating on this page is a website account, not a game
+            account. Once you log into the site, you will be able to create game accounts that you can log into the
             server with.
           </Callout>
           <Form onSubmit={handleAccountCreation}>
