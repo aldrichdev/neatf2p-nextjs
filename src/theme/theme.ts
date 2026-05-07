@@ -148,7 +148,7 @@ let theme = createTheme({
             borderWidth: '1px',
           },
         }),
-        input: ({ theme }) => ({
+        input: () => ({
           outline: 'none',
           color: 'black',
         }),
