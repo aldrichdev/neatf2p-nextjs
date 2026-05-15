@@ -2,33 +2,33 @@ import { ListItemText, Typography, Divider } from '@mui/material'
 import {
   NewsPostLi,
   NewsPostTitleLink,
-  NewsPostImage,
   NewsPostTitle,
   NewsPostAvatarLink,
-  NewsPostAvatar,
   NewsPostBody,
 } from './NewsPostListItem.styled'
 import { NewsPostItemProps } from '@globalTypes/NewsPostItemProps'
 import { getPrettyDateStringFromISOString } from '@utils/date/date'
 import ReadMore from '@molecules/ReadMore/ReadMore'
 import { getNewsPostImageUrl } from '@utils/imageUtils'
+import { cn } from '@utils/cn'
 
 const NewsPostListItem = (props: NewsPostItemProps) => {
   const { newsPost } = props
   const newsPostUrl = `/news/post/${newsPost.id}`
   const newsPostImage = getNewsPostImageUrl(newsPost.image)
+  const isPlaceholder = newsPostImage === '/img/NewsImagePlaceholder.png'
 
   return (
     <div>
       <NewsPostLi alignItems='flex-start'>
         <NewsPostAvatarLink href={newsPostUrl}>
-          <NewsPostAvatar>
-            <NewsPostImage
+          <div className='flex justify-center text-center mt-2'>
+            <img
               src={newsPostImage}
               alt={newsPost.alt}
-              isPlaceholder={newsPostImage === '/img/NewsImagePlaceholder.png'}
+              className={cn('w-[60%] md:w-21.25 max-w-none', isPlaceholder && 'rounded-[50%]')}
             />
-          </NewsPostAvatar>
+          </div>
         </NewsPostAvatarLink>
         <ListItemText
           primary={

@@ -1,8 +1,8 @@
+import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 import { useEffect, useState } from 'react'
 import {
   EasterEgg,
   FooterElement,
-  FooterLink,
   FooterNavigation,
   FooterNavigationItem,
   Logo,
@@ -43,24 +43,28 @@ const Footer = () => {
       <VerticalDivider orientation='vertical' flexItem />
       <FooterNavigation>
         <FooterNavigationItem>
-          <FooterLink href='https://discord.gg/wd67zUxPXn' target='_blank'>
+          <HoverUnderlineLink href='https://discord.gg/wd67zUxPXn' target='_blank' textColorStyle='text-white'>
             Discord
-          </FooterLink>
+          </HoverUnderlineLink>
         </FooterNavigationItem>
         <FooterNavigationItem>
-          <FooterLink href='https://www.youtube.com/@NeatF2P' target='_blank'>
+          <HoverUnderlineLink href='https://www.youtube.com/@NeatF2P' target='_blank' textColorStyle='text-white'>
             YouTube
-          </FooterLink>
+          </HoverUnderlineLink>
         </FooterNavigationItem>
         <FooterNavigationItem>
-          <FooterLink href='https://github.com/aldrichdev/Neat-F2P' target='_blank'>
+          <HoverUnderlineLink href='https://github.com/aldrichdev/Neat-F2P' target='_blank' textColorStyle='text-white'>
             GitHub (Game)
-          </FooterLink>
+          </HoverUnderlineLink>
         </FooterNavigationItem>
         <FooterNavigationItem>
-          <FooterLink href='https://github.com/aldrichdev/neatf2p-nextjs' target='_blank'>
+          <HoverUnderlineLink
+            href='https://github.com/aldrichdev/neatf2p-nextjs'
+            target='_blank'
+            textColorStyle='text-white'
+          >
             GitHub (Website)
-          </FooterLink>
+          </HoverUnderlineLink>
         </FooterNavigationItem>
       </FooterNavigation>
       {showEasterEgg && !!randomEasterEgg && (

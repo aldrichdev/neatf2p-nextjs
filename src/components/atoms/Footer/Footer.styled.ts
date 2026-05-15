@@ -82,13 +82,6 @@ export const FooterNavigationItem = styled('li')(
   `,
 )
 
-export const FooterLink = styled(HoverUnderlineLink)(
-  ({ theme }) => css`
-    color: ${theme.palette.background.paper};
-    font-size: 20px;
-  `,
-)
-
 export const EasterEgg = styled('img')<{ position: 'left' | 'right'; animationDurationSeconds: number }>(
   ({ theme, position, animationDurationSeconds }) => css`
     display: none;

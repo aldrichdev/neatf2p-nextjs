@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Typography } from '@mui/material'
-import { ContentBlock } from '@atoms/ContentBlock'
 import { NewsPostList, ViewAllNewsLink } from './NewsAndUpdates.styled'
 import { NewsPost } from '@globalTypes/NewsPost'
 import { NewsPostListItem } from '@organisms/NewsPostListItem'
@@ -43,7 +42,7 @@ const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
   if (!newsPosts || !Array.isArray(newsPosts) || !newsPosts?.some(newsPost => newsPost.title)) return null
 
   return (
-    <ContentBlock isWide>
+    <div className='w-full md:w-300'>
       <PageHeading>{heading}</PageHeading>
       <NewsPostList disablePadding>
         {newsPosts.map((newsPost: NewsPost) => (
@@ -55,7 +54,7 @@ const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
           <Typography variant='body'>View all news</Typography>
         </ViewAllNewsLink>
       )}
-    </ContentBlock>
+    </div>
   )
 }
 

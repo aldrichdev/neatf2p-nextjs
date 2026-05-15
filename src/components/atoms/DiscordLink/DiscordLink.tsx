@@ -9,7 +9,7 @@ const DiscordLink = (props: DiscordLinkProps) => {
   const { children } = props
 
   return (
-    <Link href='https://discord.gg/wd67zUxPXn' target='_blank'>
+    <Link href='https://discord.gg/wd67zUxPXn' target='_blank' className='flex justify-center'>
       {children || 'Discord'}
     </Link>
   )

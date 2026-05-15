@@ -29,29 +29,6 @@ export const NewsPostAvatarLink = styled(Link)(
   `,
 )
 
-export const NewsPostAvatar = styled(ListItemAvatar)(
-  ({ theme }) => css`
-    text-align: center;
-
-    ${theme.breakpoints.up('tablet')} {
-      text-align: left;
-    }
-  `,
-)
-
-export const NewsPostImage = styled('img', {
-  shouldForwardProp: prop => prop !== 'isPlaceholder',
-})<{ isPlaceholder: boolean }>(
-  ({ theme, isPlaceholder }) => css`
-    width: 60%;
-    border-radius: ${isPlaceholder ? '50%' : 0};
-
-    ${theme.breakpoints.up('tablet')} {
-      width: 85px;
-    }
-  `,
-)
-
 export const NewsPostTitleLink = styled(HoverUnderlineLink)`
   color: unset;
   display: block;

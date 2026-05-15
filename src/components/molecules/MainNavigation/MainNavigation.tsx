@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router'
-import { NavUnorderedList, NavLink, NavContainer, NavListItem } from './MainNavigation.styled'
 import { NavigationItem } from './MainNavigation.types'
 import { MainNavigationDropdownItem } from '@atoms/MainNavigationDropdownItem'
 import { useEffect } from 'react'
+import Link from 'next/link'
+import { cn } from '@utils/cn'
 
 const MainNavigation = () => {
   const { asPath, prefetch } = useRouter()
@@ -82,18 +83,24 @@ const MainNavigation = () => {
   }, [])
 
   return (
-    <NavContainer>
-      <NavUnorderedList>
+    <div className='flex justify-center'>
+      <ul
+        className='list-none py-3 px-0 m-0 flex flex-wrap justify-center items-center gap-4 bg-dark-gray border-0 
+        w-full md:border-solid md:border-2 md:border-black md:gap-8 lg:flex-nowrap'
+      >
         {navigationItems.map((item: NavigationItem) => (
-          <NavListItem key={item.path || item.subItems?.[0]?.path}>
+          <li key={item.path || item.subItems?.[0]?.path} className='flex items-center'>
             {item.path ? (
-              <NavLink
+              <Link
                 href={item.path}
-                isActive={isLinkActive(item.path)}
                 target={item.opensInNewTab ? '_blank' : '_self'}
+                className={cn(
+                  'text-white text-lg font-normal p-2 hover:text-nav-link-hover',
+                  isLinkActive(item.path) ? 'text-secondary-main hover:text-secondary-main' : '',
+                )}
               >
                 {item.text}
-              </NavLink>
+              </Link>
             ) : (
               <MainNavigationDropdownItem
                 title={item.text}
@@ -101,10 +108,10 @@ const MainNavigation = () => {
                 isItemActive={isLinkActive}
               />
             )}
-          </NavListItem>
+          </li>
         ))}
-      </NavUnorderedList>
-    </NavContainer>
+      </ul>
+    </div>
   )
 }
 

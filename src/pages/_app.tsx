@@ -3,13 +3,13 @@ import Head from 'next/head'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from '@theme/theme'
 import '@theme/styles.css'
-import { Container, HomepageLink, Logo, PaddedContainer } from '@styledPages/App.styled'
 import { MainNavigation } from '@molecules/MainNavigation'
 import { AccountWidget } from '@molecules/AccountWidget'
 import useAuthentication from '@hooks/useAuthentication'
 import emailjs from '@emailjs/browser'
 import { useEffect } from 'react'
 import { Footer } from '@atoms/Footer'
+import Link from 'next/link'
 
 export default function App({ Component, pageProps }: AppProps) {
   const user = useAuthentication()
@@ -30,20 +30,18 @@ export default function App({ Component, pageProps }: AppProps) {
         />
       </Head>
       <ThemeProvider theme={theme}>
-        <Container>
-          <AccountWidget user={user} />
-          <HomepageLink href='/'>
-            <picture>
-              <source media='(max-width: 600px)' srcSet='/img/MobileHeaderImage.png' />
-              <Logo src='/img/HeaderImage.png' alt='Neat F2P' />
-            </picture>
-          </HomepageLink>
-          <MainNavigation />
-          <PaddedContainer>
-            <Component {...pageProps} />
-          </PaddedContainer>
-          <Footer />
-        </Container>
+        <AccountWidget user={user} />
+        <Link href='/' className='my-0 mx-auto block w-full'>
+          <picture>
+            <source media='(max-width: 600px)' srcSet='/img/MobileHeaderImage.png' />
+            <img src='/img/HeaderImage.png' alt='Neat F2P' className='w-full block' />
+          </picture>
+        </Link>
+        <MainNavigation />
+        <div className='p-5 pb-10 md:pt-10'>
+          <Component {...pageProps} />
+        </div>
+        <Footer />
       </ThemeProvider>
     </>
   )

@@ -1,5 +1,5 @@
-import { Text, ReadMoreLink } from './ReadMore.styled'
 import parse from 'html-react-parser'
+import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 
 interface ReadMoreProps {
   linkHref: string
@@ -10,16 +10,16 @@ const ReadMore = (props: ReadMoreProps) => {
   const { linkHref, children } = props
 
   return (
-    <Text>
+    <span>
       {children.length > 300 ? (
         <>
           {parse(`${children.slice(0, 300)}...`)}
-          <ReadMoreLink href={linkHref}>Read post {'>>'}</ReadMoreLink>
+          <HoverUnderlineLink href={linkHref}>Read post {'>>'}</HoverUnderlineLink>
         </>
       ) : (
         parse(children)
       )}
-    </Text>
+    </span>
   )
 }
 
