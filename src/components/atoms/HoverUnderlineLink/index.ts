@@ -1,1 +1,1 @@
-export { HoverUnderlineLink } from './HoverUnderlineLink'
+export { default as HoverUnderlineLink } from './HoverUnderlineLink'

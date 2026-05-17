@@ -1,0 +1,23 @@
+{
+  "style": "radix-vega",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/theme/styles.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucde",
+  "rtl": false,
+  "aliases": {
+    "components": "src/components/ui",
+    "utils": "@utils/cn",
+    "ui": "src/components/ui",
+    "hooks": "@hooks"
+  },
+  "menuColor": "default",
+  "menuAccent": "subtle",
+  "registries": {}
+}

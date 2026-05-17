@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react'
-import { PlayersOnlineBox, PlayersOnlineMessage, OnlineCount } from './OnlinePlayers.styled'
-import { Spinner } from '@molecules/Spinner'
 import { sendApiRequest } from '@utils/api/apiUtils'
 
 const OnlinePlayers = () => {
-  const [isLoading, setIsLoading] = useState(true)
   const [playerCount, setPlayerCount] = useState<number | undefined>(undefined)
   const verb = playerCount === 1 ? 'is' : 'are'
 
@@ -13,7 +10,6 @@ const OnlinePlayers = () => {
       sendApiRequest('GET', '/api/getOnlinePlayerCount')
         .then(response => {
           setPlayerCount(response.data)
-          setIsLoading(false)
         })
         .catch((error: string) => error)
     }
@@ -24,18 +20,15 @@ const OnlinePlayers = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (isLoading) {
-    return <Spinner />
-  }
-
   if (!playerCount) return null
 
   return (
-    <PlayersOnlineBox>
-      <PlayersOnlineMessage>
-        There {verb} currently <OnlineCount>{playerCount}</OnlineCount> player{playerCount > 1 ? 's' : ''} online.
-      </PlayersOnlineMessage>
-    </PlayersOnlineBox>
+    <div className='flex justify-center animate-[fadeUp_0.5s_ease-out_forwards] transition-colors'>
+      <p className='text-md text-center font-mono mt-5 md:m-0'>
+        There {verb} currently <span className='font-semibold text-primary-main'>{playerCount}</span> player
+        {playerCount > 1 ? 's' : ''} online.
+      </p>
+    </div>
   )
 }
 

@@ -1,7 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Typography } from '@mui/material'
-import { ContentBlock } from '@atoms/ContentBlock'
-import { NewsPostList, ViewAllNewsLink } from './NewsAndUpdates.styled'
 import { NewsPost } from '@globalTypes/NewsPost'
 import { NewsPostListItem } from '@organisms/NewsPostListItem'
 import { Spinner } from '@molecules/Spinner'
@@ -12,11 +9,10 @@ interface NewsAndUpdatesProps {
   heading: string
   /** Limits the number of news posts to show. */
   limit?: number
-  showViewAllButton?: boolean
 }
 
 const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
-  const { heading, limit, showViewAllButton } = props
+  const { heading, limit } = props
   const [isLoading, setIsLoading] = useState(true)
   const [newsPosts, setNewsPosts] = useState<NewsPost[] | undefined>(undefined)
 
@@ -43,19 +39,14 @@ const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
   if (!newsPosts || !Array.isArray(newsPosts) || !newsPosts?.some(newsPost => newsPost.title)) return null
 
   return (
-    <ContentBlock isWide>
+    <div className='w-full'>
       <PageHeading>{heading}</PageHeading>
-      <NewsPostList disablePadding>
+      <ul className='flex flex-col justify-center gap-5 p-0! mt-10'>
         {newsPosts.map((newsPost: NewsPost) => (
           <NewsPostListItem key={newsPost.id} newsPost={newsPost} />
         ))}
-      </NewsPostList>
-      {showViewAllButton && newsPosts.length > 3 && (
-        <ViewAllNewsLink href='/news'>
-          <Typography variant='body'>View all news</Typography>
-        </ViewAllNewsLink>
-      )}
-    </ContentBlock>
+      </ul>
+    </div>
   )
 }
 

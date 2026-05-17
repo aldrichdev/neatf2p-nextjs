@@ -13,18 +13,17 @@ import {
   ImageLabel,
   PreviewButtonContainer,
   PreviewImage,
-  StyledForm,
   SubmitArea,
   SubmitButton,
   SubmitMessage,
   VisuallyHiddenInput,
 } from './NewsPostForm.styled'
 import { NewsPostFormProps } from './NewsPostForm.types'
-import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { useEffect, useState } from 'react'
 import { convertBlobToBase64String } from '@utils/base64'
 import { Modal } from '@molecules/Modal'
 import { getNewsPostImageUrl } from '@utils/imageUtils'
+import { CloudUpload } from 'lucide-react'
 
 /** A reusable form for creating or updating a news post. */
 const NewsPostForm = (props: NewsPostFormProps) => {
@@ -127,14 +126,14 @@ const NewsPostForm = (props: NewsPostFormProps) => {
   }, [newsPost?.body])
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='flex flex-wrap text-left'>
       <ImageArea>
         <ImageLabel>Image</ImageLabel>
         <ImageHelperText>
           Optional. If not provided, a placeholder image will be displayed next to the post.
         </ImageHelperText>
         <ImageButtonContainer>
-          <FileUploadButton component='label' variant='contained' startIcon={<CloudUploadIcon />}>
+          <FileUploadButton component='label' variant='contained' startIcon={<CloudUpload />}>
             Upload file
             <VisuallyHiddenInput type='file' onChange={handleImageChange} />
           </FileUploadButton>
@@ -184,7 +183,7 @@ const NewsPostForm = (props: NewsPostFormProps) => {
         </SubmitButton>
       </SubmitArea>
       <SubmitMessage color={submitResult?.code}>{submitResult?.answer}</SubmitMessage>
-    </StyledForm>
+    </form>
   )
 }
 

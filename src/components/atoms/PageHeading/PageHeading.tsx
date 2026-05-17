@@ -1,14 +1,9 @@
 import { PageHeadingProps } from './PageHeading.types'
-import { Heading } from './PageHeading.styled'
 
 const PageHeading = (props: PageHeadingProps) => {
-  const { children, marginBottom, noTopPadding } = props
+  const { children } = props
 
-  return (
-    <Heading variant='h2' sx={{ marginBottom }} noTopPadding={noTopPadding}>
-      {children}
-    </Heading>
-  )
+  return <h2 className='text-center'>{children}</h2>
 }
 
 export default PageHeading

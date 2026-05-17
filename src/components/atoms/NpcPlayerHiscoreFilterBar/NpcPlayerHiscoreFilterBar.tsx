@@ -9,7 +9,7 @@ import {
   SearchBox,
 } from './NpcPlayerHiscoreFilterBar.styled'
 import { NpcPlayerHiscoreFilterBarProps } from './NpcPlayerHiscoreFilterBar.types'
-import ClearIcon from '@mui/icons-material/Clear'
+import { X } from 'lucide-react'
 
 /** A bar with a search field and several buttons for displaying filtered NPC hiscore data. */
 const NpcPlayerHiscoreFilterBar = (props: NpcPlayerHiscoreFilterBarProps) => {
@@ -33,7 +33,7 @@ const NpcPlayerHiscoreFilterBar = (props: NpcPlayerHiscoreFilterBarProps) => {
         <SearchBox type='text' placeholder='Search NPC...' value={search} onChange={handleSearchChange} />
         {search && (
           <ClearSearchButton title='Clear search' onClick={handleClearSearch}>
-            <ClearIcon />
+            <X />
           </ClearSearchButton>
         )}
       </InputWrapper>
