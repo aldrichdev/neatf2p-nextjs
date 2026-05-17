@@ -13,7 +13,6 @@ import {
   ImageLabel,
   PreviewButtonContainer,
   PreviewImage,
-  StyledForm,
   SubmitArea,
   SubmitButton,
   SubmitMessage,
@@ -127,7 +126,7 @@ const NewsPostForm = (props: NewsPostFormProps) => {
   }, [newsPost?.body])
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='flex flex-wrap text-left'>
       <ImageArea>
         <ImageLabel>Image</ImageLabel>
         <ImageHelperText>
@@ -184,7 +183,7 @@ const NewsPostForm = (props: NewsPostFormProps) => {
         </SubmitButton>
       </SubmitArea>
       <SubmitMessage color={submitResult?.code}>{submitResult?.answer}</SubmitMessage>
-    </StyledForm>
+    </form>
   )
 }
 

@@ -4,8 +4,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
-a {
-  font-weight: 400;
+ul,
+ol {
+  list-style: revert;
+  padding: revert;
 }
 
 button {
@@ -15,6 +17,21 @@ button {
 
 strong {
   font-weight: bold;
+}
+
+.news-post-detail-body {
+  p {
+    display: block;
+    margin-block: 1em;
+  }
+
+  a {
+    color: var(--primary) !important;
+  }
+
+  a:hover {
+    color: var(--secondary) !important;
+  }
 }
 
 :root {
@@ -248,4 +265,15 @@ strong {
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

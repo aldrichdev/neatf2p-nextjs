@@ -1,16 +1,10 @@
-import { ListItemText, Typography, Divider } from '@mui/material'
-import {
-  NewsPostLi,
-  NewsPostTitleLink,
-  NewsPostTitle,
-  NewsPostAvatarLink,
-  NewsPostBody,
-} from './NewsPostListItem.styled'
 import { NewsPostItemProps } from '@globalTypes/NewsPostItemProps'
 import { getPrettyDateStringFromISOString } from '@utils/date/date'
 import ReadMore from '@molecules/ReadMore/ReadMore'
 import { getNewsPostImageUrl } from '@utils/imageUtils'
 import { cn } from '@utils/cn'
+import Link from 'next/link'
+import { StandardLink } from '@atoms/StandardLink'
 
 const NewsPostListItem = (props: NewsPostItemProps) => {
   const { newsPost } = props
@@ -20,36 +14,30 @@ const NewsPostListItem = (props: NewsPostItemProps) => {
 
   return (
     <div>
-      <NewsPostLi alignItems='flex-start'>
-        <NewsPostAvatarLink href={newsPostUrl}>
-          <div className='flex justify-center text-center mt-2'>
+      <li className='flex items-start flex-wrap gap-4 p-0 mt-2.5 mx-0 mb-5 md:flex-nowrap'>
+        <Link href={newsPostUrl} className='w-full md:w-auto md:mr-5'>
+          <div className='flex justify-center mt-2 md:justify-start'>
             <img
               src={newsPostImage}
               alt={newsPost.alt}
               className={cn('w-[60%] md:w-21.25 max-w-none', isPlaceholder && 'rounded-[50%]')}
             />
           </div>
-        </NewsPostAvatarLink>
-        <ListItemText
-          primary={
-            <NewsPostTitleLink href={newsPostUrl}>
-              <NewsPostTitle variant='body'>{newsPost.title}</NewsPostTitle>
-            </NewsPostTitleLink>
-          }
-          secondary={
-            <>
-              <Typography variant='body' sx={{ color: 'gray' }}>
-                {getPrettyDateStringFromISOString(newsPost.datePosted)}
-              </Typography>
-              <NewsPostBody variant='body' color='black' component='span'>
-                <ReadMore linkHref={newsPostUrl}>{newsPost.body}</ReadMore>
-              </NewsPostBody>
-            </>
-          }
-          secondaryTypographyProps={{ component: 'div' }}
-        ></ListItemText>
-      </NewsPostLi>
-      <Divider />
+        </Link>
+        <div className='text-left'>
+          <p>
+            <StandardLink href={newsPostUrl} hoverUnderline className='font-semibold text-black hover:text-black'>
+              {newsPost.title}
+            </StandardLink>
+          </p>
+          <div>
+            <p className='text-gray-500'>{getPrettyDateStringFromISOString(newsPost.datePosted)}</p>
+            <span className='text-black'>
+              <ReadMore linkHref={newsPostUrl}>{newsPost.body}</ReadMore>
+            </span>
+          </div>
+        </div>
+      </li>
     </div>
   )
 }

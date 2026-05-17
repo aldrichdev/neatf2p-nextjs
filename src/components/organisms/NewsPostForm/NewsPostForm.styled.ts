@@ -3,14 +3,6 @@ import { Button } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 
-export const StyledForm = styled('form')(
-  () => css`
-    display: flex;
-    text-align: left;
-    flex-wrap: wrap;
-  `,
-)
-
 export const ImageArea = styled('div')(
   () => css`
     display: flex;

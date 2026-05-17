@@ -6,22 +6,23 @@ interface HoverUnderlineProps {
   href: string
   children: ReactNode
   target?: string
-  textColorStyle?: string
-  hoverTextColorStyle?: string
+  /** Optional Tailwind class(es) to override appearance of the component. */
+  className?: string
 }
 
-/** A link that displays an underline only on hover. */
+/** A link that displays an underline only on hover.
+ * TODO: Deprecated, use `StandardLink` component with `hoverUnderline=TRUE` instead of this.
+ */
 const HoverUnderlineLink = (props: HoverUnderlineProps) => {
-  const { href, children, target, textColorStyle, hoverTextColorStyle } = props
+  const { href, children, target, className } = props
 
   return (
     <Link
       href={href}
       target={target}
       className={cn(
-        'cursor-pointer decoration-none hover:underline',
-        textColorStyle || 'text-primary-main',
-        hoverTextColorStyle || 'hover:text-secondary-main',
+        'text-primary-main hover:text-secondary-main cursor-pointer decoration-none hover:underline',
+        className,
       )}
     >
       {children}

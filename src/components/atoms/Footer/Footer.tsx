@@ -43,17 +43,17 @@ const Footer = () => {
       <VerticalDivider orientation='vertical' flexItem />
       <FooterNavigation>
         <FooterNavigationItem>
-          <HoverUnderlineLink href='https://discord.gg/wd67zUxPXn' target='_blank' textColorStyle='text-white'>
+          <HoverUnderlineLink href='https://discord.gg/wd67zUxPXn' target='_blank' className='text-white'>
             Discord
           </HoverUnderlineLink>
         </FooterNavigationItem>
         <FooterNavigationItem>
-          <HoverUnderlineLink href='https://www.youtube.com/@NeatF2P' target='_blank' textColorStyle='text-white'>
+          <HoverUnderlineLink href='https://www.youtube.com/@NeatF2P' target='_blank' className='text-white'>
             YouTube
           </HoverUnderlineLink>
         </FooterNavigationItem>
         <FooterNavigationItem>
-          <HoverUnderlineLink href='https://github.com/aldrichdev/Neat-F2P' target='_blank' textColorStyle='text-white'>
+          <HoverUnderlineLink href='https://github.com/aldrichdev/Neat-F2P' target='_blank' className='text-white'>
             GitHub (Game)
           </HoverUnderlineLink>
         </FooterNavigationItem>
@@ -61,7 +61,7 @@ const Footer = () => {
           <HoverUnderlineLink
             href='https://github.com/aldrichdev/neatf2p-nextjs'
             target='_blank'
-            textColorStyle='text-white'
+            className='text-white'
           >
             GitHub (Website)
           </HoverUnderlineLink>

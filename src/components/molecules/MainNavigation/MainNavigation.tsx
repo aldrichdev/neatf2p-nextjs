@@ -76,6 +76,7 @@ const MainNavigation = () => {
 
   useEffect(() => {
     // Warm up nav route chunks to remove delay previously seen when clicking around
+    // (TODO: Clean up. I'm 99% sure this did NOT fix the delay)
     navigationItems.forEach(item => {
       if (item.path) prefetch(item.path)
     })
@@ -85,7 +86,7 @@ const MainNavigation = () => {
   return (
     <div className='flex justify-center'>
       <ul
-        className='list-none py-3 px-0 m-0 flex flex-wrap justify-center items-center gap-4 bg-dark-gray border-0 
+        className='list-none py-3! px-0! m-0 flex flex-wrap justify-center items-center gap-4 bg-dark-gray border-0 
         w-full md:border-solid md:border-2 md:border-black md:gap-8 lg:flex-nowrap'
       >
         {navigationItems.map((item: NavigationItem) => (

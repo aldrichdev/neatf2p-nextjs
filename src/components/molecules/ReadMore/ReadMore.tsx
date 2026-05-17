@@ -1,11 +1,12 @@
 import parse from 'html-react-parser'
-import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
+import { StandardLink } from '@atoms/StandardLink'
 
 interface ReadMoreProps {
   linkHref: string
   children: string
 }
 
+/** A component that truncates long text and includes a "Read post >>" link at the end. */
 const ReadMore = (props: ReadMoreProps) => {
   const { linkHref, children } = props
 
@@ -14,7 +15,9 @@ const ReadMore = (props: ReadMoreProps) => {
       {children.length > 300 ? (
         <>
           {parse(`${children.slice(0, 300)}...`)}
-          <HoverUnderlineLink href={linkHref}>Read post {'>>'}</HoverUnderlineLink>
+          <StandardLink href={linkHref} hoverUnderline>
+            Read post {'>>'}
+          </StandardLink>
         </>
       ) : (
         parse(children)
