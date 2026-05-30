@@ -99,7 +99,7 @@ const BugReportsPage = ({ user }: BugReportsPageProps) => {
       ) : (
         <ContentBlock>
           <PageHeading>Report a Bug</PageHeading>
-          <BodyText variant='body'>
+          <BodyText>
             Use the below form to submit a bug. Don&apos;t abuse this form, it could get you in trouble.
           </BodyText>
           <Form onSubmit={handleBugCreation} desktopWidth='100%'>

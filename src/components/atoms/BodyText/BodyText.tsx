@@ -1,11 +1,9 @@
-import { ExtendedTypographyProps } from '@globalTypes/MUI/ExtendedTypographyProps'
-import { Typography } from '@mui/material'
-import { styled } from '@mui/material/styles'
-import { css } from '@mui/system'
+import clsx from 'clsx'
 
 type TextAlign = 'left' | 'center' | 'right'
 
-type BodyTextProps = ExtendedTypographyProps & {
+type BodyTextProps = {
+  children: React.ReactNode
   topMargin?: number
   /** Alignment of text on desktop and tablet.
    *
@@ -15,18 +13,26 @@ type BodyTextProps = ExtendedTypographyProps & {
   bodyTextAlign?: TextAlign
   /** Alignment of text on mobile. */
   mobileTextAlign?: TextAlign
+  className?: string
 }
 
-export const BodyText = styled(Typography, {
-  shouldForwardProp: prop => !['topMargin', 'bodyTextAlign', 'mobileTextAlign'].includes(prop.toString()),
-})<BodyTextProps>(
-  ({ theme, topMargin, bodyTextAlign, mobileTextAlign }) => css`
-    display: block;
-    margin-top: ${topMargin === 0 ? 0 : topMargin || 20}px;
-    text-align: ${mobileTextAlign || 'center'};
+const textAlignClass: Record<TextAlign, string> = {
+  left: 'text-left',
+  center: 'text-center',
+  right: 'text-right',
+}
 
-    ${theme.breakpoints.up('tablet')} {
-      text-align: ${bodyTextAlign || 'left'};
-    }
-  `,
+export const BodyText = ({
+  children,
+  topMargin,
+  bodyTextAlign = 'left',
+  mobileTextAlign = 'center',
+  className,
+}: BodyTextProps) => (
+  <p
+    style={{ marginTop: topMargin !== undefined ? `${topMargin}px` : '20px' }}
+    className={clsx('block', textAlignClass[mobileTextAlign], `md:${textAlignClass[bodyTextAlign]}`, className)}
+  >
+    {children}
+  </p>
 )

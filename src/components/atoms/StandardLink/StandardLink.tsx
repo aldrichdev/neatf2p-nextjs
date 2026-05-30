@@ -6,23 +6,28 @@ interface StandardLinkProps {
   href: string
   children: ReactNode
   target?: string
-  /** Optional Tailwind class(es) to override default appearance of the component. */
-  className?: string
+  /** If the link should do something when clicked. Usually pass an empty href in this case. */
+  onClick?: () => void
+  /** Whether the link should have an underline at all. */
+  underline?: boolean
   /** If the link should only have an underline on hover. */
   hoverUnderline?: boolean
+  /** Optional Tailwind class(es) to override default appearance of the component. */
+  className?: string
 }
 
 /** A basic link that utilizes the standard brand colors of the website. */
 const StandardLink = (props: StandardLinkProps) => {
-  const { href, children, target, className, hoverUnderline } = props
+  const { href, children, target, onClick, underline = true, hoverUnderline, className } = props
 
   return (
     <Link
       href={href}
       target={target || '_self'}
+      onClick={onClick}
       className={cn(
-        'cursor-pointer text-primary-main hover:text-secondary-main',
-        hoverUnderline ? 'decoration-none hover:underline' : 'underline',
+        'text-primary-main hover:text-secondary-main cursor-pointer',
+        hoverUnderline ? 'decoration-none hover:underline' : underline ? 'underline' : '',
         className,
       )}
     >

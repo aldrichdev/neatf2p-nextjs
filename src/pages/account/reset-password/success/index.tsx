@@ -19,7 +19,7 @@ const ResetPasswordSuccessPage = ({ user }: ResetPasswordSuccessPageProps) => (
     {renderHead('Success')}
     <ContentBlock>
       <PageHeading>Reset Successful</PageHeading>
-      <BodyText variant='body' bodyTextAlign='center'>
+      <BodyText bodyTextAlign='center'>
         Your password was reset successfully.{' '}
         {!UserIsLoggedIn(user) && (
           <>

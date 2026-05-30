@@ -6,7 +6,6 @@ import {
   ClientButton,
   ClientRemarks,
   ClientButtonImage,
-  CalloutLink,
   ClientButtonAndRemarks,
 } from '@styledPages/HowToPlay.styled'
 import Link from 'next/link'
@@ -19,19 +18,19 @@ const HowToPlay = () => (
     {renderHead('How to Play', 'This page contains important information for how to play Neat F2P. Read it carefully.')}
     <ContentBlock isWide>
       <PageHeading>How To Play</PageHeading>
-      <Callout variant='warning'>
+      <Callout>
         Please{' '}
-        <CalloutLink href='/account/create' target='_blank'>
+        <Link href='/account/create' target='_blank' className='text-callout-warning-text hover:text-amber-950'>
           register
-        </CalloutLink>{' '}
+        </Link>{' '}
         on this site and create a{' '}
-        <CalloutLink href='/account/game-accounts' target='_blank'>
+        <Link href='/account/game-accounts' target='_blank' className='text-callout-warning-text hover:text-amber-950'>
           game account
-        </CalloutLink>{' '}
+        </Link>{' '}
         before attempting to play. All game accounts must be created via the website - if you attempt to create one in
         the game client, it will <strong>not</strong> work!
       </Callout>
-      <BodyText variant='body' bodyTextAlign='center'>
+      <BodyText bodyTextAlign='center'>
         There are many ways to play Neat F2P, including RSC+, WebClient, WinRune, and Android.{' '}
         <strong>You need Java</strong> for WinRune and RSC+. If you do not have Java installed or are not sure,{' '}
         <Link href='https://www.java.com/en/download/help/download_options.html' target='_blank'>

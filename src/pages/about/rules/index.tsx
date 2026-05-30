@@ -13,7 +13,7 @@ const RulesPage = () => (
     )}
     <ContentBlock>
       <PageHeading>Rules</PageHeading>
-      <BodyText variant='body' marginBottom='20px'>
+      <BodyText className='mb-5'>
         Please read these rules carefully. Note that they apply both to the game server and our Discord.
       </BodyText>
       <ol>
@@ -70,7 +70,7 @@ const RulesPage = () => (
           a new Discord thread in ⁠marketplace to post an offer.
         </RuleListItem>
       </ol>
-      <Callout variant='warning'>
+      <Callout>
         <strong>In general, use common sense and don&apos;t be a douche!</strong>
       </Callout>
     </ContentBlock>

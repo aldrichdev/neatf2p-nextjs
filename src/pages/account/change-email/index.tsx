@@ -74,7 +74,7 @@ const ChangeEmailPage = ({ user }: ChangeEmailPageProps) => {
       {renderHead('Change Email Address')}
       <ContentBlock>
         <PageHeading>Change Email Address</PageHeading>
-        <BodyText variant='body'>
+        <BodyText>
           Enter your new email address below. We will send an email to the new address to confirm you own that account.
           Within the email there will be a link to complete the process.
         </BodyText>

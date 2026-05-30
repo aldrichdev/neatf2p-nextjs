@@ -10,6 +10,7 @@ import emailjs from '@emailjs/browser'
 import { useEffect } from 'react'
 import { Footer } from '@atoms/Footer'
 import Link from 'next/link'
+import { TooltipProvider } from '@ui/tooltip'
 
 export default function App({ Component, pageProps }: AppProps) {
   const user = useAuthentication()
@@ -30,18 +31,20 @@ export default function App({ Component, pageProps }: AppProps) {
         />
       </Head>
       <ThemeProvider theme={theme}>
-        <AccountWidget user={user} />
-        <Link href='/' className='my-0 mx-auto block w-full'>
-          <picture>
-            <source media='(max-width: 600px)' srcSet='/img/MobileHeaderImage.png' />
-            <img src='/img/HeaderImage.png' alt='Neat F2P' className='w-full block' />
-          </picture>
-        </Link>
-        <MainNavigation />
-        <div className='p-5 pb-10 md:pt-10'>
-          <Component {...pageProps} />
-        </div>
-        <Footer />
+        <TooltipProvider>
+          <AccountWidget user={user} />
+          <Link href='/' className='mx-auto my-0 block w-full'>
+            <picture>
+              <source media='(max-width: 600px)' srcSet='/img/MobileHeaderImage.png' />
+              <img src='/img/HeaderImage.png' alt='Neat F2P' className='block w-full' />
+            </picture>
+          </Link>
+          <MainNavigation />
+          <div className='p-5 pb-10 md:pt-10'>
+            <Component {...pageProps} />
+          </div>
+          <Footer />
+        </TooltipProvider>
       </ThemeProvider>
     </>
   )

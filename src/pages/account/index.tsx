@@ -5,7 +5,6 @@ import {
   AccountNavigationContainer,
   AccountNavigationButton,
   AccountNavigationItem,
-  AdminToolsHeading,
   AdminToolsButtonArea,
   AccountPageDivider,
 } from '@styledPages/Account.styled'
@@ -63,7 +62,7 @@ const AccountPage = ({ user }: AccountPageProps) => {
       ) : (
         <ContentBlock>
           <PageHeading>Hiya, {user?.username}!</PageHeading>
-          <BodyText variant='body' bodyTextAlign='center'>
+          <BodyText bodyTextAlign='center'>
             Welcome to your account page. Here, you can modify your website account, create game (RSC) accounts, rename
             game accounts and update passwords.
           </BodyText>
@@ -102,8 +101,8 @@ const AccountPage = ({ user }: AccountPageProps) => {
             <>
               <AccountPageDivider />
               <div>
-                <AdminToolsHeading variant='h3'>🧰 Admin Tools 🧰</AdminToolsHeading>
-                <BodyText variant='body' bodyTextAlign='center' topMargin={0}>
+                <h3 className='mb-5 text-center'>🧰 Admin Tools 🧰</h3>
+                <BodyText bodyTextAlign='center' topMargin={0}>
                   Below are some admin tools to help you manage content on this site.
                 </BodyText>
                 <AdminToolsButtonArea>

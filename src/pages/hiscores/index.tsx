@@ -1,6 +1,4 @@
-import { ContentBlock } from '@atoms/ContentBlock'
 import { useEffect, useState } from 'react'
-import { HiscoresColumnTwo, HiscoresPageContainer, HiscoresPageHeading } from '@styledPages/hiscores.styled'
 import { HiscoresTable } from '@molecules/HiscoresTable'
 import { HiscoresMenu } from '@molecules/HiscoresMenu'
 import useHiscores from '@hooks/useHiscores'
@@ -14,6 +12,7 @@ import { redirectTo } from '@utils/window'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
 import { HiscoresTabs } from '@models/HiscoresTabs'
 import { GetServerSideProps } from 'next'
+import clsx from 'clsx'
 
 type HiscoresProps = {
   skill: HiscoreType
@@ -51,12 +50,25 @@ const Hiscores = ({ skill }: HiscoresProps) => {
   return (
     <>
       {renderHead(`${skill} Hiscores`, `The latest player rankings in the ${skill} skill.`)}
-      <ContentBlock customWidth={900}>
+      <div className='mx-auto max-w-225 text-center'>
         <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
-        <HiscoresPageContainer>
+        <div
+          className={clsx(
+            'flex flex-wrap justify-between gap-4',
+            'md:mt-4 md:grid md:h-250 md:grid-cols-[160px_1fr_200px]',
+            'lg:flex-nowrap',
+          )}
+        >
           <HiscoresMenu hiscoreType={hiscoreType} buttonOnClick={handleMenuItemClick} />
-          <HiscoresColumnTwo>
-            <HiscoresPageHeading variant='h2' sx={{ marginBottom: 2 }}>{`${hiscoreType} Hiscores`}</HiscoresPageHeading>
+          <div className='w-full'>
+            <h2
+              className={clsx(
+                'text-text-primary mb-4 text-left text-[22px] leading-7 font-bold',
+                'md:mb-3 md:text-[28px] md:leading-9',
+              )}
+            >
+              {`${hiscoreType} Hiscores`}
+            </h2>
             <HiscoresTable
               hiscores={hiscores}
               isLoading={isLoading}
@@ -64,11 +76,10 @@ const Hiscores = ({ skill }: HiscoresProps) => {
               page={hiscoresPage}
               setPage={setHiscoresPage}
             />
-          </HiscoresColumnTwo>
-
+          </div>
           <PlayerLookup />
-        </HiscoresPageContainer>
-      </ContentBlock>
+        </div>
+      </div>
     </>
   )
 }

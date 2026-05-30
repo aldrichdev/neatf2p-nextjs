@@ -1,4 +1,4 @@
-import { Heading } from '@atoms/PageHeading/PageHeading.styled'
+import { PageHeading } from '@atoms/PageHeading'
 import { Button } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
@@ -43,12 +43,6 @@ export const AccountNavigationItem = styled(Link)(
 export const AccountPageDivider = styled('hr')(
   () => css`
     margin: 40px 0;
-  `,
-)
-
-export const AdminToolsHeading = styled(Heading)(
-  () => css`
-    margin-bottom: 20px;
   `,
 )
 

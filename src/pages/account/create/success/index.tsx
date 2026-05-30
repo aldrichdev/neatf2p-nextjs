@@ -18,7 +18,7 @@ const CreateAccountSuccessPage = ({ user }: CreateAccountSuccessPageProps) => (
     {renderHead('Success')}
     <ContentBlock>
       <PageHeading>Success</PageHeading>
-      <BodyText variant='body' bodyTextAlign='center'>
+      <BodyText bodyTextAlign='center'>
         Your account, <strong>{user?.username}</strong>, has been created! You can now view your
         <InlineLink href='/account'>Account page</InlineLink>.
       </BodyText>

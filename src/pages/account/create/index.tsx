@@ -154,11 +154,11 @@ const CreateAccountPage = ({ user }: CreateAccountPageProps) => {
       ) : (
         <ContentBlock>
           <PageHeading>Create Account</PageHeading>
-          <BodyText variant='body' bodyTextAlign='left'>
+          <BodyText bodyTextAlign='left'>
             By creating a website account, you can add or rename game accounts, update passwords, and some other nifty
             things.
           </BodyText>
-          <Callout variant='warning'>
+          <Callout>
             <strong>Important:</strong> The account you are creating on this page is a website account, not a game
             account. Once you log into the site, you will be able to create game accounts that you can log into the
             server with.
@@ -206,7 +206,7 @@ const CreateAccountPage = ({ user }: CreateAccountPageProps) => {
               Submit
             </FormButton>
           </Form>
-          <BodyText variant='body' topMargin={40} bodyTextAlign='left'>
+          <BodyText topMargin={40} bodyTextAlign='left'>
             <span>Already have an account?</span>
             <InlineLink href='/account/login'>Log in.</InlineLink>
           </BodyText>

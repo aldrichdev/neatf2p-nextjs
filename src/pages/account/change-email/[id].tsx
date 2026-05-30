@@ -162,9 +162,7 @@ const ChangeEmailByIdPage = ({ user }: ChangeEmailByIdPageProps) => {
           ) : (
             <ContentBlock>
               <PageHeading>Change Email Address</PageHeading>
-              <BodyText variant='body' bodyTextAlign='center'>
-                Please enter your password to continue.
-              </BodyText>
+              <BodyText bodyTextAlign='center'>Please enter your password to continue.</BodyText>
               <Form onSubmit={handleSubmit}>
                 <Field
                   required
@@ -185,7 +183,7 @@ const ChangeEmailByIdPage = ({ user }: ChangeEmailByIdPageProps) => {
       ) : (
         <ContentBlock>
           <PageHeading>Update Complete</PageHeading>
-          <BodyText variant='body' bodyTextAlign='center'>
+          <BodyText bodyTextAlign='center'>
             Your email has been updated. You can go back to your <Link href='/account'>account</Link> page.
           </BodyText>
         </ContentBlock>

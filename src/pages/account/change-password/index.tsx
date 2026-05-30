@@ -77,7 +77,7 @@ const ChangePasswordPage = ({ user }: ChangePasswordPageProps) => {
       {renderHead('Change Password')}
       <ContentBlock>
         <PageHeading>Change Password</PageHeading>
-        <BodyText variant='body'>Please enter your new password below.</BodyText>
+        <BodyText>Please enter your new password below.</BodyText>
         <Form onSubmit={handleSubmit}>
           <Field
             required

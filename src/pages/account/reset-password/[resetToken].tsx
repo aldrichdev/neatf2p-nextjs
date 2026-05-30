@@ -99,7 +99,7 @@ const ResetPassword = () => {
       ) : tokenExpired ? (
         <ContentBlock>
           <PageHeading>Token Expired</PageHeading>
-          <BodyText variant='body'>
+          <BodyText>
             Your token has expired. Please visit the{' '}
             <InlineLink href='/account/login/forgot-password'>Forgot Password</InlineLink> page and enter your email
             again. You need to open the link in the email within 10 minutes.

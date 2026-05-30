@@ -9,11 +9,11 @@ const Spinner = (props: SpinnerProps) => {
   const { hiscores } = props
 
   return hiscores ? (
-    <div className='flex basis-full items-start justify-center mx-auto min-h-[1000px] md:basis-auto'>
+    <div className='mx-auto flex min-h-250 basis-full items-start justify-center md:basis-auto'>
       <CircularProgress color='success' />
     </div>
   ) : (
-    <div className='max-w-200 mx-auto text-center'>
+    <div className='mx-auto max-w-200 text-center'>
       <CircularProgress color='success' />
     </div>
   )

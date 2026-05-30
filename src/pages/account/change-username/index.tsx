@@ -7,7 +7,7 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { Form } from '@atoms/Form'
 import { redirectTo } from '@utils/window'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
-import { BannedText } from 'src/data/BannedText'
+import { BannedText } from '../../../data/BannedText'
 import { handleForbiddenRedirect, sendApiRequest } from '@utils/api/apiUtils'
 import { UserIsLoggedIn } from '@utils/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
@@ -86,7 +86,7 @@ const ChangeUsernamePage = ({ user }: ChangeUsernamePageProps) => {
       ) : (
         <ContentBlock>
           <PageHeading>Change Username</PageHeading>
-          <BodyText variant='body'>
+          <BodyText>
             Enter your new username below. Remember that this only changes your website username, it does not affect
             your game accounts.
           </BodyText>

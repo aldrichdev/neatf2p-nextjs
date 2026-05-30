@@ -13,12 +13,12 @@ const About = () => (
     )}
     <ContentBlock>
       <PageHeading>Our Spin on RSC</PageHeading>
-      <BodyText variant='body' bodyTextAlign='center'>
+      <BodyText bodyTextAlign='center'>
         Neat F2P is an F2P-only, 1x EXP, authentic RuneScape Classic private server that runs on the Open RSC framework.
         This is F2P in RuneScape as it was in 2002-2003, just without members content. Of course, it is actually free to
         play - no credit card required.
       </BodyText>
-      <BodyText variant='body' bodyTextAlign='center'>
+      <BodyText bodyTextAlign='center'>
         We are committed to making Neat F2P <em>as authentic as possible</em> - as close to Jagex&apos;s version of RSC
         F2P as it can be! This is why we will never have global chat, custom server commands, or extra NPC spawns. When
         you log into Neat, it should feel just like logging into a F2P world of RuneScape back in 2003 - of course, with
@@ -35,10 +35,10 @@ const About = () => (
         <Feature>Max 2 Characters Logged In At Once</Feature>
         <Feature>Launched February 24th, 2024</Feature>
       </FeatureList>
-      <BodyText variant='body' bodyTextAlign='center'>
+      <BodyText bodyTextAlign='center'>
         So, <Link href='/how-to-play'>jump in today</Link> and experience what a F2P-only economy can be!
       </BodyText>
-      <BodyText variant='body' bodyTextAlign='center'>
+      <BodyText bodyTextAlign='center'>
         Read our server rules <Link href='/about/rules'>here</Link>.
       </BodyText>
     </ContentBlock>

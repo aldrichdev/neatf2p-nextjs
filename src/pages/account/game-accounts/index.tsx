@@ -58,7 +58,7 @@ const GameAccountsPage = ({ user }: GameAccountsPageProps) => {
       ) : (
         <ContentBlock isWide>
           <PageHeading>Game Accounts</PageHeading>
-          <BodyText variant='body' bodyTextAlign='center'>
+          <BodyText bodyTextAlign='center'>
             Here, you can view your current game accounts, create new ones, rename them, and update passwords. All times
             shown are in your local timezone.
           </BodyText>
@@ -89,7 +89,7 @@ const GameAccountsPage = ({ user }: GameAccountsPageProps) => {
             showCharacterInfoModal={showCharacterInfoModal}
           />
           {creationsDisabled && (
-            <BodyText variant='body' bodyTextAlign='center'>
+            <BodyText bodyTextAlign='center'>
               Game account creations are temporarily disabled until further notice.
             </BodyText>
           )}

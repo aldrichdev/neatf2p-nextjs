@@ -63,7 +63,7 @@ const ForgotPasswordPage = ({ user }: ForgotPasswordPageProps) => {
       ) : (
         <ContentBlock>
           <PageHeading>Forgot Password</PageHeading>
-          <BodyText variant='body' bodyTextAlign='left'>
+          <BodyText bodyTextAlign='left'>
             Forgotten your password? Enter your email below and we will send you a password reset link. If you have
             forgotten your email as well, please contact an administrator in{' '}
             <DiscordLink>Neat F2P&apos;s Discord server</DiscordLink>
@@ -75,7 +75,7 @@ const ForgotPasswordPage = ({ user }: ForgotPasswordPageProps) => {
               Submit
             </FormButton>
           </Form>
-          <BodyText variant='body' topMargin={40} bodyTextAlign='left'>
+          <BodyText topMargin={40} bodyTextAlign='left'>
             <span>Or, if you remember it,</span>
             <InlineLink href='/account/login'>try logging in now.</InlineLink>
           </BodyText>

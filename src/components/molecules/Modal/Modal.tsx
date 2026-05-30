@@ -1,19 +1,10 @@
 import { BodyText } from '@atoms/BodyText'
-import {
-  CloseBar,
-  CloseButton,
-  CloseIcon,
-  ModalHeader,
-  ModalOverlay,
-  ModalRoot,
-  ScrollableContainer,
-  ScrollableBody,
-} from './Modal.styled'
 import { Form } from '@atoms/Form'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { FormButtonGroup } from '@atoms/FormButtonGroup/FormButtonGroup'
 import { ModalProps } from './Modal.types'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@ui/dialog'
 
 const Modal = (props: ModalProps) => {
   const {
@@ -29,25 +20,20 @@ const Modal = (props: ModalProps) => {
     bodyScrollable,
   } = props
 
-  if (!open) return null
-
   return (
-    <ModalOverlay>
-      <ModalRoot>
-        <CloseBar>
-          <ModalHeader variant='h3'>{heading}</ModalHeader>
-          <CloseButton onClick={handleClose}>
-            <CloseIcon src='/img/close-icon.webp' alt='' />
-          </CloseButton>
-        </CloseBar>
+    <Dialog open={open} onOpenChange={isOpen => !isOpen && handleClose()}>
+      <DialogContent aria-describedby={undefined}>
+        <DialogHeader>
+          <DialogTitle className='md:text-[32px]'>{heading}</DialogTitle>
+        </DialogHeader>
         {bodyScrollable ? (
-          <ScrollableContainer>
-            <ScrollableBody variant='body' component='span' bodyTextAlign='left'>
+          <div className='relative h-100'>
+            <BodyText bodyTextAlign='left' mobileTextAlign='left' topMargin={0} className='h-full overflow-y-scroll'>
               {body}
-            </ScrollableBody>
-          </ScrollableContainer>
+            </BodyText>
+          </div>
         ) : (
-          <BodyText variant='body' component='span' bodyTextAlign='left'>
+          <BodyText bodyTextAlign='left' topMargin={0}>
             {body}
           </BodyText>
         )}
@@ -66,14 +52,14 @@ const Modal = (props: ModalProps) => {
               </FormButtonGroup>
             </Form>
             {formSuccessMessage && (
-              <BodyText variant='body' bodyTextAlign='left' color='green'>
+              <BodyText bodyTextAlign='left' topMargin={0} className='text-green-600'>
                 {formSuccessMessage}
               </BodyText>
             )}
           </>
         )}
-      </ModalRoot>
-    </ModalOverlay>
+      </DialogContent>
+    </Dialog>
   )
 }
 

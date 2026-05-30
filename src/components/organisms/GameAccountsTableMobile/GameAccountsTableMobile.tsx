@@ -53,9 +53,7 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
       </MobileSpinner>
     )
   } else if (accounts && accounts.length < 1) {
-    return (
-      <MobileBodyText variant='body'>You don&apos;t have any accounts right now. Why not create one?</MobileBodyText>
-    )
+    return <MobileBodyText>You don&apos;t have any accounts right now. Why not create one?</MobileBodyText>
   }
 
   return (

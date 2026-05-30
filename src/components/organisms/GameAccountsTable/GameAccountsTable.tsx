@@ -41,7 +41,7 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
     return null
   } else if (accounts && accounts.length < 1) {
     return (
-      <TabletDesktopBodyText variant='body' bodyTextAlign='center'>
+      <TabletDesktopBodyText bodyTextAlign='center'>
         You don&apos;t have any accounts right now. Why not create one?
       </TabletDesktopBodyText>
     )

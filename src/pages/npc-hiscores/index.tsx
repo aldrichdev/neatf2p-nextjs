@@ -1,4 +1,3 @@
-import { ContentBlock } from '@atoms/ContentBlock'
 import { useState } from 'react'
 import { NpcHiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { useRouter } from 'next/router'
@@ -21,8 +20,8 @@ import { HiscoresTabs } from '@models/HiscoresTabs'
 import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
 import { GetServerSideProps } from 'next'
 import { getWebsiteBaseUrl } from '@utils/envUtils'
-import { DEFAULT_NPC_ID } from 'src/consts'
-import { HiscoresColumnTwo, HiscoresPageContainer, HiscoresPageHeading } from '@styledPages/hiscores.styled'
+import { DEFAULT_NPC_ID } from '../../consts/hiscores'
+import clsx from 'clsx'
 
 type NpcHiscoresPageProps = {
   hiscores: NpcHiscoreDataRow[]
@@ -51,15 +50,25 @@ const NpcHiscores = ({ hiscores, npcHiscoreType, npcSubTypes }: NpcHiscoresPageP
   return (
     <>
       {renderHead(pageTitle, `Who's killed the most ${npcName}s?`)}
-      <ContentBlock customWidth={900}>
+      <div className='mx-auto max-w-225 text-center'>
         <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[1]} setActiveTab={tab => handleSetActiveTab(tab)} />
-        <HiscoresPageContainer>
+        <div
+          className={clsx(
+            'flex flex-wrap justify-between gap-4',
+            'md:mt-4 md:grid md:h-250 md:grid-cols-[160px_1fr_200px]',
+            'lg:flex-nowrap',
+          )}
+        >
           <NpcHiscoresMenu activeNpcHiscoreType={npcHiscoreType} buttonOnClick={handleMenuItemClick} />
-          <HiscoresColumnTwo>
-            <HiscoresPageHeading variant='h2' sx={{ marginBottom: 2 }}>
+          <div className='w-full'>
+            <h2
+              className={clsx(
+                'text-text-primary mb-4 text-left text-[22px] leading-7 font-bold',
+                'md:mb-3 md:text-[28px] md:leading-9',
+              )}
+            >
               {pageTitle}
-            </HiscoresPageHeading>
-
+            </h2>
             <NpcKillsLevelMenu
               npcHiscoreType={npcHiscoreType}
               npcSubTypes={npcSubTypes.length > 0 ? npcSubTypes : [npcHiscoreType]}
@@ -71,10 +80,10 @@ const NpcHiscores = ({ hiscores, npcHiscoreType, npcSubTypes }: NpcHiscoresPageP
               page={hiscoresPage}
               setPage={setHiscoresPage}
             />
-          </HiscoresColumnTwo>
+          </div>
           <PlayerLookup isNpcHiscores />
-        </HiscoresPageContainer>
-      </ContentBlock>
+        </div>
+      </div>
     </>
   )
 }

@@ -28,7 +28,7 @@ const CreateGameAccountSuccessPage = ({ user }: CreateGameAccountSuccessPageProp
       ) : (
         <ContentBlock>
           <PageHeading>Success</PageHeading>
-          <BodyText variant='body' bodyTextAlign='center'>
+          <BodyText bodyTextAlign='center'>
             {!accountName || accountName.length < 1 ? (
               <span>Your game account has been created. You can now log in.</span>
             ) : (
@@ -37,7 +37,7 @@ const CreateGameAccountSuccessPage = ({ user }: CreateGameAccountSuccessPageProp
               </span>
             )}
           </BodyText>
-          <BodyText variant='body' bodyTextAlign='center'>
+          <BodyText bodyTextAlign='center'>
             You may return to the
             <InlineLink href='/account/game-accounts'>game accounts page</InlineLink>.
           </BodyText>

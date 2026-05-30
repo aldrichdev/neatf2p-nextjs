@@ -1,6 +1,5 @@
-import { BackToLink } from '@atoms/BackToLink/BackToLink'
+import { BackToLink } from '@molecules/BackToLink'
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
 import { PlayerHiscoreTable } from '@organisms/PlayerHiscoreTable'
 import { NpcHiscoreType, NpcHiscoreTypes } from '@globalTypes/Hiscores/HiscoreType'
 import {
@@ -13,14 +12,12 @@ import { renderHead } from '@utils/renderUtils'
 import { useEffect, useState } from 'react'
 import { PlayerNpcHiscoreRow } from '@globalTypes/Hiscores/PlayerNpcHiscoreRow'
 import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
-import { HiscoreTableHeaderCell } from '@molecules/HiscoresTable/HiscoresTable.styled'
 import { PageTabs } from '@atoms/PageTabs'
 import { redirectTo } from '@utils/window'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
 import { HiscoresTabs } from '@models/HiscoresTabs'
 import { GetServerSideProps } from 'next'
 import { getWebsiteBaseUrl } from '@utils/envUtils'
-import { HiscoreTabsContainer } from '@styledPages/hiscores.styled'
 import { PlayerHiscoreHeader } from '@molecules/PlayerHiscoreHeader'
 import { StatisticCardProps } from '@atoms/StatisticCard/StatisticCard.types'
 import { formatExp } from '@utils/string/stringUtils'
@@ -28,6 +25,7 @@ import { NpcPlayerHiscoreFilterBar } from '@atoms/NpcPlayerHiscoreFilterBar'
 import { NpcPlayerHiscoreFilter } from '@atoms/NpcPlayerHiscoreFilterBar/NpcPlayerHiscoreFilterBar.types'
 import { SectionDivider } from '@atoms/SectionDivider'
 import { NpcPlayerHiscoreRows } from '@atoms/NpcPlayerHiscoreRows'
+import { hiscoresHeaderCellClass } from '../../../consts/styles/hiscores'
 
 type PlayerNpcHiscorePageProps = {
   accountName: string
@@ -129,11 +127,11 @@ const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores, lastLoginMillis }: 
   const highestRank = highestRankedNpcHiscore?.rank || 0
   const highestRankNpc = highestRankedNpcHiscore?.npcName || ''
   const rankedNpcCount = rankedNpcHiscores?.length || 0
-  const searchedRankedNpcHiscores = rankedNpcHiscores?.filter(
-    hiscore => hiscore.npcName?.toLowerCase().includes(search.toLowerCase()),
+  const searchedRankedNpcHiscores = rankedNpcHiscores?.filter(hiscore =>
+    hiscore.npcName?.toLowerCase().includes(search.toLowerCase()),
   )
-  const searchedNpcHiscoresWithZeroKills = npcHiscoresWithZeroKills?.filter(
-    hiscore => hiscore.npcName?.toLowerCase().includes(search.toLowerCase()),
+  const searchedNpcHiscoresWithZeroKills = npcHiscoresWithZeroKills?.filter(hiscore =>
+    hiscore.npcName?.toLowerCase().includes(search.toLowerCase()),
   )
 
   const rankedTableRows =
@@ -163,14 +161,12 @@ const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores, lastLoginMillis }: 
   return (
     <>
       {renderHead(`${accountName} | NPC Hiscores`, `NPC kill rankings for ${accountName}.`)}
-      <ContentBlock>
-        <HiscoreTabsContainer>
+      <div className='mx-auto max-w-200 text-center'>
+        <div className='mb-4'>
           <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[1]} setActiveTab={tab => handleSetActiveTab(tab)} />
-        </HiscoreTabsContainer>
+        </div>
         {typeof accountName !== 'string' || !allNpcHiscores?.find(isMatchingUser) ? (
-          <BodyText variant='body' bodyTextAlign='center'>
-            No hiscore found for this player.
-          </BodyText>
+          <BodyText bodyTextAlign='center'>No hiscore found for this player.</BodyText>
         ) : (
           <>
             <PlayerHiscoreHeader
@@ -195,16 +191,15 @@ const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores, lastLoginMillis }: 
                   accountName={accountName}
                   columns={
                     <>
-                      <HiscoreTableHeaderCell>NPC</HiscoreTableHeaderCell>
-                      <HiscoreTableHeaderCell>Rank</HiscoreTableHeaderCell>
-                      <HiscoreTableHeaderCell>Kills</HiscoreTableHeaderCell>
+                      <th className={hiscoresHeaderCellClass}>NPC</th>
+                      <th className={hiscoresHeaderCellClass}>Rank</th>
+                      <th className={hiscoresHeaderCellClass}>Kills</th>
                     </>
                   }
                   body={<NpcPlayerHiscoreRows playerNpcHiscoreRows={rankedTableRows} />}
                 />
               </>
             )}
-
             {searchedNpcHiscoresWithZeroKills &&
               searchedNpcHiscoresWithZeroKills.length > 0 &&
               activeFilter === 'All' && (
@@ -216,9 +211,9 @@ const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores, lastLoginMillis }: 
                     accountName={accountName}
                     columns={
                       <>
-                        <HiscoreTableHeaderCell>NPC</HiscoreTableHeaderCell>
-                        <HiscoreTableHeaderCell>Rank</HiscoreTableHeaderCell>
-                        <HiscoreTableHeaderCell>Kills</HiscoreTableHeaderCell>
+                        <th className={hiscoresHeaderCellClass}>NPC</th>
+                        <th className={hiscoresHeaderCellClass}>Rank</th>
+                        <th className={hiscoresHeaderCellClass}>Kills</th>
                       </>
                     }
                     body={<NpcPlayerHiscoreRows playerNpcHiscoreRows={searchedNpcHiscoresWithZeroKills} />}
@@ -228,7 +223,7 @@ const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores, lastLoginMillis }: 
           </>
         )}
         <BackToLink href='/npc-hiscores'>← Return to Hiscores</BackToLink>
-      </ContentBlock>
+      </div>
     </>
   )
 }

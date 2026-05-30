@@ -2,16 +2,6 @@ import { styled } from '@mui/material/styles'
 import { css } from '@mui/system'
 import Link from 'next/link'
 
-export const CalloutLink = styled(Link)(
-  ({ theme }) => css`
-    color: ${theme.palette.custom.calloutWarningText};
-
-    &:hover {
-      color: #5c2a00;
-    }
-  `,
-)
-
 export const PlayOptionsGrid = styled('div')(
   ({ theme }) => css`
     display: grid;
