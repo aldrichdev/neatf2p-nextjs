@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles'
 
-// TODO: Replace this with plain divs and tailwind classes.
+// TODO: Deprecated, do not modify. Replace with plain divs and tailwind classes (e.g. mx-auto max-w-200 text-center).
 // Use `gap-x` on parent elements to achieve space between elems.
 export const ContentBlock = styled('div', {
   shouldForwardProp: prop => !['isWide', 'customWidth', 'topMargin', 'textColor'].includes(prop.toString()),

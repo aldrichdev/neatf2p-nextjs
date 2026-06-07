@@ -25,7 +25,7 @@ import { NpcPlayerHiscoreFilterBar } from '@atoms/NpcPlayerHiscoreFilterBar'
 import { NpcPlayerHiscoreFilter } from '@atoms/NpcPlayerHiscoreFilterBar/NpcPlayerHiscoreFilterBar.types'
 import { SectionDivider } from '@atoms/SectionDivider'
 import { NpcPlayerHiscoreRows } from '@atoms/NpcPlayerHiscoreRows'
-import { hiscoresHeaderCellClass } from '../../../consts/styles/hiscores'
+import { hiscoresStyles } from '../../../consts/styles/hiscores'
 
 type PlayerNpcHiscorePageProps = {
   accountName: string
@@ -191,9 +191,9 @@ const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores, lastLoginMillis }: 
                   accountName={accountName}
                   columns={
                     <>
-                      <th className={hiscoresHeaderCellClass}>NPC</th>
-                      <th className={hiscoresHeaderCellClass}>Rank</th>
-                      <th className={hiscoresHeaderCellClass}>Kills</th>
+                      <th className={hiscoresStyles.hiscoresHeaderCellClass}>NPC</th>
+                      <th className={hiscoresStyles.hiscoresHeaderCellClass}>Rank</th>
+                      <th className={hiscoresStyles.hiscoresHeaderCellClass}>Kills</th>
                     </>
                   }
                   body={<NpcPlayerHiscoreRows playerNpcHiscoreRows={rankedTableRows} />}
@@ -211,9 +211,9 @@ const PlayerNpcHiscorePage = ({ accountName, allNpcHiscores, lastLoginMillis }: 
                     accountName={accountName}
                     columns={
                       <>
-                        <th className={hiscoresHeaderCellClass}>NPC</th>
-                        <th className={hiscoresHeaderCellClass}>Rank</th>
-                        <th className={hiscoresHeaderCellClass}>Kills</th>
+                        <th className={hiscoresStyles.hiscoresHeaderCellClass}>NPC</th>
+                        <th className={hiscoresStyles.hiscoresHeaderCellClass}>Rank</th>
+                        <th className={hiscoresStyles.hiscoresHeaderCellClass}>Kills</th>
                       </>
                     }
                     body={<NpcPlayerHiscoreRows playerNpcHiscoreRows={searchedNpcHiscoresWithZeroKills} />}

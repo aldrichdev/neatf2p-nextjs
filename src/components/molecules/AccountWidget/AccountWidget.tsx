@@ -26,7 +26,7 @@ const AccountWidget = (props: AccountWidgetProps) => {
   return (
     <div
       className={clsx(
-        'flex items-center gap-2.5 font-sans',
+        'flex items-center gap-2.5 font-sans font-normal',
         'absolute top-2.5 right-2.5',
         'text-foreground rounded-lg bg-white p-2.5',
         'md:top-5 md:right-5',

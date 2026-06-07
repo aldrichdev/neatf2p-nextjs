@@ -23,9 +23,9 @@ const OnlinePlayers = () => {
   if (!playerCount) return null
 
   return (
-    <div className='flex justify-center animate-[fadeUp_0.5s_ease-out_forwards] transition-colors'>
-      <p className='text-md text-center font-mono mt-5 md:m-0'>
-        There {verb} currently <span className='font-semibold text-primary-main'>{playerCount}</span> player
+    <div className='flex animate-[fadeUp_0.5s_ease-out_forwards] justify-center transition-colors'>
+      <p className='mt-5 text-center text-xl tracking-[1px] md:m-0'>
+        There {verb} currently <span className='text-primary-main font-semibold'>{playerCount}</span> player
         {playerCount > 1 ? 's' : ''} online.
       </p>
     </div>

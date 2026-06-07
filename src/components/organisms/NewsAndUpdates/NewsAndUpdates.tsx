@@ -41,7 +41,7 @@ const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
   return (
     <div className='w-full'>
       <PageHeading>{heading}</PageHeading>
-      <ul className='flex flex-col justify-center gap-5 p-0! mt-10'>
+      <ul className='mt-10 flex flex-col justify-center gap-8 p-0!'>
         {newsPosts.map((newsPost: NewsPost) => (
           <NewsPostListItem key={newsPost.id} newsPost={newsPost} />
         ))}

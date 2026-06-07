@@ -5,7 +5,7 @@ import { PlayerHiscoresRank } from '@atoms/PlayerHiscoresRank'
 import { formatExp } from '@utils/string/stringUtils'
 import { convertExp } from '@utils/hiscores/hiscoresUtils'
 import clsx from 'clsx'
-import { hiscoresValueCellClass } from '../../../consts/styles/hiscores'
+import { hiscoresStyles } from '../../../consts/styles/hiscores'
 
 /** A component representing a single row in the player hiscore table. */
 const PlayerHiscoreTableRow = (props: PlayerHiscoreTableRowProps) => {
@@ -30,10 +30,10 @@ const PlayerHiscoreTableRow = (props: PlayerHiscoreTableRowProps) => {
         <HiscoreSkillEmoji skill={skill} />
         {skill}
       </td>
-      <td className={clsx(hiscoresValueCellClass, 'flex items-center gap-2.5')}>
+      <td className={clsx(hiscoresStyles.hiscoresValueCellClass, 'flex items-center gap-2.5')}>
         <PlayerHiscoresRank rank={rank} />
       </td>
-      <td className={clsx(hiscoresValueCellClass, 'flex items-center gap-2.5 font-medium')}>
+      <td className={clsx(hiscoresStyles.hiscoresValueCellClass, 'flex items-center gap-2.5 font-medium')}>
         <span>{level}</span>
         <div
           className={clsx(
@@ -47,8 +47,8 @@ const PlayerHiscoreTableRow = (props: PlayerHiscoreTableRowProps) => {
           />
         </div>
       </td>
-      <td className={clsx(hiscoresValueCellClass, 'hidden md:table-cell md:min-w-25')}>{readableExp}</td>
-      <td className={clsx(hiscoresValueCellClass, 'md:hidden')}>{formatExp(readableExp)}</td>
+      <td className={clsx(hiscoresStyles.hiscoresValueCellClass, 'hidden md:table-cell md:min-w-25')}>{readableExp}</td>
+      <td className={clsx(hiscoresStyles.hiscoresValueCellClass, 'md:hidden')}>{formatExp(readableExp)}</td>
     </tr>
   )
 }

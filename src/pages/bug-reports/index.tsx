@@ -29,7 +29,7 @@ const BugReportsPage = ({ user }: BugReportsPageProps) => {
   const [bugType, setBugType] = useState<BugType>('Game')
   const [buttonDisabled, setButtonDisabled] = useState(false)
   const [validationMessage, setValidationMessage] = useState<ReactNode>(<></>)
-  const [validationMessageColor, setValidationMessageColor] = useState('')
+  const [validationMessageColor, setValidationMessageColor] = useState<'green' | 'red'>('red')
 
   const handleBugTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setBugTitle(event.target.value)
@@ -102,7 +102,7 @@ const BugReportsPage = ({ user }: BugReportsPageProps) => {
           <BodyText>
             Use the below form to submit a bug. Don&apos;t abuse this form, it could get you in trouble.
           </BodyText>
-          <Form onSubmit={handleBugCreation} desktopWidth='100%'>
+          <Form onSubmit={handleBugCreation} desktopFullWidth>
             <Field
               required
               id='title'

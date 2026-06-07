@@ -8,7 +8,7 @@ import { StandardLink } from '@atoms/StandardLink'
 import { Button } from '@ui/button'
 
 const Homepage = () => (
-  <div className='flex flex-col flex-wrap justify-center items-center gap-10 mb-5 mx-auto w-full md:w-300'>
+  <div className='mx-auto mb-5 flex w-full flex-col flex-wrap items-center justify-center gap-10 md:w-300'>
     {renderHead('Home')}
     <OnlinePlayers />
     <PageHeading>Welcome back to 2003</PageHeading>
@@ -23,7 +23,7 @@ const Homepage = () => (
     <img
       src='/img/banners/HomepageBanner.png'
       alt='Relive It All'
-      className='hidden mx-auto md:block md:w-[90%] lg:w-300'
+      className='mx-auto hidden md:block md:w-[90%] lg:w-300'
     />
     <NewsAndUpdates heading='Latest News & Updates' limit={3} />
     <PageHeading>Join the Community</PageHeading>

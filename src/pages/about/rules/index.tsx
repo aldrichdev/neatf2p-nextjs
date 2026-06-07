@@ -70,9 +70,7 @@ const RulesPage = () => (
           a new Discord thread in ⁠marketplace to post an offer.
         </RuleListItem>
       </ol>
-      <Callout>
-        <strong>In general, use common sense and don&apos;t be a douche!</strong>
-      </Callout>
+      <Callout>In general, use common sense and don&apos;t be a douche!</Callout>
     </ContentBlock>
   </>
 )

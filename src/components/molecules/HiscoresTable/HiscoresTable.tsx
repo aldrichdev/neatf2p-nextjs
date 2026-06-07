@@ -8,17 +8,7 @@ import { GoldBadge, SilverBadge, BronzeBadge, RankBadge, TopBadge } from './Badg
 import { formatExp } from '@utils/string/stringUtils'
 import { HiscoresTableRowsSkeleton } from '@atoms/HiscoresTableRowsSkeleton'
 import clsx from 'clsx'
-import {
-  hiscoresDesktopCellClass,
-  hiscoresHeaderCellClass,
-  hiscoresListingTableRowClass,
-  hiscoresMobileCellClass,
-  hiscoresTableClass,
-  hiscoresTableOuterContainerClass,
-  hiscoresTableRootContainerClass,
-  hiscoresTheadClass,
-  hiscoresValueCellClass,
-} from '../../../consts/styles/hiscores'
+import { hiscoresStyles } from '../../../consts/styles/hiscores'
 
 type HiscoresTableProps = {
   hiscores: PlayerHiscoreDataRow[] | undefined
@@ -62,15 +52,15 @@ const HiscoresTable = (props: HiscoresTableProps) => {
   }
 
   return (
-    <div className={hiscoresTableRootContainerClass}>
-      <div className={hiscoresTableOuterContainerClass}>
-        <table aria-label={`${hiscoreType} Hiscores Table`} className={hiscoresTableClass}>
-          <thead className={hiscoresTheadClass}>
+    <div className={hiscoresStyles.hiscoresTableRootContainerClass}>
+      <div className={hiscoresStyles.hiscoresTableOuterContainerClass}>
+        <table aria-label={`${hiscoreType} Hiscores Table`} className={hiscoresStyles.hiscoresTableClass}>
+          <thead className={hiscoresStyles.hiscoresTheadClass}>
             <tr className='border-b-0'>
-              <th className={hiscoresHeaderCellClass}>Rank</th>
-              <th className={hiscoresHeaderCellClass}>Name</th>
-              <th className={hiscoresHeaderCellClass}>Level</th>
-              <th className={hiscoresHeaderCellClass}>EXP</th>
+              <th className={hiscoresStyles.hiscoresHeaderCellClass}>Rank</th>
+              <th className={hiscoresStyles.hiscoresHeaderCellClass}>Name</th>
+              <th className={hiscoresStyles.hiscoresHeaderCellClass}>Level</th>
+              <th className={hiscoresStyles.hiscoresHeaderCellClass}>EXP</th>
             </tr>
           </thead>
           <tbody>
@@ -81,8 +71,8 @@ const HiscoresTable = (props: HiscoresTableProps) => {
                 const rank = getRank(hiscoreRow)
 
                 return (
-                  <tr key={hiscoreRow.username} className={hiscoresListingTableRowClass}>
-                    <td className={hiscoresValueCellClass}>
+                  <tr key={hiscoreRow.username} className={hiscoresStyles.hiscoresListingTableRowClass}>
+                    <td className={hiscoresStyles.hiscoresValueCellClass}>
                       {rank === 1 ? (
                         <GoldBadge>1</GoldBadge>
                       ) : rank === 2 ? (
@@ -93,15 +83,19 @@ const HiscoresTable = (props: HiscoresTableProps) => {
                         <RankBadge>{rank}</RankBadge>
                       )}
                     </td>
-                    <td className={clsx(hiscoresValueCellClass, 'flex items-center gap-3')}>
+                    <td className={clsx(hiscoresStyles.hiscoresValueCellClass, 'flex items-center gap-3')}>
                       <HoverUnderlineLink href={`/hiscores/player/${hiscoreRow.username}`} className='font-medium'>
                         {hiscoreRow.username}
                       </HoverUnderlineLink>
                       {rank === 1 ? <TopBadge>top</TopBadge> : null}
                     </td>
-                    <td className={hiscoresValueCellClass}>{getHiscoreValue(hiscoreRow)}</td>
-                    <td className={hiscoresDesktopCellClass}>{convertExp(getHiscoreSkillXP(hiscoreRow))}</td>
-                    <td className={hiscoresMobileCellClass}>{formatExp(convertExp(getHiscoreSkillXP(hiscoreRow)))}</td>
+                    <td className={hiscoresStyles.hiscoresValueCellClass}>{getHiscoreValue(hiscoreRow)}</td>
+                    <td className={hiscoresStyles.hiscoresDesktopCellClass}>
+                      {convertExp(getHiscoreSkillXP(hiscoreRow))}
+                    </td>
+                    <td className={hiscoresStyles.hiscoresMobileCellClass}>
+                      {formatExp(convertExp(getHiscoreSkillXP(hiscoreRow)))}
+                    </td>
                   </tr>
                 )
               })

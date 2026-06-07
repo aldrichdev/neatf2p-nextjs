@@ -14,7 +14,7 @@ import { PlayerHiscoreHeader } from '@molecules/PlayerHiscoreHeader'
 import { StatisticCardProps } from '@atoms/StatisticCard/StatisticCard.types'
 import { PlayerHiscoreTableRow } from '@atoms/PlayerHiscoreTableRow'
 import { convertExp } from '@utils/hiscores/hiscoresUtils'
-import { hiscoresHeaderCellClass } from '../../../consts/styles/hiscores'
+import { hiscoresStyles } from '../../../consts/styles/hiscores'
 import { BackToLink } from '@molecules/BackToLink'
 
 type PlayerHiscorePageProps = {
@@ -76,10 +76,10 @@ const PlayerHiscorePage = ({ accountName, playerHiscore }: PlayerHiscorePageProp
               accountName={accountName}
               columns={
                 <>
-                  <th className={hiscoresHeaderCellClass}>Skill</th>
-                  <th className={hiscoresHeaderCellClass}>Rank</th>
-                  <th className={hiscoresHeaderCellClass}>Level</th>
-                  <th className={hiscoresHeaderCellClass}>EXP</th>
+                  <th className={hiscoresStyles.hiscoresHeaderCellClass}>Skill</th>
+                  <th className={hiscoresStyles.hiscoresHeaderCellClass}>Rank</th>
+                  <th className={hiscoresStyles.hiscoresHeaderCellClass}>Level</th>
+                  <th className={hiscoresStyles.hiscoresHeaderCellClass}>EXP</th>
                 </>
               }
               body={

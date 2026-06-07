@@ -2,7 +2,6 @@ import { BodyText } from '@atoms/BodyText'
 import { Form } from '@atoms/Form'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
-import { FormButtonGroup } from '@atoms/FormButtonGroup/FormButtonGroup'
 import { ModalProps } from './Modal.types'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@ui/dialog'
 
@@ -41,15 +40,15 @@ const Modal = (props: ModalProps) => {
           <>
             <Form onSubmit={handleSubmit}>
               {renderFields()}
-              <FieldValidationMessage>{formValidationError}</FieldValidationMessage>
-              <FormButtonGroup>
+              {formValidationError && <FieldValidationMessage>{formValidationError}</FieldValidationMessage>}
+              <div className='flex w-full justify-between gap-5 md:w-auto md:justify-start'>
                 <FormButton variant='contained' type='submit'>
                   Submit
                 </FormButton>
                 <FormButton variant='outlined' type='button' onClick={handleClose}>
                   Cancel
                 </FormButton>
-              </FormButtonGroup>
+              </div>
             </Form>
             {formSuccessMessage && (
               <BodyText bodyTextAlign='left' topMargin={0} className='text-green-600'>

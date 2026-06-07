@@ -55,7 +55,7 @@ const NpcHiscores = ({ hiscores, npcHiscoreType, npcSubTypes }: NpcHiscoresPageP
         <div
           className={clsx(
             'flex flex-wrap justify-between gap-4',
-            'md:mt-4 md:grid md:h-250 md:grid-cols-[160px_1fr_200px]',
+            'md:mt-4 md:grid md:grid-cols-[160px_1fr_200px]',
             'lg:flex-nowrap',
           )}
         >

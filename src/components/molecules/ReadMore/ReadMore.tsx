@@ -11,7 +11,7 @@ const ReadMore = (props: ReadMoreProps) => {
   const { linkHref, children } = props
 
   return (
-    <span>
+    <span className='news-post-detail-body'>
       {children.length > 300 ? (
         <>
           {parse(`${children.slice(0, 300)}...`)}

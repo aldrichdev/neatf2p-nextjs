@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import clsx from 'clsx'
-import { hiscoresTableClass, hiscoresTheadClass } from '../../../consts/styles/hiscores'
+import { hiscoresStyles } from '../../../consts/styles/hiscores'
 
 type HiscoreTableProps = {
   accountName: string
@@ -21,8 +21,8 @@ const PlayerHiscoreTable = (props: HiscoreTableProps) => {
 
   return (
     <div className='overflow-hidden rounded-t-lg shadow-none'>
-      <table aria-label={`${accountName} Hiscore Table`} className={hiscoresTableClass}>
-        <thead className={hiscoresTheadClass}>
+      <table aria-label={`${accountName} Hiscore Table`} className={hiscoresStyles.hiscoresTableClass}>
+        <thead className={hiscoresStyles.hiscoresTheadClass}>
           <tr
             className={clsx(
               isNpcTable ? 'grid-cols-[50%_20%_30%]' : 'grid-cols-[30%_20%_20%_30%]',

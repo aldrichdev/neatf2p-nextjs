@@ -2,7 +2,7 @@ import { styled } from '@mui/material/styles'
 import Link from 'next/link'
 import { css } from '@mui/system'
 
-/** TODO: Deprecated, probably, in favor of `StandardLink`. */
+/** TODO: Deprecated, in favor of `StandardLink`. */
 export const InlineLink = styled(Link, {
   shouldForwardProp: prop => prop !== 'useHoverUnderline',
 })<{ useHoverUnderline?: boolean }>(

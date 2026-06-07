@@ -1,15 +1,14 @@
-import { styled } from '@mui/material/styles'
-import { css } from '@mui/system'
+import { cn } from '@utils/cn'
+import { ReactNode } from 'react'
+
+interface FieldValidationMessageProps {
+  children: ReactNode
+  color?: 'green' | 'red'
+}
 
 /** This component is intended to show a single error message. Usually it is placed just above a submit button. */
-export const FieldValidationMessage = styled('span', {
-  shouldForwardProp: prop => prop !== 'color',
-})<{ color?: string }>(
-  ({ color }) => css`
-    color: ${color || 'red'};
-    font-size: 14px;
-    margin-top: 20px;
-    flex-basis: 100%;
-    text-align: left;
-  `,
+export const FieldValidationMessage = ({ children, color }: FieldValidationMessageProps) => (
+  <span className={cn('basis-full text-left text-sm text-red-600', color === 'green' ? 'text-green-600' : '')}>
+    {children}
+  </span>
 )

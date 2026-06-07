@@ -4,6 +4,7 @@ type TextAlign = 'left' | 'center' | 'right'
 
 type BodyTextProps = {
   children: React.ReactNode
+  /** DEPRECATED. Don't use `topMargin`, use e.g. mt-0, mt-5 TW class. (TODO: Remove once nothing is using it.) */
   topMargin?: number
   /** Alignment of text on desktop and tablet.
    *
@@ -22,17 +23,14 @@ const textAlignClass: Record<TextAlign, string> = {
   right: 'text-right',
 }
 
-export const BodyText = ({
-  children,
-  topMargin,
-  bodyTextAlign = 'left',
-  mobileTextAlign = 'center',
-  className,
-}: BodyTextProps) => (
-  <p
-    style={{ marginTop: topMargin !== undefined ? `${topMargin}px` : '20px' }}
-    className={clsx('block', textAlignClass[mobileTextAlign], `md:${textAlignClass[bodyTextAlign]}`, className)}
-  >
+const mdTextAlignClass: Record<TextAlign, string> = {
+  left: 'md:text-left',
+  center: 'md:text-center',
+  right: 'md:text-right',
+}
+
+export const BodyText = ({ children, bodyTextAlign = 'left', mobileTextAlign = 'left', className }: BodyTextProps) => (
+  <p className={clsx('block', textAlignClass[mobileTextAlign], mdTextAlignClass[bodyTextAlign], className)}>
     {children}
   </p>
 )

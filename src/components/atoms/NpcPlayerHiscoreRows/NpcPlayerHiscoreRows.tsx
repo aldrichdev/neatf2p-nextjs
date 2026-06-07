@@ -4,7 +4,7 @@ import { getNpcNameByIdForMenuKey } from '@utils/hiscores/hiscoresUtils'
 import { useRouter } from 'next/router'
 import { NpcPlayerHiscoreRowsProps } from './NpcPlayerHiscoreRows.types'
 import clsx from 'clsx'
-import { hiscoresValueCellClass } from '../../../consts/styles/hiscores'
+import { hiscoresStyles } from '../../../consts/styles/hiscores'
 
 /** A component encapsulating the rows that appear in the NPC player hiscores tables. */
 const NpcPlayerHiscoreRows = (props: NpcPlayerHiscoreRowsProps) => {
@@ -30,13 +30,13 @@ const NpcPlayerHiscoreRows = (props: NpcPlayerHiscoreRowsProps) => {
             'md:text-[16px]',
           )}
         >
-          <td className={clsx(hiscoresValueCellClass, 'font-medium')}>
+          <td className={clsx(hiscoresStyles.hiscoresValueCellClass, 'font-medium')}>
             {getNpcNameByIdForMenuKey(playerNpcHiscoreRow.npcId)}
           </td>
-          <td className={hiscoresValueCellClass}>
+          <td className={hiscoresStyles.hiscoresValueCellClass}>
             <PlayerHiscoresRank rank={playerNpcHiscoreRow.rank} />
           </td>
-          <td className={hiscoresValueCellClass}>{playerNpcHiscoreRow.killCount.toLocaleString()}</td>
+          <td className={hiscoresStyles.hiscoresValueCellClass}>{playerNpcHiscoreRow.killCount.toLocaleString()}</td>
         </tr>
       ))}
     </>

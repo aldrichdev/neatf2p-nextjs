@@ -14,13 +14,13 @@ const NewsPostListItem = (props: NewsPostItemProps) => {
 
   return (
     <div>
-      <li className='flex items-start flex-wrap gap-4 p-0 mt-2.5 mx-0 mb-5 md:flex-nowrap'>
-        <Link href={newsPostUrl} className='w-full md:w-auto md:mr-5'>
-          <div className='flex justify-center mt-2 md:justify-start'>
+      <li className='mx-0 flex flex-wrap items-start gap-4 p-0 md:flex-nowrap'>
+        <Link href={newsPostUrl} className='w-full md:mr-5 md:w-auto'>
+          <div className='mt-2 flex justify-center md:justify-start'>
             <img
               src={newsPostImage}
               alt={newsPost.alt}
-              className={cn('w-[60%] md:w-21.25 max-w-none', isPlaceholder && 'rounded-[50%]')}
+              className={cn('w-[60%] max-w-none md:w-21.25', isPlaceholder && 'rounded-[50%]')}
             />
           </div>
         </Link>

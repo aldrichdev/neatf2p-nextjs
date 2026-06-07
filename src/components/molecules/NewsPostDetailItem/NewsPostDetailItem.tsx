@@ -10,10 +10,10 @@ const NewsPostDetailItem = (props: NewsPostItemProps) => {
   return (
     <div className='text-left'>
       <PageHeading>{newsPost.title}</PageHeading>
-      <img src={getNewsPostImageUrl(newsPost.image)} alt={newsPost.alt} className='mt-5 max-w-full md:max-w-[300px]' />
+      <img src={getNewsPostImageUrl(newsPost.image)} alt={newsPost.alt} className='mt-5 max-w-full md:max-w-75' />
       <p className='mt-2.5 text-base text-neutral-500'>{getPrettyDateStringFromISOString(newsPost.datePosted)}</p>
       <p className='text-base text-neutral-500'>Beast Fable</p>
-      <span className='block mt-5 break-words md:mt-10 news-post-detail-body'>{parse(newsPost.body)}</span>
+      <span className='news-post-detail-body mt-5 block wrap-break-word md:mt-10'>{parse(newsPost.body)}</span>
     </div>
   )
 }
