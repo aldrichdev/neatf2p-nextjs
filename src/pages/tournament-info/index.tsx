@@ -1,5 +1,5 @@
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { PageHeading } from '@atoms/PageHeading'
 import { renderHead } from '@utils/renderUtils'
 import { TournamentBanner } from '@styledPages/TournamentInfo.styled'
@@ -8,7 +8,7 @@ const TournamentInfo = () => {
   return (
     <>
       {renderHead('Tournament Information', 'Important information about how the Pure PK Tournaments work.')}
-      <ContentBlock>
+      <div className={sharedStyles.defaultContainer}>
         <PageHeading>Tournament Info</PageHeading>
         <TournamentBanner src='/img/banners/pk-tourney-banner.png' alt='Pure PK Tournament' />
         <BodyText mobileTextAlign='left'>
@@ -93,7 +93,7 @@ const TournamentInfo = () => {
           prize given out to the winner(s). The winner(s) will be given the <strong>Castle King</strong> Discord role as
           a reward, until the next tournament.
         </BodyText>
-      </ContentBlock>
+      </div>
     </>
   )
 }

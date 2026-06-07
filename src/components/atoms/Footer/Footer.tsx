@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { EasterEggObject } from './Footer.types'
 import clsx from 'clsx'
 import { StandardLink } from '@atoms/StandardLink'
+import { DiscordInviteLink } from '@consts/discord'
 
 const Footer = () => {
   const [showEasterEgg, setShowEasterEgg] = useState(false)
@@ -49,9 +50,9 @@ const Footer = () => {
           'md:mx-20 md:my-0 md:h-auto md:w-px md:transform-none',
         )}
       />
-      <ul className='m-0 list-none p-0!'>
+      <ul className='m-0 list-none p-0'>
         <li className={listItemClassName}>
-          <StandardLink href='https://discord.gg/wd67zUxPXn' target='_blank' hoverUnderline className='text-white'>
+          <StandardLink href={DiscordInviteLink} target='_blank' hoverUnderline className='text-white'>
             Discord
           </StandardLink>
         </li>

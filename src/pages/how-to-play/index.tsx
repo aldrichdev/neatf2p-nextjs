@@ -1,4 +1,4 @@
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { BodyText } from '@atoms/BodyText'
 import { PageHeading } from '@atoms/PageHeading'
 import {
@@ -16,7 +16,7 @@ import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 const HowToPlay = () => (
   <>
     {renderHead('How to Play', 'This page contains important information for how to play Neat F2P. Read it carefully.')}
-    <ContentBlock isWide>
+    <div className={sharedStyles.wideContainer}>
       <PageHeading>How To Play</PageHeading>
       <Callout>
         Please{' '}
@@ -38,7 +38,7 @@ const HowToPlay = () => (
         </Link>{' '}
         before continuing. Press one of the buttons below to continue.
       </BodyText>
-      <ContentBlock topMargin={40}>
+      <div className='mt-10'>
         <PlayOptionsGrid>
           <ClientButtonAndRemarks>
             <ClientButton href='/how-to-play/rscplus'>
@@ -77,8 +77,8 @@ const HowToPlay = () => (
             </ClientRemarks>
           </ClientButtonAndRemarks>
         </PlayOptionsGrid>
-      </ContentBlock>
-    </ContentBlock>
+      </div>
+    </div>
   </>
 )
 

@@ -1,4 +1,4 @@
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { BodyText } from '@atoms/BodyText'
 import { InlineLink } from '@atoms/InlineLink'
 import { PageHeading } from '@atoms/PageHeading'
@@ -16,13 +16,13 @@ type CreateAccountSuccessPageProps = {
 const CreateAccountSuccessPage = ({ user }: CreateAccountSuccessPageProps) => (
   <>
     {renderHead('Success')}
-    <ContentBlock>
+    <div className={sharedStyles.defaultContainer}>
       <PageHeading>Success</PageHeading>
       <BodyText bodyTextAlign='center'>
         Your account, <strong>{user?.username}</strong>, has been created! You can now view your
         <InlineLink href='/account'>Account page</InlineLink>.
       </BodyText>
-    </ContentBlock>
+    </div>
   </>
 )
 

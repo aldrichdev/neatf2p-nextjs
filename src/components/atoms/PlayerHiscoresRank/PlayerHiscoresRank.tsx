@@ -1,5 +1,4 @@
 import { PlayerHiscoresRankProps } from './PlayerHiscoresRank.types'
-import { NoRank, RankOne, StyledRank } from './PlayerHiscoresRank.styled'
 
 /** Renders a player's rank in the player hiscores. */
 const PlayerHiscoresRank = (props: PlayerHiscoresRankProps) => {
@@ -7,11 +6,15 @@ const PlayerHiscoresRank = (props: PlayerHiscoresRankProps) => {
 
   switch (rank) {
     case 0:
-      return <NoRank>{'--'}</NoRank>
+      return <span className='text-tertiary-text'>{'--'}</span>
     case 1:
-      return <RankOne title='#1'>👑</RankOne>
+      return (
+        <span className='text-[16px]' title='#1'>
+          👑
+        </span>
+      )
     default:
-      return <StyledRank rank={rank}>#{rank}</StyledRank>
+      return <span className='text-secondary-main text-[14px] font-semibold md:text-[16px]'>#{rank}</span>
   }
 }
 

@@ -1,5 +1,5 @@
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { Field } from '@atoms/Field'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { Form } from '@atoms/Form'
@@ -97,7 +97,7 @@ const BugReportsPage = ({ user }: BugReportsPageProps) => {
       {!UserIsLoggedIn(user) ? (
         <NotLoggedIn />
       ) : (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Report a Bug</PageHeading>
           <BodyText>
             Use the below form to submit a bug. Don&apos;t abuse this form, it could get you in trouble.
@@ -143,7 +143,7 @@ const BugReportsPage = ({ user }: BugReportsPageProps) => {
             </FormButton>
             <FieldValidationMessage color={validationMessageColor}>{validationMessage}</FieldValidationMessage>
           </Form>
-        </ContentBlock>
+        </div>
       )}
     </>
   )

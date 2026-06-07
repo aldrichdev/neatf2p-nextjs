@@ -1,5 +1,4 @@
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
 import { Field } from '@atoms/Field'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { PageHeading } from '@atoms/PageHeading'
@@ -16,6 +15,7 @@ import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
+import { sharedStyles } from '../../../consts/styles/shared'
 
 type ChangePasswordPageProps = {
   user: User
@@ -75,7 +75,7 @@ const ChangePasswordPage = ({ user }: ChangePasswordPageProps) => {
   return (
     <>
       {renderHead('Change Password')}
-      <ContentBlock>
+      <div className={sharedStyles.defaultContainer}>
         <PageHeading>Change Password</PageHeading>
         <BodyText>Please enter your new password below.</BodyText>
         <Form onSubmit={handleSubmit}>
@@ -100,7 +100,7 @@ const ChangePasswordPage = ({ user }: ChangePasswordPageProps) => {
             Submit
           </FormButton>
         </Form>
-      </ContentBlock>
+      </div>
     </>
   )
 }

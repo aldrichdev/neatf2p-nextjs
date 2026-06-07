@@ -1,16 +1,16 @@
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
 import { InlineLink } from '@atoms/InlineLink'
 import { PageHeading } from '@atoms/PageHeading'
+import { sharedStyles } from '../../../consts/styles/shared'
 
 const NotLoggedIn = () => (
-  <ContentBlock>
+  <div className={sharedStyles.defaultContainer}>
     <PageHeading>Access Denied</PageHeading>
     <BodyText bodyTextAlign='center'>
       You are not currently logged in. Please visit the <InlineLink href='/account/login'>Login page</InlineLink> to log
       in.
     </BodyText>
-  </ContentBlock>
+  </div>
 )
 
 export default NotLoggedIn

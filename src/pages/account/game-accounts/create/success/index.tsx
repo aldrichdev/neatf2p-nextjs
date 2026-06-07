@@ -1,4 +1,4 @@
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { BodyText } from '@atoms/BodyText'
 import { InlineLink } from '@atoms/InlineLink'
 import { useRouter } from 'next/router'
@@ -26,7 +26,7 @@ const CreateGameAccountSuccessPage = ({ user }: CreateGameAccountSuccessPageProp
       {!UserIsLoggedIn(user) ? (
         <NotLoggedIn />
       ) : (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Success</PageHeading>
           <BodyText bodyTextAlign='center'>
             {!accountName || accountName.length < 1 ? (
@@ -41,7 +41,7 @@ const CreateGameAccountSuccessPage = ({ user }: CreateGameAccountSuccessPageProp
             You may return to the
             <InlineLink href='/account/game-accounts'>game accounts page</InlineLink>.
           </BodyText>
-        </ContentBlock>
+        </div>
       )}
     </>
   )

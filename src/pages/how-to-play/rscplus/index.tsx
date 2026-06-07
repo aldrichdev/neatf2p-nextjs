@@ -1,10 +1,10 @@
-import { ContentBlock } from '@atoms/ContentBlock'
 import { BodyText } from '@atoms/BodyText'
 import Link from 'next/link'
 import { YouTubeVideo } from '@atoms/YouTubeVideo'
 import { PageHeading } from '@atoms/PageHeading'
 import { renderHead } from '@utils/renderUtils'
 import { BackToLink } from '@molecules/BackToLink'
+import { sharedStyles } from '../../../consts/styles/shared'
 
 const RscPlusInfoPage = () => {
   return (
@@ -13,7 +13,7 @@ const RscPlusInfoPage = () => {
         'How to Play with RSC+',
         'Read this if you wish to set up and use the RSC+ client for playing on our server.',
       )}
-      <ContentBlock>
+      <div className={sharedStyles.defaultContainer}>
         <PageHeading>How to Play with RSC+</PageHeading>
         <BodyText>
           To play using RSC+, first install it if you haven&apos;t yet:{' '}
@@ -37,11 +37,11 @@ const RscPlusInfoPage = () => {
           If you are having trouble with the above steps, take a look at this video tutorial provided by Logg, the
           caretaker of RSC+.
         </BodyText>
-        <ContentBlock topMargin={40}>
-          <YouTubeVideo embedUrl='https://www.youtube.com/embed/a4aD-PL6WK0?si=_sVgn5vyC16QXzSt' />
-          <BackToLink href='/how-to-play'>← Back to How to Play page</BackToLink>
-        </ContentBlock>
-      </ContentBlock>
+        <YouTubeVideo embedUrl='https://www.youtube.com/embed/a4aD-PL6WK0?si=_sVgn5vyC16QXzSt' />
+        <BackToLink href='/how-to-play' className='mt-0'>
+          ← Back to How to Play page
+        </BackToLink>
+      </div>
     </>
   )
 }

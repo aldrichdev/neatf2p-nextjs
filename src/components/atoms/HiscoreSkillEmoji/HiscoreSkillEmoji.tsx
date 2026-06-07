@@ -1,4 +1,3 @@
-import { SkillEmoji } from './HiscoreSkillEmoji.styled'
 import { HiscoreSkillEmojiProps } from './HiscoreSkillEmoji.types'
 
 const HiscoreSkillEmoji = (props: HiscoreSkillEmojiProps) => {
@@ -35,7 +34,7 @@ const HiscoreSkillEmoji = (props: HiscoreSkillEmojiProps) => {
     }
   }
 
-  return <SkillEmoji>{getEmojiBySkill()}</SkillEmoji>
+  return <span className='flex items-center text-[16px] leading-none'>{getEmojiBySkill()}</span>
 }
 
 export default HiscoreSkillEmoji

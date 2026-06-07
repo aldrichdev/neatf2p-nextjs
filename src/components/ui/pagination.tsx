@@ -18,7 +18,7 @@ function PaginationContent({ className, ...props }: React.ComponentProps<'ul'>) 
   return (
     <ul
       data-slot='pagination-content'
-      className={cn('m-0 flex list-none items-center gap-1 p-0!', className)}
+      className={cn('m-0 flex list-none items-center gap-1 p-0', className)}
       {...props}
     />
   )

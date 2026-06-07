@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { Form } from '@atoms/Form'
 import { Field } from '@atoms/Field'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
@@ -97,16 +97,16 @@ const ResetPassword = () => {
       {isLoading ? (
         <Spinner />
       ) : tokenExpired ? (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Token Expired</PageHeading>
           <BodyText>
             Your token has expired. Please visit the{' '}
             <InlineLink href='/account/login/forgot-password'>Forgot Password</InlineLink> page and enter your email
             again. You need to open the link in the email within 10 minutes.
           </BodyText>
-        </ContentBlock>
+        </div>
       ) : (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Reset Your Password</PageHeading>
           <Form onSubmit={handleRequest}>
             <Field
@@ -130,7 +130,7 @@ const ResetPassword = () => {
               Submit
             </FormButton>
           </Form>
-        </ContentBlock>
+        </div>
       )}
     </>
   )

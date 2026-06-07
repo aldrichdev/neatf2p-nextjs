@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
 import {
   AccountNavigationContainer,
   AccountNavigationButton,
@@ -19,6 +18,7 @@ import { sessionOptions } from '@models/session'
 import { NullUser } from '@models/NullUser'
 import { User } from '@globalTypes/User'
 import Button from '@mui/material/Button'
+import { sharedStyles } from '@consts/styles/shared'
 
 type AccountPageProps = {
   user: User
@@ -60,7 +60,7 @@ const AccountPage = ({ user }: AccountPageProps) => {
       {!UserIsLoggedIn(user) ? (
         <NotLoggedIn />
       ) : (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Hiya, {user?.username}!</PageHeading>
           <BodyText bodyTextAlign='center'>
             Welcome to your account page. Here, you can modify your website account, create game (RSC) accounts, rename
@@ -116,7 +116,7 @@ const AccountPage = ({ user }: AccountPageProps) => {
               </div>
             </>
           )}
-        </ContentBlock>
+        </div>
       )}
     </>
   )

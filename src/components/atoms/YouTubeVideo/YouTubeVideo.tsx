@@ -1,18 +1,16 @@
-import { YouTubeVideoIframe } from './YouTubeVideo.styled'
 import { YouTubeVideoProps } from './YouTubeVideo.types'
 
 const YouTubeVideo = (props: YouTubeVideoProps) => {
-  const { embedUrl, desktopWidth, desktopHeight } = props
+  const { embedUrl } = props
 
   return (
-    <YouTubeVideoIframe
+    <iframe
       src={`${embedUrl}&rel=0`}
       title='YouTube video player'
       allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
       allowFullScreen
-      desktopWidth={desktopWidth}
-      desktopHeight={desktopHeight}
-    ></YouTubeVideoIframe>
+      className='h-47 w-full border-0 md:h-107.25 lg:h-150'
+    />
   )
 }
 

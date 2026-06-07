@@ -1,5 +1,5 @@
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { GameAccountsTable } from '@organisms/GameAccountsTable'
 import { UserIsLoggedIn } from '@utils/users/users'
 import { FormButton } from '@atoms/FormButton/FormButton'
@@ -56,7 +56,7 @@ const GameAccountsPage = ({ user }: GameAccountsPageProps) => {
       {!isLoggedIn ? (
         <NotLoggedIn />
       ) : (
-        <ContentBlock isWide>
+        <div className={sharedStyles.wideContainer}>
           <PageHeading>Game Accounts</PageHeading>
           <BodyText bodyTextAlign='center'>
             Here, you can view your current game accounts, create new ones, rename them, and update passwords. All times
@@ -96,7 +96,7 @@ const GameAccountsPage = ({ user }: GameAccountsPageProps) => {
           <FormButton variant='contained' onClick={handleCreateAccount} disabled={creationsDisabled}>
             Create Account
           </FormButton>
-        </ContentBlock>
+        </div>
       )}
     </>
   )

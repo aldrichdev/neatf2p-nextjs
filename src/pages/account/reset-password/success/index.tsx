@@ -1,4 +1,4 @@
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { BodyText } from '@atoms/BodyText'
 import { InlineLink } from '@atoms/InlineLink'
 import { UserIsLoggedIn } from '@utils/users/users'
@@ -17,7 +17,7 @@ type ResetPasswordSuccessPageProps = {
 const ResetPasswordSuccessPage = ({ user }: ResetPasswordSuccessPageProps) => (
   <>
     {renderHead('Success')}
-    <ContentBlock>
+    <div className={sharedStyles.defaultContainer}>
       <PageHeading>Reset Successful</PageHeading>
       <BodyText bodyTextAlign='center'>
         Your password was reset successfully.{' '}
@@ -28,7 +28,7 @@ const ResetPasswordSuccessPage = ({ user }: ResetPasswordSuccessPageProps) => (
           </>
         )}
       </BodyText>
-    </ContentBlock>
+    </div>
   </>
 )
 

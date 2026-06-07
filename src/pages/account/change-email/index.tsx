@@ -1,5 +1,4 @@
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
 import { Field } from '@atoms/Field'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { PageHeading } from '@atoms/PageHeading'
@@ -17,6 +16,7 @@ import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
+import { sharedStyles } from '../../../consts/styles/shared'
 
 type ChangeEmailPageProps = {
   user: User
@@ -72,7 +72,7 @@ const ChangeEmailPage = ({ user }: ChangeEmailPageProps) => {
   return (
     <>
       {renderHead('Change Email Address')}
-      <ContentBlock>
+      <div className={sharedStyles.defaultContainer}>
         <PageHeading>Change Email Address</PageHeading>
         <BodyText>
           Enter your new email address below. We will send an email to the new address to confirm you own that account.
@@ -92,7 +92,7 @@ const ChangeEmailPage = ({ user }: ChangeEmailPageProps) => {
             Submit
           </FormButton>
         </Form>
-      </ContentBlock>
+      </div>
     </>
   )
 }

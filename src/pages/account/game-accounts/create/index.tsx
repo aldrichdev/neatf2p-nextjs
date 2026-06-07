@@ -1,5 +1,5 @@
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { Field } from '@atoms/Field'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { Form } from '@atoms/Form'
@@ -112,14 +112,14 @@ const CreateGameAccountPage = ({ user }: CreateGameAccountPageProps) => {
       {!UserIsLoggedIn(user) ? (
         <NotLoggedIn />
       ) : process.env.NEXT_PUBLIC_GAME_ACCOUNTS_DISABLE_CREATION === 'true' ? (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Temporarily Disabled</PageHeading>
           <BodyText bodyTextAlign='center'>
             Game account creations are temporarily disabled until further notice.
           </BodyText>
-        </ContentBlock>
+        </div>
       ) : (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Create Game Account</PageHeading>
           <BodyText>
             Game account names must be 12 characters or less. You are allowed spaces within your name, but any spaces at
@@ -162,7 +162,7 @@ const CreateGameAccountPage = ({ user }: CreateGameAccountPageProps) => {
               Submit
             </FormButton>
           </Form>
-        </ContentBlock>
+        </div>
       )}
     </>
   )

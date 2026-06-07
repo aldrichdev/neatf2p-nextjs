@@ -1,5 +1,5 @@
 import { FormEvent, ChangeEvent, useState } from 'react'
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { Form } from '@atoms/Form'
 import { BodyText } from '@atoms/BodyText'
 import { InlineLink } from '@atoms/InlineLink'
@@ -152,7 +152,7 @@ const CreateAccountPage = ({ user }: CreateAccountPageProps) => {
       {UserExists(user) ? (
         <AlreadyLoggedIn message='You already have an account! If you wish to create a new one, please log out first.' />
       ) : (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Create Account</PageHeading>
           <BodyText bodyTextAlign='left'>
             By creating a website account, you can add or rename game accounts, update passwords, and some other nifty
@@ -210,7 +210,7 @@ const CreateAccountPage = ({ user }: CreateAccountPageProps) => {
             <span>Already have an account?</span>
             <InlineLink href='/account/login'>Log in.</InlineLink>
           </BodyText>
-        </ContentBlock>
+        </div>
       )}
     </>
   )

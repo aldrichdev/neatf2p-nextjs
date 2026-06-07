@@ -1,5 +1,5 @@
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { Field } from '@atoms/Field'
 import { FormButton } from '@atoms/FormButton/FormButton'
 import { PageHeading } from '@atoms/PageHeading'
@@ -84,7 +84,7 @@ const ChangeUsernamePage = ({ user }: ChangeUsernamePageProps) => {
       {!UserIsLoggedIn(user) ? (
         <NotLoggedIn />
       ) : (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Change Username</PageHeading>
           <BodyText>
             Enter your new username below. Remember that this only changes your website username, it does not affect
@@ -104,7 +104,7 @@ const ChangeUsernamePage = ({ user }: ChangeUsernamePageProps) => {
               Submit
             </FormButton>
           </Form>
-        </ContentBlock>
+        </div>
       )}
     </>
   )

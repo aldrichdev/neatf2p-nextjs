@@ -1,13 +1,8 @@
 import { useState } from 'react'
 import { MainNavigationDropdownItemProps } from './MainNavigationDropdownItem.types'
-import {
-  NavButton,
-  NavDropdownMenu,
-  NavDropdownMenuSubItemList,
-  NavItem,
-  NavSubItem,
-  NavSubLink,
-} from './MainNavigationDropdownItem.styled'
+import { Button } from '@ui/button'
+import Link from 'next/link'
+import clsx from 'clsx'
 
 const MainNavigationDropdownItem = (props: MainNavigationDropdownItemProps) => {
   const { title, subItems, isItemActive } = props
@@ -23,24 +18,36 @@ const MainNavigationDropdownItem = (props: MainNavigationDropdownItemProps) => {
   }
 
   return (
-    <NavItem onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <NavButton variant='text' isActive={isActive}>
+    <div className='relative' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <Button
+        variant='ghost'
+        className={clsx(
+          'h-10.75 rounded-none p-2 text-[18px] font-normal',
+          'hover:bg-transparent hover:text-white',
+          isActive ? 'text-secondary-main' : 'text-white',
+          'md:h-auto',
+        )}
+      >
         {title}
-      </NavButton>
+      </Button>
       {isDropdownVisible && (
-        <NavDropdownMenu>
-          <NavDropdownMenuSubItemList>
+        <div className='absolute w-full'>
+          <ul className='m-0 list-none p-0'>
             {subItems.map(subItem => (
-              <NavSubItem key={subItem.path}>
-                <NavSubLink href={subItem.path} target={subItem.opensInNewTab ? '_blank' : '_self'}>
+              <li key={subItem.path} className='list-none bg-[#100c08]'>
+                <Link
+                  href={subItem.path}
+                  target={subItem.opensInNewTab ? '_blank' : '_self'}
+                  className='hover:text-nav-link-hover block p-2 text-[16px] text-white no-underline'
+                >
                   {subItem.text}
-                </NavSubLink>
-              </NavSubItem>
+                </Link>
+              </li>
             ))}
-          </NavDropdownMenuSubItemList>
-        </NavDropdownMenu>
+          </ul>
+        </div>
       )}
-    </NavItem>
+    </div>
   )
 }
 

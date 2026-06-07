@@ -1,5 +1,4 @@
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
 import { handleForbiddenRedirect, sendApiRequest } from '@utils/api/apiUtils'
 import { renderHead } from '@utils/renderUtils'
@@ -20,6 +19,7 @@ import usePasswordHashing from '@hooks/usePasswordHashing'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
+import { sharedStyles } from '../../../consts/styles/shared'
 
 type ChangeEmailByIdPageProps = {
   user: User
@@ -160,7 +160,7 @@ const ChangeEmailByIdPage = ({ user }: ChangeEmailByIdPageProps) => {
           {isLoading ? (
             <Spinner />
           ) : (
-            <ContentBlock>
+            <div className={sharedStyles.defaultContainer}>
               <PageHeading>Change Email Address</PageHeading>
               <BodyText bodyTextAlign='center'>Please enter your password to continue.</BodyText>
               <Form onSubmit={handleSubmit}>
@@ -177,16 +177,16 @@ const ChangeEmailByIdPage = ({ user }: ChangeEmailByIdPageProps) => {
                   Submit
                 </FormButton>
               </Form>
-            </ContentBlock>
+            </div>
           )}
         </>
       ) : (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Update Complete</PageHeading>
           <BodyText bodyTextAlign='center'>
             Your email has been updated. You can go back to your <Link href='/account'>account</Link> page.
           </BodyText>
-        </ContentBlock>
+        </div>
       )}
     </>
   )

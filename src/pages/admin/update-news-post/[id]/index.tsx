@@ -1,6 +1,6 @@
 import { MustBeAdminBlock } from '@molecules/MustBeAdminBlock'
 import { PageHeading } from '@atoms/PageHeading'
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { renderHead } from '@utils/renderUtils'
 import { User } from '@globalTypes/User'
 import { NullUser } from '@models/NullUser'
@@ -59,10 +59,10 @@ const UpdateNewsPostPage = ({ newsPost, user }: UpdateNewsPostPageProps) => {
       {!user?.isAdmin ? (
         <MustBeAdminBlock />
       ) : (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Update a News Post</PageHeading>
           <NewsPostForm newsPost={newsPost} userId={user.id} submitForm={handleUpdateNewsPost} />
-        </ContentBlock>
+        </div>
       )}
     </>
   )

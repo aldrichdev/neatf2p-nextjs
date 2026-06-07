@@ -1,3 +1,4 @@
+import { DiscordInviteLink } from '@consts/discord'
 import Link from 'next/link'
 
 type DiscordLinkProps = {
@@ -9,7 +10,7 @@ const DiscordLink = (props: DiscordLinkProps) => {
   const { children } = props
 
   return (
-    <Link href='https://discord.gg/wd67zUxPXn' target='_blank' className='flex justify-center'>
+    <Link href={DiscordInviteLink} target='_blank' className='flex justify-center'>
       {children || 'Discord'}
     </Link>
   )

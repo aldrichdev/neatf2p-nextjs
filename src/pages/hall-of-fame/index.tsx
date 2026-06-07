@@ -1,5 +1,5 @@
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { PageHeading } from '@atoms/PageHeading'
 import { CommunityAchievementsTable } from '@atoms/CommunityAchievementsTable'
 import { renderHead } from '@utils/renderUtils'
@@ -10,14 +10,14 @@ const HallOfFamePage = () => (
       'Hall of Fame',
       'A list of achievements the players in our community have unlocked so far (banned players excluded).',
     )}
-    <ContentBlock isWide>
+    <div className={sharedStyles.wideContainer}>
       <PageHeading>Hall of Fame</PageHeading>
       <BodyText className='mb-5'>
         Below is a list of achievements the players in our community have unlocked. This page will continue to be
         updated as players unlock new ones. Note that banned players are removed from contention for all achievements.
       </BodyText>
       <CommunityAchievementsTable />
-    </ContentBlock>
+    </div>
   </>
 )
 
