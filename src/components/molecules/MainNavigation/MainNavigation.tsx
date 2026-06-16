@@ -1,12 +1,11 @@
 import { useRouter } from 'next/router'
 import { NavigationItem } from './MainNavigation.types'
 import { MainNavigationDropdownItem } from '@atoms/MainNavigationDropdownItem'
-import { useEffect } from 'react'
 import Link from 'next/link'
 import { cn } from '@utils/cn'
 
 const MainNavigation = () => {
-  const { asPath, prefetch } = useRouter()
+  const { asPath } = useRouter()
 
   const navigationItems: NavigationItem[] = [
     {
@@ -77,15 +76,6 @@ const MainNavigation = () => {
 
     return linkPath === asPath
   }
-
-  useEffect(() => {
-    // Warm up nav route chunks to remove delay previously seen when clicking around
-    // (TODO: Clean up. I'm 99% sure this did NOT fix the delay)
-    navigationItems.forEach(item => {
-      if (item.path) prefetch(item.path)
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   return (
     <div className='flex justify-center'>
