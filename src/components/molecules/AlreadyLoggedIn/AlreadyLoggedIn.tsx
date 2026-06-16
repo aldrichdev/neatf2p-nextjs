@@ -16,8 +16,7 @@ const AlreadyLoggedIn = (props: AlreadyLoggedInProps) => {
       <BodyText bodyTextAlign='center'>
         {message || (
           <>
-            You are already logged in. You can visit your
-            <StandardLink href='/account'>Account page</StandardLink>.
+            You are already logged in. You can visit your <StandardLink href='/account'>Account page</StandardLink>.
           </>
         )}
       </BodyText>

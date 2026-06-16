@@ -2,13 +2,9 @@ import { FormEvent, useState, ChangeEvent } from 'react'
 import { sharedStyles } from '@consts/styles/shared'
 import { Form } from '@atoms/Form'
 import { BodyText } from '@atoms/BodyText'
-import { Field } from '@atoms/Field'
-import { InlineLink } from '@atoms/InlineLink'
 import { redirectTo } from '@utils/window'
 import { UserExists, UserIsLoggedIn } from '@utils/users/users'
 import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
-import { FormButton } from '@atoms/FormButton/FormButton'
-import { DiscordLink } from '@atoms/DiscordLink'
 import { PageHeading } from '@atoms/PageHeading'
 import { sendApiRequest } from '@utils/api/apiUtils'
 import { renderHead } from '@utils/renderUtils'
@@ -79,7 +75,7 @@ const ForgotPasswordPage = ({ user }: ForgotPasswordPageProps) => {
             <Input required id='email' placeholder='Email' onChange={handleEmailChange} autoComplete='username' />
             <Button type='submit'>Submit</Button>
           </Form>
-          <BodyText topMargin={40} bodyTextAlign='left'>
+          <BodyText bodyTextAlign='left'>
             <span>Or, if you remember it, </span>
             <StandardLink href='/account/login'>try logging in now.</StandardLink>
           </BodyText>

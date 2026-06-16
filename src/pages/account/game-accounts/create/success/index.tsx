@@ -1,6 +1,5 @@
 import { sharedStyles } from '@consts/styles/shared'
 import { BodyText } from '@atoms/BodyText'
-import { InlineLink } from '@atoms/InlineLink'
 import { useRouter } from 'next/router'
 import { UserIsLoggedIn } from '@utils/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
@@ -11,6 +10,7 @@ import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
+import { StandardLink } from '@atoms/StandardLink'
 
 type CreateGameAccountSuccessPageProps = {
   user: User
@@ -39,7 +39,7 @@ const CreateGameAccountSuccessPage = ({ user }: CreateGameAccountSuccessPageProp
           </BodyText>
           <BodyText bodyTextAlign='center'>
             You may return to the
-            <InlineLink href='/account/game-accounts'>game accounts page</InlineLink>.
+            <StandardLink href='/account/game-accounts'>game accounts page</StandardLink>.
           </BodyText>
         </div>
       )}

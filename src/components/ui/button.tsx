@@ -1,6 +1,5 @@
-import * as React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { Slot } from 'radix-ui'
+import { Slot } from '@radix-ui/react-slot'
 import { cn } from '@utils/cn'
 
 const buttonVariants = cva(
@@ -84,9 +83,8 @@ function Button({
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean
   }) {
-  const Comp = asChild ? Slot.Root : 'button'
+  const Comp = (asChild ? Slot : 'button') as React.ElementType
 
-  // TODO: Fix the below issue. Was originally due to us being on React 18. Need to relook after removing MUI & Emotion completely
   return (
     <Comp
       data-slot='button'

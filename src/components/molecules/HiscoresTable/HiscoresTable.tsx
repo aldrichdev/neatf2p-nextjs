@@ -3,12 +3,12 @@ import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { convertExp } from '@utils/hiscores/hiscoresUtils'
 import { HiscoresControls } from '@atoms/HiscoresControls'
 import useHiscoresPagination from '@hooks/useHiscoresPagination'
-import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 import { GoldBadge, SilverBadge, BronzeBadge, RankBadge, TopBadge } from './Badges'
 import { formatExp } from '@utils/string/stringUtils'
 import { HiscoresTableRowsSkeleton } from '@atoms/HiscoresTableRowsSkeleton'
 import clsx from 'clsx'
 import { hiscoresStyles } from '../../../consts/styles/hiscores'
+import { StandardLink } from '@atoms/StandardLink'
 
 type HiscoresTableProps = {
   hiscores: PlayerHiscoreDataRow[] | undefined
@@ -84,9 +84,13 @@ const HiscoresTable = (props: HiscoresTableProps) => {
                       )}
                     </td>
                     <td className={clsx(hiscoresStyles.hiscoresValueCellClass, 'flex items-center gap-3')}>
-                      <HoverUnderlineLink href={`/hiscores/player/${hiscoreRow.username}`} className='font-medium'>
+                      <StandardLink
+                        href={`/hiscores/player/${hiscoreRow.username}`}
+                        hoverUnderline
+                        className='font-medium'
+                      >
                         {hiscoreRow.username}
-                      </HoverUnderlineLink>
+                      </StandardLink>
                       {rank === 1 ? <TopBadge>top</TopBadge> : null}
                     </td>
                     <td className={hiscoresStyles.hiscoresValueCellClass}>{getHiscoreValue(hiscoreRow)}</td>

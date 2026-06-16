@@ -21,17 +21,6 @@ This went away when I installed node/lts and used it. However I also noted that 
 
 ### How-To
 
-#### Adding new Typography variants
-
-Instructions:
-
-1. Add a new property to the `typography` object in `src/theme/theme.ts`.
-2. Add the new typography name to the following interfaces:
-   a. `TypographyVariants`
-   b. `TypographyVariantsOptions`
-   c. `TypographyPropsVariantOverrides`
-3. Set the new typography's element in `variantMapping`
-
 #### Setting up a Test Web Client
 
 To set up a web client page that connects to the Neat F2P test server (running off of my desk laptop), do the following:

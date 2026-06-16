@@ -1,6 +1,5 @@
 import { BodyText } from '@atoms/BodyText'
-import { Field } from '@atoms/Field'
-import { FormButton } from '@atoms/FormButton/FormButton'
+import { Input } from '@ui/input'
 import { PageHeading } from '@atoms/PageHeading'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { Form } from '@atoms/Form'
@@ -16,6 +15,7 @@ import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
 import { sharedStyles } from '../../../consts/styles/shared'
+import { Button } from '@ui/button'
 
 type ChangePasswordPageProps = {
   user: User
@@ -79,26 +79,24 @@ const ChangePasswordPage = ({ user }: ChangePasswordPageProps) => {
         <PageHeading>Change Password</PageHeading>
         <BodyText>Please enter your new password below.</BodyText>
         <Form onSubmit={handleSubmit}>
-          <Field
+          <Input
             required
             id='newPassword'
-            label='New Password'
+            placeholder='New Password'
             type='password'
-            variant='standard'
             onChange={handleNewPasswordChange}
           />
-          <Field
+          <Input
             required
             id='confirmNewPassword'
-            label='Confirm New Password'
+            placeholder='Confirm New Password'
             type='password'
-            variant='standard'
             onChange={handleConfirmNewPasswordChange}
           />
           <FieldValidationMessage>{formValidationError}</FieldValidationMessage>
-          <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
+          <Button type='submit' disabled={buttonDisabled}>
             Submit
-          </FormButton>
+          </Button>
         </Form>
       </div>
     </>

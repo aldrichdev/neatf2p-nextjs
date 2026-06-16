@@ -1,5 +1,4 @@
 import { AgendaViewProps } from './AgendaView.types'
-import { AgendaViewBody, EventCard, EventCardBody, EventCardBodyLine, EventCardTitle } from './AgendaView.styled'
 import { getPrettyDateString } from '@utils/date/date'
 import { BodyText } from '@atoms/BodyText'
 import Link from 'next/link'
@@ -20,51 +19,51 @@ const AgendaView = (props: AgendaViewProps) => {
     <>
       <PageHeading>Upcoming Events</PageHeading>
       {sortedAndFilteredEvents?.length > 0 && (
-        <BodyText topMargin={0}>
+        <BodyText className='mt-0'>
           Below is a list of events that will be happening on the Neat F2P server within the next 6 months. All event
           times are shown in your local time zone.
         </BodyText>
       )}
-      <AgendaViewBody>
+      <div className='mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3'>
         {sortedAndFilteredEvents?.length > 0 ? (
           sortedAndFilteredEvents.map(event => (
-            <EventCard key={event.id}>
-              <EventCardTitle>{event.title}</EventCardTitle>
-              <EventCardBody>
+            <div key={event.id} className='w-full border border-black'>
+              <p className='m-0 border-b border-black'>{event.title}</p>
+              <div className='p-2 text-left'>
                 {event.location && (
-                  <EventCardBodyLine>
+                  <p className='my-3'>
                     <strong>Where:</strong> {event.location}
-                  </EventCardBodyLine>
+                  </p>
                 )}
                 {event.recurring ? (
-                  <EventCardBodyLine>
+                  <p className='my-3'>
                     <strong>When:</strong> <u>Every {event.recursEvery}</u> at{' '}
                     {new Date(event.start).toLocaleTimeString('en-US')}
-                  </EventCardBodyLine>
+                  </p>
                 ) : (
                   <>
-                    <EventCardBodyLine>
+                    <p className='my-3'>
                       <strong>Starts:</strong> {getPrettyDateString(new Date(event.start))}
-                    </EventCardBodyLine>
-                    <EventCardBodyLine>
+                    </p>
+                    <p className='my-3'>
                       <strong>Ends:</strong> {getPrettyDateString(new Date(event.end))}
-                    </EventCardBodyLine>
+                    </p>
                   </>
                 )}
                 {event.resource && (
-                  <EventCardBodyLine>
+                  <p className='my-3'>
                     <Link href={event.resource} target='_blank'>
                       More info
                     </Link>
-                  </EventCardBodyLine>
+                  </p>
                 )}
-              </EventCardBody>
-            </EventCard>
+              </div>
+            </div>
           ))
         ) : (
           <BodyText>No Upcoming Events</BodyText>
         )}
-      </AgendaViewBody>
+      </div>
     </>
   )
 }

@@ -1,3 +1,3 @@
 export type RulesAcceptanceCheckboxProps = {
-  onChange: () => void
+  onChange: (checked: boolean) => void
 }

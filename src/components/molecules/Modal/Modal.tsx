@@ -1,9 +1,9 @@
 import { BodyText } from '@atoms/BodyText'
 import { Form } from '@atoms/Form'
-import { FormButton } from '@atoms/FormButton/FormButton'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { ModalProps } from './Modal.types'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@ui/dialog'
+import { Button } from '@ui/button'
 
 const Modal = (props: ModalProps) => {
   const {
@@ -27,31 +27,29 @@ const Modal = (props: ModalProps) => {
         </DialogHeader>
         {bodyScrollable ? (
           <div className='relative h-100'>
-            <BodyText bodyTextAlign='left' mobileTextAlign='left' topMargin={0} className='h-full overflow-y-scroll'>
+            <BodyText bodyTextAlign='left' mobileTextAlign='left' className='mt-0 h-full overflow-y-scroll'>
               {body}
             </BodyText>
           </div>
         ) : (
-          <BodyText bodyTextAlign='left' topMargin={0}>
+          <BodyText bodyTextAlign='left' className='mt-0'>
             {body}
           </BodyText>
         )}
         {hasForm && handleSubmit && renderFields && (
           <>
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} desktopFullWidth>
               {renderFields()}
               {formValidationError && <FieldValidationMessage>{formValidationError}</FieldValidationMessage>}
               <div className='flex w-full justify-between gap-5 md:w-auto md:justify-start'>
-                <FormButton variant='contained' type='submit'>
-                  Submit
-                </FormButton>
-                <FormButton variant='outlined' type='button' onClick={handleClose}>
+                <Button type='submit'>Submit</Button>
+                <Button variant='outline' type='button' onClick={handleClose}>
                   Cancel
-                </FormButton>
+                </Button>
               </div>
             </Form>
             {formSuccessMessage && (
-              <BodyText bodyTextAlign='left' topMargin={0} className='text-green-600'>
+              <BodyText bodyTextAlign='left' className='mt-0 text-green-600'>
                 {formSuccessMessage}
               </BodyText>
             )}

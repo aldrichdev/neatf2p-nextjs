@@ -1,13 +1,4 @@
-import { useState } from 'react'
 import { BodyText } from '@atoms/BodyText'
-import {
-  AccountNavigationContainer,
-  AccountNavigationButton,
-  AccountNavigationItem,
-  AdminToolsButtonArea,
-  AccountPageDivider,
-} from '@styledPages/Account.styled'
-import Menu from '@mui/material/Menu'
 import { UserIsLoggedIn } from '@utils/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { PageHeading } from '@atoms/PageHeading'
@@ -17,25 +8,16 @@ import { getIronSession } from 'iron-session'
 import { sessionOptions } from '@models/session'
 import { NullUser } from '@models/NullUser'
 import { User } from '@globalTypes/User'
-import Button from '@mui/material/Button'
 import { sharedStyles } from '@consts/styles/shared'
+import { Button } from '@ui/button'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@ui/dropdown-menu'
+import Link from 'next/link'
 
 type AccountPageProps = {
   user: User
 }
 
 const AccountPage = ({ user }: AccountPageProps) => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const open = Boolean(anchorEl)
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
-
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-
   const handleUpdateNewsPostClick = () => {
     const userInput = prompt('Enter the ID of the news post you wish to update:')
 
@@ -66,53 +48,58 @@ const AccountPage = ({ user }: AccountPageProps) => {
             Welcome to your account page. Here, you can modify your website account, create game (RSC) accounts, rename
             game accounts and update passwords.
           </BodyText>
-          <AccountNavigationContainer>
-            <AccountNavigationButton
-              id='manage-website-account'
-              aria-controls={open ? 'basic-menu' : undefined}
-              aria-haspopup='true'
-              aria-expanded={open ? 'true' : undefined}
-              onClick={handleClick}
-            >
-              Manage Website Account
-            </AccountNavigationButton>
-            <Menu
-              id='manage-website-account-menu'
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                'aria-labelledby': 'manage-website-account',
-              }}
-            >
-              <AccountNavigationItem href='/account/change-email' onClick={handleClose}>
-                Change email address
-              </AccountNavigationItem>
-              <AccountNavigationItem href='/account/change-username' onClick={handleClose}>
-                Change username
-              </AccountNavigationItem>
-              <AccountNavigationItem href='/account/change-password' onClick={handleClose}>
-                Change password
-              </AccountNavigationItem>
-            </Menu>
-            <AccountNavigationButton href='/account/game-accounts'>Manage Game Accounts</AccountNavigationButton>
-          </AccountNavigationContainer>
+          <div className='mt-5 flex flex-wrap justify-center gap-5 md:flex-nowrap'>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant='ghost' className='text-primary-main text-[20px] normal-case'>
+                  Manage Website Account
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem asChild>
+                  <Link
+                    href='/account/change-email'
+                    className='hover:bg-primary-light block px-4 py-3 text-left text-black no-underline hover:text-black'
+                  >
+                    Change email address
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link
+                    href='/account/change-username'
+                    className='hover:bg-primary-light block px-4 py-3 text-left text-black no-underline hover:text-black'
+                  >
+                    Change username
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link
+                    href='/account/change-password'
+                    className='hover:bg-primary-light block px-4 py-3 text-left text-black no-underline hover:text-black'
+                  >
+                    Change password
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Button variant='ghost' className='text-primary-main text-[20px] normal-case' asChild>
+              <Link href='/account/game-accounts'>Manage Game Accounts</Link>
+            </Button>
+          </div>
           {user?.isAdmin && (
             <>
-              <AccountPageDivider />
+              <hr className='my-10' />
               <div>
                 <h3 className='mb-5 text-center'>🧰 Admin Tools 🧰</h3>
-                <BodyText bodyTextAlign='center' topMargin={0}>
+                <BodyText bodyTextAlign='center'>
                   Below are some admin tools to help you manage content on this site.
                 </BodyText>
-                <AdminToolsButtonArea>
-                  <Button variant='contained' href='/admin/create-news-post'>
-                    ➕ Create News Post
+                <div className='mt-10 flex flex-wrap justify-center gap-5'>
+                  <Button asChild>
+                    <Link href='/admin/create-news-post'>➕ Create News Post</Link>
                   </Button>
-                  <Button variant='contained' onClick={handleUpdateNewsPostClick}>
-                    📝 Update News Post
-                  </Button>
-                </AdminToolsButtonArea>
+                  <Button onClick={handleUpdateNewsPostClick}>📝 Update News Post</Button>
+                </div>
               </div>
             </>
           )}

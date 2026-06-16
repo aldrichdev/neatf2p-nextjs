@@ -1,6 +1,5 @@
 import { sharedStyles } from '@consts/styles/shared'
 import { BodyText } from '@atoms/BodyText'
-import { InlineLink } from '@atoms/InlineLink'
 import { UserIsLoggedIn } from '@utils/users/users'
 import { PageHeading } from '@atoms/PageHeading'
 import { renderHead } from '@utils/renderUtils'
@@ -9,6 +8,7 @@ import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
+import { StandardLink } from '@atoms/StandardLink'
 
 type ResetPasswordSuccessPageProps = {
   user: User
@@ -24,7 +24,7 @@ const ResetPasswordSuccessPage = ({ user }: ResetPasswordSuccessPageProps) => (
         {!UserIsLoggedIn(user) && (
           <>
             You can now
-            <InlineLink href='/account/login'>login</InlineLink>.
+            <StandardLink href='/account/login'>login</StandardLink>.
           </>
         )}
       </BodyText>

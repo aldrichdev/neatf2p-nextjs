@@ -1,5 +1,3 @@
-import { CircularProgress } from '@mui/material'
-
 type SpinnerProps = {
   hiscores?: boolean
 }
@@ -8,14 +6,12 @@ type SpinnerProps = {
 const Spinner = (props: SpinnerProps) => {
   const { hiscores } = props
 
+  const spinner = <div className='border-primary-main size-8 animate-spin rounded-full border-4 border-t-transparent' />
+
   return hiscores ? (
-    <div className='mx-auto flex min-h-250 basis-full items-start justify-center md:basis-auto'>
-      <CircularProgress color='success' />
-    </div>
+    <div className='mx-auto flex min-h-250 basis-full items-start justify-center md:basis-auto'>{spinner}</div>
   ) : (
-    <div className='mx-auto max-w-200 text-center'>
-      <CircularProgress color='success' />
-    </div>
+    <div className='mx-auto max-w-200 text-center'>{spinner}</div>
   )
 }
 

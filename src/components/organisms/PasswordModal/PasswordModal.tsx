@@ -1,12 +1,12 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
-import { Field } from '@atoms/Field'
 import { Modal } from '@molecules/Modal'
 import { hashPassword } from '@utils/password'
 import { sanitizeRunescapePassword } from '@utils/string/stringUtils'
 import { handleForbiddenRedirect, sendApiRequest } from '@utils/api/apiUtils'
 import { User } from '@globalTypes/User'
 import { AxiosError } from 'axios'
+import { Input } from '@ui/input'
 
 type PasswordModalProps = {
   account: PlayerDataRow
@@ -94,20 +94,20 @@ const PasswordModal = (props: PasswordModalProps) => {
       handleSubmit={handleSubmit}
       renderFields={() => (
         <>
-          <Field type='text' label='Account' value={account.username} disabled />
-          <Field
+          <Input type='text' placeholder='Account' value={account.username} disabled />
+          <Input
             type='password'
-            label='New Password'
+            placeholder='New Password'
             required
             onChange={handleNewPasswordChange}
-            inputProps={{ maxLength: 20 }}
+            maxLength={20}
           />
-          <Field
+          <Input
             type='password'
-            label='Confirm New Password'
+            placeholder='Confirm New Password'
             required
             onChange={handleConfirmNewPasswordChange}
-            inputProps={{ maxLength: 20 }}
+            maxLength={20}
           />
         </>
       )}

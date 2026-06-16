@@ -1,9 +1,8 @@
 import { BodyText } from '@atoms/BodyText'
 import { sharedStyles } from '@consts/styles/shared'
-import { Field } from '@atoms/Field'
+import { Input } from '@ui/input'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { Form } from '@atoms/Form'
-import { FormButton } from '@atoms/FormButton/FormButton'
 import { redirectTo } from '@utils/window'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { hashPassword } from '@utils/password'
@@ -20,6 +19,7 @@ import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
+import { Button } from '@ui/button'
 
 type CreateGameAccountPageProps = {
   user: User
@@ -126,41 +126,39 @@ const CreateGameAccountPage = ({ user }: CreateGameAccountPageProps) => {
             the start or end of your name will be removed upon account creation.
           </BodyText>
           <Form onSubmit={handleGameAccountCreation}>
-            <Field
+            tsx
+            <Input
               required
               id='account-name'
-              label='Account Name'
+              placeholder='Account Name'
               type='text'
-              variant='standard'
               onChange={handleAccountNameChange}
-              inputProps={{ maxLength: 12 }}
+              maxLength={12}
               autoComplete='username'
             />
-            <Field
+            <Input
               required
               id='password'
-              label='Password'
+              placeholder='Password'
               type='password'
-              variant='standard'
               onChange={handlePasswordChange}
-              inputProps={{ maxLength: 20 }}
+              maxLength={20}
               autoComplete='new-password'
             />
-            <Field
+            <Input
               required
               id='confirmPassword'
-              label='Confirm Password'
+              placeholder='Confirm Password'
               type='password'
-              variant='standard'
               onChange={handleConfirmPasswordChange}
-              inputProps={{ maxLength: 20 }}
+              maxLength={20}
               autoComplete='new-password'
             />
             <FieldValidationMessage>{validationError}</FieldValidationMessage>
             <RulesAcceptanceCheckbox onChange={handleRulesCheck} />
-            <FormButton variant='contained' type='submit' disabled={submitDisabled}>
+            <Button type='submit' disabled={submitDisabled}>
               Submit
-            </FormButton>
+            </Button>
           </Form>
         </div>
       )}

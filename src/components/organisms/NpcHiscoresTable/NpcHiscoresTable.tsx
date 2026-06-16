@@ -3,10 +3,10 @@ import { getNpcNameById } from '@utils/hiscores/hiscoresUtils'
 import { HiscoresControls } from '@atoms/HiscoresControls'
 import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
 import useHiscoresPagination from '@hooks/useHiscoresPagination'
-import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
 import { GoldBadge, SilverBadge, BronzeBadge, RankBadge, TopBadge } from '@molecules/HiscoresTable/Badges'
 import clsx from 'clsx'
 import { hiscoresStyles } from '../../../consts/styles/hiscores'
+import { StandardLink } from '@atoms/StandardLink'
 
 type NpcHiscoresTableProps = {
   hiscores: NpcHiscoreDataRow[]
@@ -58,9 +58,13 @@ const NpcHiscoresTable = (props: NpcHiscoresTableProps) => {
                     )}
                   </td>
                   <td className={clsx(hiscoresStyles.hiscoresValueCellClass, 'flex items-center gap-3')}>
-                    <HoverUnderlineLink href={`/npc-hiscores/player/${hiscoreRow.username}`} className='font-medium'>
+                    <StandardLink
+                      href={`/npc-hiscores/player/${hiscoreRow.username}`}
+                      hoverUnderline
+                      className='font-medium'
+                    >
                       {hiscoreRow.username}
-                    </HoverUnderlineLink>
+                    </StandardLink>
                     {rankToDisplay === 1 ? <TopBadge>top</TopBadge> : null}
                   </td>
                   <td className={hiscoresStyles.hiscoresValueCellClass}>{hiscoreRow.killCount.toLocaleString()}</td>

@@ -9,10 +9,8 @@ import { useRouter } from 'next/router'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import emailjs from '@emailjs/browser'
 import { NullUser } from '@models/NullUser'
-import { Field } from '@atoms/Field'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { Form } from '@atoms/Form'
-import { FormButton } from '@atoms/FormButton/FormButton'
 import { User } from '@globalTypes/User'
 import { UserExists } from '@utils/users/users'
 import usePasswordHashing from '@hooks/usePasswordHashing'
@@ -20,6 +18,8 @@ import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
 import { sharedStyles } from '../../../consts/styles/shared'
+import { Input } from '@ui/input'
+import { Button } from '@ui/button'
 
 type ChangeEmailByIdPageProps = {
   user: User
@@ -162,20 +162,13 @@ const ChangeEmailByIdPage = ({ user }: ChangeEmailByIdPageProps) => {
           ) : (
             <div className={sharedStyles.defaultContainer}>
               <PageHeading>Change Email Address</PageHeading>
-              <BodyText bodyTextAlign='center'>Please enter your password to continue.</BodyText>
+              <BodyText>Please enter your password to continue.</BodyText>
               <Form onSubmit={handleSubmit}>
-                <Field
-                  required
-                  id='password'
-                  label='Password'
-                  type='password'
-                  variant='standard'
-                  onChange={handlePasswordChange}
-                />
+                <Input required id='password' placeholder='Password' type='password' onChange={handlePasswordChange} />
                 <FieldValidationMessage>{validationError}</FieldValidationMessage>
-                <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
+                <Button type='submit' disabled={buttonDisabled}>
                   Submit
-                </FormButton>
+                </Button>
               </Form>
             </div>
           )}

@@ -19,7 +19,6 @@
       "@molecules/*": ["./src/components/molecules/*"],
       "@organisms/*": ["./src/components/organisms/*"],
       "@ui/*": ["./src/components/ui/*"],
-      "@styledPages/*": ["./src/styledPages/*"],
       "@theme/*": ["./src/theme/*"],
       "@contexts/*": ["./src/contexts/*"],
       "@globalTypes/*": ["./src/globalTypes/*"],

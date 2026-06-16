@@ -2,7 +2,6 @@ import { BodyText } from '@atoms/BodyText'
 import { sharedStyles } from '@consts/styles/shared'
 import { PageHeading } from '@atoms/PageHeading'
 import { renderHead } from '@utils/renderUtils'
-import { TournamentBanner } from '@styledPages/TournamentInfo.styled'
 
 const TournamentInfo = () => {
   return (
@@ -10,7 +9,11 @@ const TournamentInfo = () => {
       {renderHead('Tournament Information', 'Important information about how the Pure PK Tournaments work.')}
       <div className={sharedStyles.defaultContainer}>
         <PageHeading>Tournament Info</PageHeading>
-        <TournamentBanner src='/img/banners/pk-tourney-banner.png' alt='Pure PK Tournament' />
+        <img
+          src='/img/banners/pk-tourney-banner.png'
+          alt='Pure PK Tournament'
+          className='hidden w-full md:mx-auto md:block'
+        />
         <BodyText mobileTextAlign='left'>
           So, you think you have what it takes to become a tournament champion? Well, in order to get there, you need to
           learn the ropes! This page details the format of the <strong>Pure PK Tourney</strong> events hosted by me,
@@ -25,7 +28,11 @@ const TournamentInfo = () => {
         <BodyText mobileTextAlign='left'>
           <strong>Pure PK Tournament Format</strong>
         </BodyText>
-        <TournamentBanner src='/img/banners/pk-tourney-banner-2.png' alt='Tournament Format' topMargin={20} />
+        <img
+          src='/img/banners/pk-tourney-banner-2.png'
+          alt='Tournament Format'
+          className='mt-5 hidden w-full md:mx-auto md:block'
+        />
         <BodyText mobileTextAlign='left'>
           Each match will be picked randomly, and will consist of 2 rounds. The first round is not a deathmatch and
           either player can bank & resupply to initiate a Round 2. The 2nd round is a deathmatch, and whoever wins moves
@@ -80,7 +87,11 @@ const TournamentInfo = () => {
         <BodyText mobileTextAlign='left'>
           <strong>Loser&apos;s Bracket & Castle Events</strong>
         </BodyText>
-        <TournamentBanner src='/img/banners/pk-tourney-banner-3.png' alt='Castle Events' topMargin={20} />
+        <img
+          src='/img/banners/pk-tourney-banner-3.png'
+          alt='Castle Events'
+          className='mt-5 hidden w-full md:mx-auto md:block'
+        />
         <BodyText mobileTextAlign='left'>
           After the final match of the tournament has been decided, all players that lost in the tournament will face
           off against each other to battle for 3rd place. This is known as the Loser&apos;s Bracket. Similarly to the

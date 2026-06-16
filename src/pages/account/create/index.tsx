@@ -2,14 +2,12 @@ import { FormEvent, ChangeEvent, useState } from 'react'
 import { sharedStyles } from '@consts/styles/shared'
 import { Form } from '@atoms/Form'
 import { BodyText } from '@atoms/BodyText'
-import { InlineLink } from '@atoms/InlineLink'
-import { Field } from '@atoms/Field'
+import { Input } from '@ui/input'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import bcrypt from 'bcryptjs'
 import { User } from '@globalTypes/User'
 import { redirectTo } from '@utils/window'
 import { UserExists } from '@utils/users/users'
-import { FormButton } from '@atoms/FormButton/FormButton'
 import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
 import { PageHeading } from '@atoms/PageHeading'
 import { Callout } from '@atoms/Callout'
@@ -21,6 +19,8 @@ import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
+import { Button } from '@ui/button'
+import { StandardLink } from '@atoms/StandardLink'
 
 type CreateAccountPageProps = {
   user: User
@@ -55,13 +55,19 @@ const CreateAccountPage = ({ user }: CreateAccountPageProps) => {
     setValidationError('')
   }
 
-  const handleRulesCheck = () => {
-    setRulesAgreedTo(!rulesAgreedTo)
+  const handleRulesCheck = (checked: boolean) => {
+    setRulesAgreedTo(checked)
   }
 
   const handleAccountCreation = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setSubmitDisabled(true)
+
+    // Confirm rules have been agreed to
+    if (!rulesAgreedTo) {
+      setValidationError('You must read and agree to our rules before creating an account.')
+      return
+    }
 
     // Confirm passwords match
     if (password != confirmPassword) {
@@ -164,51 +170,40 @@ const CreateAccountPage = ({ user }: CreateAccountPageProps) => {
             server with.
           </Callout>
           <Form onSubmit={handleAccountCreation}>
-            <Field
-              required
-              id='email'
-              label='Email'
-              type='email'
-              variant='standard'
-              onChange={handleEmailChange}
-              inputProps={{ maxLength: 100 }}
-            />
-            <Field
+            <Input required id='email' placeholder='Email' type='email' onChange={handleEmailChange} maxLength={100} />
+            <Input
               required
               id='username'
-              label='Username'
-              variant='standard'
+              placeholder='Username'
               onChange={handleUsernameChange}
-              inputProps={{ maxLength: 100 }}
+              maxLength={100}
               autoComplete='username'
             />
-            <Field
+            <Input
               required
               id='password'
-              label='Password'
+              placeholder='Password'
               type='password'
-              variant='standard'
               onChange={handlePasswordChange}
               autoComplete='new-password'
             />
-            <Field
+            <Input
               required
               id='confirmPassword'
-              label='Confirm Password'
+              placeholder='Confirm Password'
               type='password'
-              variant='standard'
               onChange={handleConfirmPasswordChange}
               autoComplete='new-password'
             />
             <RulesAcceptanceCheckbox onChange={handleRulesCheck} />
             {validationError && <FieldValidationMessage>{validationError}</FieldValidationMessage>}
-            <FormButton variant='contained' type='submit' disabled={submitDisabled}>
+            <Button type='submit' disabled={submitDisabled}>
               Submit
-            </FormButton>
+            </Button>
           </Form>
-          <BodyText topMargin={40} bodyTextAlign='left'>
-            <span>Already have an account?</span>
-            <InlineLink href='/account/login'>Log in.</InlineLink>
+          <BodyText bodyTextAlign='left'>
+            <span>Already have an account? </span>
+            <StandardLink href='/account/login'>Log in</StandardLink>
           </BodyText>
         </div>
       )}

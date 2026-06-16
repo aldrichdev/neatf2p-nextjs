@@ -1,4 +1,3 @@
-import { EventCalendarContainer } from './EventCalendar.styled'
 import { AgendaView } from '@molecules/AgendaView'
 import { sendApiRequest } from '@utils/api/apiUtils'
 import { useEffect, useState } from 'react'
@@ -34,7 +33,7 @@ const EventCalendar = () => {
     return <Spinner />
   }
 
-  return <EventCalendarContainer>{events && <AgendaView events={events} />}</EventCalendarContainer>
+  return <div className='flex-column flex w-full items-center'>{events && <AgendaView events={events} />}</div>
 }
 
 export default EventCalendar

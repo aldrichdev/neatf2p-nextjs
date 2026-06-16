@@ -2,7 +2,6 @@ import { BodyText } from '@atoms/BodyText'
 import { sharedStyles } from '@consts/styles/shared'
 import { GameAccountsTable } from '@organisms/GameAccountsTable'
 import { UserIsLoggedIn } from '@utils/users/users'
-import { FormButton } from '@atoms/FormButton/FormButton'
 import { GameAccountsTableMobile } from '@organisms/GameAccountsTableMobile'
 import { redirectTo } from '@utils/window'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
@@ -15,6 +14,7 @@ import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
+import { Button } from '@ui/button'
 
 type GameAccountsPageProps = {
   user: User
@@ -93,9 +93,9 @@ const GameAccountsPage = ({ user }: GameAccountsPageProps) => {
               Game account creations are temporarily disabled until further notice.
             </BodyText>
           )}
-          <FormButton variant='contained' onClick={handleCreateAccount} disabled={creationsDisabled}>
+          <Button onClick={handleCreateAccount} disabled={creationsDisabled}>
             Create Account
-          </FormButton>
+          </Button>
         </div>
       )}
     </>

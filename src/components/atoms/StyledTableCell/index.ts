@@ -1,1 +1,0 @@
-export { StyledTableCell } from './StyledTableCell'

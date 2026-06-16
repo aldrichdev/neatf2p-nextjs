@@ -4,8 +4,6 @@ type TextAlign = 'left' | 'center' | 'right'
 
 type BodyTextProps = {
   children: React.ReactNode
-  /** DEPRECATED. Don't use `topMargin`, use e.g. gap-5, mt-0, mt-5 TW class. (TODO: Remove once nothing is using it.) */
-  topMargin?: number
   /** Alignment of text on desktop and tablet.
    *
    * Note: Was not able to use `textAlign` or `textAlignment` as the name because it conflicted
