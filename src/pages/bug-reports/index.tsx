@@ -18,7 +18,7 @@ import { ChangeEvent, FormEvent, ReactNode, useState } from 'react'
 import { Textarea } from '@ui/textarea'
 import { Input } from '@ui/input'
 import { Button } from '@ui/button'
-import Link from 'next/link'
+import { StandardLink } from '@atoms/StandardLink'
 
 type BugReportsPageProps = {
   user: User
@@ -69,13 +69,13 @@ const BugReportsPage = ({ user }: BugReportsPageProps) => {
         setValidationMessage(
           <p>
             Your bug report has been submitted successfully! You can see it here:{' '}
-            <Link href={issuesPageUrl} target='_blank' className='text-primary-main'>
+            <StandardLink href={issuesPageUrl} target='_blank'>
               {issuesPageUrl}
-            </Link>
+            </StandardLink>
             .
           </p>,
         )
-        setValidationMessageColor('green')
+        setValidationMessageColor('green') // TODO: This looks bad next to the standardlink coloring..
       })
       .catch(error => {
         setValidationMessage(
@@ -116,20 +116,20 @@ const BugReportsPage = ({ user }: BugReportsPageProps) => {
               onChange={handleBugDescriptionChange}
             />
             <Select value={bugType} onValueChange={value => setBugType(value as BugType)}>
-              <SelectTrigger className='mt-5 text-left'>
+              <SelectTrigger className='w-full text-left'>
                 <SelectValue placeholder='Bug Type' />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value='Game' className='hover:bg-primary-light'>
+              <SelectContent position='popper'>
+                <SelectItem value='Game' className='hover:bg-primary-light cursor-pointer'>
                   Game
                 </SelectItem>
-                <SelectItem value='Website' className='hover:bg-primary-light'>
+                <SelectItem value='Website' className='hover:bg-primary-light cursor-pointer'>
                   Website
                 </SelectItem>
-                <SelectItem value='Android' className='hover:bg-primary-light'>
+                <SelectItem value='Android' className='hover:bg-primary-light cursor-pointer'>
                   Android Client
                 </SelectItem>
-                <SelectItem value='WebClient' className='hover:bg-primary-light'>
+                <SelectItem value='WebClient' className='hover:bg-primary-light cursor-pointer'>
                   Web Client
                 </SelectItem>
               </SelectContent>

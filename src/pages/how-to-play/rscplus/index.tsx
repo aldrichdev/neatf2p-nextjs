@@ -1,10 +1,10 @@
 import { BodyText } from '@atoms/BodyText'
-import Link from 'next/link'
 import { YouTubeVideo } from '@atoms/YouTubeVideo'
 import { PageHeading } from '@atoms/PageHeading'
 import { renderHead } from '@utils/renderUtils'
 import { BackToLink } from '@molecules/BackToLink'
 import { sharedStyles } from '../../../consts/styles/shared'
+import { StandardLink } from '@atoms/StandardLink'
 
 const RscPlusInfoPage = () => {
   return (
@@ -17,9 +17,9 @@ const RscPlusInfoPage = () => {
         <PageHeading>How to Play with RSC+</PageHeading>
         <BodyText>
           To play using RSC+, first install it if you haven&apos;t yet:{' '}
-          <Link href='https://rsc.plus' target='_blank'>
+          <StandardLink href='https://rsc.plus' target='_blank'>
             https://rsc.plus
-          </Link>
+          </StandardLink>
           . The following instructions will cover the Windows installation, but note that RSC+ can be installed on any
           operating system.
         </BodyText>
@@ -27,9 +27,9 @@ const RscPlusInfoPage = () => {
           To install RSC+, download it, then unzip the download to your computer, and open{' '}
           <strong>rscplus_console.exe</strong>. This creates a <strong>worlds</strong> folder in the root of the
           directory, which you will need for the next step. Once RSC+ has fully launched, close it. Next, download the{' '}
-          <Link href='/downloads/05_Neat F2P.ini' target='_blank' download>
+          <StandardLink href='/downloads/05_Neat F2P.ini' target='_blank' download>
             Neat F2P world file
-          </Link>
+          </StandardLink>
           . Put this file in the <strong>worlds</strong> folder previously mentioned. Finally, launch RSC+ and select
           the <strong>Neat F2P</strong> world.
         </BodyText>

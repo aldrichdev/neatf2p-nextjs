@@ -177,7 +177,7 @@
   }
   body {
     font-family: Inter, sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     color: black;
     font-weight: 300;
     margin: 0;
@@ -246,6 +246,11 @@
     ol {
       list-style: revert;
       padding: revert;
+      margin: 20px 0;
+    }
+
+    hr {
+      margin: 10px 0;
     }
 
     a {

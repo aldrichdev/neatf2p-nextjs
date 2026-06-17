@@ -25,7 +25,7 @@ const About = () => {
           actually free to play - no credit card required.
         </BodyText>
         <BodyText bodyTextAlign='center'>
-          We are committed to making Neat F2P <em>as authentic as possible</em> - as close to Jagex&apos;s version of
+          We are committed to making Neat F2P <em>as authentic as possible </em> - as close to Jagex&apos;s version of
           RSC F2P as it can be! This is why we will never have global chat, custom server commands, or extra NPC spawns.
           When you log into Neat, it should feel just like logging into a F2P world of RuneScape back in 2003 - of
           course, with less players.

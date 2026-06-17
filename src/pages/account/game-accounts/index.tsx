@@ -93,7 +93,7 @@ const GameAccountsPage = ({ user }: GameAccountsPageProps) => {
               Game account creations are temporarily disabled until further notice.
             </BodyText>
           )}
-          <Button onClick={handleCreateAccount} disabled={creationsDisabled}>
+          <Button onClick={handleCreateAccount} disabled={creationsDisabled} className='mx-auto basis-auto!'>
             Create Account
           </Button>
         </div>

@@ -3,7 +3,7 @@ import { GetRandomToken } from '@utils/string/stringUtils'
 import { queryDatabase, isOkPacket } from '@utils/db'
 import { OkPacket } from 'mysql'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
-import { mailOptions, transporter } from 'src/config/nodemailer'
+import { mailOptions, transporter } from '../../../config/nodemailer'
 import { handleError } from '@utils/api/apiUtils'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

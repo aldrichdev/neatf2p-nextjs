@@ -177,6 +177,7 @@ const ChangeEmailByIdPage = ({ user }: ChangeEmailByIdPageProps) => {
         <div className={sharedStyles.defaultContainer}>
           <PageHeading>Update Complete</PageHeading>
           <BodyText bodyTextAlign='center'>
+            {/** TODO: need to check every <Link> containing text without custom styles on the site and change to StandardLink */}
             Your email has been updated. You can go back to your <Link href='/account'>account</Link> page.
           </BodyText>
         </div>

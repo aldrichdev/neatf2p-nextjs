@@ -68,7 +68,7 @@ const RulesPage = () => (
             in ⁠marketplace to post an offer.
           </>,
         ].map((content, i) => (
-          <li key={i} className='pb-5 text-left text-[20px] leading-normal'>
+          <li key={i} className='pb-5 text-left leading-normal'>
             {content}
           </li>
         ))}

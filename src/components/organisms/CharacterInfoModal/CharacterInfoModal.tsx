@@ -59,7 +59,7 @@ const CharacterInfoModal = (props: CharacterInfoModalProps) => {
 
     return (
       <>
-        <span>{convertNumberToTwoDecimalPoints(kdr)}</span>{' '}
+        <span className='font-mono'>{convertNumberToTwoDecimalPoints(kdr)}</span>{' '}
         <span className='text-gray-500'>
           ({kills} {pluralize(Number(kills), 'kill')}, {deaths} {pluralize(Number(deaths), 'death')})
         </span>
@@ -88,7 +88,7 @@ const CharacterInfoModal = (props: CharacterInfoModalProps) => {
               <TooltipTrigger asChild>
                 <strong className='cursor-pointer'>PKDR</strong>
               </TooltipTrigger>
-              <TooltipContent className='bg-black text-[14px] text-white shadow-md'>
+              <TooltipContent className='bg-black text-sm text-white shadow-md'>
                 {`Player Kill Death Ratio (doesn't count NPCs)`}
               </TooltipContent>
             </Tooltip>

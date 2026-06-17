@@ -7,7 +7,7 @@ function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxP
     <CheckboxPrimitive.Root
       data-slot='checkbox'
       className={cn(
-        'peer border-input relative flex size-4 shrink-0 items-center justify-center rounded-lg border shadow-xs',
+        'peer border-input relative flex size-4 shrink-0 items-center justify-center border shadow-xs',
         'transition-shadow outline-none',
         'after:absolute after:-inset-x-3 after:-inset-y-2',
         'group-has-disabled/field:opacity-50',

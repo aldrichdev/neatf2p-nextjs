@@ -32,7 +32,7 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
 
   if (isLoading) {
     return (
-      <div className='hidden md:mt-5 md:block'>
+      <div className='hidden md:block'>
         <Spinner />
       </div>
     )
@@ -47,7 +47,7 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
   }
 
   return (
-    <div className='mt-10 hidden overflow-hidden rounded shadow md:block'>
+    <div className='hidden overflow-hidden rounded md:block'>
       <table className='w-full' aria-label='Game Accounts Table'>
         <thead>
           <tr>

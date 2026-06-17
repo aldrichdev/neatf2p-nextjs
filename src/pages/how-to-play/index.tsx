@@ -15,6 +15,7 @@ const HowToPlay = () => {
   )
   const clientImageClass = 'w-66.5 md:w-51.5 lg:w-66.5'
   const clientRemarksClass = 'w-51.5 justify-self-center lg:w-66.5'
+  const clientOptionClass = 'flex flex-wrap items-start justify-center md:justify-start text-left gap-3'
 
   return (
     <>
@@ -26,31 +27,27 @@ const HowToPlay = () => {
         <PageHeading>How To Play</PageHeading>
         <Callout>
           Please{' '}
-          <Link href='/account/create' target='_blank' className='text-callout-warning-text hover:text-amber-950'>
+          <StandardLink href='/account/create' target='_blank'>
             register
-          </Link>{' '}
+          </StandardLink>{' '}
           on this site and create a{' '}
-          <Link
-            href='/account/game-accounts'
-            target='_blank'
-            className='text-callout-warning-text hover:text-amber-950'
-          >
+          <StandardLink href='/account/game-accounts' target='_blank'>
             game account
-          </Link>{' '}
+          </StandardLink>{' '}
           before attempting to play. All game accounts must be created via the website - if you attempt to create one in
           the game client, it will <strong>not</strong> work!
         </Callout>
-        <BodyText bodyTextAlign='center'>
+        <BodyText>
           There are many ways to play Neat F2P, including RSC+, WebClient, WinRune, and Android.{' '}
           <strong>You need Java</strong> for WinRune and RSC+. If you do not have Java installed or are not sure,{' '}
-          <Link href='https://www.java.com/en/download/help/download_options.html' target='_blank'>
+          <StandardLink href='https://www.java.com/en/download/help/download_options.html' target='_blank'>
             install it
-          </Link>{' '}
+          </StandardLink>{' '}
           before continuing. Press one of the buttons below to continue.
         </BodyText>
-        <div className='mt-10'>
-          <div className='grid grid-rows-[1fr_0.5fr] items-start gap-7.5 md:grid-cols-2 md:gap-0'>
-            <div className='flex flex-wrap items-start justify-center'>
+        <div>
+          <div className='grid grid-rows-[1fr_0.5fr] items-start gap-7.5 text-base md:grid-cols-2 md:gap-4'>
+            <div className={clientOptionClass}>
               <Link href='/how-to-play/rscplus' className={clientButtonClass}>
                 <img src='/img/buttons/play-with-rscplus.png' alt='Play with RSC+' className={clientImageClass} />
               </Link>
@@ -59,7 +56,7 @@ const HowToPlay = () => {
                 a bit of setup before using, cross-platform
               </p>
             </div>
-            <div className='flex flex-wrap items-start justify-center'>
+            <div className={clientOptionClass}>
               <Link href='/client/mudclient.html' className={clientButtonClass}>
                 <img
                   src='/img/buttons/play-with-webclient.png'
@@ -75,7 +72,7 @@ const HowToPlay = () => {
                 , works well on mobile (e.g. iOS)
               </p>
             </div>
-            <div className='flex flex-wrap items-start justify-center'>
+            <div className={clientOptionClass}>
               <Link href='/downloads/NeatF2P.exe' className={clientButtonClass}>
                 <img src='/img/buttons/play-with-winrune.png' alt='Play with WinRune' className={clientImageClass} />
               </Link>
@@ -83,7 +80,7 @@ const HowToPlay = () => {
                 Nostalgic interface, older mechanics, shorter AFK timer, requires Windows
               </p>
             </div>
-            <div className='flex flex-wrap items-start justify-center'>
+            <div className={clientOptionClass}>
               <Link href='/downloads/neatf2p.apk' className={clientButtonClass}>
                 <img
                   src='/img/buttons/play-with-android-client.png'

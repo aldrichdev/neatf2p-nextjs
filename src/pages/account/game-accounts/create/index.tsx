@@ -126,7 +126,6 @@ const CreateGameAccountPage = ({ user }: CreateGameAccountPageProps) => {
             the start or end of your name will be removed upon account creation.
           </BodyText>
           <Form onSubmit={handleGameAccountCreation}>
-            tsx
             <Input
               required
               id='account-name'

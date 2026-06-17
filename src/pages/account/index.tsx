@@ -18,6 +18,8 @@ type AccountPageProps = {
 }
 
 const AccountPage = ({ user }: AccountPageProps) => {
+  const websiteLinkClass = 'cursor-pointer px-4 py-3'
+
   const handleUpdateNewsPostClick = () => {
     const userInput = prompt('Enter the ID of the news post you wish to update:')
 
@@ -48,44 +50,34 @@ const AccountPage = ({ user }: AccountPageProps) => {
             Welcome to your account page. Here, you can modify your website account, create game (RSC) accounts, rename
             game accounts and update passwords.
           </BodyText>
-          <div className='mt-5 flex flex-wrap justify-center gap-5 md:flex-nowrap'>
+          <div className='mt-2.5 flex flex-wrap justify-center gap-5 md:flex-nowrap'>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant='ghost' className='text-primary-main text-[20px] normal-case'>
-                  Manage Website Account
-                </Button>
+                <Button size='lg'>⚙️ Manage Website Account</Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem asChild>
-                  <Link
-                    href='/account/change-email'
-                    className='hover:bg-primary-light block px-4 py-3 text-left text-black no-underline hover:text-black'
-                  >
+                  <Link href='/account/change-email' className={websiteLinkClass}>
                     Change email address
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link
-                    href='/account/change-username'
-                    className='hover:bg-primary-light block px-4 py-3 text-left text-black no-underline hover:text-black'
-                  >
+                  <Link href='/account/change-username' className={websiteLinkClass}>
                     Change username
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link
-                    href='/account/change-password'
-                    className='hover:bg-primary-light block px-4 py-3 text-left text-black no-underline hover:text-black'
-                  >
+                  <Link href='/account/change-password' className={websiteLinkClass}>
                     Change password
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button variant='ghost' className='text-primary-main text-[20px] normal-case' asChild>
-              <Link href='/account/game-accounts'>Manage Game Accounts</Link>
+            <Button size='lg' asChild>
+              <Link href='/account/game-accounts'>🕹️ Manage Game Accounts</Link>
             </Button>
           </div>
+          {/** TODO: This needs styling fixes! */}
           {user?.isAdmin && (
             <>
               <hr className='my-10' />

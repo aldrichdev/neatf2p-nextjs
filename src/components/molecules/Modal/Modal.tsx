@@ -23,7 +23,7 @@ const Modal = (props: ModalProps) => {
     <Dialog open={open} onOpenChange={isOpen => !isOpen && handleClose()}>
       <DialogContent aria-describedby={undefined}>
         <DialogHeader>
-          <DialogTitle className='md:text-[32px]'>{heading}</DialogTitle>
+          <DialogTitle className='text-[32px]'>{heading}</DialogTitle>
         </DialogHeader>
         {bodyScrollable ? (
           <div className='relative h-100'>

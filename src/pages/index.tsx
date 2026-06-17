@@ -17,8 +17,8 @@ const Homepage = () => (
       F2P-only world and economy to explore and enjoy. For more information, check out the{' '}
       <StandardLink href='/about'>About page</StandardLink>.
     </p>
-    <Button size='lg' asChild className='font-bold'>
-      <Link href='/how-to-play'>Play Now</Link>
+    <Button size='lg' asChild className='font-semibold'>
+      <Link href='/how-to-play'>⚔️ Play Now</Link>
     </Button>
     <img
       src='/img/banners/HomepageBanner.png'

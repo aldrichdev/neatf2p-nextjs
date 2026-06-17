@@ -13,7 +13,7 @@ const SessionExpiredPage = () => (
         Your session has expired. Perhaps you logged in on a different computer or browser?
       </BodyText>
       <BodyText bodyTextAlign='center'>
-        Please<StandardLink href='/account/login'>login</StandardLink> again.
+        Please <StandardLink href='/account/login'>login</StandardLink> again.
       </BodyText>
     </div>
   </>

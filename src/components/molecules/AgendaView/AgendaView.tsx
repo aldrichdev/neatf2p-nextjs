@@ -1,12 +1,13 @@
 import { AgendaViewProps } from './AgendaView.types'
 import { getPrettyDateString } from '@utils/date/date'
 import { BodyText } from '@atoms/BodyText'
-import Link from 'next/link'
 import { PageHeading } from '@atoms/PageHeading'
+import { Spinner } from '@molecules/Spinner'
+import { StandardLink } from '@atoms/StandardLink'
 
 /** An agenda view showing events that are happening in the next 6 months, in addition to recurring events, in boxes. */
 const AgendaView = (props: AgendaViewProps) => {
-  const { events } = props
+  const { events, isLoading } = props
   const now = new Date()
   const sixMonthsFromNow = new Date()
   sixMonthsFromNow.setMonth(now.getMonth() + 6)
@@ -18,14 +19,16 @@ const AgendaView = (props: AgendaViewProps) => {
   return (
     <>
       <PageHeading>Upcoming Events</PageHeading>
-      {sortedAndFilteredEvents?.length > 0 && (
+      {(isLoading || sortedAndFilteredEvents?.length > 0) && (
         <BodyText className='mt-0'>
           Below is a list of events that will be happening on the Neat F2P server within the next 6 months. All event
           times are shown in your local time zone.
         </BodyText>
       )}
-      <div className='mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3'>
-        {sortedAndFilteredEvents?.length > 0 ? (
+      <div className='grid grid-cols-1 gap-5 text-base font-normal md:grid-cols-2 lg:grid-cols-3'>
+        {isLoading ? (
+          <Spinner />
+        ) : sortedAndFilteredEvents?.length > 0 ? (
           sortedAndFilteredEvents.map(event => (
             <div key={event.id} className='w-full border border-black'>
               <p className='m-0 border-b border-black'>{event.title}</p>
@@ -52,9 +55,9 @@ const AgendaView = (props: AgendaViewProps) => {
                 )}
                 {event.resource && (
                   <p className='my-3'>
-                    <Link href={event.resource} target='_blank'>
+                    <StandardLink href={event.resource} target='_blank'>
                       More info
-                    </Link>
+                    </StandardLink>
                   </p>
                 )}
               </div>

@@ -48,7 +48,7 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
 
   if (isLoading) {
     return (
-      <div className='mt-5 md:hidden'>
+      <div className='md:hidden'>
         <Spinner />
       </div>
     )
@@ -61,7 +61,7 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
   return (
     <div className='md:hidden'>
       {accounts?.map(account => (
-        <table aria-label='Player Account' key={`mobile-${account.id}`} className='mt-10 w-full border border-black'>
+        <table aria-label='Player Account' key={`mobile-${account.id}`} className='w-full border border-black'>
           <tbody>
             <GameAccountRowMobile account={account} rowLabel='Id' rowValue={account.id} />
             <GameAccountRowMobile account={account} rowLabel='Account Name' rowValue={account.username} />

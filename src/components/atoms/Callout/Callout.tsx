@@ -9,10 +9,10 @@ const Callout = (props: CalloutProps) => {
     <blockquote
       className={clsx(
         'bg-callout-warning-bg border-callout-warning-border max-w-full',
-        'rounded-r-lg border-l-5 font-normal',
+        'rounded-r-lg border-l-5 text-base font-normal',
       )}
     >
-      <div className='p-4 text-left text-lg leading-normal'>{children}</div>
+      <div className='p-4 text-left leading-normal'>{children}</div>
     </blockquote>
   )
 }

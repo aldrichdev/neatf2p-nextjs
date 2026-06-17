@@ -6,6 +6,7 @@ interface StandardLinkProps {
   href: string
   children: ReactNode
   target?: string
+  download?: boolean
   /** If the link should do something when clicked. Usually pass an empty href in this case. */
   onClick?: () => void
   /** Whether the link should have an underline at all. */
@@ -18,12 +19,13 @@ interface StandardLinkProps {
 
 /** A basic link that utilizes the standard brand colors of the website. */
 const StandardLink = (props: StandardLinkProps) => {
-  const { href, children, target, onClick, underline = true, hoverUnderline, className } = props
+  const { href, children, target, download, onClick, underline = true, hoverUnderline, className } = props
 
   return (
     <Link
       href={href}
       target={target || '_self'}
+      download={download}
       onClick={onClick}
       className={cn(
         'text-primary-main hover:text-secondary-main cursor-pointer',
