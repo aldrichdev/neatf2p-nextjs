@@ -53,9 +53,7 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
       </div>
     )
   } else if (accounts && accounts.length < 1) {
-    return (
-      <BodyText className='mt=0 md:hidden'>You don&apos;t have any accounts right now. Why not create one?</BodyText>
-    )
+    return <BodyText className='md:hidden'>You don&apos;t have any accounts right now. Why not create one?</BodyText>
   }
 
   return (

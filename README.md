@@ -2,6 +2,12 @@
 
 The source code for the [Neat F2P website](https://www.neatf2p.com/).
 
+## Tech Stack
+
+- ShadCN
+- TailwindCSS
+- Lucide React (icon library)
+
 ## Requirements
 
 - Node 22.13.0 or higher

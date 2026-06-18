@@ -19,7 +19,7 @@ const CreateAccountSuccessPage = ({ user }: CreateAccountSuccessPageProps) => (
     <div className={sharedStyles.defaultContainer}>
       <PageHeading>Success</PageHeading>
       <BodyText bodyTextAlign='center'>
-        Your account, <strong>{user?.username}</strong>, has been created! You can now view your{' '}
+        Your account, <strong className='font-mono'>{user?.username}</strong>, has been created! You can now view your{' '}
         <StandardLink href='/account'>Account page</StandardLink>.
       </BodyText>
     </div>

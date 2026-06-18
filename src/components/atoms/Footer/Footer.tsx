@@ -35,18 +35,15 @@ const Footer = () => {
   return (
     <footer
       className={clsx(
-        'relative flex flex-col items-center justify-center',
-        'bg-stone-950 text-white',
-        'overflow-hidden px-20 py-10',
-        'md:flex-row',
+        'relative flex flex-col items-center justify-center bg-stone-950 text-white',
+        'overflow-hidden px-20 py-10 md:flex-row',
       )}
       onMouseEnter={handleFooterHover}
     >
       <img src='/img/NeatF2PLogoTransparent.png' alt='Neat F2P Logo' className='h-36 w-45' />
       <div
         className={clsx(
-          'bg-background-paper self-stretch',
-          'my-10 mb-5 h-px w-full rotate-180',
+          'bg-background-paper my-10 mb-5 h-px w-full rotate-180 self-stretch',
           'md:mx-20 md:my-0 md:h-auto md:w-px md:transform-none',
         )}
       />
@@ -88,8 +85,7 @@ const Footer = () => {
           alt={randomEasterEgg.alt}
           style={{ animationDuration: `${animationDurationSeconds}s` }}
           className={clsx(
-            'hidden',
-            'md:animate-footer-character-pop-up md:absolute md:top-100 md:block',
+            'md:animate-footer-character-pop-up hidden md:absolute md:top-100 md:block',
             randomEasterEgg.position === 'left' && 'md:left-50',
             randomEasterEgg.position === 'right' && 'md:right-50',
           )}

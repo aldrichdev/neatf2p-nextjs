@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 
 const rankBadgeClass = clsx(
-  'w-[22px] h-[22px] text-[14px] font-semibold',
+  'size-5.5 text-[14px] font-semibold',
   'rounded-full inline-flex items-center justify-center',
 )
 
