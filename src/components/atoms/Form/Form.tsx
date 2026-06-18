@@ -1,17 +1,23 @@
-import { styled } from '@mui/material/styles'
-import { css } from '@mui/system'
+import { cn } from '@utils/cn'
+import { FormEvent, ReactNode } from 'react'
 
-export const Form = styled('form', {
-  shouldForwardProp: prop => prop !== 'desktopWidth',
-})<{ desktopWidth?: string }>(
-  ({ theme, desktopWidth }) => css`
-    margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
+interface FormProps {
+  children: ReactNode
+  onSubmit?: (event: FormEvent<HTMLFormElement>) => void
+  desktopFullWidth?: boolean
+  desktopWidthClass?: string
+}
 
-    ${theme.breakpoints.up('desktop')} {
-      width: ${desktopWidth || '40%'};
-    }
-  `,
+const Form = ({ children, onSubmit, desktopFullWidth, desktopWidthClass = 'lg:w-100' }: FormProps) => (
+  <form
+    onSubmit={onSubmit}
+    className={cn(
+      'flex w-full flex-wrap gap-5 lg:max-w-[50%]',
+      desktopFullWidth ? 'lg:w-full lg:max-w-full' : desktopWidthClass,
+    )}
+  >
+    {children}
+  </form>
 )
+
+export default Form

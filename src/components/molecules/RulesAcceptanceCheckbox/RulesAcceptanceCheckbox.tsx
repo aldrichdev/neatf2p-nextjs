@@ -1,23 +1,20 @@
-import { Checkbox } from '@mui/material'
-import { RulesField } from './RulesAcceptanceCheckbox.styled'
+import { Checkbox } from '@ui/checkbox'
 import { RulesAcceptanceCheckboxProps } from './RulesAcceptanceCheckbox.types'
-import { InlineLink } from '@atoms/InlineLink'
+import { StandardLink } from '@atoms/StandardLink'
 
 const RulesAcceptanceCheckbox = (props: RulesAcceptanceCheckboxProps) => {
   const { onChange } = props
 
   return (
-    <RulesField
-      control={<Checkbox color='success' onChange={onChange} required />}
-      label={
-        <>
-          I have read and agree to the
-          <InlineLink href='/about/rules' target='_blank'>
-            server rules
-          </InlineLink>
-        </>
-      }
-    />
+    <div className='flex basis-full items-center gap-2 text-left'>
+      <Checkbox id='rules-acceptance' required onCheckedChange={checked => onChange(checked as boolean)} />
+      <label htmlFor='rules-acceptance' className='cursor-pointer text-base'>
+        I have read and agree to the{' '}
+        <StandardLink href='/about/rules' target='_blank'>
+          server rules
+        </StandardLink>
+      </label>
+    </div>
   )
 }
 

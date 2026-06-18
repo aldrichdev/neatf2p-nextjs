@@ -1,9 +1,9 @@
-import { ContentBlock } from '@atoms/ContentBlock'
 import { BodyText } from '@atoms/BodyText'
 import { PageHeading } from '@atoms/PageHeading'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 import { renderHead } from '@utils/renderUtils'
+import { sharedStyles } from '@consts/styles/shared'
+import { StandardLink } from '@atoms/StandardLink'
 
 const ChangeEmailSuccessPage = () => {
   const router = useRouter()
@@ -13,16 +13,17 @@ const ChangeEmailSuccessPage = () => {
   return (
     <>
       {renderHead('Success')}
-      <ContentBlock>
+      <div className={sharedStyles.defaultContainer}>
         <PageHeading>Check Your New Email</PageHeading>
-        <BodyText variant='body' bodyTextAlign='center'>
-          We just sent an email to {newEmail}. There should be a link in it to complete the process. Your email is not
-          updated until you click the link.
+        <BodyText bodyTextAlign='center'>
+          We just sent an email to <span className='font-mono'>{newEmail}</span>. There should be a link in it to
+          complete the process. Your email is not updated until you click the link.
         </BodyText>
-        <BodyText variant='body' bodyTextAlign='center'>
-          If you would like to try again, return to the <Link href='/account/change-email'>Change Email</Link> page.
+        <BodyText bodyTextAlign='center'>
+          If you would like to try again, return to the{' '}
+          <StandardLink href='/account/change-email'>Change Email</StandardLink> page.
         </BodyText>
-      </ContentBlock>
+      </div>
     </>
   )
 }

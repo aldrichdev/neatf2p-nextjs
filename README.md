@@ -2,9 +2,15 @@
 
 The source code for the [Neat F2P website](https://www.neatf2p.com/).
 
+## Tech Stack
+
+- ShadCN
+- TailwindCSS
+- Lucide React (icon library)
+
 ## Requirements
 
-- Node 22
+- Node 22.13.0 or higher
 
 ## Setup
 
@@ -20,17 +26,6 @@ The source code for the [Neat F2P website](https://www.neatf2p.com/).
 This went away when I installed node/lts and used it. However I also noted that after switching `nvs` back to `16.14.0`, which was the Node version I had installed when I originally had this problem, the problem was gone. Somehow, `nvs` installing newer Node verisons, or switching them, fixed this.
 
 ### How-To
-
-#### Adding new Typography variants
-
-Instructions:
-
-1. Add a new property to the `typography` object in `src/theme/theme.ts`.
-2. Add the new typography name to the following interfaces:
-   a. `TypographyVariants`
-   b. `TypographyVariantsOptions`
-   c. `TypographyPropsVariantOverrides`
-3. Set the new typography's element in `variantMapping`
 
 #### Setting up a Test Web Client
 

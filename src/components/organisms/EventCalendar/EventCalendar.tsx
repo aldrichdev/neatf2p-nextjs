@@ -1,9 +1,7 @@
-import { EventCalendarContainer } from './EventCalendar.styled'
 import { AgendaView } from '@molecules/AgendaView'
 import { sendApiRequest } from '@utils/api/apiUtils'
 import { useEffect, useState } from 'react'
 import { Event } from './EventCalendar.types'
-import { Spinner } from '@molecules/Spinner'
 
 const EventCalendar = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -30,11 +28,11 @@ const EventCalendar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (isLoading) {
-    return <Spinner />
-  }
-
-  return <EventCalendarContainer>{events && <AgendaView events={events} />}</EventCalendarContainer>
+  return (
+    <div className='flex w-full flex-wrap items-center justify-center gap-5 md:gap-10'>
+      <AgendaView events={events || []} isLoading={isLoading} />
+    </div>
+  )
 }
 
 export default EventCalendar

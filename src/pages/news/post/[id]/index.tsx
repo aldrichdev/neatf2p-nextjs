@@ -1,4 +1,4 @@
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { NewsPost } from '@globalTypes/NewsPost'
 import { NewsPostDetailItem } from '@molecules/NewsPostDetailItem'
 import { renderHead } from '@utils/renderUtils'
@@ -15,9 +15,9 @@ const NewsPostDetail = ({ newsPost }: NewsPostDetailProps) => {
   return (
     <>
       {renderHead(newsPost.title, newsPost.body.replace(/(<([^>]+)>)/gi, ''))}
-      <ContentBlock>
+      <div className={sharedStyles.defaultContainer}>
         <NewsPostDetailItem newsPost={newsPost} />
-      </ContentBlock>
+      </div>
     </>
   )
 }

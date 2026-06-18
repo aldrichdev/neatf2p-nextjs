@@ -1,17 +1,23 @@
 import { HiscoreSkillEmoji } from '@atoms/HiscoreSkillEmoji'
-import { MenuItem, SelectedSkillText, SkillName } from './HiscoresMenuItem.styled'
 import { HiscoresMenuItemProps } from './HiscoresMenuItem.types'
+import clsx from 'clsx'
+import { hiscoresStyles } from '../../../consts/styles/hiscores'
 
 const HiscoresMenuItem = (props: HiscoresMenuItemProps) => {
   const { menuItemLabel, hiscoreType, buttonOnClick } = props
   const isSelected = hiscoreType === menuItemLabel
   const skillIconFileName = isSelected ? hiscoreType : menuItemLabel
+  const skillNameClass = 'text-[12px] leading-none md:text-[14px]'
 
   return (
-    <MenuItem isSelected={isSelected} onClick={() => buttonOnClick(menuItemLabel)}>
+    <li onClick={() => buttonOnClick(menuItemLabel)} className={hiscoresStyles.hiscoresMenuItem(isSelected)}>
       <HiscoreSkillEmoji skill={skillIconFileName} />
-      {isSelected ? <SelectedSkillText>{hiscoreType}</SelectedSkillText> : <SkillName>{menuItemLabel}</SkillName>}
-    </MenuItem>
+      {isSelected ? (
+        <span className={clsx(skillNameClass, 'font-medium')}>{hiscoreType}</span>
+      ) : (
+        <span className={clsx(skillNameClass, 'font-normal')}>{menuItemLabel}</span>
+      )}
+    </li>
   )
 }
 

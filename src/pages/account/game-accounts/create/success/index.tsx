@@ -1,6 +1,5 @@
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { BodyText } from '@atoms/BodyText'
-import { InlineLink } from '@atoms/InlineLink'
 import { useRouter } from 'next/router'
 import { UserIsLoggedIn } from '@utils/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
@@ -11,6 +10,7 @@ import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
+import { StandardLink } from '@atoms/StandardLink'
 
 type CreateGameAccountSuccessPageProps = {
   user: User
@@ -26,22 +26,22 @@ const CreateGameAccountSuccessPage = ({ user }: CreateGameAccountSuccessPageProp
       {!UserIsLoggedIn(user) ? (
         <NotLoggedIn />
       ) : (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Success</PageHeading>
-          <BodyText variant='body' bodyTextAlign='center'>
+          <BodyText bodyTextAlign='center'>
             {!accountName || accountName.length < 1 ? (
               <span>Your game account has been created. You can now log in.</span>
             ) : (
               <span>
-                Your game account, <strong>{accountName}</strong>, has been created. You can now log in.
+                Your game account, <strong className='font-mono'>{accountName}</strong>, has been created. You can now
+                log in.
               </span>
             )}
           </BodyText>
-          <BodyText variant='body' bodyTextAlign='center'>
-            You may return to the
-            <InlineLink href='/account/game-accounts'>game accounts page</InlineLink>.
+          <BodyText bodyTextAlign='center'>
+            You may return to the <StandardLink href='/account/game-accounts'>game accounts page</StandardLink>.
           </BodyText>
-        </ContentBlock>
+        </div>
       )}
     </>
   )

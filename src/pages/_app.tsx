@@ -1,15 +1,14 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { ThemeProvider } from '@mui/material/styles'
-import theme from '@theme/theme'
 import '@theme/styles.css'
-import { Container, HomepageLink, Logo, PaddedContainer } from '@styledPages/App.styled'
 import { MainNavigation } from '@molecules/MainNavigation'
 import { AccountWidget } from '@molecules/AccountWidget'
 import useAuthentication from '@hooks/useAuthentication'
 import emailjs from '@emailjs/browser'
 import { useEffect } from 'react'
 import { Footer } from '@atoms/Footer'
+import Link from 'next/link'
+import { TooltipProvider } from '@ui/tooltip'
 
 export default function App({ Component, pageProps }: AppProps) {
   const user = useAuthentication()
@@ -29,22 +28,20 @@ export default function App({ Component, pageProps }: AppProps) {
           content='neatf2p, neat f2p, f2p, f2p neat, rsc f2p, f2p rsc, rscf2p, f2prsc, runescapeclassic, runescape classic, rs classic, runescape classic f2p'
         />
       </Head>
-      <ThemeProvider theme={theme}>
-        <Container>
-          <AccountWidget user={user} />
-          <HomepageLink href='/'>
-            <picture>
-              <source media='(max-width: 600px)' srcSet='/img/MobileHeaderImage.png' />
-              <Logo src='/img/HeaderImage.png' alt='Neat F2P' />
-            </picture>
-          </HomepageLink>
-          <MainNavigation />
-          <PaddedContainer>
-            <Component {...pageProps} />
-          </PaddedContainer>
-          <Footer />
-        </Container>
-      </ThemeProvider>
+      <TooltipProvider>
+        <AccountWidget user={user} />
+        <Link href='/' className='mx-auto my-0 block w-full'>
+          <picture>
+            <source media='(max-width: 600px)' srcSet='/img/MobileHeaderImage.png' />
+            <img src='/img/HeaderImage.png' alt='Neat F2P' className='block w-full' />
+          </picture>
+        </Link>
+        <MainNavigation />
+        <div className='p-5 pb-10 md:pt-10'>
+          <Component {...pageProps} />
+        </div>
+        <Footer />
+      </TooltipProvider>
     </>
   )
 }

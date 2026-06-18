@@ -1,9 +1,10 @@
 import { PlayerHiscoresRank } from '@atoms/PlayerHiscoresRank'
 import { PlayerHiscoreTableRowsSkeleton } from '@atoms/PlayerHiscoreTableRowsSkeleton'
-import { HiscoreTableRow, PlayerHiscoreTableCell } from '@organisms/PlayerHiscoreTable/PlayerHiscoreTable.styled'
 import { getNpcNameByIdForMenuKey } from '@utils/hiscores/hiscoresUtils'
 import { useRouter } from 'next/router'
 import { NpcPlayerHiscoreRowsProps } from './NpcPlayerHiscoreRows.types'
+import clsx from 'clsx'
+import { hiscoresStyles } from '../../../consts/styles/hiscores'
 
 /** A component encapsulating the rows that appear in the NPC player hiscores tables. */
 const NpcPlayerHiscoreRows = (props: NpcPlayerHiscoreRowsProps) => {
@@ -18,19 +19,25 @@ const NpcPlayerHiscoreRows = (props: NpcPlayerHiscoreRowsProps) => {
   return (
     <>
       {playerNpcHiscoreRows.map(playerNpcHiscoreRow => (
-        <HiscoreTableRow
+        <tr
           key={playerNpcHiscoreRow.npcName}
-          isNpcTable
           onClick={() => router.push(`/npc-hiscores?npc=${playerNpcHiscoreRow.npcId}`)}
+          className={clsx(
+            'grid grid-cols-[50%_20%_30%] text-[14px]',
+            'border-divider h-fit items-center border-b-[0.5px]',
+            'last:border-b-0',
+            'hover:bg-divider cursor-pointer',
+            'md:text-[16px]',
+          )}
         >
-          <PlayerHiscoreTableCell sx={{ fontWeight: 500 }}>
+          <td className={clsx(hiscoresStyles.hiscoresValueCellClass, 'font-medium')}>
             {getNpcNameByIdForMenuKey(playerNpcHiscoreRow.npcId)}
-          </PlayerHiscoreTableCell>
-          <PlayerHiscoreTableCell>
+          </td>
+          <td className={hiscoresStyles.hiscoresValueCellClass}>
             <PlayerHiscoresRank rank={playerNpcHiscoreRow.rank} />
-          </PlayerHiscoreTableCell>
-          <PlayerHiscoreTableCell>{playerNpcHiscoreRow.killCount.toLocaleString()}</PlayerHiscoreTableCell>
-        </HiscoreTableRow>
+          </td>
+          <td className={hiscoresStyles.hiscoresValueCellClass}>{playerNpcHiscoreRow.killCount.toLocaleString()}</td>
+        </tr>
       ))}
     </>
   )

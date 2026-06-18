@@ -1,8 +1,8 @@
-import { Button, TableRow } from '@mui/material'
-import { StyledTableCell } from '@atoms/StyledTableCell'
+import { GameAccountsTableCell } from '@atoms/GameAccountsTableCell'
 import { GameAccountRowProps } from './GameAccountRow.types'
 import { getPrettyDateStringFromMillis } from '@utils/date/date'
 import { CharacterInfoButton } from '@atoms/CharacterInfoButton'
+import { Button } from '@ui/button'
 
 const GameAccountRow = (props: GameAccountRowProps) => {
   const { account, showRenameModal, showPasswordModal, showCharacterInfoModal } = props
@@ -22,29 +22,23 @@ const GameAccountRow = (props: GameAccountRowProps) => {
 
   return (
     <>
-      <TableRow>
-        <StyledTableCell component='th' scope='row'>
-          {account.id}
-        </StyledTableCell>
-        <StyledTableCell align='right'>{account.username}</StyledTableCell>
-        <StyledTableCell align='right'>{account.combat}</StyledTableCell>
-        <StyledTableCell align='right'>
+      <tr>
+        <GameAccountsTableCell>{account.id}</GameAccountsTableCell>
+        <GameAccountsTableCell>{account.username}</GameAccountsTableCell>
+        <GameAccountsTableCell>{account.combat}</GameAccountsTableCell>
+        <GameAccountsTableCell>
           {account.login_date === 0 ? '-' : getPrettyDateStringFromMillis(account.login_date)}
-        </StyledTableCell>
-        <StyledTableCell align='right'>
-          <Button variant='contained' onClick={handleRename}>
-            Rename
-          </Button>
-        </StyledTableCell>
-        <StyledTableCell align='right'>
-          <Button variant='contained' onClick={handleUpdatePassword}>
-            Update
-          </Button>
-        </StyledTableCell>
-        <StyledTableCell align='right'>
+        </GameAccountsTableCell>
+        <GameAccountsTableCell>
+          <Button onClick={handleRename}>Rename</Button>
+        </GameAccountsTableCell>
+        <GameAccountsTableCell>
+          <Button onClick={handleUpdatePassword}>Update</Button>
+        </GameAccountsTableCell>
+        <GameAccountsTableCell>
           <CharacterInfoButton handleClick={handleCharacterInfoClick} />
-        </StyledTableCell>
-      </TableRow>
+        </GameAccountsTableCell>
+      </tr>
     </>
   )
 }

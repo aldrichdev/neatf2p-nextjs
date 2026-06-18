@@ -1,9 +1,7 @@
 import { PageTabs } from '@atoms/PageTabs'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
 import { NpcHiscoreType } from '@globalTypes/Hiscores/HiscoreType'
-import theme from '@theme/theme'
 import { getNpcCombatLevelById } from '@utils/hiscores/hiscoresUtils'
-import { LevelMenuContainer } from './NpcKillsLevelMenu.styled'
 import { NpcKillsLevelMenuProps } from './NpcKillsLevelMenu.types'
 
 /** A navigation bar of tabs that link to different combat level kill menus of the same NPC. */
@@ -58,19 +56,17 @@ const NpcKillsLevelMenu = (props: NpcKillsLevelMenuProps) => {
     getTabsForNpcType()[0]
 
   return (
-    <LevelMenuContainer>
+    <div className='mb-4'>
       <PageTabs
         tabs={pageTabs}
         activeTab={activeTab}
         setActiveTab={tab => handleSetActiveTab(tab)}
         fullyRounded
-        defaultTabBgColor={theme.palette.custom.sidebarBg}
-        defaultTabTextColor={theme.palette.text.secondary}
-        hoverTabBgColor={theme.palette.primary.light}
-        hoverTabTextColor={theme.palette.primary.dark}
         fontSize={14}
+        tabClassName='bg-sidebar-bg text-text-secondary hover:bg-primary-light hover:text-primary-dark'
+        activeTabClassName='bg-primary-main text-table-header-text'
       />
-    </LevelMenuContainer>
+    </div>
   )
 }
 

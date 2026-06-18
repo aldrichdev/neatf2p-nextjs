@@ -1,6 +1,5 @@
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { BodyText } from '@atoms/BodyText'
-import { InlineLink } from '@atoms/InlineLink'
 import { PageHeading } from '@atoms/PageHeading'
 import { renderHead } from '@utils/renderUtils'
 import { User } from '@globalTypes/User'
@@ -8,6 +7,7 @@ import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
+import { StandardLink } from '@atoms/StandardLink'
 
 type CreateAccountSuccessPageProps = {
   user: User
@@ -16,13 +16,13 @@ type CreateAccountSuccessPageProps = {
 const CreateAccountSuccessPage = ({ user }: CreateAccountSuccessPageProps) => (
   <>
     {renderHead('Success')}
-    <ContentBlock>
+    <div className={sharedStyles.defaultContainer}>
       <PageHeading>Success</PageHeading>
-      <BodyText variant='body' bodyTextAlign='center'>
-        Your account, <strong>{user?.username}</strong>, has been created! You can now view your
-        <InlineLink href='/account'>Account page</InlineLink>.
+      <BodyText bodyTextAlign='center'>
+        Your account, <strong className='font-mono'>{user?.username}</strong>, has been created! You can now view your{' '}
+        <StandardLink href='/account'>Account page</StandardLink>.
       </BodyText>
-    </ContentBlock>
+    </div>
   </>
 )
 

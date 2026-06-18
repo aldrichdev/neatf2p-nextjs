@@ -1,25 +1,25 @@
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
 import { PageHeading } from '@atoms/PageHeading'
 import { handleForbiddenRedirect, sendApiRequest } from '@utils/api/apiUtils'
 import { renderHead } from '@utils/renderUtils'
 import { Spinner } from '@molecules/Spinner'
 import axios, { AxiosError } from 'axios'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import emailjs from '@emailjs/browser'
 import { NullUser } from '@models/NullUser'
-import { Field } from '@atoms/Field'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { Form } from '@atoms/Form'
-import { FormButton } from '@atoms/FormButton/FormButton'
 import { User } from '@globalTypes/User'
 import { UserExists } from '@utils/users/users'
 import usePasswordHashing from '@hooks/usePasswordHashing'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
+import { sharedStyles } from '../../../consts/styles/shared'
+import { Input } from '@ui/input'
+import { Button } from '@ui/button'
+import { StandardLink } from '@atoms/StandardLink'
 
 type ChangeEmailByIdPageProps = {
   user: User
@@ -160,35 +160,27 @@ const ChangeEmailByIdPage = ({ user }: ChangeEmailByIdPageProps) => {
           {isLoading ? (
             <Spinner />
           ) : (
-            <ContentBlock>
+            <div className={sharedStyles.defaultContainer}>
               <PageHeading>Change Email Address</PageHeading>
-              <BodyText variant='body' bodyTextAlign='center'>
-                Please enter your password to continue.
-              </BodyText>
+              <BodyText>Please enter your password to continue.</BodyText>
               <Form onSubmit={handleSubmit}>
-                <Field
-                  required
-                  id='password'
-                  label='Password'
-                  type='password'
-                  variant='standard'
-                  onChange={handlePasswordChange}
-                />
+                <Input required id='password' placeholder='Password' type='password' onChange={handlePasswordChange} />
                 <FieldValidationMessage>{validationError}</FieldValidationMessage>
-                <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
+                <Button type='submit' disabled={buttonDisabled}>
                   Submit
-                </FormButton>
+                </Button>
               </Form>
-            </ContentBlock>
+            </div>
           )}
         </>
       ) : (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Update Complete</PageHeading>
-          <BodyText variant='body' bodyTextAlign='center'>
-            Your email has been updated. You can go back to your <Link href='/account'>account</Link> page.
+          <BodyText bodyTextAlign='center'>
+            Your email has been updated. You can go back to your <StandardLink href='/account'>account</StandardLink>{' '}
+            page.
           </BodyText>
-        </ContentBlock>
+        </div>
       )}
     </>
   )

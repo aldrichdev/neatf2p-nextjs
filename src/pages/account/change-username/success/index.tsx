@@ -1,18 +1,19 @@
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { BodyText } from '@atoms/BodyText'
 import { PageHeading } from '@atoms/PageHeading'
-import Link from 'next/link'
 import { renderHead } from '@utils/renderUtils'
+import { StandardLink } from '@atoms/StandardLink'
 
 const ChangeUsernameSuccessPage = () => (
   <>
     {renderHead('Success')}
-    <ContentBlock>
-      <PageHeading>Username Updated</PageHeading>
-      <BodyText variant='body' bodyTextAlign='center'>
-        Your username has been updated. You can return to your <Link href='/account'>account</Link> page.
+    <div className={sharedStyles.defaultContainer}>
+      <PageHeading>Website Username Updated</PageHeading>
+      <BodyText bodyTextAlign='center'>
+        Your website username has been updated. You can return to your{' '}
+        <StandardLink href='/account'>account</StandardLink> page.
       </BodyText>
-    </ContentBlock>
+    </div>
   </>
 )
 

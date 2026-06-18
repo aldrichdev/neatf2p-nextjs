@@ -1,30 +1,14 @@
 import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
-import { TableBody, Paper } from '@mui/material'
-import {
-  RootContainer,
-  HiscoreTableContainer,
-  HiscoreTable,
-  HiscoreTableValueCell,
-  HiscoresTableRow,
-  HiscoreTableHeaderCell,
-  HiscoresTableHead,
-} from './HiscoresTable.styled'
 import { convertExp } from '@utils/hiscores/hiscoresUtils'
 import { HiscoresControls } from '@atoms/HiscoresControls'
 import useHiscoresPagination from '@hooks/useHiscoresPagination'
-import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
-import {
-  BronzeBadge,
-  DesktopHiscoreTableCell,
-  GoldBadge,
-  MobileHiscoreTableCell,
-  RankBadge,
-  SilverBadge,
-  TopBadge,
-} from '@styledPages/hiscores.styled'
+import { GoldBadge, SilverBadge, BronzeBadge, RankBadge, TopBadge } from './Badges'
 import { formatExp } from '@utils/string/stringUtils'
 import { HiscoresTableRowsSkeleton } from '@atoms/HiscoresTableRowsSkeleton'
+import clsx from 'clsx'
+import { hiscoresStyles } from '../../../consts/styles/hiscores'
+import { StandardLink } from '@atoms/StandardLink'
 
 type HiscoresTableProps = {
   hiscores: PlayerHiscoreDataRow[] | undefined
@@ -46,7 +30,6 @@ const HiscoresTable = (props: HiscoresTableProps) => {
 
   const getRank = (hiscore: PlayerHiscoreDataRow) => {
     if (hiscoreType === 'Overall') return hiscore.overallRank
-
     return hiscore[`${hiscoreType.toLowerCase()}Rank` as keyof PlayerHiscoreDataRow] as number
   }
 
@@ -69,18 +52,18 @@ const HiscoresTable = (props: HiscoresTableProps) => {
   }
 
   return (
-    <RootContainer>
-      <HiscoreTableContainer component={Paper}>
-        <HiscoreTable aria-label={`${hiscoreType} Hiscores Table`}>
-          <HiscoresTableHead>
-            <HiscoresTableRow>
-              <HiscoreTableHeaderCell>Rank</HiscoreTableHeaderCell>
-              <HiscoreTableHeaderCell>Name</HiscoreTableHeaderCell>
-              <HiscoreTableHeaderCell>Level</HiscoreTableHeaderCell>
-              <HiscoreTableHeaderCell>EXP</HiscoreTableHeaderCell>
-            </HiscoresTableRow>
-          </HiscoresTableHead>
-          <TableBody>
+    <div className={hiscoresStyles.hiscoresTableRootContainerClass}>
+      <div className={hiscoresStyles.hiscoresTableOuterContainerClass}>
+        <table aria-label={`${hiscoreType} Hiscores Table`} className={hiscoresStyles.hiscoresTableClass}>
+          <thead className={hiscoresStyles.hiscoresTheadClass}>
+            <tr className='border-b-0'>
+              <th className={hiscoresStyles.hiscoresHeaderCellClass}>Rank</th>
+              <th className={hiscoresStyles.hiscoresHeaderCellClass}>Name</th>
+              <th className={hiscoresStyles.hiscoresHeaderCellClass}>Level</th>
+              <th className={hiscoresStyles.hiscoresHeaderCellClass}>EXP</th>
+            </tr>
+          </thead>
+          <tbody>
             {isLoading || !hiscores ? (
               <HiscoresTableRowsSkeleton />
             ) : (
@@ -88,8 +71,8 @@ const HiscoresTable = (props: HiscoresTableProps) => {
                 const rank = getRank(hiscoreRow)
 
                 return (
-                  <HiscoresTableRow key={hiscoreRow.username}>
-                    <HiscoreTableValueCell>
+                  <tr key={hiscoreRow.username} className={hiscoresStyles.hiscoresListingTableRowClass}>
+                    <td className={hiscoresStyles.hiscoresValueCellClass}>
                       {rank === 1 ? (
                         <GoldBadge>1</GoldBadge>
                       ) : rank === 2 ? (
@@ -99,27 +82,33 @@ const HiscoresTable = (props: HiscoresTableProps) => {
                       ) : (
                         <RankBadge>{rank}</RankBadge>
                       )}
-                    </HiscoreTableValueCell>
-                    <HiscoreTableValueCell sx={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                      <HoverUnderlineLink href={`/hiscores/player/${hiscoreRow.username}`} sx={{ fontWeight: 500 }}>
+                    </td>
+                    <td className={clsx(hiscoresStyles.hiscoresValueCellClass, 'flex items-center gap-3')}>
+                      <StandardLink
+                        href={`/hiscores/player/${hiscoreRow.username}`}
+                        hoverUnderline
+                        className='font-medium'
+                      >
                         {hiscoreRow.username}
-                      </HoverUnderlineLink>
+                      </StandardLink>
                       {rank === 1 ? <TopBadge>top</TopBadge> : null}
-                    </HiscoreTableValueCell>
-                    <HiscoreTableValueCell>{getHiscoreValue(hiscoreRow)}</HiscoreTableValueCell>
-                    <DesktopHiscoreTableCell>{convertExp(getHiscoreSkillXP(hiscoreRow))}</DesktopHiscoreTableCell>
-                    <MobileHiscoreTableCell>
+                    </td>
+                    <td className={hiscoresStyles.hiscoresValueCellClass}>{getHiscoreValue(hiscoreRow)}</td>
+                    <td className={hiscoresStyles.hiscoresDesktopCellClass}>
+                      {convertExp(getHiscoreSkillXP(hiscoreRow))}
+                    </td>
+                    <td className={hiscoresStyles.hiscoresMobileCellClass}>
                       {formatExp(convertExp(getHiscoreSkillXP(hiscoreRow)))}
-                    </MobileHiscoreTableCell>
-                  </HiscoresTableRow>
+                    </td>
+                  </tr>
                 )
               })
             )}
-          </TableBody>
-        </HiscoreTable>
-      </HiscoreTableContainer>
+          </tbody>
+        </table>
+      </div>
       {pageCount > 1 && <HiscoresControls page={page} pageCount={pageCount} handlePageChange={handlePageChange} />}
-    </RootContainer>
+    </div>
   )
 }
 

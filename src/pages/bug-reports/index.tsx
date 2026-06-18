@@ -1,9 +1,7 @@
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
-import { Field } from '@atoms/Field'
+import { sharedStyles } from '@consts/styles/shared'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { Form } from '@atoms/Form'
-import { FormButton } from '@atoms/FormButton/FormButton'
 import { PageHeading } from '@atoms/PageHeading'
 import { BugType } from '@globalTypes/BugType'
 import { User } from '@globalTypes/User'
@@ -12,12 +10,15 @@ import { UserIsLoggedIn } from '@utils/users/users'
 import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
-import { InputLabel, Select, SelectChangeEvent } from '@mui/material'
-import { BugTypeDropdown, BugTypeMenuItem, IssuesLink } from '@styledPages/ReportABug.styled'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ui/select'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
 import { Octokit } from 'octokit'
 import { ChangeEvent, FormEvent, ReactNode, useState } from 'react'
+import { Textarea } from '@ui/textarea'
+import { Input } from '@ui/input'
+import { Button } from '@ui/button'
+import { StandardLink } from '@atoms/StandardLink'
 
 type BugReportsPageProps = {
   user: User
@@ -29,18 +30,14 @@ const BugReportsPage = ({ user }: BugReportsPageProps) => {
   const [bugType, setBugType] = useState<BugType>('Game')
   const [buttonDisabled, setButtonDisabled] = useState(false)
   const [validationMessage, setValidationMessage] = useState<ReactNode>(<></>)
-  const [validationMessageColor, setValidationMessageColor] = useState('')
+  const [validationMessageColor, setValidationMessageColor] = useState<'green' | 'red'>('red')
 
   const handleBugTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setBugTitle(event.target.value)
   }
 
-  const handleBugDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleBugDescriptionChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setBugDescription(event.target.value)
-  }
-
-  const handleBugTypeChange = (event: SelectChangeEvent<BugType>) => {
-    setBugType(event.target.value as BugType)
   }
 
   const handleBugCreation = (event: FormEvent<HTMLFormElement>) => {
@@ -72,9 +69,9 @@ const BugReportsPage = ({ user }: BugReportsPageProps) => {
         setValidationMessage(
           <p>
             Your bug report has been submitted successfully! You can see it here:{' '}
-            <IssuesLink href={issuesPageUrl} target='_blank'>
+            <StandardLink href={issuesPageUrl} target='_blank'>
               {issuesPageUrl}
-            </IssuesLink>
+            </StandardLink>
             .
           </p>,
         )
@@ -97,53 +94,52 @@ const BugReportsPage = ({ user }: BugReportsPageProps) => {
       {!UserIsLoggedIn(user) ? (
         <NotLoggedIn />
       ) : (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Report a Bug</PageHeading>
-          <BodyText variant='body'>
+          <BodyText>
             Use the below form to submit a bug. Don&apos;t abuse this form, it could get you in trouble.
           </BodyText>
-          <Form onSubmit={handleBugCreation} desktopWidth='100%'>
-            <Field
+          <Form onSubmit={handleBugCreation} desktopFullWidth>
+            <Input
               required
               id='title'
-              label='Title'
               placeholder='Short summary of the bug'
-              variant='outlined'
-              inputProps={{ maxLength: 100 }}
+              maxLength={100}
               onChange={handleBugTitleChange}
             />
-            <Field
+            <Textarea
               required
               id='description'
-              label='Description'
               placeholder='Describe the bug. If you can provide steps to reproduce it, please do'
-              variant='outlined'
-              multiline
               rows={5}
-              inputProps={{ maxLength: 10000 }}
+              maxLength={10000}
               onChange={handleBugDescriptionChange}
             />
-            <BugTypeDropdown>
-              <InputLabel id='label-bug-type'>Bug Type</InputLabel>
-              <Select
-                labelId='label-bug-type'
-                id='bug-type'
-                label='Bug Type'
-                value={bugType}
-                onChange={handleBugTypeChange}
-              >
-                <BugTypeMenuItem value='Game'>Game</BugTypeMenuItem>
-                <BugTypeMenuItem value='Website'>Website</BugTypeMenuItem>
-                <BugTypeMenuItem value='Android'>Android Client</BugTypeMenuItem>
-                <BugTypeMenuItem value='WebClient'>Web Client</BugTypeMenuItem>
-              </Select>
-            </BugTypeDropdown>
-            <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
+            <Select value={bugType} onValueChange={value => setBugType(value as BugType)}>
+              <SelectTrigger className='w-full text-left'>
+                <SelectValue placeholder='Bug Type' />
+              </SelectTrigger>
+              <SelectContent position='popper'>
+                <SelectItem value='Game' className='hover:bg-primary-light cursor-pointer'>
+                  Game
+                </SelectItem>
+                <SelectItem value='Website' className='hover:bg-primary-light cursor-pointer'>
+                  Website
+                </SelectItem>
+                <SelectItem value='Android' className='hover:bg-primary-light cursor-pointer'>
+                  Android Client
+                </SelectItem>
+                <SelectItem value='WebClient' className='hover:bg-primary-light cursor-pointer'>
+                  Web Client
+                </SelectItem>
+              </SelectContent>
+            </Select>
+            <Button type='submit' disabled={buttonDisabled}>
               Submit
-            </FormButton>
+            </Button>
             <FieldValidationMessage color={validationMessageColor}>{validationMessage}</FieldValidationMessage>
           </Form>
-        </ContentBlock>
+        </div>
       )}
     </>
   )

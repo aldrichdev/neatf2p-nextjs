@@ -1,19 +1,9 @@
 import { BodyText } from '@atoms/BodyText'
-import {
-  CloseBar,
-  CloseButton,
-  CloseIcon,
-  ModalHeader,
-  ModalOverlay,
-  ModalRoot,
-  ScrollableContainer,
-  ScrollableBody,
-} from './Modal.styled'
 import { Form } from '@atoms/Form'
-import { FormButton } from '@atoms/FormButton/FormButton'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
-import { FormButtonGroup } from '@atoms/FormButtonGroup/FormButtonGroup'
 import { ModalProps } from './Modal.types'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@ui/dialog'
+import { Button } from '@ui/button'
 
 const Modal = (props: ModalProps) => {
   const {
@@ -29,51 +19,42 @@ const Modal = (props: ModalProps) => {
     bodyScrollable,
   } = props
 
-  if (!open) return null
-
   return (
-    <ModalOverlay>
-      <ModalRoot>
-        <CloseBar>
-          <ModalHeader variant='h3'>{heading}</ModalHeader>
-          <CloseButton onClick={handleClose}>
-            <CloseIcon src='/img/close-icon.webp' alt='' />
-          </CloseButton>
-        </CloseBar>
+    <Dialog open={open} onOpenChange={isOpen => !isOpen && handleClose()}>
+      <DialogContent aria-describedby={undefined} className='lg:max-w-150'>
+        <DialogHeader>
+          <DialogTitle className='text-[32px]'>{heading}</DialogTitle>
+        </DialogHeader>
         {bodyScrollable ? (
-          <ScrollableContainer>
-            <ScrollableBody variant='body' component='span' bodyTextAlign='left'>
+          <div className='relative h-100'>
+            <BodyText bodyTextAlign='left' mobileTextAlign='left' className='h-full overflow-y-scroll'>
               {body}
-            </ScrollableBody>
-          </ScrollableContainer>
+            </BodyText>
+          </div>
         ) : (
-          <BodyText variant='body' component='span' bodyTextAlign='left'>
-            {body}
-          </BodyText>
+          <BodyText bodyTextAlign='left'>{body}</BodyText>
         )}
         {hasForm && handleSubmit && renderFields && (
           <>
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} desktopFullWidth>
               {renderFields()}
-              <FieldValidationMessage>{formValidationError}</FieldValidationMessage>
-              <FormButtonGroup>
-                <FormButton variant='contained' type='submit'>
-                  Submit
-                </FormButton>
-                <FormButton variant='outlined' type='button' onClick={handleClose}>
+              {formValidationError && <FieldValidationMessage>{formValidationError}</FieldValidationMessage>}
+              <div className='flex w-full justify-between gap-5 md:w-auto md:justify-start'>
+                <Button type='submit'>Submit</Button>
+                <Button variant='outline' type='button' onClick={handleClose}>
                   Cancel
-                </FormButton>
-              </FormButtonGroup>
+                </Button>
+              </div>
             </Form>
             {formSuccessMessage && (
-              <BodyText variant='body' bodyTextAlign='left' color='green'>
+              <BodyText bodyTextAlign='left' className='text-primary-main'>
                 {formSuccessMessage}
               </BodyText>
             )}
           </>
         )}
-      </ModalRoot>
-    </ModalOverlay>
+      </DialogContent>
+    </Dialog>
   )
 }
 

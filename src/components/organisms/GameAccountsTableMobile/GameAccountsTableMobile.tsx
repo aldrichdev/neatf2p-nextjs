@@ -1,8 +1,6 @@
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
 import { Spinner } from '@molecules/Spinner'
-import { TableBody, Paper, Button } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { AccountTable, AccountTableContainer, MobileBodyText, MobileSpinner } from './GameAccountsTableMobile.styled'
 import { GameAccountsTableProps } from '@organisms/GameAccountsTable/GameAccountsTable.types'
 import { RenameAccountModal } from '@organisms/RenameAccountModal'
 import { PasswordModal } from '@organisms/PasswordModal'
@@ -11,6 +9,8 @@ import { getPrettyDateStringFromMillis } from '@utils/date/date'
 import useGameAccounts from '@hooks/useGameAccounts'
 import { CharacterInfoButton } from '@atoms/CharacterInfoButton'
 import { CharacterInfoModal } from '@organisms/CharacterInfoModal'
+import { Button } from '@ui/button'
+import { BodyText } from '@atoms/BodyText'
 
 const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
   const {
@@ -48,21 +48,19 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
 
   if (isLoading) {
     return (
-      <MobileSpinner>
+      <div className='md:hidden'>
         <Spinner />
-      </MobileSpinner>
+      </div>
     )
   } else if (accounts && accounts.length < 1) {
-    return (
-      <MobileBodyText variant='body'>You don&apos;t have any accounts right now. Why not create one?</MobileBodyText>
-    )
+    return <BodyText className='md:hidden'>You don&apos;t have any accounts right now. Why not create one?</BodyText>
   }
 
   return (
-    <AccountTableContainer component={Paper}>
+    <div className='md:hidden'>
       {accounts?.map(account => (
-        <AccountTable aria-label='Player Account' key={`mobile-${account.id}`}>
-          <TableBody>
+        <table aria-label='Player Account' key={`mobile-${account.id}`} className='w-full border border-black'>
+          <tbody>
             <GameAccountRowMobile account={account} rowLabel='Id' rowValue={account.id} />
             <GameAccountRowMobile account={account} rowLabel='Account Name' rowValue={account.username} />
             <GameAccountRowMobile account={account} rowLabel='Combat Level' rowValue={account.combat} />
@@ -74,28 +72,20 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
             <GameAccountRowMobile
               account={account}
               rowLabel='Rename?'
-              rowValue={
-                <Button variant='contained' onClick={() => handleRename(account)}>
-                  Rename
-                </Button>
-              }
+              rowValue={<Button onClick={() => handleRename(account)}>Rename</Button>}
             />
             <GameAccountRowMobile
               account={account}
               rowLabel='Password'
-              rowValue={
-                <Button variant='contained' onClick={() => handleUpdatePassword(account)}>
-                  Update
-                </Button>
-              }
+              rowValue={<Button onClick={() => handleUpdatePassword(account)}>Update</Button>}
             />
             <GameAccountRowMobile
               account={account}
               rowLabel='Info'
               rowValue={<CharacterInfoButton handleClick={() => handleCharacterInfoClick(account)} />}
             />
-          </TableBody>
-        </AccountTable>
+          </tbody>
+        </table>
       ))}
       {renameModalVisible && activeAccount && (
         <RenameAccountModal
@@ -120,7 +110,7 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
           setOpen={setCharacterInfoModalVisible}
         />
       )}
-    </AccountTableContainer>
+    </div>
   )
 }
 

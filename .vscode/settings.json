@@ -1,5 +1,12 @@
 {
   "git.ignoreLimitWarning": true,
   "cSpell.words": ["Hiscore", "hiscores", "Millis"],
+  "tailwindCSS.includeLanguages": {
+    "typescript": "javascript"
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["=\\s*'([^']*)'", "([^\\s']+)"],
+    ["clsx\\(([^)]*)\\)", "(?:'|\")([^'\"]+)(?:'|\")"]
+  ],
   "typescript.tsdk": "node_modules\\typescript\\lib"
 }

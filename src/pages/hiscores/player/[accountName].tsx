@@ -1,7 +1,4 @@
-import { BackToLink } from '@atoms/BackToLink/BackToLink'
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
-import { HiscoreTableHeaderCell } from '@molecules/HiscoresTable/HiscoresTable.styled'
 import { PageTabs } from '@atoms/PageTabs'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
 import { PlayerHiscoreTable } from '@organisms/PlayerHiscoreTable'
@@ -10,7 +7,6 @@ import { getWebsiteBaseUrl } from '@utils/envUtils'
 import { renderHead } from '@utils/renderUtils'
 import { redirectTo } from '@utils/window'
 import { HiscoresTabs } from '@models/HiscoresTabs'
-import { HiscoreTabsContainer } from '@styledPages/hiscores.styled'
 import { GetServerSideProps } from 'next'
 import { formatExp } from '@utils/string/stringUtils'
 import { PlayerHiscoreTableRowsSkeleton } from '@atoms/PlayerHiscoreTableRowsSkeleton'
@@ -18,6 +14,8 @@ import { PlayerHiscoreHeader } from '@molecules/PlayerHiscoreHeader'
 import { StatisticCardProps } from '@atoms/StatisticCard/StatisticCard.types'
 import { PlayerHiscoreTableRow } from '@atoms/PlayerHiscoreTableRow'
 import { convertExp } from '@utils/hiscores/hiscoresUtils'
+import { hiscoresStyles } from '../../../consts/styles/hiscores'
+import { BackToLink } from '@molecules/BackToLink'
 
 type PlayerHiscorePageProps = {
   accountName: string
@@ -60,14 +58,12 @@ const PlayerHiscorePage = ({ accountName, playerHiscore }: PlayerHiscorePageProp
         `${typeof accountName !== 'string' || !playerHiscore ? 'Player Not Found' : accountName} | Player Hiscores`,
         `Skill rankings for ${accountName}.`,
       )}
-      <ContentBlock>
-        <HiscoreTabsContainer>
+      <div className='mx-auto max-w-200 text-center'>
+        <div className='mb-4'>
           <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
-        </HiscoreTabsContainer>
+        </div>
         {typeof accountName !== 'string' || !playerHiscore ? (
-          <BodyText variant='body' bodyTextAlign='center'>
-            No hiscore found for this player.
-          </BodyText>
+          <BodyText bodyTextAlign='center'>No hiscore found for this player.</BodyText>
         ) : (
           <>
             <PlayerHiscoreHeader
@@ -80,10 +76,10 @@ const PlayerHiscorePage = ({ accountName, playerHiscore }: PlayerHiscorePageProp
               accountName={accountName}
               columns={
                 <>
-                  <HiscoreTableHeaderCell>Skill</HiscoreTableHeaderCell>
-                  <HiscoreTableHeaderCell>Rank</HiscoreTableHeaderCell>
-                  <HiscoreTableHeaderCell>Level</HiscoreTableHeaderCell>
-                  <HiscoreTableHeaderCell>EXP</HiscoreTableHeaderCell>
+                  <th className={hiscoresStyles.hiscoresHeaderCellClass}>Skill</th>
+                  <th className={hiscoresStyles.hiscoresHeaderCellClass}>Rank</th>
+                  <th className={hiscoresStyles.hiscoresHeaderCellClass}>Level</th>
+                  <th className={hiscoresStyles.hiscoresHeaderCellClass}>EXP</th>
                 </>
               }
               body={
@@ -170,7 +166,7 @@ const PlayerHiscorePage = ({ accountName, playerHiscore }: PlayerHiscorePageProp
           </>
         )}
         <BackToLink href='/hiscores'>← Return to Hiscores</BackToLink>
-      </ContentBlock>
+      </div>
     </>
   )
 }

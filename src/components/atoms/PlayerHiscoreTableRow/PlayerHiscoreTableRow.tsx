@@ -1,17 +1,11 @@
 import { PlayerHiscoreTableRowProps } from './PlayerHiscoreTableRow.types'
-import { HiscoreTableRow, PlayerHiscoreTableCell } from '@organisms/PlayerHiscoreTable/PlayerHiscoreTable.styled'
 import { useRouter } from 'next/router'
 import { HiscoreSkillEmoji } from '@atoms/HiscoreSkillEmoji'
 import { PlayerHiscoresRank } from '@atoms/PlayerHiscoresRank'
 import { formatExp } from '@utils/string/stringUtils'
-import {
-  ExperienceCell,
-  HiscoreSkillTableCell,
-  LevelProgressBar,
-  LevelProgressBarFill,
-  MobileExperienceCell,
-} from './PlayerHiscoreTableRow.styled'
 import { convertExp } from '@utils/hiscores/hiscoresUtils'
+import clsx from 'clsx'
+import { hiscoresStyles } from '../../../consts/styles/hiscores'
 
 /** A component representing a single row in the player hiscore table. */
 const PlayerHiscoreTableRow = (props: PlayerHiscoreTableRowProps) => {
@@ -22,23 +16,40 @@ const PlayerHiscoreTableRow = (props: PlayerHiscoreTableRowProps) => {
   const getLevelProgressPercentage = (level: number, isTotal: boolean) => (isTotal ? 1 : level === 1 ? 0 : level / 99)
 
   return (
-    <HiscoreTableRow onClick={() => router.push(`/hiscores?skill=${skill}`)}>
-      <HiscoreSkillTableCell sx={{ fontWeight: 500 }}>
+    <tr
+      onClick={() => router.push(`/hiscores?skill=${skill}`)}
+      className={clsx(
+        'grid grid-cols-[30%_20%_20%_30%] text-[14px]',
+        'border-divider h-fit items-center border-b-[0.5px]',
+        'last:border-b-0',
+        'hover:bg-divider cursor-pointer',
+        'md:text-[16px]',
+      )}
+    >
+      <td className='flex items-center gap-2 border-0 p-2 font-medium md:p-4'>
         <HiscoreSkillEmoji skill={skill} />
         {skill}
-      </HiscoreSkillTableCell>
-      <PlayerHiscoreTableCell>
+      </td>
+      <td className={clsx(hiscoresStyles.hiscoresValueCellClass, 'flex items-center gap-2.5')}>
         <PlayerHiscoresRank rank={rank} />
-      </PlayerHiscoreTableCell>
-      <PlayerHiscoreTableCell sx={{ fontWeight: 500 }}>
+      </td>
+      <td className={clsx(hiscoresStyles.hiscoresValueCellClass, 'flex items-center gap-2.5 font-medium')}>
         <span>{level}</span>
-        <LevelProgressBar>
-          <LevelProgressBarFill completed={getLevelProgressPercentage(level, skill === 'Overall')} />
-        </LevelProgressBar>
-      </PlayerHiscoreTableCell>
-      <ExperienceCell>{readableExp}</ExperienceCell>
-      <MobileExperienceCell>{formatExp(readableExp)}</MobileExperienceCell>
-    </HiscoreTableRow>
+        <div
+          className={clsx(
+            'hidden',
+            'md:bg-level-progress-bg md:block md:h-1 md:max-w-20 md:flex-1 md:overflow-hidden md:rounded-sm',
+          )}
+        >
+          <div
+            className='bg-primary-main h-full rounded-sm'
+            style={{ width: `${getLevelProgressPercentage(level, skill === 'Overall') * 100}%` }}
+          />
+        </div>
+      </td>
+      <td className={clsx(hiscoresStyles.hiscoresValueCellClass, 'hidden md:table-cell md:min-w-25')}>{readableExp}</td>
+      <td className={clsx(hiscoresStyles.hiscoresValueCellClass, 'md:hidden')}>{formatExp(readableExp)}</td>
+    </tr>
   )
 }
 

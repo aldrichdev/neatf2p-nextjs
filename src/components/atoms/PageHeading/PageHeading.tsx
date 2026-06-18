@@ -1,14 +1,10 @@
+import { cn } from '@utils/cn'
 import { PageHeadingProps } from './PageHeading.types'
-import { Heading } from './PageHeading.styled'
 
 const PageHeading = (props: PageHeadingProps) => {
-  const { children, marginBottom, noTopPadding } = props
+  const { children, className } = props
 
-  return (
-    <Heading variant='h2' sx={{ marginBottom }} noTopPadding={noTopPadding}>
-      {children}
-    </Heading>
-  )
+  return <h2 className={cn('text-center', className)}>{children}</h2>
 }
 
 export default PageHeading

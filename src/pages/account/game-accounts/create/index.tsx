@@ -1,9 +1,8 @@
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
-import { Field } from '@atoms/Field'
+import { sharedStyles } from '@consts/styles/shared'
+import { Input } from '@ui/input'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { Form } from '@atoms/Form'
-import { FormButton } from '@atoms/FormButton/FormButton'
 import { redirectTo } from '@utils/window'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { hashPassword } from '@utils/password'
@@ -20,6 +19,7 @@ import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
+import { Button } from '@ui/button'
 
 type CreateGameAccountPageProps = {
   user: User
@@ -112,57 +112,54 @@ const CreateGameAccountPage = ({ user }: CreateGameAccountPageProps) => {
       {!UserIsLoggedIn(user) ? (
         <NotLoggedIn />
       ) : process.env.NEXT_PUBLIC_GAME_ACCOUNTS_DISABLE_CREATION === 'true' ? (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Temporarily Disabled</PageHeading>
-          <BodyText variant='body' bodyTextAlign='center'>
+          <BodyText bodyTextAlign='center'>
             Game account creations are temporarily disabled until further notice.
           </BodyText>
-        </ContentBlock>
+        </div>
       ) : (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Create Game Account</PageHeading>
-          <BodyText variant='body'>
+          <BodyText>
             Game account names must be 12 characters or less. You are allowed spaces within your name, but any spaces at
             the start or end of your name will be removed upon account creation.
           </BodyText>
           <Form onSubmit={handleGameAccountCreation}>
-            <Field
+            <Input
               required
               id='account-name'
-              label='Account Name'
+              placeholder='Account Name'
               type='text'
-              variant='standard'
               onChange={handleAccountNameChange}
-              inputProps={{ maxLength: 12 }}
+              maxLength={12}
               autoComplete='username'
             />
-            <Field
+            <Input
               required
               id='password'
-              label='Password'
+              placeholder='Password'
               type='password'
-              variant='standard'
               onChange={handlePasswordChange}
-              inputProps={{ maxLength: 20 }}
+              maxLength={20}
               autoComplete='new-password'
             />
-            <Field
+            <Input
               required
               id='confirmPassword'
-              label='Confirm Password'
+              placeholder='Confirm Password'
               type='password'
-              variant='standard'
               onChange={handleConfirmPasswordChange}
-              inputProps={{ maxLength: 20 }}
+              maxLength={20}
               autoComplete='new-password'
             />
             <FieldValidationMessage>{validationError}</FieldValidationMessage>
             <RulesAcceptanceCheckbox onChange={handleRulesCheck} />
-            <FormButton variant='contained' type='submit' disabled={submitDisabled}>
+            <Button type='submit' disabled={submitDisabled}>
               Submit
-            </FormButton>
+            </Button>
           </Form>
-        </ContentBlock>
+        </div>
       )}
     </>
   )

@@ -1,13 +1,13 @@
 import { AgendaViewProps } from './AgendaView.types'
-import { AgendaViewBody, EventCard, EventCardBody, EventCardBodyLine, EventCardTitle } from './AgendaView.styled'
 import { getPrettyDateString } from '@utils/date/date'
 import { BodyText } from '@atoms/BodyText'
-import Link from 'next/link'
 import { PageHeading } from '@atoms/PageHeading'
+import { Spinner } from '@molecules/Spinner'
+import { StandardLink } from '@atoms/StandardLink'
 
 /** An agenda view showing events that are happening in the next 6 months, in addition to recurring events, in boxes. */
 const AgendaView = (props: AgendaViewProps) => {
-  const { events } = props
+  const { events, isLoading } = props
   const now = new Date()
   const sixMonthsFromNow = new Date()
   sixMonthsFromNow.setMonth(now.getMonth() + 6)
@@ -19,52 +19,54 @@ const AgendaView = (props: AgendaViewProps) => {
   return (
     <>
       <PageHeading>Upcoming Events</PageHeading>
-      {sortedAndFilteredEvents?.length > 0 && (
-        <BodyText variant='body' topMargin={0}>
+      {(isLoading || sortedAndFilteredEvents?.length > 0) && (
+        <BodyText>
           Below is a list of events that will be happening on the Neat F2P server within the next 6 months. All event
           times are shown in your local time zone.
         </BodyText>
       )}
-      <AgendaViewBody>
-        {sortedAndFilteredEvents?.length > 0 ? (
+      <div className='grid grid-cols-1 gap-5 text-base font-normal md:grid-cols-2 lg:grid-cols-3'>
+        {isLoading ? (
+          <Spinner />
+        ) : sortedAndFilteredEvents?.length > 0 ? (
           sortedAndFilteredEvents.map(event => (
-            <EventCard key={event.id}>
-              <EventCardTitle>{event.title}</EventCardTitle>
-              <EventCardBody>
+            <div key={event.id} className='w-full border border-black'>
+              <p className='m-0 border-b border-black'>{event.title}</p>
+              <div className='p-2 text-left'>
                 {event.location && (
-                  <EventCardBodyLine>
+                  <p className='my-3'>
                     <strong>Where:</strong> {event.location}
-                  </EventCardBodyLine>
+                  </p>
                 )}
                 {event.recurring ? (
-                  <EventCardBodyLine>
+                  <p className='my-3'>
                     <strong>When:</strong> <u>Every {event.recursEvery}</u> at{' '}
                     {new Date(event.start).toLocaleTimeString('en-US')}
-                  </EventCardBodyLine>
+                  </p>
                 ) : (
                   <>
-                    <EventCardBodyLine>
+                    <p className='my-3'>
                       <strong>Starts:</strong> {getPrettyDateString(new Date(event.start))}
-                    </EventCardBodyLine>
-                    <EventCardBodyLine>
+                    </p>
+                    <p className='my-3'>
                       <strong>Ends:</strong> {getPrettyDateString(new Date(event.end))}
-                    </EventCardBodyLine>
+                    </p>
                   </>
                 )}
                 {event.resource && (
-                  <EventCardBodyLine>
-                    <Link href={event.resource} target='_blank'>
+                  <p className='my-3'>
+                    <StandardLink href={event.resource} target='_blank'>
                       More info
-                    </Link>
-                  </EventCardBodyLine>
+                    </StandardLink>
+                  </p>
                 )}
-              </EventCardBody>
-            </EventCard>
+              </div>
+            </div>
           ))
         ) : (
-          <BodyText variant='body'>No Upcoming Events</BodyText>
+          <BodyText>No Upcoming Events</BodyText>
         )}
-      </AgendaViewBody>
+      </div>
     </>
   )
 }

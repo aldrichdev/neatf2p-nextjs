@@ -1,13 +1,12 @@
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
-import { Field } from '@atoms/Field'
-import { FormButton } from '@atoms/FormButton/FormButton'
+import { sharedStyles } from '@consts/styles/shared'
+import { Input } from '@ui/input'
 import { PageHeading } from '@atoms/PageHeading'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { Form } from '@atoms/Form'
 import { redirectTo } from '@utils/window'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
-import { BannedText } from 'src/data/BannedText'
+import { BannedText } from '../../../data/BannedText'
 import { handleForbiddenRedirect, sendApiRequest } from '@utils/api/apiUtils'
 import { UserIsLoggedIn } from '@utils/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
@@ -18,6 +17,7 @@ import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
+import { Button } from '@ui/button'
 
 type ChangeUsernamePageProps = {
   user: User
@@ -84,27 +84,26 @@ const ChangeUsernamePage = ({ user }: ChangeUsernamePageProps) => {
       {!UserIsLoggedIn(user) ? (
         <NotLoggedIn />
       ) : (
-        <ContentBlock>
-          <PageHeading>Change Username</PageHeading>
-          <BodyText variant='body'>
+        <div className={sharedStyles.defaultContainer}>
+          <PageHeading>Change Website Username</PageHeading>
+          <BodyText>
             Enter your new username below. Remember that this only changes your website username, it does not affect
             your game accounts.
           </BodyText>
           <Form onSubmit={handleSubmit}>
-            <Field
+            <Input
               required
               id='newUsername'
-              label='New Username'
-              variant='standard'
+              placeholder='New Username'
               onChange={handleNewUsernameChange}
-              inputProps={{ maxLength: 25 }}
+              maxLength={25}
             />
             <FieldValidationMessage>{formValidationError}</FieldValidationMessage>
-            <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
+            <Button type='submit' disabled={buttonDisabled}>
               Submit
-            </FormButton>
+            </Button>
           </Form>
-        </ContentBlock>
+        </div>
       )}
     </>
   )

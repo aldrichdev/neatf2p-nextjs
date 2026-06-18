@@ -1,7 +1,4 @@
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
-import { Field } from '@atoms/Field'
-import { FormButton } from '@atoms/FormButton/FormButton'
 import { PageHeading } from '@atoms/PageHeading'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import emailjs from '@emailjs/browser'
@@ -17,6 +14,9 @@ import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
+import { sharedStyles } from '../../../consts/styles/shared'
+import { Input } from '@ui/input'
+import { Button } from '@ui/button'
 
 type ChangeEmailPageProps = {
   user: User
@@ -72,27 +72,27 @@ const ChangeEmailPage = ({ user }: ChangeEmailPageProps) => {
   return (
     <>
       {renderHead('Change Email Address')}
-      <ContentBlock>
+      <div className={sharedStyles.defaultContainer}>
         <PageHeading>Change Email Address</PageHeading>
-        <BodyText variant='body'>
+        <BodyText>
           Enter your new email address below. We will send an email to the new address to confirm you own that account.
           Within the email there will be a link to complete the process.
         </BodyText>
         <Form onSubmit={handleSubmit}>
-          <Field
+          <Input
             required
             id='newEmail'
-            label='New Email'
+            placeholder='New Email'
             type='email'
-            variant='standard'
             onChange={handleNewEmailChange}
+            className='basis-full'
           />
           <FieldValidationMessage>{formValidationError}</FieldValidationMessage>
-          <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
+          <Button type='submit' disabled={buttonDisabled}>
             Submit
-          </FormButton>
+          </Button>
         </Form>
-      </ContentBlock>
+      </div>
     </>
   )
 }

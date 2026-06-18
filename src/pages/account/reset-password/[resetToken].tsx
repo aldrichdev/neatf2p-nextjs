@@ -1,19 +1,19 @@
 import { useRouter } from 'next/router'
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { Form } from '@atoms/Form'
-import { Field } from '@atoms/Field'
+import { Input } from '@ui/input'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { redirectTo } from '@utils/window'
-import { FormButton } from '@atoms/FormButton/FormButton'
 import { hashPassword } from '@utils/password'
 import { PageHeading } from '@atoms/PageHeading'
 import { sendApiRequest } from '@utils/api/apiUtils'
 import { User } from '@globalTypes/User'
 import { Spinner } from '@molecules/Spinner'
 import { BodyText } from '@atoms/BodyText'
-import { InlineLink } from '@atoms/InlineLink'
 import { renderHead } from '@utils/renderUtils'
+import { Button } from '@ui/button'
+import { StandardLink } from '@atoms/StandardLink'
 
 const ResetPassword = () => {
   const { query } = useRouter()
@@ -97,40 +97,36 @@ const ResetPassword = () => {
       {isLoading ? (
         <Spinner />
       ) : tokenExpired ? (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Token Expired</PageHeading>
-          <BodyText variant='body'>
+          <BodyText>
             Your token has expired. Please visit the{' '}
-            <InlineLink href='/account/login/forgot-password'>Forgot Password</InlineLink> page and enter your email
+            <StandardLink href='/account/login/forgot-password'>Forgot Password</StandardLink> page and enter your email
             again. You need to open the link in the email within 10 minutes.
           </BodyText>
-        </ContentBlock>
+        </div>
       ) : (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Reset Your Password</PageHeading>
           <Form onSubmit={handleRequest}>
-            <Field
+            <Input
               required
               id='newPassword'
-              label='New Password'
-              variant='standard'
-              onChange={handleNewPasswordChange}
+              placeholder='New Password'
               type='password'
+              onChange={handleNewPasswordChange}
             />
-            <Field
+            <Input
               required
               id='confirmNewPassword'
-              label='Confirm New Password'
-              variant='standard'
-              onChange={handleConfirmNewPasswordChange}
+              placeholder='Confirm New Password'
               type='password'
+              onChange={handleConfirmNewPasswordChange}
             />
             <FieldValidationMessage>{validationError}</FieldValidationMessage>
-            <FormButton variant='contained' type='submit'>
-              Submit
-            </FormButton>
+            <Button type='submit'>Submit</Button>
           </Form>
-        </ContentBlock>
+        </div>
       )}
     </>
   )

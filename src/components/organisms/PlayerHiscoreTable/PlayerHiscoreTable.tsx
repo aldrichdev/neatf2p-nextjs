@@ -1,7 +1,6 @@
-import { TableContainer, Paper, TableBody } from '@mui/material'
-import { HiscoresTableHead, HiscoreTable } from '@molecules/HiscoresTable/HiscoresTable.styled'
-import { HiscoreTableRow } from './PlayerHiscoreTable.styled'
 import { ReactNode } from 'react'
+import clsx from 'clsx'
+import { hiscoresStyles } from '../../../consts/styles/hiscores'
 
 type HiscoreTableProps = {
   accountName: string
@@ -21,16 +20,21 @@ const PlayerHiscoreTable = (props: HiscoreTableProps) => {
   const { accountName, columns, body, isNpcTable } = props
 
   return (
-    <TableContainer component={Paper} sx={{ boxShadow: 'none', borderRadius: '8px 8px 0 0' }}>
-      <HiscoreTable aria-label={`${accountName} Hiscore Table`}>
-        <HiscoresTableHead>
-          <HiscoreTableRow isHeaderRow={true} isNpcTable={isNpcTable}>
+    <div className='overflow-hidden rounded-t-lg shadow-none'>
+      <table aria-label={`${accountName} Hiscore Table`} className={hiscoresStyles.hiscoresTableClass}>
+        <thead className={hiscoresStyles.hiscoresTheadClass}>
+          <tr
+            className={clsx(
+              isNpcTable ? 'grid-cols-[50%_20%_30%]' : 'grid-cols-[30%_20%_20%_30%]',
+              'grid h-fit items-center border-b-0 text-[14px] md:text-[16px]',
+            )}
+          >
             {columns}
-          </HiscoreTableRow>
-        </HiscoresTableHead>
-        <TableBody>{body}</TableBody>
-      </HiscoreTable>
-    </TableContainer>
+          </tr>
+        </thead>
+        <tbody>{body}</tbody>
+      </table>
+    </div>
   )
 }
 

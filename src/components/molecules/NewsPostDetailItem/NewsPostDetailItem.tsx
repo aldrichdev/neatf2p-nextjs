@@ -2,28 +2,19 @@ import { getPrettyDateStringFromISOString } from '@utils/date/date'
 import parse from 'html-react-parser'
 import { NewsPostItemProps } from '@globalTypes/NewsPostItemProps'
 import { getNewsPostImageUrl } from '@utils/imageUtils'
-import {
-  NewsPostDetailContainer,
-  NewsPostDetailImage,
-  NewsPostDetailDate,
-  NewsPostDetailAuthor,
-  NewsPostDetailBody,
-} from './NewsPostDetailItem.styled'
 import { PageHeading } from '@atoms/PageHeading'
 
 const NewsPostDetailItem = (props: NewsPostItemProps) => {
   const { newsPost } = props
 
   return (
-    <NewsPostDetailContainer>
+    <div className='text-left'>
       <PageHeading>{newsPost.title}</PageHeading>
-      <NewsPostDetailImage src={getNewsPostImageUrl(newsPost.image)} alt={newsPost.alt} />
-      <NewsPostDetailDate variant='body'>{getPrettyDateStringFromISOString(newsPost.datePosted)}</NewsPostDetailDate>
-      <NewsPostDetailAuthor variant='body'>Beast Fable</NewsPostDetailAuthor>
-      <NewsPostDetailBody variant='body' component='span'>
-        {parse(newsPost.body)}
-      </NewsPostDetailBody>
-    </NewsPostDetailContainer>
+      <img src={getNewsPostImageUrl(newsPost.image)} alt={newsPost.alt} className='mt-5 max-w-full md:max-w-75' />
+      <p className='mt-2.5 text-base text-neutral-500'>{getPrettyDateStringFromISOString(newsPost.datePosted)}</p>
+      <p className='text-base text-neutral-500'>Beast Fable</p>
+      <span className='news-post-detail-body mt-5 block wrap-break-word md:mt-10'>{parse(newsPost.body)}</span>
+    </div>
   )
 }
 

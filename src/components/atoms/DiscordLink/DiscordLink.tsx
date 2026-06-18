@@ -1,4 +1,5 @@
-import Link from 'next/link'
+import { StandardLink } from '@atoms/StandardLink'
+import { DiscordInviteLink } from '@consts/discord'
 
 type DiscordLinkProps = {
   /** Optional prop if you wish to wrap the Discord link in something other than "Discord". */
@@ -9,9 +10,9 @@ const DiscordLink = (props: DiscordLinkProps) => {
   const { children } = props
 
   return (
-    <Link href='https://discord.gg/wd67zUxPXn' target='_blank'>
+    <StandardLink href={DiscordInviteLink} target='_blank' className='flex justify-center'>
       {children || 'Discord'}
-    </Link>
+    </StandardLink>
   )
 }
 

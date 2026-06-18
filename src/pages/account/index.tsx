@@ -1,15 +1,4 @@
-import { useState } from 'react'
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
-import {
-  AccountNavigationContainer,
-  AccountNavigationButton,
-  AccountNavigationItem,
-  AdminToolsHeading,
-  AdminToolsButtonArea,
-  AccountPageDivider,
-} from '@styledPages/Account.styled'
-import Menu from '@mui/material/Menu'
 import { UserIsLoggedIn } from '@utils/users/users'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { PageHeading } from '@atoms/PageHeading'
@@ -19,23 +8,17 @@ import { getIronSession } from 'iron-session'
 import { sessionOptions } from '@models/session'
 import { NullUser } from '@models/NullUser'
 import { User } from '@globalTypes/User'
-import Button from '@mui/material/Button'
+import { sharedStyles } from '@consts/styles/shared'
+import { Button } from '@ui/button'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@ui/dropdown-menu'
+import Link from 'next/link'
 
 type AccountPageProps = {
   user: User
 }
 
 const AccountPage = ({ user }: AccountPageProps) => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const open = Boolean(anchorEl)
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
-
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
+  const websiteLinkClass = 'cursor-pointer px-4 py-3'
 
   const handleUpdateNewsPostClick = () => {
     const userInput = prompt('Enter the ID of the news post you wish to update:')
@@ -61,63 +44,59 @@ const AccountPage = ({ user }: AccountPageProps) => {
       {!UserIsLoggedIn(user) ? (
         <NotLoggedIn />
       ) : (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Hiya, {user?.username}!</PageHeading>
-          <BodyText variant='body' bodyTextAlign='center'>
+          <BodyText bodyTextAlign='center'>
             Welcome to your account page. Here, you can modify your website account, create game (RSC) accounts, rename
             game accounts and update passwords.
           </BodyText>
-          <AccountNavigationContainer>
-            <AccountNavigationButton
-              id='manage-website-account'
-              aria-controls={open ? 'basic-menu' : undefined}
-              aria-haspopup='true'
-              aria-expanded={open ? 'true' : undefined}
-              onClick={handleClick}
-            >
-              Manage Website Account
-            </AccountNavigationButton>
-            <Menu
-              id='manage-website-account-menu'
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                'aria-labelledby': 'manage-website-account',
-              }}
-            >
-              <AccountNavigationItem href='/account/change-email' onClick={handleClose}>
-                Change email address
-              </AccountNavigationItem>
-              <AccountNavigationItem href='/account/change-username' onClick={handleClose}>
-                Change username
-              </AccountNavigationItem>
-              <AccountNavigationItem href='/account/change-password' onClick={handleClose}>
-                Change password
-              </AccountNavigationItem>
-            </Menu>
-            <AccountNavigationButton href='/account/game-accounts'>Manage Game Accounts</AccountNavigationButton>
-          </AccountNavigationContainer>
+          <div className='mt-2.5 flex flex-wrap justify-center gap-5 md:flex-nowrap'>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button size='lg'>⚙️ Manage Website Account</Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem asChild>
+                  <Link href='/account/change-email' className={websiteLinkClass}>
+                    Change email address
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href='/account/change-username' className={websiteLinkClass}>
+                    Change username
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href='/account/change-password' className={websiteLinkClass}>
+                    Change password
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Button size='lg' asChild>
+              <Link href='/account/game-accounts'>🕹️ Manage Game Accounts</Link>
+            </Button>
+          </div>
           {user?.isAdmin && (
             <>
-              <AccountPageDivider />
-              <div>
-                <AdminToolsHeading variant='h3'>🧰 Admin Tools 🧰</AdminToolsHeading>
-                <BodyText variant='body' bodyTextAlign='center' topMargin={0}>
+              <hr className='my-5' />
+              <div className='flex flex-wrap justify-center gap-5'>
+                <h2 className='text-center md:text-[48px]'>
+                  <span className='hidden md:inline'>🧰</span> Admin Tools <span className='hidden md:inline'>🧰</span>
+                </h2>
+                <BodyText bodyTextAlign='center'>
                   Below are some admin tools to help you manage content on this site.
                 </BodyText>
-                <AdminToolsButtonArea>
-                  <Button variant='contained' href='/admin/create-news-post'>
-                    ➕ Create News Post
+                <div className='flex flex-wrap justify-center gap-5'>
+                  <Button asChild>
+                    <Link href='/admin/create-news-post'>➕ Create News Post</Link>
                   </Button>
-                  <Button variant='contained' onClick={handleUpdateNewsPostClick}>
-                    📝 Update News Post
-                  </Button>
-                </AdminToolsButtonArea>
+                  <Button onClick={handleUpdateNewsPostClick}>📝 Update News Post</Button>
+                </div>
               </div>
             </>
           )}
-        </ContentBlock>
+        </div>
       )}
     </>
   )
