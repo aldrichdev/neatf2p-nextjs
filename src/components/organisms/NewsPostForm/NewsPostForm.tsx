@@ -24,7 +24,7 @@ const NewsPostForm = (props: NewsPostFormProps) => {
   const [submitDisabled, setSubmitDisabled] = useState(false)
   const [submitResult, setSubmitResult] = useState<{ answer: string; code: string }>()
   const submitColorClass: Record<string, string> = {
-    green: 'text-green-600',
+    green: 'text-primary-main',
     red: 'text-red-600',
   }
 
@@ -136,7 +136,7 @@ const NewsPostForm = (props: NewsPostFormProps) => {
             </Button>
           )}
         </div>
-        {imagePreviewUrl && <img src={imagePreviewUrl} alt='' />}
+        {imagePreviewUrl && <img src={imagePreviewUrl} alt='' className='max-w-50' />}
       </div>
       <Input id='imageAlt' placeholder='Alt Text' onChange={handleAltChange} value={alt} className='mt-2.5 w-full' />
       <Input
@@ -170,7 +170,9 @@ const NewsPostForm = (props: NewsPostFormProps) => {
         body={
           <>
             <h2 className='text-3xl'>{title}</h2>
-            {bodyHtml && <div dangerouslySetInnerHTML={{ __html: bodyHtml }} />}
+            {bodyHtml && (
+              <div dangerouslySetInnerHTML={{ __html: bodyHtml }} className='news-post-detail-body text-base' />
+            )}
           </>
         }
         bodyScrollable
@@ -181,7 +183,7 @@ const NewsPostForm = (props: NewsPostFormProps) => {
         </Button>
       </div>
       {submitResult?.answer && (
-        <label className={clsx('mt-2.5 basis-full', submitColorClass[submitResult.code] ?? 'text-black')}>
+        <label className={clsx('mt-2.5 basis-full text-sm', submitColorClass[submitResult.code] ?? 'text-black')}>
           {submitResult.answer}
         </label>
       )}

@@ -23,8 +23,7 @@ const ResetPasswordSuccessPage = ({ user }: ResetPasswordSuccessPageProps) => (
         Your password was reset successfully.{' '}
         {!UserIsLoggedIn(user) && (
           <>
-            You can now
-            <StandardLink href='/account/login'>login</StandardLink>.
+            You can now <StandardLink href='/account/login'>login</StandardLink>.
           </>
         )}
       </BodyText>

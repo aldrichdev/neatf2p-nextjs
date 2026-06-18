@@ -40,7 +40,7 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
     return null
   } else if (accounts && accounts.length < 1) {
     return (
-      <BodyText bodyTextAlign='center' className='mt-0 hidden md:block'>
+      <BodyText bodyTextAlign='center' className='hidden md:block'>
         You don&apos;t have any accounts right now. Why not create one?
       </BodyText>
     )

@@ -20,7 +20,7 @@ const AgendaView = (props: AgendaViewProps) => {
     <>
       <PageHeading>Upcoming Events</PageHeading>
       {(isLoading || sortedAndFilteredEvents?.length > 0) && (
-        <BodyText className='mt-0'>
+        <BodyText>
           Below is a list of events that will be happening on the Neat F2P server within the next 6 months. All event
           times are shown in your local time zone.
         </BodyText>

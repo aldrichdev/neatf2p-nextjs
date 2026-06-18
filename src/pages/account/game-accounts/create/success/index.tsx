@@ -33,13 +33,13 @@ const CreateGameAccountSuccessPage = ({ user }: CreateGameAccountSuccessPageProp
               <span>Your game account has been created. You can now log in.</span>
             ) : (
               <span>
-                Your game account, <strong>{accountName}</strong>, has been created. You can now log in.
+                Your game account, <strong className='font-mono'>{accountName}</strong>, has been created. You can now
+                log in.
               </span>
             )}
           </BodyText>
           <BodyText bodyTextAlign='center'>
-            You may return to the
-            <StandardLink href='/account/game-accounts'>game accounts page</StandardLink>.
+            You may return to the <StandardLink href='/account/game-accounts'>game accounts page</StandardLink>.
           </BodyText>
         </div>
       )}

@@ -4,7 +4,6 @@ import { handleForbiddenRedirect, sendApiRequest } from '@utils/api/apiUtils'
 import { renderHead } from '@utils/renderUtils'
 import { Spinner } from '@molecules/Spinner'
 import axios, { AxiosError } from 'axios'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import emailjs from '@emailjs/browser'
@@ -20,6 +19,7 @@ import { GetServerSideProps } from 'next'
 import { sharedStyles } from '../../../consts/styles/shared'
 import { Input } from '@ui/input'
 import { Button } from '@ui/button'
+import { StandardLink } from '@atoms/StandardLink'
 
 type ChangeEmailByIdPageProps = {
   user: User
@@ -177,8 +177,8 @@ const ChangeEmailByIdPage = ({ user }: ChangeEmailByIdPageProps) => {
         <div className={sharedStyles.defaultContainer}>
           <PageHeading>Update Complete</PageHeading>
           <BodyText bodyTextAlign='center'>
-            {/** TODO: need to check every <Link> containing text without custom styles on the site and change to StandardLink */}
-            Your email has been updated. You can go back to your <Link href='/account'>account</Link> page.
+            Your email has been updated. You can go back to your <StandardLink href='/account'>account</StandardLink>{' '}
+            page.
           </BodyText>
         </div>
       )}

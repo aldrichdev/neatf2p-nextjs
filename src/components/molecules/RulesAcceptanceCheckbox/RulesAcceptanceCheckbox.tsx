@@ -6,7 +6,7 @@ const RulesAcceptanceCheckbox = (props: RulesAcceptanceCheckboxProps) => {
   const { onChange } = props
 
   return (
-    <div className='flex items-center gap-2 text-left'>
+    <div className='flex basis-full items-center gap-2 text-left'>
       <Checkbox id='rules-acceptance' required onCheckedChange={checked => onChange(checked as boolean)} />
       <label htmlFor='rules-acceptance' className='cursor-pointer text-base'>
         I have read and agree to the{' '}

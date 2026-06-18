@@ -55,7 +55,7 @@ const RenameAccountModalBody = (props: RenameAccountModalBodyProps) => {
           Restore Username
         </Button>
         {restoreSuccessMessage && (
-          <BodyText bodyTextAlign='left' className='text-green-600'>
+          <BodyText bodyTextAlign='left' className='text-primary-main'>
             {restoreSuccessMessage}
           </BodyText>
         )}

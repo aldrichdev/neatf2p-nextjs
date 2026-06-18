@@ -11,7 +11,7 @@ export const FieldValidationMessage = ({ children, color }: FieldValidationMessa
   if (!children) return null
 
   return (
-    <span className={cn('basis-full text-left text-sm text-red-600', color === 'green' ? 'text-green-600' : '')}>
+    <span className={cn('basis-full text-left text-sm text-red-600', color === 'green' ? 'text-primary-main' : '')}>
       {children}
     </span>
   )

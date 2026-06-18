@@ -75,7 +75,7 @@ const BugReportsPage = ({ user }: BugReportsPageProps) => {
             .
           </p>,
         )
-        setValidationMessageColor('green') // TODO: This looks bad next to the standardlink coloring..
+        setValidationMessageColor('green')
       })
       .catch(error => {
         setValidationMessage(

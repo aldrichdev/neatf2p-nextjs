@@ -74,10 +74,10 @@ const ChangePasswordPage = ({ user }: ChangePasswordPageProps) => {
 
   return (
     <>
-      {renderHead('Change Password')}
+      {renderHead('Change Website Password')}
       <div className={sharedStyles.defaultContainer}>
-        <PageHeading>Change Password</PageHeading>
-        <BodyText>Please enter your new password below.</BodyText>
+        <PageHeading>Change Website Password</PageHeading>
+        <BodyText>Please enter the new password for your website account below.</BodyText>
         <Form onSubmit={handleSubmit}>
           <Input
             required

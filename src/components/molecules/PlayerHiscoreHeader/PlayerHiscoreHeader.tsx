@@ -13,7 +13,7 @@ const PlayerHiscoreHeader = (props: PlayerHiscoreHeaderProps) => {
   ) : (
     <>
       <PageHeading className='mb-2'>{accountName}</PageHeading>
-      <BodyText bodyTextAlign='center' mobileTextAlign='center' className='mt-0'>
+      <BodyText bodyTextAlign='center' mobileTextAlign='center'>
         <span className='text-tertiary-text text-sm'>Last login:</span>{' '}
         <strong className='text-primary-main text-sm'>
           {lastLoginMillis ? getPrettyDateStringFromMillis(lastLoginMillis, true) : 'Never'}

@@ -77,16 +77,17 @@ const AccountPage = ({ user }: AccountPageProps) => {
               <Link href='/account/game-accounts'>🕹️ Manage Game Accounts</Link>
             </Button>
           </div>
-          {/** TODO: This needs styling fixes! */}
           {user?.isAdmin && (
             <>
-              <hr className='my-10' />
-              <div>
-                <h3 className='mb-5 text-center'>🧰 Admin Tools 🧰</h3>
+              <hr className='my-5' />
+              <div className='flex flex-wrap justify-center gap-5'>
+                <h2 className='text-center md:text-[48px]'>
+                  <span className='hidden md:inline'>🧰</span> Admin Tools <span className='hidden md:inline'>🧰</span>
+                </h2>
                 <BodyText bodyTextAlign='center'>
                   Below are some admin tools to help you manage content on this site.
                 </BodyText>
-                <div className='mt-10 flex flex-wrap justify-center gap-5'>
+                <div className='flex flex-wrap justify-center gap-5'>
                   <Button asChild>
                     <Link href='/admin/create-news-post'>➕ Create News Post</Link>
                   </Button>

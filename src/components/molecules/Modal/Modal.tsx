@@ -21,20 +21,18 @@ const Modal = (props: ModalProps) => {
 
   return (
     <Dialog open={open} onOpenChange={isOpen => !isOpen && handleClose()}>
-      <DialogContent aria-describedby={undefined}>
+      <DialogContent aria-describedby={undefined} className='lg:max-w-150'>
         <DialogHeader>
           <DialogTitle className='text-[32px]'>{heading}</DialogTitle>
         </DialogHeader>
         {bodyScrollable ? (
           <div className='relative h-100'>
-            <BodyText bodyTextAlign='left' mobileTextAlign='left' className='mt-0 h-full overflow-y-scroll'>
+            <BodyText bodyTextAlign='left' mobileTextAlign='left' className='h-full overflow-y-scroll'>
               {body}
             </BodyText>
           </div>
         ) : (
-          <BodyText bodyTextAlign='left' className='mt-0'>
-            {body}
-          </BodyText>
+          <BodyText bodyTextAlign='left'>{body}</BodyText>
         )}
         {hasForm && handleSubmit && renderFields && (
           <>
@@ -49,7 +47,7 @@ const Modal = (props: ModalProps) => {
               </div>
             </Form>
             {formSuccessMessage && (
-              <BodyText bodyTextAlign='left' className='mt-0 text-green-600'>
+              <BodyText bodyTextAlign='left' className='text-primary-main'>
                 {formSuccessMessage}
               </BodyText>
             )}
