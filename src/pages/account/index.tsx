@@ -81,7 +81,7 @@ const AccountPage = ({ user }: AccountPageProps) => {
             <>
               <hr className='my-5' />
               <div className='flex flex-wrap justify-center gap-5'>
-                <h2 className='text-center md:text-[48px]'>
+                <h2 className='text-center md:text-5xl'>
                   <span className='hidden md:inline'>🧰</span> Admin Tools <span className='hidden md:inline'>🧰</span>
                 </h2>
                 <BodyText bodyTextAlign='center'>

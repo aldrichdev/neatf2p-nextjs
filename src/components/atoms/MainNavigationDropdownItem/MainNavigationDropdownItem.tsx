@@ -35,16 +35,19 @@ const MainNavigationDropdownItem = (props: MainNavigationDropdownItemProps) => {
         variant='ghost'
         onClick={handleClick}
         className={clsx(
-          'h-10.75 rounded-none p-2 text-[18px] font-normal',
+          'h-10.75 rounded-none p-2 text-lg font-normal md:h-auto',
           'hover:text-secondary-main hover:bg-transparent',
           isActive ? 'text-secondary-main' : 'text-white',
-          'md:h-auto',
         )}
       >
         {title}
       </Button>
       <div
-        className={clsx('absolute w-full', isDropdownVisible ? 'block' : 'hidden', 'lg:hidden lg:group-hover:block')}
+        className={clsx(
+          'absolute z-1 w-full',
+          isDropdownVisible ? 'block' : 'hidden',
+          'lg:hidden lg:group-hover:block',
+        )}
       >
         <ul className='m-0 list-none p-0'>
           {subItems.map(subItem => (
@@ -53,7 +56,7 @@ const MainNavigationDropdownItem = (props: MainNavigationDropdownItemProps) => {
                 href={subItem.path}
                 target={subItem.opensInNewTab ? '_blank' : '_self'}
                 onClick={handleSubItemClick}
-                className='hover:text-nav-link-hover block p-2 text-[16px] text-white no-underline'
+                className='hover:text-nav-link-hover block p-2 text-base text-white no-underline'
               >
                 {subItem.text}
               </Link>

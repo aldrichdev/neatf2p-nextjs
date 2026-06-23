@@ -16,7 +16,7 @@ const NpcHiscoresMenu = (props: NpcHiscoresMenuProps) => {
     >
       <ul
         className={clsx(
-          'm-0 flex h-fit w-full list-none gap-x-1.5 p-[10px_12px]',
+          'm-0 flex h-fit w-full list-none gap-x-1.5 px-3 py-2.5',
           'scrollbar-none overflow-x-auto [&::-webkit-scrollbar]:hidden',
           'md:block md:h-265 md:gap-x-0 md:px-0 md:py-2',
           'md:scrollbar-thin md:[scrollbar-color:var(--color-divider)_transparent] md:overflow-y-auto',

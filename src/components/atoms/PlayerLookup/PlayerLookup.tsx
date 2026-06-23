@@ -28,7 +28,7 @@ const PlayerLookup = (props: PlayerLookupProps) => {
     <div
       className={clsx('bg-sidebar-bg border-divider rounded-lg border-[0.5px] p-3.5', 'md:basis-full lg:basis-auto')}
     >
-      <h3 className='text-left font-[Cinzel,serif] text-[16px] font-semibold'>Look Up Player</h3>
+      <h3 className='text-left text-base font-semibold'>Look Up Player</h3>
       <form onSubmit={handleSubmit} className='flex flex-wrap justify-center'>
         <Input
           required
@@ -39,7 +39,7 @@ const PlayerLookup = (props: PlayerLookupProps) => {
           value={playerName}
           className='bg-background-paper mt-2.5 w-full'
         />
-        <Button type='submit' className='mt-2.5 w-full text-[18px]'>
+        <Button type='submit' className='mt-2.5 w-full'>
           Search
         </Button>
       </form>

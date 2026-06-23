@@ -8,9 +8,7 @@ const StatisticCard = (props: StatisticCardProps) => {
   return (
     <div className='text-tertiary-text bg-sidebar-bg flex flex-wrap rounded-lg px-3.5 py-2.5 text-left leading-tight'>
       <div className='mb-1 basis-full text-[11px] tracking-wider uppercase'>{label}</div>
-      <div
-        className={clsx('basis-full text-[20px] font-semibold', isRank ? 'text-secondary-main' : 'text-text-primary')}
-      >
+      <div className={clsx('basis-full text-xl font-semibold', isRank ? 'text-secondary-main' : 'text-text-primary')}>
         {children}
       </div>
       <div className='mt-0.5 basis-full text-[11px]'>{footnote}</div>

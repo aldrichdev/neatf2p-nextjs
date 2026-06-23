@@ -40,7 +40,7 @@ function PaginationLink({ className, isActive, size = 'icon', ...props }: Pagina
       variant={isActive ? 'default' : 'ghost'}
       size={size}
       className={cn(
-        'size-9 rounded-md font-sans text-[14px]',
+        'size-9 rounded-md font-sans text-sm',
         isActive && 'bg-primary-main hover:bg-primary-dark text-white',
         className,
       )}

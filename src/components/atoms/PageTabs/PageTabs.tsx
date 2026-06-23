@@ -35,8 +35,7 @@ const PageTabs = (props: PageTabsProps) => {
             onClick={() => handleTabClick(tab)}
             style={fontSize ? { fontSize: `${fontSize}px` } : undefined}
             className={clsx(
-              'basis-full cursor-pointer p-2 font-sans text-[18px] font-medium',
-              'only:cursor-auto',
+              'basis-full cursor-pointer p-2 font-sans font-medium only:cursor-auto',
               isActive
                 ? cn('bg-primary-main text-table-header-text', activeTabClassName)
                 : cn(

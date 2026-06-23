@@ -58,7 +58,7 @@ const HiscoresControls = (props: HiscoresControlsProps) => {
                     handleClick(pageNum)
                   }}
                   className={clsx(
-                    'font-sans text-[14px]',
+                    'font-sans text-sm',
                     pageNum === currentPage && 'bg-primary-main hover:bg-primary-dark text-white',
                   )}
                 >

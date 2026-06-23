@@ -19,11 +19,9 @@ const PlayerHiscoreTableRow = (props: PlayerHiscoreTableRowProps) => {
     <tr
       onClick={() => router.push(`/hiscores?skill=${skill}`)}
       className={clsx(
-        'grid grid-cols-[30%_20%_20%_30%] text-[14px]',
+        'grid grid-cols-[30%_20%_20%_30%] text-sm md:text-base',
         'border-divider h-fit items-center border-b-[0.5px]',
-        'last:border-b-0',
-        'hover:bg-divider cursor-pointer',
-        'md:text-[16px]',
+        'hover:bg-divider cursor-pointer last:border-b-0',
       )}
     >
       <td className='flex items-center gap-2 border-0 p-2 font-medium md:p-4'>

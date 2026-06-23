@@ -3,6 +3,7 @@ import { NavigationItem } from './MainNavigation.types'
 import { MainNavigationDropdownItem } from '@atoms/MainNavigationDropdownItem'
 import Link from 'next/link'
 import { cn } from '@utils/cn'
+import clsx from 'clsx'
 
 const MainNavigation = () => {
   const { asPath } = useRouter()
@@ -79,7 +80,12 @@ const MainNavigation = () => {
 
   return (
     <div className='flex justify-center'>
-      <ul className='bg-dark-gray m-0 flex w-full list-none flex-wrap items-center justify-center gap-4 border-0 px-0! py-3! md:gap-8 md:border-2 md:border-solid md:border-black lg:flex-nowrap'>
+      <ul
+        className={clsx(
+          'bg-dark-gray m-0 flex w-full list-none flex-wrap items-center justify-center gap-4 border-0',
+          'py-3 md:gap-8 md:border-2 md:border-solid md:border-black lg:flex-nowrap',
+        )}
+      >
         {navigationItems.map((item: NavigationItem) => (
           <li key={item.path || item.subItems?.[0]?.path} className='flex items-center'>
             {item.path ? (

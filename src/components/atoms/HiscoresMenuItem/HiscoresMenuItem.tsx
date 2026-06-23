@@ -7,7 +7,7 @@ const HiscoresMenuItem = (props: HiscoresMenuItemProps) => {
   const { menuItemLabel, hiscoreType, buttonOnClick } = props
   const isSelected = hiscoreType === menuItemLabel
   const skillIconFileName = isSelected ? hiscoreType : menuItemLabel
-  const skillNameClass = 'text-[12px] leading-none md:text-[14px]'
+  const skillNameClass = 'text-xs leading-none md:text-sm'
 
   return (
     <li onClick={() => buttonOnClick(menuItemLabel)} className={hiscoresStyles.hiscoresMenuItem(isSelected)}>
