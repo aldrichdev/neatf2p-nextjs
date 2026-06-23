@@ -21,9 +21,22 @@ export const hiscoresStyles = {
       isSelected
         ? 'text-table-header-text border-primary-main bg-primary-main font-medium'
         : 'text-primary-dark border-divider bg-background-paper font-normal',
-      'sm:text-primary-dark sm:w-auto sm:gap-2 sm:rounded-none sm:border-0 sm:px-3.5 sm:py-1.75 sm:text-left',
+      'md:text-primary-dark md:w-auto md:gap-2 md:rounded-none md:border-0 md:px-3.5 md:py-1.75 md:text-left',
       isSelected
-        ? 'sm:border-l-primary-main sm:bg-primary-light sm:hover:bg-primary-light sm:border-l-[3px] sm:pl-2.75'
-        : 'sm:hover:bg-skill-item-hover sm:bg-transparent',
+        ? 'md:border-l-primary-main md:bg-primary-light md:hover:bg-primary-light md:border-l-[3px] md:pl-2.75'
+        : 'md:hover:bg-skill-item-hover md:bg-transparent',
+    ),
+  npcHiscoresMenuItem: (isSelected: boolean) =>
+    clsx(
+      'flex cursor-pointer list-none items-center gap-1.25 text-center text-sm',
+      'border-divider h-fit rounded-[20px] border-[0.5px] px-2.5 py-1.25 whitespace-nowrap',
+      '-webkit-tap-highlight-color-transparent',
+      isSelected
+        ? 'text-table-header-text border-primary-main bg-primary-main font-medium'
+        : 'text-primary-dark border-divider bg-background-paper font-normal',
+      'lg:text-primary-dark lg:w-auto lg:gap-2 lg:rounded-none lg:border-0 lg:px-3.5 lg:py-1.75 lg:text-left',
+      isSelected
+        ? 'lg:border-l-primary-main lg:bg-primary-light lg:hover:bg-primary-light lg:border-l-[3px] lg:pl-2.75'
+        : 'lg:hover:bg-skill-item-hover lg:bg-transparent',
     ),
 }

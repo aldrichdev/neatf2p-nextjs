@@ -26,7 +26,7 @@ const NpcHiscoresMenuItem = (props: NpcHiscoresMenuItemProps) => {
   const isSelected = JSON.stringify(hiscoreType) === JSON.stringify(menuItemNpcId) || isHiscoreTypeRelatedToMenuItem()
 
   return (
-    <li onClick={() => buttonOnClick(menuItemNpcId)} className={hiscoresStyles.hiscoresMenuItem(isSelected)}>
+    <li onClick={() => buttonOnClick(menuItemNpcId)} className={hiscoresStyles.npcHiscoresMenuItem(isSelected)}>
       {npcName}
     </li>
   )
