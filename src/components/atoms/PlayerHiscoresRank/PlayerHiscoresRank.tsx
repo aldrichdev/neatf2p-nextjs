@@ -9,12 +9,12 @@ const PlayerHiscoresRank = (props: PlayerHiscoresRankProps) => {
       return <span className='text-tertiary-text'>{'--'}</span>
     case 1:
       return (
-        <span className='text-[16px]' title='#1'>
+        <span className='text-base' title='#1'>
           👑
         </span>
       )
     default:
-      return <span className='text-secondary-main text-[14px] font-semibold md:text-[16px]'>#{rank}</span>
+      return <span className='text-secondary-main text-sm font-semibold md:text-base'>#{rank}</span>
   }
 }
 

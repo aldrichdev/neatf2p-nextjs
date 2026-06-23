@@ -31,7 +31,7 @@ const NpcPlayerHiscoreFilterBar = (props: NpcPlayerHiscoreFilterBarProps) => {
           className={clsx(
             'box-border h-8.5 w-full min-w-0 px-2 py-1.5',
             'border-divider rounded-md border-[0.5px]',
-            'text-primary-dark bg-background-paper text-[16px]',
+            'text-primary-dark bg-background-paper text-base',
             'font-sans outline-none',
             'md:px-2.5 md:py-1.75',
           )}
@@ -44,7 +44,7 @@ const NpcPlayerHiscoreFilterBar = (props: NpcPlayerHiscoreFilterBarProps) => {
               'absolute top-1/2 right-2 -translate-y-1/2',
               'cursor-pointer border-none bg-transparent p-0',
               'flex items-center justify-center',
-              'text-tertiary-text text-[16px] leading-none',
+              'text-tertiary-text text-base leading-none',
               'hover:text-primary-dark',
               '[-webkit-tap-highlight-color:transparent]',
             )}
@@ -59,7 +59,7 @@ const NpcPlayerHiscoreFilterBar = (props: NpcPlayerHiscoreFilterBarProps) => {
             key={filter}
             onClick={() => setActiveFilter(filter)}
             className={clsx(
-              'cursor-pointer rounded-md font-sans text-[14px] font-medium whitespace-nowrap',
+              'cursor-pointer rounded-md font-sans text-sm font-medium whitespace-nowrap',
               'border-[0.5px] px-2 py-1.25 md:px-2.5 md:py-1.5',
               activeFilter === filter
                 ? 'text-table-header-text bg-primary-main border-primary-main'

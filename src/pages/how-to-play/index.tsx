@@ -10,7 +10,7 @@ import { StandardLink } from '@atoms/StandardLink'
 const HowToPlay = () => {
   const clientButtonClass = clsx(
     'flex w-66.5 font-bold justify-center items-center justify-self-center',
-    'border-[3px] border-transparent hover:border-[goldenrod] focus:border-[goldenrod]',
+    'border-3 border-transparent hover:border-[goldenrod] focus:border-[goldenrod]',
     'md:w-51.5 lg:w-66.5',
   )
   const clientImageClass = 'w-66.5 md:w-51.5 lg:w-66.5'

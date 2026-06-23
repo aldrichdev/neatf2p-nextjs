@@ -1,9 +1,6 @@
 import clsx from 'clsx'
 
-const rankBadgeClass = clsx(
-  'size-5.5 text-[14px] font-semibold',
-  'rounded-full inline-flex items-center justify-center',
-)
+const rankBadgeClass = clsx('size-5.5 text-sm font-semibold', 'rounded-full inline-flex items-center justify-center')
 
 export const RankBadge = ({ children }: { children: React.ReactNode }) => (
   <span className={clsx(rankBadgeClass, 'text-text-secondary')}>{children}</span>

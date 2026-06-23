@@ -63,8 +63,7 @@ const NpcHiscores = ({ hiscores, npcHiscoreType, npcSubTypes }: NpcHiscoresPageP
           <div className='w-full'>
             <h2
               className={clsx(
-                'text-text-primary mb-4 text-left text-[22px] leading-7 font-bold',
-                'md:mb-3 md:text-[28px] md:leading-9',
+                'text-text-primary mb-4 text-left text-[22px] leading-7 font-bold md:mb-3 md:text-[28px] md:leading-9',
               )}
             >
               {pageTitle}

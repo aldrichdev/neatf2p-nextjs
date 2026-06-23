@@ -1,21 +1,21 @@
 import clsx from 'clsx'
 
-const valueCellClass = 'text-left font-normal text-[14px] md:text-[16px] py-2.25 px-3.5 border-0'
+const valueCellClass = 'text-left font-normal text-sm md:text-base py-2.25 px-3.5 border-0'
 
 export const hiscoresStyles = {
   hiscoresTableRootContainerClass: 'flex w-full flex-wrap',
   hiscoresTableOuterContainerClass: 'w-full overflow-hidden rounded-t-lg shadow-none md:basis-full',
   hiscoresTableClass: 'bg-background-paper w-full rounded-lg font-sans',
   hiscoresTheadClass: 'bg-primary-main h-fit [&_tr]:border-b-0',
-  hiscoresListingTableRowClass: 'border-divider border-b-[0.5px] text-[14px] md:text-[16px]',
+  hiscoresListingTableRowClass: 'border-divider border-b-[0.5px] text-sm md:text-base',
   hiscoresValueCellClass: valueCellClass,
   hiscoresHeaderCellClass:
-    'text-left text-table-header-text border-0 px-3.5 py-2.25 text-[14px] leading-6 font-bold uppercase',
+    'text-left text-table-header-text border-0 px-3.5 py-2.25 text-sm leading-6 font-bold uppercase',
   hiscoresDesktopCellClass: clsx(valueCellClass, 'hidden md:table-cell'),
   hiscoresMobileCellClass: clsx(valueCellClass, 'md:hidden'),
   hiscoresMenuItem: (isSelected: boolean) =>
     clsx(
-      'flex cursor-pointer list-none items-center gap-1.25 text-center text-[14px]',
+      'flex cursor-pointer list-none items-center gap-1.25 text-center text-sm',
       'border-divider h-fit rounded-[20px] border-[0.5px] px-2.5 py-1.25 whitespace-nowrap',
       '-webkit-tap-highlight-color-transparent',
       isSelected

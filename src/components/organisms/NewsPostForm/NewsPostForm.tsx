@@ -119,7 +119,7 @@ const NewsPostForm = (props: NewsPostFormProps) => {
     <form onSubmit={handleSubmit} className='flex flex-wrap text-left'>
       <div className='flex w-full flex-wrap justify-start gap-2 text-left'>
         <label className='basis-full'>Image</label>
-        <span className='basis-full text-[14px] text-gray-500'>
+        <span className='basis-full text-sm text-gray-500'>
           Optional. If not provided, a placeholder image will be displayed next to the post.
         </span>
         <div className='flex basis-full gap-2'>

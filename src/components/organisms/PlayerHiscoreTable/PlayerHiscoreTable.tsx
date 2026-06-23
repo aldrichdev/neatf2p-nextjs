@@ -26,7 +26,7 @@ const PlayerHiscoreTable = (props: HiscoreTableProps) => {
           <tr
             className={clsx(
               isNpcTable ? 'grid-cols-[50%_20%_30%]' : 'grid-cols-[30%_20%_20%_30%]',
-              'grid h-fit items-center border-b-0 text-[14px] md:text-[16px]',
+              'grid h-fit items-center border-b-0 text-sm md:text-base',
             )}
           >
             {columns}

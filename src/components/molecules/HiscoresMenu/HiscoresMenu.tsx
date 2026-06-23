@@ -14,7 +14,7 @@ const HiscoresMenu = (props: HiscoresMenuProps) => {
     <ul
       className={clsx(
         'bg-sidebar-bg border-divider list-none border-[0.5px] border-t-0',
-        'm-0 flex h-fit w-full gap-x-1.5 p-[10px_12px]',
+        'm-0 flex h-fit w-full gap-x-1.5 px-3 py-2.5',
         'overflow-x-auto [&::-webkit-scrollbar]:hidden',
         'md:block md:h-250 md:rounded-lg md:px-0 md:py-2',
         'md:border-t-divider md:gap-x-0 md:border-t-[0.5px]',

@@ -4,10 +4,10 @@ import { StandardLink } from '@atoms/StandardLink'
 import clsx from 'clsx'
 
 const CommunityAchievementsTable = () => {
-  const rowClass = 'grid grid-cols-[1fr_1fr_1fr] md:grid-cols-[45%_35%_20%] overflow-hidden'
+  const rowClass = 'grid grid-cols-3 md:grid-cols-[45%_35%_20%] overflow-hidden'
   const cellClass = clsx(
     'text-left p-4 font-normal text-neutral-100 border-stone-950',
-    'text-sm md:text-[18px] wrap-break-word min-w-0',
+    'text-sm md:text-lg wrap-break-word min-w-0',
   )
 
   return (
@@ -30,7 +30,6 @@ const CommunityAchievementsTable = () => {
                 <StandardLink
                   href={`/hiscores/player/${achievement.playerName}`}
                   hoverUnderline
-                  target='_blank'
                   className='text-amber-400 hover:text-yellow-700'
                 >
                   {achievement.playerName}

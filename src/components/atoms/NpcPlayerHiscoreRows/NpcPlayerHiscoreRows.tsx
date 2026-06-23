@@ -23,11 +23,9 @@ const NpcPlayerHiscoreRows = (props: NpcPlayerHiscoreRowsProps) => {
           key={playerNpcHiscoreRow.npcName}
           onClick={() => router.push(`/npc-hiscores?npc=${playerNpcHiscoreRow.npcId}`)}
           className={clsx(
-            'grid grid-cols-[50%_20%_30%] text-[14px]',
+            'grid grid-cols-[50%_20%_30%] text-sm md:text-base',
             'border-divider h-fit items-center border-b-[0.5px]',
-            'last:border-b-0',
-            'hover:bg-divider cursor-pointer',
-            'md:text-[16px]',
+            'hover:bg-divider cursor-pointer last:border-b-0',
           )}
         >
           <td className={clsx(hiscoresStyles.hiscoresValueCellClass, 'font-medium')}>

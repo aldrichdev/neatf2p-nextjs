@@ -34,7 +34,7 @@ const HiscoreSkillEmoji = (props: HiscoreSkillEmojiProps) => {
     }
   }
 
-  return <span className='flex items-center text-[16px] leading-none'>{getEmojiBySkill()}</span>
+  return <span className='flex items-center text-base leading-none'>{getEmojiBySkill()}</span>
 }
 
 export default HiscoreSkillEmoji
