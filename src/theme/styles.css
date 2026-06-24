@@ -184,6 +184,7 @@
   }
   html {
     @apply font-sans;
+    scrollbar-gutter: stable;
   }
   button {
     cursor: pointer;

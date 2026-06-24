@@ -153,7 +153,7 @@ const NewsPostForm = (props: NewsPostFormProps) => {
         onChange={handleBodyChange}
         value={bodyInput}
         required
-        className='mt-2.5 w-full'
+        className='mt-2.5 w-full break-all lg:break-normal'
       />
       <div className='hidden'>
         <ReactMarkdown className='news-post-body-markdown-html'>{bodyInput}</ReactMarkdown>
@@ -171,7 +171,10 @@ const NewsPostForm = (props: NewsPostFormProps) => {
           <>
             <h2 className='text-3xl'>{title}</h2>
             {bodyHtml && (
-              <div dangerouslySetInnerHTML={{ __html: bodyHtml }} className='news-post-detail-body text-base' />
+              <div
+                dangerouslySetInnerHTML={{ __html: bodyHtml }}
+                className='news-post-detail-body text-base break-all lg:break-normal'
+              />
             )}
           </>
         }
