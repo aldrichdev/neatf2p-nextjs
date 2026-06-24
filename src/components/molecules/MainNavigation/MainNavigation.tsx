@@ -1,10 +1,13 @@
 import { useRouter } from 'next/router'
-import { NavUnorderedList, NavLink, NavContainer } from './MainNavigation.styled'
 import { NavigationItem } from './MainNavigation.types'
 import { MainNavigationDropdownItem } from '@atoms/MainNavigationDropdownItem'
+import Link from 'next/link'
+import { cn } from '@utils/cn'
+import clsx from 'clsx'
 
 const MainNavigation = () => {
   const { asPath } = useRouter()
+
   const navigationItems: NavigationItem[] = [
     {
       path: '/',
@@ -56,6 +59,10 @@ const MainNavigation = () => {
 
   const isLinkActive = (linkPath: string): boolean => {
     // Special cases.
+    if (linkPath === '/about' && asPath.startsWith('/about')) {
+      return true
+    }
+
     if (linkPath === '/news' && asPath.startsWith('/news')) {
       return true
     }
@@ -72,18 +79,26 @@ const MainNavigation = () => {
   }
 
   return (
-    <NavContainer>
-      <NavUnorderedList>
+    <div className='flex justify-center'>
+      <ul
+        className={clsx(
+          'bg-dark-gray m-0 flex w-full list-none flex-wrap items-center justify-center gap-4 border-0',
+          'py-3 md:gap-8 md:border-2 md:border-solid md:border-black lg:flex-nowrap',
+        )}
+      >
         {navigationItems.map((item: NavigationItem) => (
-          <li key={item.path || item.subItems?.[0]?.path}>
+          <li key={item.path || item.subItems?.[0]?.path} className='flex items-center'>
             {item.path ? (
-              <NavLink
+              <Link
                 href={item.path}
-                isActive={isLinkActive(item.path)}
                 target={item.opensInNewTab ? '_blank' : '_self'}
+                className={cn(
+                  'hover:text-nav-link-hover p-2 text-lg font-normal text-white',
+                  isLinkActive(item.path) ? 'text-secondary-main hover:text-secondary-main' : '',
+                )}
               >
                 {item.text}
-              </NavLink>
+              </Link>
             ) : (
               <MainNavigationDropdownItem
                 title={item.text}
@@ -93,8 +108,8 @@ const MainNavigation = () => {
             )}
           </li>
         ))}
-      </NavUnorderedList>
-    </NavContainer>
+      </ul>
+    </div>
   )
 }
 

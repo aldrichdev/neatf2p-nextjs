@@ -1,0 +1,95 @@
+import { getProtocol } from '@utils/envUtils'
+import { redirectTo } from '@utils/window'
+import axios, { AxiosError } from 'axios'
+import { NextApiResponse } from 'next'
+
+/** This type comprises all the possible types of values in body properties. */
+type BodyValueType = string | number | string[] | undefined | boolean | Date | null
+
+/** Used for sending internal (i.e. `/api/xyz`) API requests. Do NOT use this for external / 3rd-party APIs. */
+export const sendApiRequest = (
+  method: 'GET' | 'POST',
+  endpointUrl: string,
+  body?: Record<string, BodyValueType>,
+  headers?: Record<string, string>,
+) => {
+  if (method === 'GET') {
+    if (headers) {
+      return axios.get(endpointUrl, {
+        headers,
+      })
+    }
+
+    return axios.get(endpointUrl)
+  }
+
+  if (headers) {
+    return axios.post(endpointUrl, body, {
+      headers,
+    })
+  }
+
+  return axios.post(endpointUrl, body)
+}
+
+/** Checks if the `sessionCookie` value provided matches a `session` column value in the database
+ * for the `userId` provided. If not, the API call is blocked (`true` is returned). */
+export const shouldBlockApiCall = async (userId: string, sessionCookie: string | undefined) => {
+  const protocol = getProtocol()
+  let returnValue = false
+
+  await axios
+    .get(`${protocol}://${process.env.NEXT_PUBLIC_WEBSITE_HOST}/api/checkWebsiteUserSession?userId=${userId}`, {
+      headers: {
+        'neat-f2p-session-cookie': sessionCookie,
+      },
+    })
+    .then(response => {
+      const count = response.data?.[0]?.['COUNT(id)']
+
+      if (typeof count !== 'number' || Number(count) < 1) {
+        // No user found for current session - block API call.
+        console.info('BLOCKING api call')
+        returnValue = true
+      } else {
+        // Allow API call, and proceed as usual.
+        console.info('Allowing api call')
+      }
+    })
+    .catch((error: string) => {
+      console.error('An error occurred in shouldBlockApiCall calling checkWebsiteUserSession: ', error)
+      returnValue = true
+    })
+
+  return returnValue
+}
+
+export const sendBadRequest = (res: NextApiResponse, errorMessage: string) => {
+  res.statusCode = 400
+  res.setHeader('Content-Type', 'application/json')
+  res.end(JSON.stringify(errorMessage))
+  return
+}
+
+export const handleForbiddenRedirect = (error: AxiosError<string>) => {
+  // If the error is an HTTP 403, it means the user's session cookie value
+  // no longer matches the one that was saved when they last logged in.
+  // Log the user out and redirect to the Session Expired page.
+  if (error?.response?.status === 403 || error?.response?.data?.toLowerCase().includes('forbidden')) {
+    sendApiRequest('GET', '/api/ironLogout')
+      .then(() => {
+        redirectTo('/account/session-expired')
+      })
+      .catch((error: string) => {
+        console.error('An error occurred on logout (expired session): ', error)
+      })
+  }
+}
+
+/** Handles errors in API calls by logging the error and throwing a 500. */
+export const handleError = <T>(res: NextApiResponse<T>, error: unknown, source: string) => {
+  console.error(`An error occurred in the ${source} API handler: ${error}`)
+  res.statusCode = 500
+  res.setHeader('Content-Type', 'application/json')
+  res.end(JSON.stringify(error?.toString()))
+}

@@ -1,14 +1,14 @@
 import { MustBeAdminBlock } from '@molecules/MustBeAdminBlock'
 import { PageHeading } from '@atoms/PageHeading'
-import { ContentBlock } from '@atoms/ContentBlock'
-import { renderHead } from '@helpers/renderUtils'
+import { sharedStyles } from '@consts/styles/shared'
+import { renderHead } from '@utils/renderUtils'
 import { User } from '@globalTypes/User'
 import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
 import { NewsPostForm } from '@organisms/NewsPostForm'
-import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
+import { handleForbiddenRedirect, sendApiRequest } from '@utils/api/apiUtils'
 import { AxiosError } from 'axios'
 import { NewsPostSubmitProps } from '@organisms/NewsPostForm/NewsPostForm.types'
 
@@ -51,10 +51,10 @@ const CreateNewsPostPage = ({ user }: CreateNewsPostPageProps) => {
       {!user?.isAdmin ? (
         <MustBeAdminBlock />
       ) : (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Create a News Post</PageHeading>
           <NewsPostForm onSubmitForm={handleCreateNewsPost} />
-        </ContentBlock>
+        </div>
       )}
     </>
   )

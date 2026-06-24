@@ -1,17 +1,17 @@
 import { MustBeAdminBlock } from '@molecules/MustBeAdminBlock'
 import { PageHeading } from '@atoms/PageHeading'
-import { ContentBlock } from '@atoms/ContentBlock'
-import { renderHead } from '@helpers/renderUtils'
+import { renderHead } from '@utils/renderUtils'
 import { User } from '@globalTypes/User'
 import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
-import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
+import { handleForbiddenRedirect, sendApiRequest } from '@utils/api/apiUtils'
 import { AxiosError } from 'axios'
 import { EventSubmitProps } from '@molecules/EventForm/EventForm.types'
 import { EventForm } from '@molecules/EventForm'
-import { redirectTo } from '@helpers/window'
+import { redirectTo } from '@utils/window'
+import { sharedStyles } from '@consts/styles/shared'
 
 type CreateEventPageProps = {
   user: User
@@ -19,20 +19,20 @@ type CreateEventPageProps = {
 
 const CreateEventPage = ({ user }: CreateEventPageProps) => {
   const handleCreateEvent = (props: EventSubmitProps) => {
-    const { id, title, startDate, endDate, relativeUrl, location, emojiName, recurring, recursEvery, setSubmitResult } =
+    const { Id, Title, StartDate, EndDate, RelativeUrl, Location, EmojiName, Recurring, RecursEvery, setSubmitResult } =
       props
 
     sendApiRequest('POST', '/api/upsertEvent', {
       userId: user.id,
-      id,
-      title,
-      startDate,
-      endDate,
-      relativeUrl,
-      location,
-      emojiName: emojiName === '' ? null : emojiName,
-      recurring,
-      recursEvery: recursEvery === '' ? null : recursEvery,
+      id: Id,
+      title: Title,
+      startDate: StartDate,
+      endDate: EndDate,
+      relativeUrl: RelativeUrl,
+      location: Location,
+      emojiName: EmojiName === '' ? null : EmojiName,
+      recurring: Recurring,
+      recursEvery: RecursEvery === '' ? null : RecursEvery,
     })
       .then(response => {
         setSubmitResult({
@@ -63,10 +63,10 @@ const CreateEventPage = ({ user }: CreateEventPageProps) => {
       {!user?.isAdmin ? (
         <MustBeAdminBlock />
       ) : (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Create an Event</PageHeading>
           <EventForm onSubmitForm={handleCreateEvent} />
-        </ContentBlock>
+        </div>
       )}
     </>
   )

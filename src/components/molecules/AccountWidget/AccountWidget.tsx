@@ -1,9 +1,9 @@
-import { AccountArea, Username, AccountAreaLink } from './AccountWidget.styled'
-import { Typography } from '@mui/material'
 import { User } from '@globalTypes/User'
-import { redirectTo } from '@helpers/window'
-import { UserIsLoggedIn } from '@helpers/users/users'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { redirectTo } from '@utils/window'
+import { UserIsLoggedIn } from '@utils/users/users'
+import { sendApiRequest } from '@utils/api/apiUtils'
+import { StandardLink } from '@atoms/StandardLink'
+import clsx from 'clsx'
 
 interface AccountWidgetProps {
   user: User
@@ -19,39 +19,50 @@ const AccountWidget = (props: AccountWidgetProps) => {
         redirectTo('/')
       })
       .catch((error: string) => {
-        console.log('An error occurred on logout: ', error)
+        console.error('An error occurred on logout: ', error)
       })
   }
 
   return (
-    <AccountArea>
+    <div
+      className={clsx(
+        'flex items-center gap-2.5 font-sans font-normal',
+        'absolute top-2.5 right-2.5 md:top-5 md:right-5 lg:text-xl',
+        'text-foreground rounded-lg bg-white p-2.5',
+      )}
+    >
       {isLoggedIn && (
         <>
-          <Typography variant='body'>
+          <p>
             Hi{' '}
-            <Username href='/account' useHoverUnderline>
+            <StandardLink href='/account' hoverUnderline>
               {user.username}
-            </Username>
+            </StandardLink>
             !
-          </Typography>
+          </p>
           ~
         </>
       )}
       {!isLoggedIn && (
-        <>
-          <AccountAreaLink href='/account/login'>Login</AccountAreaLink>~
-          <AccountAreaLink href='/account/create'>Register</AccountAreaLink>
-        </>
+        <div className='text-foreground'>
+          <StandardLink href='/account/login' hoverUnderline className='text-foreground hover:text-foreground'>
+            Login
+          </StandardLink>{' '}
+          ~{' '}
+          <StandardLink href='/account/create' hoverUnderline className='text-foreground hover:text-foreground'>
+            Register
+          </StandardLink>
+        </div>
       )}
 
       {isLoggedIn && (
         <>
-          <AccountAreaLink href='' onClick={handleLogout}>
+          <StandardLink href='' hoverUnderline className='text-foreground hover:text-foreground' onClick={handleLogout}>
             Logout
-          </AccountAreaLink>
+          </StandardLink>
         </>
       )}
-    </AccountArea>
+    </div>
   )
 }
 

@@ -1,21 +1,21 @@
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { BodyText } from '@atoms/BodyText'
-import { InlineLink } from '@atoms/InlineLink'
 import { PageHeading } from '@atoms/PageHeading'
-import { renderHead } from '@helpers/renderUtils'
+import { renderHead } from '@utils/renderUtils'
+import { StandardLink } from '@atoms/StandardLink'
 
 const SessionExpiredPage = () => (
   <>
     {renderHead('Session Expired')}
-    <ContentBlock>
+    <div className={sharedStyles.defaultContainer}>
       <PageHeading>Session Expired</PageHeading>
-      <BodyText variant='body' bodyTextAlign='center'>
+      <BodyText bodyTextAlign='center'>
         Your session has expired. Perhaps you logged in on a different computer or browser?
       </BodyText>
-      <BodyText variant='body' bodyTextAlign='center'>
-        Please<InlineLink href='/account/login'>login</InlineLink> again.
+      <BodyText bodyTextAlign='center'>
+        Please <StandardLink href='/account/login'>login</StandardLink> again.
       </BodyText>
-    </ContentBlock>
+    </div>
   </>
 )
 

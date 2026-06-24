@@ -1,37 +1,19 @@
-import { ContentBlock } from '@atoms/ContentBlock'
-import { CircularProgress } from '@mui/material'
-import { css, styled } from '@mui/material/styles'
-
 type SpinnerProps = {
   hiscores?: boolean
 }
 
-const HiscoresLoading = styled('div')(
-  ({ theme }) => css`
-    display: flex;
-    flex-basis: 100%;
-    align-items: flex-start;
-    justify-content: center;
-    margin: 0 auto;
-    min-height: 1000px;
-
-    ${theme.breakpoints.up('tablet')} {
-      flex-basis: auto;
-    }
-  `,
-)
-
+/** A spinning semi circle indicating progress or a loading state. */
 const Spinner = (props: SpinnerProps) => {
   const { hiscores } = props
 
+  const spinner = (
+    <div className='border-primary-main mx-auto size-8 animate-spin rounded-full border-4 border-t-transparent' />
+  )
+
   return hiscores ? (
-    <HiscoresLoading>
-      <CircularProgress color='success' />
-    </HiscoresLoading>
+    <div className='mx-auto flex min-h-250 basis-full items-start justify-center md:basis-auto'>{spinner}</div>
   ) : (
-    <ContentBlock>
-      <CircularProgress color='success' />
-    </ContentBlock>
+    <div className='mx-auto max-w-200 text-center'>{spinner}</div>
   )
 }
 

@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { User } from '@globalTypes/User'
-import { handleManipulate } from '@helpers/api/apiHandler'
-import { sendBadRequest, shouldBlockApiCall } from '@helpers/api/apiUtils'
-import { BannedText } from 'src/data/BannedText'
+import { handleManipulate } from '@utils/api/apiHandler'
+import { sendBadRequest, shouldBlockApiCall } from '@utils/api/apiUtils'
+import { BannedText } from '../../../data/BannedText'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   const { userId, accountName, password, userIp } = req.body

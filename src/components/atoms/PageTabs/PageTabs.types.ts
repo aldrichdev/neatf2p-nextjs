@@ -7,7 +7,10 @@ export type PageTabsProps = {
   tabs: Tab[]
   activeTab: Tab
   setActiveTab: (tab: Tab) => void
-  defaultTabColor?: string
-  activeTabColor?: string
-  hoverTabColor?: string
+  /** Whether the tabs container is rounded on all sides. */
+  fullyRounded?: boolean
+  /** Font size to use in PX */
+  fontSize?: number
+  tabClassName?: string
+  activeTabClassName?: string
 }

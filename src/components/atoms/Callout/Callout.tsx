@@ -1,13 +1,19 @@
-import { CalloutContainer, CalloutContent } from './Callout.styled'
+import clsx from 'clsx'
 import { CalloutProps } from './Callout.types'
 
+/** A warning callout that displays information to the user. */
 const Callout = (props: CalloutProps) => {
-  const { variant, children } = props
+  const { children } = props
 
   return (
-    <CalloutContainer variant={variant}>
-      <CalloutContent>{children}</CalloutContent>
-    </CalloutContainer>
+    <blockquote
+      className={clsx(
+        'bg-callout-warning-bg border-callout-warning-border max-w-full',
+        'rounded-r-lg border-l-5 text-base font-normal',
+      )}
+    >
+      <div className='p-4 text-left leading-normal'>{children}</div>
+    </blockquote>
   )
 }
 

@@ -1,21 +1,27 @@
-import { Field } from '@atoms/Field'
-import { Checkbox, FormControlLabel } from '@mui/material'
-import { StyledForm, SubmitButton, SubmitMessage } from '@styledPages/Form.styled'
+import { Checkbox } from '@ui/checkbox'
 import { EventFormProps } from './EventForm.types'
 import { ChangeEvent, useState } from 'react'
-import { DateTimePickerArea, EventFormGroup, EventSubmitArea } from './EventForm.styled'
 import { DateTimePicker } from '@atoms/DateTimePicker'
-import { PickerValue } from '@mui/x-date-pickers/internals'
-import { DateTimeValidationError, PickerChangeHandlerContext } from '@mui/x-date-pickers/models'
-import dayjs, { Dayjs } from 'dayjs'
-import { convertMillisToEpochTimestamp } from '@helpers/date/date'
+import { convertMillisToEpochTimestamp } from '@utils/date/date'
+import { Input } from '@ui/input'
+import { Button } from '@ui/button'
+import clsx from 'clsx'
+
+const submitColorClass: Record<string, string> = {
+  green: 'text-primary-main',
+  red: 'text-red-600',
+}
 
 /** A reusable form for creating or updating an event. */
 const EventForm = (props: EventFormProps) => {
   const { websiteEvent, onSubmitForm } = props
   const [title, setTitle] = useState<string>(websiteEvent?.Title || '')
-  const [startDate, setStartDate] = useState<Dayjs>(dayjs.unix(websiteEvent?.StartDate || 0))
-  const [endDate, setEndDate] = useState<Dayjs>(dayjs.unix(websiteEvent?.EndDate || 0))
+  const [startDate, setStartDate] = useState<Date>(
+    websiteEvent?.StartDate ? new Date(websiteEvent.StartDate * 1000) : new Date(),
+  )
+  const [endDate, setEndDate] = useState<Date>(
+    websiteEvent?.EndDate ? new Date(websiteEvent.EndDate * 1000) : new Date(),
+  )
   const [relativeUrl, setRelativeUrl] = useState<string>(websiteEvent?.RelativeUrl || '')
   const [location, setLocation] = useState<string>(websiteEvent?.Location || '')
   const [emojiName, setEmojiName] = useState<string | null>(websiteEvent?.EmojiName || '')
@@ -33,8 +39,8 @@ const EventForm = (props: EventFormProps) => {
     enableSubmit()
   }
 
-  const handleStartDateChange = (value: PickerValue, context: PickerChangeHandlerContext<DateTimeValidationError>) => {
-    console.log('value', value, 'context', context)
+  const handleStartDateChange = (value: Date | undefined) => {
+    console.log('value', value)
     if (!value) {
       return
     }
@@ -43,8 +49,8 @@ const EventForm = (props: EventFormProps) => {
     enableSubmit()
   }
 
-  const handleEndDateChange = (value: PickerValue, context: PickerChangeHandlerContext<DateTimeValidationError>) => {
-    console.log('value', value, 'context', context)
+  const handleEndDateChange = (value: Date | undefined) => {
+    console.log('value', value)
     if (!value) {
       return
     }
@@ -68,8 +74,8 @@ const EventForm = (props: EventFormProps) => {
     enableSubmit()
   }
 
-  const handleRecurringChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setRecurring(event.target.checked)
+  const handleRecurringChange = (checked: boolean) => {
+    setRecurring(checked)
     enableSubmit()
   }
 
@@ -82,15 +88,15 @@ const EventForm = (props: EventFormProps) => {
     event.preventDefault()
     setSubmitDisabled(true)
 
-    console.log('startDate', convertMillisToEpochTimestamp(startDate.toDate().getTime()))
-    console.log('endDate', convertMillisToEpochTimestamp(endDate.toDate().getTime()))
+    console.log('startDate', convertMillisToEpochTimestamp(startDate.getTime()))
+    console.log('endDate', convertMillisToEpochTimestamp(endDate.getTime()))
 
     // Submit the form using the callback provided (will create or update an event)
     onSubmitForm({
       Id: websiteEvent ? websiteEvent.Id : 0,
       Title: title,
-      StartDate: convertMillisToEpochTimestamp(startDate.toDate().getTime()),
-      EndDate: convertMillisToEpochTimestamp(endDate.toDate().getTime()),
+      StartDate: convertMillisToEpochTimestamp(startDate.getTime()),
+      EndDate: convertMillisToEpochTimestamp(endDate.getTime()),
       RelativeUrl: relativeUrl,
       Location: location,
       EmojiName: emojiName || undefined,
@@ -101,78 +107,68 @@ const EventForm = (props: EventFormProps) => {
   }
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      <Field id='title' label='Title' variant='outlined' onChange={handleTitleChange} value={title} required />
-      <DateTimePickerArea>
-        <DateTimePicker
-          label='Start Date'
-          value={startDate}
-          onChange={handleStartDateChange}
-          slotProps={{
-            textField: {
-              required: true,
-            },
-          }}
-        />
-        <DateTimePicker
-          label='End Date'
-          value={endDate}
-          onChange={handleEndDateChange}
-          slotProps={{
-            textField: {
-              required: true,
-            },
-          }}
-        />
-      </DateTimePickerArea>
-      <Field
+    <form onSubmit={handleSubmit} className='flex flex-wrap text-left'>
+      <Input
+        id='title'
+        placeholder='Title'
+        onChange={handleTitleChange}
+        value={title}
+        required
+        className='mt-5 basis-full'
+      />
+      <div className='mt-5 flex w-full items-center justify-between gap-5'>
+        <DateTimePicker label='Start Date' value={startDate} onChange={handleStartDateChange} className='w-full' />
+        <DateTimePicker label='End Date' value={endDate} onChange={handleEndDateChange} className='w-full' />
+      </div>
+      <Input
         id='relativeUrl'
-        label='Relative URL'
-        variant='outlined'
+        placeholder='Enter a relative URL to a news post with event information (e.g. /news/post/100)'
         onChange={handleRelativeUrlChange}
         value={relativeUrl}
-        placeholder='Enter a relative URL to a news post with event information (e.g. /news/post/100)'
+        className='mt-5 basis-full'
       />
-      <Field
+      <Input
         id='location'
-        label='Location'
-        variant='outlined'
+        placeholder='Enter the location that the event will take place (e.g. Varrock)'
         onChange={handleLocationChange}
         value={location}
-        placeholder='Enter the location that the event will take place (e.g. Varrock)'
+        className='mt-5 basis-full'
       />
-      <Field
+      <Input
         id='emojiName'
-        label='Emoji Name'
-        variant='outlined'
-        onChange={handleEmojiNameChange}
-        value={emojiName}
         placeholder='Enter an emoji name here to prefix the title with it (only certain pre-defined emoji names will work)'
+        onChange={handleEmojiNameChange}
+        value={emojiName ?? ''}
+        className='mt-5 basis-full'
       />
-      <EventFormGroup>
-        <FormControlLabel
-          control={<Checkbox value={recurring} onChange={handleRecurringChange} />}
-          label='Recurring?'
+      <div className='mt-[11px] flex basis-full items-center gap-2'>
+        <Checkbox
+          id='recurring'
+          checked={recurring}
+          onCheckedChange={checked => handleRecurringChange(checked as boolean)}
         />
-      </EventFormGroup>
+        <label htmlFor='recurring' className='cursor-pointer'>
+          Recurring?
+        </label>
+      </div>
       {recurring && (
-        <Field
+        <Input
           id='recursEvery'
-          label='Recurs Every'
-          variant='outlined'
-          onChange={handleRecursEveryChange}
-          value={recursEvery}
           placeholder='e.g. "Wednesday", "1st Sunday of every month", etc'
+          onChange={handleRecursEveryChange}
+          value={recursEvery ?? ''}
+          className='mt-5 basis-full'
         />
       )}
-
-      <EventSubmitArea>
-        <SubmitButton variant='contained' type='submit' disabled={submitDisabled}>
+      <div className='flex w-full flex-wrap items-center justify-center'>
+        <Button type='submit' disabled={submitDisabled} className='mt-10 basis-full'>
           Submit
-        </SubmitButton>
-      </EventSubmitArea>
-      <SubmitMessage color={submitResult?.code}>{submitResult?.answer}</SubmitMessage>
-    </StyledForm>
+        </Button>
+      </div>
+      <label className={clsx('mt-2.5 basis-full', submitColorClass[submitResult?.code ?? ''] ?? 'text-black')}>
+        {submitResult?.answer}
+      </label>
+    </form>
   )
 }
 

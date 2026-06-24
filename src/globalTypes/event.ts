@@ -14,6 +14,8 @@ export type Event = {
 
 /** Database verison of `Event`. The structure that lives in the database.
  * Properties need to be title case since the column names are.
+ *
+ * (TODO: Really?? This looks stupid af, is there no other way?)
  */
 export type DatabaseEvent = {
   Id: number

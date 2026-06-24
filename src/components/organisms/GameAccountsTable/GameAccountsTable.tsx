@@ -1,14 +1,13 @@
 import { Spinner } from '@molecules/Spinner'
-import { TableBody, TableHead, TableRow, Paper } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { AccountTable, AccountTableContainer, DesktopSpinner, TabletDesktopBodyText } from './GameAccountsTable.styled'
 import { GameAccountRow } from '@molecules/GameAccountRow'
 import { GameAccountsTableProps } from './GameAccountsTable.types'
 import { RenameAccountModal } from '@organisms/RenameAccountModal'
 import { PasswordModal } from '@organisms/PasswordModal'
-import { StyledTableCell } from '@atoms/StyledTableCell'
+import { GameAccountsTableCell } from '@atoms/GameAccountsTableCell'
 import useGameAccounts from '@hooks/useGameAccounts'
 import { CharacterInfoModal } from '@organisms/CharacterInfoModal'
+import { BodyText } from '@atoms/BodyText'
 
 const GameAccountsTable = (props: GameAccountsTableProps) => {
   const {
@@ -33,49 +32,35 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
 
   if (isLoading) {
     return (
-      <DesktopSpinner>
+      <div className='hidden md:block'>
         <Spinner />
-      </DesktopSpinner>
+      </div>
     )
   } else if (process.env.NEXT_PUBLIC_GAME_ACCOUNTS_DISABLE_CREATION === 'true') {
     return null
   } else if (accounts && accounts.length < 1) {
     return (
-      <TabletDesktopBodyText variant='body' bodyTextAlign='center'>
+      <BodyText bodyTextAlign='center' className='hidden md:block'>
         You don&apos;t have any accounts right now. Why not create one?
-      </TabletDesktopBodyText>
+      </BodyText>
     )
   }
 
   return (
-    <AccountTableContainer component={Paper}>
-      <AccountTable aria-label='Game Accounts Table'>
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align='right' bold>
-              Id
-            </StyledTableCell>
-            <StyledTableCell align='right' bold>
-              Account Name
-            </StyledTableCell>
-            <StyledTableCell align='right' bold>
-              Combat Level
-            </StyledTableCell>
-            <StyledTableCell align='right' bold>
-              Last Login
-            </StyledTableCell>
-            <StyledTableCell align='right' bold>
-              Rename?
-            </StyledTableCell>
-            <StyledTableCell align='right' bold>
-              Password
-            </StyledTableCell>
-            <StyledTableCell align='right' bold>
-              Info
-            </StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+    <div className='hidden overflow-hidden rounded md:block'>
+      <table className='w-full' aria-label='Game Accounts Table'>
+        <thead>
+          <tr>
+            <GameAccountsTableCell bold>Id</GameAccountsTableCell>
+            <GameAccountsTableCell bold>Account Name</GameAccountsTableCell>
+            <GameAccountsTableCell bold>Combat Level</GameAccountsTableCell>
+            <GameAccountsTableCell bold>Last Login</GameAccountsTableCell>
+            <GameAccountsTableCell bold>Rename?</GameAccountsTableCell>
+            <GameAccountsTableCell bold>Password</GameAccountsTableCell>
+            <GameAccountsTableCell bold>Info</GameAccountsTableCell>
+          </tr>
+        </thead>
+        <tbody>
           {accounts?.map(account => (
             <GameAccountRow
               key={account.id}
@@ -85,8 +70,8 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
               showCharacterInfoModal={showCharacterInfoModal}
             />
           ))}
-        </TableBody>
-      </AccountTable>
+        </tbody>
+      </table>
       {renameModalVisible && activeAccount && (
         <RenameAccountModal
           account={activeAccount}
@@ -110,7 +95,7 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
           setOpen={setCharacterInfoModalVisible}
         />
       )}
-    </AccountTableContainer>
+    </div>
   )
 }
 

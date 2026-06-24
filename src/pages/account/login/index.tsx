@@ -1,42 +1,25 @@
 import { FormEvent, useState, ChangeEvent } from 'react'
-import { styled } from '@mui/material/styles'
-import { css } from '@mui/system'
-import { ContentBlock } from '@atoms/ContentBlock'
 import { Form } from '@atoms/Form'
 import { BodyText } from '@atoms/BodyText'
-import { Field } from '@atoms/Field'
-import { InlineLink } from '@atoms/InlineLink'
 import { FieldValidationMessage } from '@atoms/FieldValidationMessage'
 import { User } from '@globalTypes/User'
-import { redirectTo } from '@helpers/window'
-import { HoverUnderlineLink } from '@atoms/HoverUnderlineLink'
+import { redirectTo } from '@utils/window'
 import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
-import { UserExists, UserIsLoggedIn } from '@helpers/users/users'
-import { FormButton } from '@atoms/FormButton/FormButton'
+import { UserExists, UserIsLoggedIn } from '@utils/users/users'
 import { PageHeading } from '@atoms/PageHeading'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { sendApiRequest } from '@utils/api/apiUtils'
 import axios from 'axios'
-import { renderHead } from '@helpers/renderUtils'
+import { renderHead } from '@utils/renderUtils'
 import usePasswordHashing from '@hooks/usePasswordHashing'
 import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
-
-const ForgotPasswordBlock = styled(BodyText)(
-  () => css`
-    flex-basis: 100%;
-    font-family: Source Sans Pro;
-    font-size: 16px;
-    text-align: left;
-  `,
-)
-
-const ForgotPasswordLink = styled(HoverUnderlineLink)(
-  () => css`
-    color: black;
-  `,
-)
+import { Input } from '@ui/input'
+import { sharedStyles } from '../../../consts/styles/shared'
+import { StandardLink } from '@atoms/StandardLink'
+import { Button } from '@ui/button'
+import { cn } from '@utils/cn'
 
 type AccountLoginPageProps = {
   user: User
@@ -52,10 +35,12 @@ const AccountLoginPage = ({ user }: AccountLoginPageProps) => {
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value)
+    setValidationError('')
   }
 
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value)
+    setValidationError('')
   }
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
@@ -129,34 +114,34 @@ const AccountLoginPage = ({ user }: AccountLoginPageProps) => {
       {userIsLoggedIn ? (
         <AlreadyLoggedIn />
       ) : (
-        <ContentBlock>
+        <div className={cn(sharedStyles.defaultContainer, 'text-lg')}>
           <PageHeading>Login</PageHeading>
-          <BodyText variant='body' bodyTextAlign='left'>
-            Log in to your website account below.
-          </BodyText>
+          <BodyText bodyTextAlign='left'>Log in to your website account below.</BodyText>
           <Form onSubmit={handleLogin}>
-            <Field required id='email' label='Email' variant='standard' onChange={handleEmailChange} />
-            <Field
+            <Input required id='email' placeholder='Email' onChange={handleEmailChange} autoComplete='username' />
+            <Input
               required
               id='password'
-              label='Password'
+              placeholder='Password'
               type='password'
-              variant='standard'
               onChange={handlePasswordChange}
+              autoComplete='current-password'
             />
-            <FieldValidationMessage>{validationError}</FieldValidationMessage>
-            <ForgotPasswordBlock variant='body' topMargin={20} bodyTextAlign='left'>
-              <ForgotPasswordLink href='/account/login/forgot-password'>Forgot Password?</ForgotPasswordLink>
-            </ForgotPasswordBlock>
-            <FormButton variant='contained' type='submit' disabled={buttonDisabled}>
+            {validationError && <FieldValidationMessage>{validationError}</FieldValidationMessage>}
+            <BodyText bodyTextAlign='left' className='basis-full text-left text-base'>
+              <StandardLink href='/account/login/forgot-password' hoverUnderline>
+                Forgot Password?
+              </StandardLink>
+            </BodyText>
+            <Button type='submit' disabled={buttonDisabled}>
               Log In
-            </FormButton>
+            </Button>
           </Form>
-          <BodyText variant='body' topMargin={40} bodyTextAlign='left'>
-            <span>New around here?</span>
-            <InlineLink href='/account/create'>Create a site account.</InlineLink>
+          <BodyText bodyTextAlign='left' className='basis-full'>
+            <span>New around here? </span>
+            <StandardLink href='/account/create'>Create a site account</StandardLink>
           </BodyText>
-        </ContentBlock>
+        </div>
       )}
     </>
   )

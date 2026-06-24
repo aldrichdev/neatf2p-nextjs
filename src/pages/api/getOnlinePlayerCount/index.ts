@@ -1,5 +1,6 @@
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
-import { queryDatabase } from '@helpers/db'
+import { handleError } from '@utils/api/apiUtils'
+import { queryDatabase } from '@utils/db'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 interface Props {
@@ -25,9 +26,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Props>) => {
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(onlineCount))
   } catch (error) {
-    res.statusCode = 500
-    res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify(error?.toString()))
+    handleError(res, error, 'getOnlinePlayerCount')
   }
 }
 

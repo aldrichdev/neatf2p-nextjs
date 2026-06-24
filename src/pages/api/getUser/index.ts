@@ -1,8 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { queryDatabase } from '@helpers/db'
+import { queryDatabase } from '@utils/db'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { UserDataRow } from '@globalTypes/Database/Users/UserDataRow'
 import { User } from '@globalTypes/User'
+import { handleError } from '@utils/api/apiUtils'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   const { email } = req.query
@@ -27,10 +28,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<User>) => {
       throw new Error(response.error?.toString())
     }
   } catch (error) {
-    console.log('An error occurred in the getUser API: ', error)
-    res.statusCode = 500
-    res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify(error?.toString()))
+    handleError(res, error, 'getUser')
   }
 }
 

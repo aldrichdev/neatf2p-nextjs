@@ -1,19 +1,19 @@
 import { MustBeAdminBlock } from '@molecules/MustBeAdminBlock'
 import { PageHeading } from '@atoms/PageHeading'
-import { ContentBlock } from '@atoms/ContentBlock'
-import { renderHead } from '@helpers/renderUtils'
+import { renderHead } from '@utils/renderUtils'
 import { User } from '@globalTypes/User'
 import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
-import { getWebsiteBaseUrl } from '@helpers/envUtils'
-import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
+import { getWebsiteBaseUrl } from '@utils/envUtils'
+import { handleForbiddenRedirect, sendApiRequest } from '@utils/api/apiUtils'
 import { AxiosError } from 'axios'
 import { EventSubmitProps } from '@molecules/EventForm/EventForm.types'
-import { redirectTo } from '@helpers/window'
+import { redirectTo } from '@utils/window'
 import { EventForm } from '@molecules/EventForm'
 import { DatabaseEvent } from '@globalTypes/event'
+import { sharedStyles } from '@consts/styles/shared'
 
 type UpdateEventPageProps = {
   /** The event that is being updated. */
@@ -71,10 +71,10 @@ const UpdateEventPage = ({ event, user }: UpdateEventPageProps) => {
       {!user?.isAdmin ? (
         <MustBeAdminBlock />
       ) : (
-        <ContentBlock>
+        <div className={sharedStyles.defaultContainer}>
           <PageHeading>Update an Event</PageHeading>
           <EventForm websiteEvent={event} onSubmitForm={handleUpdateEvent} />
-        </ContentBlock>
+        </div>
       )}
     </>
   )

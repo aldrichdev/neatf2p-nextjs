@@ -1,29 +1,27 @@
-import { ContentBlock } from '@atoms/ContentBlock'
 import { useState } from 'react'
 import { NpcHiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { useRouter } from 'next/router'
 import { PlayerLookup } from '@atoms/PlayerLookup'
-import { PageHeading } from '@atoms/PageHeading'
-import { push } from '@helpers/router'
-import { renderHead } from '@helpers/renderUtils'
+import { push } from '@utils/router'
+import { renderHead } from '@utils/renderUtils'
 import NpcHiscoresMenu from '@organisms/NpcHiscoresMenu/NpcHiscoresMenu'
 import {
   filterGroupAndSortHiscores,
   getNpcIdsByInitialId,
   getNpcNameById,
   isNpcHiscoreType,
-} from '@helpers/hiscores/hiscoresUtils'
+} from '@utils/hiscores/hiscoresUtils'
 import { NpcHiscoresTable } from '@organisms/NpcHiscoresTable'
 import { PageTabs } from '@atoms/PageTabs'
-import { redirectTo } from '@helpers/window'
+import { redirectTo } from '@utils/window'
 import { NpcKillsLevelMenu } from '@molecules/NpcKillsLevelMenu'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
-import { NpcHiscoresPageContainer } from '@styledPages/NpcHiscores.styled'
 import { HiscoresTabs } from '@models/HiscoresTabs'
 import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
 import { GetServerSideProps } from 'next'
-import { getWebsiteBaseUrl } from '@helpers/envUtils'
-import { DEFAULT_NPC_ID } from 'src/consts'
+import { getWebsiteBaseUrl } from '@utils/envUtils'
+import { DEFAULT_NPC_ID } from '../../consts/hiscores'
+import clsx from 'clsx'
 
 type NpcHiscoresPageProps = {
   hiscores: NpcHiscoreDataRow[]
@@ -33,14 +31,12 @@ type NpcHiscoresPageProps = {
 
 const NpcHiscores = ({ hiscores, npcHiscoreType, npcSubTypes }: NpcHiscoresPageProps) => {
   const router = useRouter()
-  const { query } = router
   const [hiscoresPage, setHiscoresPage] = useState(1)
   const npcName = getNpcNameById(npcHiscoreType)
   const pageTitle = `${npcName} Kill Hiscores`
 
   const handleMenuItemClick = (npcHiscoreType: NpcHiscoreType) => {
     setHiscoresPage(1)
-    router.query.page = '1'
     router.query.npc = Array.isArray(npcHiscoreType) ? npcHiscoreType.join(',') : npcHiscoreType.toString()
     push(router, '/npc-hiscores', router.query)
   }
@@ -53,26 +49,40 @@ const NpcHiscores = ({ hiscores, npcHiscoreType, npcSubTypes }: NpcHiscoresPageP
 
   return (
     <>
-      {renderHead(pageTitle, `Who's killed the most ${npcName} NPCs?`)}
-      <ContentBlock isWide>
+      {renderHead(pageTitle, `Who's killed the most ${npcName}s?`)}
+      <div className='mx-auto max-w-225 text-center'>
         <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[1]} setActiveTab={tab => handleSetActiveTab(tab)} />
-        <PageHeading>{pageTitle}</PageHeading>
-        <NpcHiscoresMenu activeNpcHiscoreType={npcHiscoreType} buttonOnClick={handleMenuItemClick} />
-        <NpcKillsLevelMenu
-          npcHiscoreType={npcHiscoreType}
-          npcSubTypes={npcSubTypes.length > 0 ? npcSubTypes : [npcHiscoreType]}
-          menuItemOnClick={handleMenuItemClick}
-        />
-        <NpcHiscoresPageContainer>
-          <NpcHiscoresTable
-            hiscores={hiscores}
-            npcHiscoreType={npcHiscoreType}
-            page={query.page ? Number(query.page) : hiscoresPage}
-            setPage={setHiscoresPage}
-          />
+        <div
+          className={clsx(
+            'flex flex-wrap justify-between gap-4',
+            'md:mt-4 md:grid md:grid-cols-[160px_1fr_200px]',
+            'lg:flex-nowrap',
+          )}
+        >
+          <NpcHiscoresMenu activeNpcHiscoreType={npcHiscoreType} buttonOnClick={handleMenuItemClick} />
+          <div className='w-full'>
+            <h2
+              className={clsx(
+                'text-text-primary mb-4 text-left text-[22px] leading-7 font-bold md:mb-3 md:text-[28px] md:leading-9',
+              )}
+            >
+              {pageTitle}
+            </h2>
+            <NpcKillsLevelMenu
+              npcHiscoreType={npcHiscoreType}
+              npcSubTypes={npcSubTypes.length > 0 ? npcSubTypes : [npcHiscoreType]}
+              menuItemOnClick={handleMenuItemClick}
+            />
+            <NpcHiscoresTable
+              hiscores={hiscores}
+              npcHiscoreType={npcHiscoreType}
+              page={hiscoresPage}
+              setPage={setHiscoresPage}
+            />
+          </div>
           <PlayerLookup isNpcHiscores />
-        </NpcHiscoresPageContainer>
-      </ContentBlock>
+        </div>
+      </div>
     </>
   )
 }

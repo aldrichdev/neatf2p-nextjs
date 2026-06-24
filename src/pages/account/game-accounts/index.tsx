@@ -1,20 +1,20 @@
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { GameAccountsTable } from '@organisms/GameAccountsTable'
-import { UserIsLoggedIn } from '@helpers/users/users'
-import { FormButton } from '@atoms/FormButton/FormButton'
+import { UserIsLoggedIn } from '@utils/users/users'
 import { GameAccountsTableMobile } from '@organisms/GameAccountsTableMobile'
-import { redirectTo } from '@helpers/window'
+import { redirectTo } from '@utils/window'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { useState } from 'react'
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
 import { PageHeading } from '@atoms/PageHeading'
-import { renderHead } from '@helpers/renderUtils'
+import { renderHead } from '@utils/renderUtils'
 import { User } from '@globalTypes/User'
 import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
+import { Button } from '@ui/button'
 
 type GameAccountsPageProps = {
   user: User
@@ -56,9 +56,9 @@ const GameAccountsPage = ({ user }: GameAccountsPageProps) => {
       {!isLoggedIn ? (
         <NotLoggedIn />
       ) : (
-        <ContentBlock isWide>
+        <div className={sharedStyles.wideContainer}>
           <PageHeading>Game Accounts</PageHeading>
-          <BodyText variant='body' bodyTextAlign='center'>
+          <BodyText bodyTextAlign='center'>
             Here, you can view your current game accounts, create new ones, rename them, and update passwords. All times
             shown are in your local timezone.
           </BodyText>
@@ -89,14 +89,14 @@ const GameAccountsPage = ({ user }: GameAccountsPageProps) => {
             showCharacterInfoModal={showCharacterInfoModal}
           />
           {creationsDisabled && (
-            <BodyText variant='body' bodyTextAlign='center'>
+            <BodyText bodyTextAlign='center'>
               Game account creations are temporarily disabled until further notice.
             </BodyText>
           )}
-          <FormButton variant='contained' onClick={handleCreateAccount} disabled={creationsDisabled}>
+          <Button onClick={handleCreateAccount} disabled={creationsDisabled} className='mx-auto basis-auto!'>
             Create Account
-          </FormButton>
-        </ContentBlock>
+          </Button>
+        </div>
       )}
     </>
   )

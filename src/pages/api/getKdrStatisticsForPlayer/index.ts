@@ -1,5 +1,6 @@
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
-import { queryDatabase } from '@helpers/db'
+import { handleError } from '@utils/api/apiUtils'
+import { queryDatabase } from '@utils/db'
 import { OkPacket } from 'mysql'
 import { NextApiRequest, NextApiResponse } from 'next'
 
@@ -36,10 +37,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify({ kills, deaths, kdr }))
   } catch (error) {
-    console.error('An error occurred in the getKdrStatisticsForPlayer API: ', error)
-    res.statusCode = 500
-    res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify(error?.toString()))
+    handleError(res, error, 'getKdrStatisticsForPlayer')
   }
 }
 

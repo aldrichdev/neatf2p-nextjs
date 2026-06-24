@@ -1,22 +1,22 @@
 import { FormEvent, useState, ChangeEvent } from 'react'
-import { ContentBlock } from '@atoms/ContentBlock'
+import { sharedStyles } from '@consts/styles/shared'
 import { Form } from '@atoms/Form'
 import { BodyText } from '@atoms/BodyText'
-import { Field } from '@atoms/Field'
-import { InlineLink } from '@atoms/InlineLink'
-import { redirectTo } from '@helpers/window'
-import { UserExists, UserIsLoggedIn } from '@helpers/users/users'
+import { redirectTo } from '@utils/window'
+import { UserExists, UserIsLoggedIn } from '@utils/users/users'
 import { AlreadyLoggedIn } from '@molecules/AlreadyLoggedIn'
-import { FormButton } from '@atoms/FormButton/FormButton'
-import { DiscordLink } from '@atoms/DiscordLink'
 import { PageHeading } from '@atoms/PageHeading'
-import { sendApiRequest } from '@helpers/api/apiUtils'
-import { renderHead } from '@helpers/renderUtils'
+import { sendApiRequest } from '@utils/api/apiUtils'
+import { renderHead } from '@utils/renderUtils'
 import { User } from '@globalTypes/User'
 import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
+import { DiscordInviteLink } from '@consts/discord'
+import { StandardLink } from '@atoms/StandardLink'
+import { Input } from '@ui/input'
+import { Button } from '@ui/button'
 
 type ForgotPasswordPageProps = {
   user: User
@@ -44,7 +44,7 @@ const ForgotPasswordPage = ({ user }: ForgotPasswordPageProps) => {
             userId: result.id,
             recipientEmail: result.emailAddress,
           }).catch(error => {
-            console.log(error)
+            console.error(error)
           })
         }
 
@@ -61,25 +61,25 @@ const ForgotPasswordPage = ({ user }: ForgotPasswordPageProps) => {
       {userIsLoggedIn ? (
         <AlreadyLoggedIn />
       ) : (
-        <ContentBlock>
-          <PageHeading>Forgot Password</PageHeading>
-          <BodyText variant='body' bodyTextAlign='left'>
+        <div className={sharedStyles.defaultContainer}>
+          <PageHeading className='mb-2'>Forgot Password</PageHeading>
+          <BodyText bodyTextAlign='left'>
             Forgotten your password? Enter your email below and we will send you a password reset link. If you have
-            forgotten your email as well, please contact an administrator in{' '}
-            <DiscordLink>Neat F2P&apos;s Discord server</DiscordLink>
-            {''}.
+            forgotten your email as well, please contact an administrator in our{' '}
+            <StandardLink href={DiscordInviteLink} target='_blank'>
+              Discord server
+            </StandardLink>
+            .
           </BodyText>
           <Form onSubmit={handleRequest}>
-            <Field required id='email' label='Email' variant='standard' onChange={handleEmailChange} />
-            <FormButton variant='contained' type='submit'>
-              Submit
-            </FormButton>
+            <Input required id='email' placeholder='Email' onChange={handleEmailChange} autoComplete='username' />
+            <Button type='submit'>Submit</Button>
           </Form>
-          <BodyText variant='body' topMargin={40} bodyTextAlign='left'>
-            <span>Or, if you remember it,</span>
-            <InlineLink href='/account/login'>try logging in now.</InlineLink>
+          <BodyText bodyTextAlign='left'>
+            <span>Or, if you remember it, </span>
+            <StandardLink href='/account/login'>try logging in now.</StandardLink>
           </BodyText>
-        </ContentBlock>
+        </div>
       )}
     </>
   )

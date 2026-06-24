@@ -1,12 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
-import {
-  PlayerNameField,
-  LookupSubmitButton,
-  LookupHeading,
-  LookupForm,
-  PlayerLookupContainer,
-} from './PlayerLookup.styled'
-import { redirectTo } from '@helpers/window'
+import { redirectTo } from '@utils/window'
+import { Input } from '@ui/input'
+import { Button } from '@ui/button'
+import clsx from 'clsx'
 
 type PlayerLookupProps = {
   isNpcHiscores?: boolean
@@ -29,24 +25,25 @@ const PlayerLookup = (props: PlayerLookupProps) => {
   }
 
   return (
-    <PlayerLookupContainer>
-      <LookupHeading variant='h3'>Look Up Player</LookupHeading>
-      <LookupForm onSubmit={handleSubmit}>
-        <PlayerNameField
+    <div
+      className={clsx('bg-sidebar-bg border-divider rounded-lg border-[0.5px] p-3.5', 'md:basis-full lg:basis-auto')}
+    >
+      <h3 className='text-left text-base font-semibold'>Look Up Player</h3>
+      <form onSubmit={handleSubmit} className='flex flex-wrap justify-center'>
+        <Input
           required
           type='text'
-          label='Player Name'
+          placeholder='Player name...'
           onChange={handlePlayerNameChange}
-          inputProps={{ maxLength: 12 }}
+          maxLength={12}
           value={playerName}
-        >
-          Player Name
-        </PlayerNameField>
-        <LookupSubmitButton type='submit' variant='contained'>
-          Check
-        </LookupSubmitButton>
-      </LookupForm>
-    </PlayerLookupContainer>
+          className='bg-background-paper mt-2.5 w-full'
+        />
+        <Button type='submit' className='mt-2.5 w-full'>
+          Search
+        </Button>
+      </form>
+    </div>
   )
 }
 

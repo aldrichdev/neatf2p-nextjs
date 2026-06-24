@@ -1,30 +1,15 @@
-import { Field } from '@atoms/Field'
-import { Button } from '@mui/material'
-import { NewsPostTitle } from '@organisms/NewsPostListItem/NewsPostListItem.styled'
 import ReactMarkdown from 'react-markdown'
 import TurndownService from 'turndown'
-import {
-  ClearButton,
-  FileUploadButton,
-  ForHtmlOutput,
-  ImageArea,
-  ImageButtonContainer,
-  ImageHelperText,
-  ImageLabel,
-  PreviewButtonContainer,
-  PreviewImage,
-  StyledForm,
-  SubmitArea,
-  SubmitButton,
-  SubmitMessage,
-  VisuallyHiddenInput,
-} from '@styledPages/Form.styled'
 import { NewsPostFormProps } from './NewsPostForm.types'
-import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { useEffect, useState } from 'react'
-import { convertBlobToBase64String } from '@helpers/base64'
+import { convertBlobToBase64String } from '@utils/base64'
 import { Modal } from '@molecules/Modal'
-import { getNewsPostImageUrl } from '@helpers/imageUtils'
+import { getNewsPostImageUrl } from '@utils/imageUtils'
+import { CloudUpload } from 'lucide-react'
+import { Button } from '@ui/button'
+import { Input } from '@ui/input'
+import { Textarea } from '@ui/textarea'
+import clsx from 'clsx'
 
 /** A reusable form for creating or updating a news post. */
 const NewsPostForm = (props: NewsPostFormProps) => {
@@ -38,6 +23,10 @@ const NewsPostForm = (props: NewsPostFormProps) => {
   const [previewModalIsOpen, setPreviewModalIsOpen] = useState(false)
   const [submitDisabled, setSubmitDisabled] = useState(false)
   const [submitResult, setSubmitResult] = useState<{ answer: string; code: string }>()
+  const submitColorClass: Record<string, string> = {
+    green: 'text-primary-main',
+    red: 'text-red-600',
+  }
 
   if (previewModalIsOpen) {
     // Prevent scrolling
@@ -46,7 +35,7 @@ const NewsPostForm = (props: NewsPostFormProps) => {
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0]
+      const i: File = event.target.files[0]
       setImagePreviewUrl(URL.createObjectURL(i))
 
       convertBlobToBase64String(i, (base64: string) => {
@@ -127,64 +116,78 @@ const NewsPostForm = (props: NewsPostFormProps) => {
   }, [newsPost?.body])
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      <ImageArea>
-        <ImageLabel>Image</ImageLabel>
-        <ImageHelperText>
+    <form onSubmit={handleSubmit} className='flex flex-wrap text-left'>
+      <div className='flex w-full flex-wrap justify-start gap-2 text-left'>
+        <label className='basis-full'>Image</label>
+        <span className='basis-full text-sm text-gray-500'>
           Optional. If not provided, a placeholder image will be displayed next to the post.
-        </ImageHelperText>
-        <ImageButtonContainer>
-          <FileUploadButton component='label' variant='contained' startIcon={<CloudUploadIcon />}>
-            Upload file
-            <VisuallyHiddenInput type='file' onChange={handleImageChange} />
-          </FileUploadButton>
+        </span>
+        <div className='flex basis-full gap-2'>
+          <Button asChild>
+            <label className='flex cursor-pointer items-center gap-2'>
+              <CloudUpload />
+              Upload file
+              <input type='file' onChange={handleImageChange} className='hidden' />
+            </label>
+          </Button>
           {imagePreviewUrl && (
-            <ClearButton variant='outlined' onClick={handleClearButtonClick}>
+            <Button variant='outline' onClick={handleClearButtonClick}>
               Clear
-            </ClearButton>
+            </Button>
           )}
-        </ImageButtonContainer>
-        <PreviewImage src={imagePreviewUrl} alt='' />
-      </ImageArea>
-      <Field id='imageAlt' label='Alt Text' variant='outlined' onChange={handleAltChange} value={alt} />
-      <Field id='postTitle' label='Title' variant='outlined' onChange={handleTitleChange} value={title} required />
-      <Field
+        </div>
+        {imagePreviewUrl && <img src={imagePreviewUrl} alt='' className='max-w-50' />}
+      </div>
+      <Input id='imageAlt' placeholder='Alt Text' onChange={handleAltChange} value={alt} className='mt-2.5 w-full' />
+      <Input
+        id='postTitle'
+        placeholder='Title'
+        onChange={handleTitleChange}
+        value={title}
+        required
+        className='mt-2.5 w-full'
+      />
+      <Textarea
         id='postBody'
-        label='Body'
-        variant='outlined'
-        helperText='Supports markdown'
+        placeholder='Body (supports markdown)'
         onChange={handleBodyChange}
-        multiline
         value={bodyInput}
         required
+        className='mt-2.5 w-full'
       />
-      <ForHtmlOutput>
+      <div className='hidden'>
         <ReactMarkdown className='news-post-body-markdown-html'>{bodyInput}</ReactMarkdown>
-      </ForHtmlOutput>
-      <PreviewButtonContainer>
-        <Button variant='outlined' onClick={handlePreviewClick} disabled={!(bodyInput || bodyHtml)}>
+      </div>
+      <div className='mt-5 flex w-full justify-start'>
+        <Button variant='outline' type='button' onClick={handlePreviewClick} disabled={!(bodyInput || bodyHtml)}>
           Preview
         </Button>
-      </PreviewButtonContainer>
+      </div>
       <Modal
         open={previewModalIsOpen}
         handleClose={handlePreviewModalClose}
         heading='Preview'
         body={
           <>
-            <NewsPostTitle variant='body'>{title}</NewsPostTitle>
-            {bodyHtml && <div dangerouslySetInnerHTML={{ __html: bodyHtml }} />}
+            <h2 className='text-3xl'>{title}</h2>
+            {bodyHtml && (
+              <div dangerouslySetInnerHTML={{ __html: bodyHtml }} className='news-post-detail-body text-base' />
+            )}
           </>
         }
         bodyScrollable
       />
-      <SubmitArea>
-        <SubmitButton variant='contained' type='submit' disabled={submitDisabled}>
+      <div className='flex w-full flex-wrap items-center justify-center'>
+        <Button variant='default' type='submit' disabled={submitDisabled} className='mt-10 basis-full'>
           Submit
-        </SubmitButton>
-      </SubmitArea>
-      <SubmitMessage color={submitResult?.code}>{submitResult?.answer}</SubmitMessage>
-    </StyledForm>
+        </Button>
+      </div>
+      {submitResult?.answer && (
+        <label className={clsx('mt-2.5 basis-full text-sm', submitColorClass[submitResult.code] ?? 'text-black')}>
+          {submitResult.answer}
+        </label>
+      )}
+    </form>
   )
 }
 

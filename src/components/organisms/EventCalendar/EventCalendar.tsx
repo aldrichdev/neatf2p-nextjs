@@ -1,11 +1,9 @@
-import { EventCalendarContainer } from './EventCalendar.styled'
 import { AgendaView } from '@molecules/AgendaView'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { sendApiRequest } from '@utils/api/apiUtils'
 import { useEffect, useState } from 'react'
 import { DatabaseEvent, Event } from '@globalTypes/event'
-import { Spinner } from '@molecules/Spinner'
-import { getEmojiByName } from '@helpers/string/stringUtils'
-import { getDateFromMillis } from '@helpers/date/date'
+import { getEmojiByName } from '@utils/string/stringUtils'
+import { getDateFromMillis } from '@utils/date/date'
 
 const EventCalendar = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -35,7 +33,7 @@ const EventCalendar = () => {
         .catch((error: string) => {
           const errorMsg = `Error getting events: ${error}`
           setFetchError(errorMsg)
-          console.log(errorMsg)
+          console.error(errorMsg)
         })
     }
 
@@ -45,11 +43,11 @@ const EventCalendar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (isLoading) {
-    return <Spinner />
-  }
-
-  return <EventCalendarContainer>{events && <AgendaView events={events} />}</EventCalendarContainer>
+  return (
+    <div className='flex w-full flex-wrap items-center justify-center gap-5 md:gap-10'>
+      <AgendaView events={events || []} isLoading={isLoading} />
+    </div>
+  )
 }
 
 export default EventCalendar

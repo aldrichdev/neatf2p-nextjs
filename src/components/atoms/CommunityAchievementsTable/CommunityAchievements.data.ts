@@ -141,7 +141,7 @@ export const communityAchievements = [
   },
   {
     achievement: 'First to 99 Mining',
-    playerName: 'TBD',
-    date: 'TBD',
+    playerName: 'muhahaha',
+    date: '5/10/2026',
   },
 ]

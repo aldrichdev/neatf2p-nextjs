@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { queryDatabase } from '@helpers/db'
+import { queryDatabase } from '@utils/db'
 import { NewsPost } from '@globalTypes/NewsPost'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
+import { handleError } from '@utils/api/apiUtils'
 
 /** Handler for the getNewsPosts API endpoint.
  * Query Options:
@@ -38,9 +39,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<NewsPost>) => {
       throw new Error(response.error?.toString())
     }
   } catch (error) {
-    res.statusCode = 500
-    res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify(error?.toString()))
+    handleError(res, error, 'getNewsPosts')
   }
 }
 

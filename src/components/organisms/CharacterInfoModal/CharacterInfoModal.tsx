@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { CharacterInfoModalProps } from './CharacterInfoModal.types'
 import { Modal } from '@molecules/Modal'
-import { sendApiRequest } from '@helpers/api/apiUtils'
-import { KdrTooltip, KillsAndDeaths, LoadingText, ViewButton } from './CharacterInfoModal.styled'
-import { convertNumberToTwoDecimalPoints, isNilString, pluralize } from '@helpers/string/stringUtils'
-import { getPrettyDateStringFromMillis } from '@helpers/date/date'
-import { isNilNumber } from '@helpers/numberUtils'
+import { sendApiRequest } from '@utils/api/apiUtils'
+import { convertNumberToTwoDecimalPoints, isNilString, pluralize } from '@utils/string/stringUtils'
+import { getPrettyDateStringFromMillis } from '@utils/date/date'
+import { isNilNumber } from '@utils/numberUtils'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@ui/tooltip'
+import clsx from 'clsx'
 
 const CharacterInfoModal = (props: CharacterInfoModalProps) => {
   const { account, open, setOpen } = props
@@ -37,28 +38,31 @@ const CharacterInfoModal = (props: CharacterInfoModalProps) => {
 
         setIsLoading(false)
       })
-      .catch((error: string) => console.log(error))
+      .catch((error: string) => console.error(error))
   }
 
   const renderKdr = () => {
     if (isLoading) {
-      return <LoadingText>Loading...</LoadingText>
+      return <em className='text-gray-500'>Loading...</em>
     }
 
     if (isNilString(kills) || isNilString(deaths) || isNilNumber(kdr)) {
       return (
-        <ViewButton variant='text' onClick={loadKdrStatistics}>
+        <button
+          onClick={loadKdrStatistics}
+          className={clsx('h-6 pb-1.5 text-black underline', 'hover:text-red-500 hover:underline')}
+        >
           View
-        </ViewButton>
+        </button>
       )
     }
 
     return (
       <>
-        <span>{convertNumberToTwoDecimalPoints(kdr)}</span>{' '}
-        <KillsAndDeaths>
+        <span className='font-mono'>{convertNumberToTwoDecimalPoints(kdr)}</span>{' '}
+        <span className='text-gray-500'>
           ({kills} {pluralize(Number(kills), 'kill')}, {deaths} {pluralize(Number(deaths), 'death')})
-        </KillsAndDeaths>
+        </span>
       </>
     )
   }
@@ -71,7 +75,7 @@ const CharacterInfoModal = (props: CharacterInfoModalProps) => {
       handleClose={handleClose}
       heading={account.username}
       body={
-        <div>
+        <div className='text-base'>
           <p>
             <strong>Date Created</strong>:{' '}
             {account.creation_date === 0 ? '-' : getPrettyDateStringFromMillis(account.creation_date)}
@@ -80,9 +84,14 @@ const CharacterInfoModal = (props: CharacterInfoModalProps) => {
             <strong>Total Hours Played</strong>: {hoursPlayed}
           </p>
           <p>
-            <KdrTooltip title={`Player Kill Death Ratio (doesn't count NPCs)`}>
-              <strong>PKDR</strong>
-            </KdrTooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <strong className='cursor-pointer'>PKDR</strong>
+              </TooltipTrigger>
+              <TooltipContent className='bg-black text-sm text-white shadow-md'>
+                {`Player Kill Death Ratio (doesn't count NPCs)`}
+              </TooltipContent>
+            </Tooltip>
             : {renderKdr()}
           </p>
         </div>

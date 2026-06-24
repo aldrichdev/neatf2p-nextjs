@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  transpilePackages: ['html-react-parser', 'domhandler', 'htmlparser2'],
   async headers() {
     return [
       {

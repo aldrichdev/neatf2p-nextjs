@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { queryDatabase, isOkPacket } from '@helpers/db'
+import { queryDatabase, isOkPacket } from '@utils/db'
 import { OkPacket } from 'mysql'
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
-import { shouldBlockApiCall } from '@helpers/api/apiUtils'
+import { shouldBlockApiCall } from '@utils/api/apiUtils'
 import { DatabaseEvent } from '@globalTypes/event'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<DatabaseEvent>) => {

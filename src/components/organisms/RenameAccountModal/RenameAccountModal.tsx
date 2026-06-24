@@ -1,11 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
 import { Modal } from '@molecules/Modal'
-import { Field } from '@atoms/Field'
-import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
+import { handleForbiddenRedirect, sendApiRequest } from '@utils/api/apiUtils'
 import { User } from '@globalTypes/User'
 import { AxiosError } from 'axios'
 import { RenameAccountModalBody } from '@molecules/RenameAccountModalBody'
+import { Input } from '@ui/input'
 
 type RenameAccountModalProps = {
   account: PlayerDataRow
@@ -54,7 +54,7 @@ const RenameAccountModal = (props: RenameAccountModalProps) => {
           }, 3000)
         } else {
           const errorMessage = `Non-number response type in RenameAccountModal: ${response?.data}`
-          console.log(errorMessage)
+          console.error(errorMessage)
         }
       })
       .catch((error: AxiosError<string>) => {
@@ -105,8 +105,15 @@ const RenameAccountModal = (props: RenameAccountModalProps) => {
       handleSubmit={handleSubmit}
       renderFields={() => (
         <>
-          <Field type='text' label='Current Name' disabled value={account.username} />
-          <Field type='text' label='New Name' required onChange={handleNewNameChange} inputProps={{ maxLength: 12 }} />
+          <Input type='text' placeholder='Current Name' disabled value={account.username} className='basis-full' />
+          <Input
+            type='text'
+            placeholder='New Name'
+            required
+            onChange={handleNewNameChange}
+            maxLength={12}
+            className='basis-full'
+          />
         </>
       )}
       formValidationError={validationError}

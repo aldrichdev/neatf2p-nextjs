@@ -1,5 +1,6 @@
-import { Event } from '@organisms/EventCalendar/EventCalendar.types'
+import { Event } from '@globalTypes/event'
 
 export type AgendaViewProps = {
   events: Event[]
+  isLoading: boolean
 }

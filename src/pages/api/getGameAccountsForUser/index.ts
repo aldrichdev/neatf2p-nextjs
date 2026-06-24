@@ -1,7 +1,7 @@
 import { ErrorResult } from '@globalTypes/Database/ErrorResult'
 import { PlayerDataRow } from '@globalTypes/Database/PlayerDataRow'
-import { shouldBlockApiCall } from '@helpers/api/apiUtils'
-import { queryDatabase } from '@helpers/db'
+import { handleError, shouldBlockApiCall } from '@utils/api/apiUtils'
+import { queryDatabase } from '@utils/db'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -41,10 +41,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       throw new Error(response.error?.toString())
     }
   } catch (error) {
-    console.log('An error occurred in the getGameAccountsForUser API: ', error)
-    res.statusCode = 500
-    res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify(error?.toString()))
+    handleError(res, error, 'getGameAccountsForUser')
   }
 }
 

@@ -1,21 +1,18 @@
-import { ContentBlock } from '@atoms/ContentBlock'
 import { useEffect, useState } from 'react'
-import { HiscoresPageContainer } from '@styledPages/hiscores.styled'
 import { HiscoresTable } from '@molecules/HiscoresTable'
 import { HiscoresMenu } from '@molecules/HiscoresMenu'
 import useHiscores from '@hooks/useHiscores'
 import { HiscoreTypes, HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { useRouter } from 'next/router'
-import { Spinner } from '@molecules/Spinner'
 import { PlayerLookup } from '@atoms/PlayerLookup'
-import { PageHeading } from '@atoms/PageHeading'
-import { push } from '@helpers/router'
-import { renderHead } from '@helpers/renderUtils'
+import { push } from '@utils/router'
+import { renderHead } from '@utils/renderUtils'
 import { PageTabs } from '@atoms/PageTabs'
-import { redirectTo } from '@helpers/window'
+import { redirectTo } from '@utils/window'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
 import { HiscoresTabs } from '@models/HiscoresTabs'
 import { GetServerSideProps } from 'next'
+import clsx from 'clsx'
 
 type HiscoresProps = {
   skill: HiscoreType
@@ -24,7 +21,6 @@ type HiscoresProps = {
 const Hiscores = ({ skill }: HiscoresProps) => {
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
-  const { query } = router
   const [hiscoresPage, setHiscoresPage] = useState(1)
   const isHiscoreType = (x: string): x is HiscoreType => HiscoreTypes.includes(x as HiscoreType)
   const [hiscoreType, setHiscoreType] = useState<HiscoreType>('Overall')
@@ -33,7 +29,6 @@ const Hiscores = ({ skill }: HiscoresProps) => {
   const handleMenuItemClick = (hiscoreType: HiscoreType) => {
     setHiscoreType(hiscoreType)
     setHiscoresPage(1)
-    router.query.page = '1'
     router.query.skill = hiscoreType
     push(router, '/hiscores', router.query)
   }
@@ -55,24 +50,36 @@ const Hiscores = ({ skill }: HiscoresProps) => {
   return (
     <>
       {renderHead(`${skill} Hiscores`, `The latest player rankings in the ${skill} skill.`)}
-      <ContentBlock isWide>
+      <div className='mx-auto max-w-225 text-center'>
         <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
-        <PageHeading>{`${hiscoreType} Hiscores`}</PageHeading>
-        <HiscoresPageContainer>
+        <div
+          className={clsx(
+            'flex flex-wrap justify-between gap-4',
+            'md:mt-4 md:grid md:h-250 md:grid-cols-[160px_1fr_200px]',
+            'lg:flex-nowrap',
+          )}
+        >
           <HiscoresMenu hiscoreType={hiscoreType} buttonOnClick={handleMenuItemClick} />
-          {isLoading || !hiscores ? (
-            <Spinner hiscores />
-          ) : (
+          <div className='w-full'>
+            <h2
+              className={clsx(
+                'text-text-primary mb-4 text-left text-[22px] leading-7 font-bold',
+                'md:mb-3 md:text-[28px] md:leading-9',
+              )}
+            >
+              {`${hiscoreType} Hiscores`}
+            </h2>
             <HiscoresTable
               hiscores={hiscores}
+              isLoading={isLoading}
               hiscoreType={hiscoreType}
-              page={query.page ? Number(query.page) : hiscoresPage}
+              page={hiscoresPage}
               setPage={setHiscoresPage}
             />
-          )}
+          </div>
           <PlayerLookup />
-        </HiscoresPageContainer>
-      </ContentBlock>
+        </div>
+      </div>
     </>
   )
 }

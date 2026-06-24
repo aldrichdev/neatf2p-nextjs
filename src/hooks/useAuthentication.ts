@@ -1,5 +1,5 @@
 import { User } from '@globalTypes/User'
-import { sendApiRequest } from '@helpers/api/apiUtils'
+import { sendApiRequest } from '@utils/api/apiUtils'
 import { NullUser } from '@models/NullUser'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 

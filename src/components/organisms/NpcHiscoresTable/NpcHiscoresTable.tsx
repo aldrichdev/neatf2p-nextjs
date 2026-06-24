@@ -1,21 +1,12 @@
 import { NpcHiscoreType } from '@globalTypes/Hiscores/HiscoreType'
-import { TableBody, TableHead, Paper } from '@mui/material'
-import {
-  RootContainer,
-  HiscoreTableContainer,
-  HiscoreTable,
-  HiscoresTableRow,
-  HiscoreTableCell,
-  HiscoreUsername,
-  HiscoreTableHeaderCell,
-} from '@molecules/HiscoresTable/HiscoresTable.styled'
-import { getNpcNameById } from '@helpers/hiscores/hiscoresUtils'
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
-import { push } from '@helpers/router'
+import { getNpcNameById } from '@utils/hiscores/hiscoresUtils'
 import { HiscoresControls } from '@atoms/HiscoresControls'
 import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
 import useHiscoresPagination from '@hooks/useHiscoresPagination'
+import { GoldBadge, SilverBadge, BronzeBadge, RankBadge, TopBadge } from '@molecules/HiscoresTable/Badges'
+import clsx from 'clsx'
+import { hiscoresStyles } from '../../../consts/styles/hiscores'
+import { StandardLink } from '@atoms/StandardLink'
 
 type NpcHiscoresTableProps = {
   hiscores: NpcHiscoreDataRow[]
@@ -26,8 +17,7 @@ type NpcHiscoresTableProps = {
 
 const NpcHiscoresTable = (props: NpcHiscoresTableProps) => {
   const { hiscores, npcHiscoreType, page, setPage } = props
-  const router = useRouter()
-  const { startingRecord, endingRecord, pageCount, handlePageChange, handleScrollToTop } = useHiscoresPagination(
+  const { startingRecord, endingRecord, pageCount, handlePageChange } = useHiscoresPagination(
     true,
     hiscores.length,
     page,
@@ -35,52 +25,57 @@ const NpcHiscoresTable = (props: NpcHiscoresTableProps) => {
   )
   let rank = startingRecord
 
-  useEffect(() => {
-    router.query.page = page.toString()
-    push(router, '/npc-hiscores', router.query)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page])
-
   return (
-    <RootContainer>
-      <HiscoreTableContainer component={Paper}>
-        <HiscoreTable aria-label={`${getNpcNameById(npcHiscoreType)} Hiscores Table`}>
-          <TableHead>
-            <HiscoresTableRow>
-              <HiscoreTableHeaderCell>Rank</HiscoreTableHeaderCell>
-              <HiscoreTableHeaderCell>Name</HiscoreTableHeaderCell>
-              <HiscoreTableHeaderCell>Kills</HiscoreTableHeaderCell>
-            </HiscoresTableRow>
-          </TableHead>
-          <TableBody>
+    <div className={hiscoresStyles.hiscoresTableRootContainerClass}>
+      <div className={hiscoresStyles.hiscoresTableOuterContainerClass}>
+        <table
+          aria-label={`${getNpcNameById(npcHiscoreType)} Hiscores Table`}
+          className={hiscoresStyles.hiscoresTableClass}
+        >
+          <thead className={hiscoresStyles.hiscoresTheadClass}>
+            <tr className='border-b-0'>
+              <th className={hiscoresStyles.hiscoresHeaderCellClass}>Rank</th>
+              <th className={hiscoresStyles.hiscoresHeaderCellClass}>Name</th>
+              <th className={hiscoresStyles.hiscoresHeaderCellClass}>Kills</th>
+            </tr>
+          </thead>
+          <tbody>
             {hiscores?.slice(startingRecord, endingRecord).map((hiscoreRow, index) => {
               rank++
+              const rankToDisplay: number = startingRecord === 0 ? index + 1 : rank
+
               return (
-                <HiscoresTableRow key={hiscoreRow.username}>
-                  <HiscoreTableCell component='th' scope='row'>
-                    {startingRecord === 0 ? index + 1 : rank}
-                  </HiscoreTableCell>
-                  <HiscoreTableCell>
-                    <HiscoreUsername href={`/npc-hiscores/player/${hiscoreRow.username}`}>
+                <tr key={hiscoreRow.username} className={hiscoresStyles.hiscoresListingTableRowClass}>
+                  <td className={hiscoresStyles.hiscoresValueCellClass}>
+                    {rankToDisplay === 1 ? (
+                      <GoldBadge>1</GoldBadge>
+                    ) : rankToDisplay === 2 ? (
+                      <SilverBadge>2</SilverBadge>
+                    ) : rankToDisplay === 3 ? (
+                      <BronzeBadge>3</BronzeBadge>
+                    ) : (
+                      <RankBadge>{rankToDisplay}</RankBadge>
+                    )}
+                  </td>
+                  <td className={clsx(hiscoresStyles.hiscoresValueCellClass, 'flex items-center gap-3')}>
+                    <StandardLink
+                      href={`/npc-hiscores/player/${hiscoreRow.username}`}
+                      hoverUnderline
+                      className='font-medium'
+                    >
                       {hiscoreRow.username}
-                    </HiscoreUsername>
-                  </HiscoreTableCell>
-                  <HiscoreTableCell>{hiscoreRow.killCount.toLocaleString()}</HiscoreTableCell>
-                </HiscoresTableRow>
+                    </StandardLink>
+                    {rankToDisplay === 1 ? <TopBadge>top</TopBadge> : null}
+                  </td>
+                  <td className={hiscoresStyles.hiscoresValueCellClass}>{hiscoreRow.killCount.toLocaleString()}</td>
+                </tr>
               )
             })}
-          </TableBody>
-        </HiscoreTable>
-      </HiscoreTableContainer>
-      {pageCount > 1 && (
-        <HiscoresControls
-          page={page}
-          pageCount={pageCount}
-          handlePageChange={handlePageChange}
-          handleScrollToTop={handleScrollToTop}
-        />
-      )}
-    </RootContainer>
+          </tbody>
+        </table>
+      </div>
+      {pageCount > 1 && <HiscoresControls page={page} pageCount={pageCount} handlePageChange={handlePageChange} />}
+    </div>
   )
 }
 

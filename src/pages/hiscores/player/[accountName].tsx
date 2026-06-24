@@ -1,164 +1,172 @@
-import { BackToLink } from '@atoms/BackToLink/BackToLink'
 import { BodyText } from '@atoms/BodyText'
-import { ContentBlock } from '@atoms/ContentBlock'
-import { HiscoreTableHeaderCell } from '@molecules/HiscoresTable/HiscoresTable.styled'
-import { PageHeading } from '@atoms/PageHeading'
 import { PageTabs } from '@atoms/PageTabs'
 import { Tab } from '@atoms/PageTabs/PageTabs.types'
-import { PlayerHiscoresRank } from '@atoms/PlayerHiscoresRank'
 import { PlayerHiscoreTable } from '@organisms/PlayerHiscoreTable'
-import {
-  ExperienceCell,
-  HiscoreSkillIcon,
-  HiscoreSkillTableCell,
-  HiscoreTableRow,
-  PlayerHiscoreTableCell,
-  SkillLink,
-} from '@organisms/PlayerHiscoreTable/PlayerHiscoreTable.styled'
 import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
-import { PlayerHiscoresSortField } from '@globalTypes/Database/PlayerHiscoresSortField'
-import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
-import { PlayerHiscoreRow } from '@globalTypes/Hiscores/PlayerHiscoreRow'
-import { getPrettyDateStringFromMillis } from '@helpers/date/date'
-import { getWebsiteBaseUrl } from '@helpers/envUtils'
-import { compareHiscores, convertExp, getTotalExp, isNotBaselineExp } from '@helpers/hiscores/hiscoresUtils'
-import { renderHead } from '@helpers/renderUtils'
-import { redirectTo } from '@helpers/window'
+import { getWebsiteBaseUrl } from '@utils/envUtils'
+import { renderHead } from '@utils/renderUtils'
+import { redirectTo } from '@utils/window'
 import { HiscoresTabs } from '@models/HiscoresTabs'
-import { PlayerHiscoreTableContainer } from '@styledPages/hiscores.styled'
 import { GetServerSideProps } from 'next'
-import { useEffect, useState } from 'react'
+import { formatExp } from '@utils/string/stringUtils'
+import { PlayerHiscoreTableRowsSkeleton } from '@atoms/PlayerHiscoreTableRowsSkeleton'
+import { PlayerHiscoreHeader } from '@molecules/PlayerHiscoreHeader'
+import { StatisticCardProps } from '@atoms/StatisticCard/StatisticCard.types'
+import { PlayerHiscoreTableRow } from '@atoms/PlayerHiscoreTableRow'
+import { convertExp } from '@utils/hiscores/hiscoresUtils'
+import { hiscoresStyles } from '../../../consts/styles/hiscores'
+import { BackToLink } from '@molecules/BackToLink'
 
 type PlayerHiscorePageProps = {
   accountName: string
-  hiscoresData: PlayerHiscoreDataRow[]
-  lastLoginMillis: number | undefined
+  /** A single record containing all data on the player. `null` if the player does not exist. */
+  playerHiscore: PlayerHiscoreDataRow | null
 }
 
-const PlayerHiscorePage = ({ accountName, hiscoresData, lastLoginMillis }: PlayerHiscorePageProps) => {
-  const [playerHiscores, setPlayerHiscores] = useState<PlayerHiscoreRow[] | undefined>()
-
-  const isMatchingUser = (hiscoreDataRow: PlayerHiscoreDataRow) =>
-    hiscoreDataRow.username.toLowerCase() === accountName.toLowerCase()
-
-  const getRank = (hiscoreType: HiscoreType) => {
-    // Order hiscoresData by hiscoreType descending
-    const propName = hiscoreType === 'Overall' ? 'skill_total' : `${hiscoreType.toLowerCase()}xp`
-    const sortedHiscoresData = hiscoresData
-      ?.filter(hiscore => isNotBaselineExp(hiscore, propName))
-      .sort((obj1, obj2) => compareHiscores(hiscoreType, obj1, obj2))
-
-    // Then get the index of the current player in that sorted list (and if 0-based, add 1), that's the rank.
-    const rank = sortedHiscoresData?.findIndex(isMatchingUser)
-    if (rank === undefined) return 0
-
-    return rank + 1
-  }
-
-  const getLevel = (hiscoreType: HiscoreType) => {
-    const playerHiscore = hiscoresData?.find(isMatchingUser)
-    const propName = hiscoreType === 'Overall' ? 'skill_total' : hiscoreType.toLowerCase()
-
-    if (!playerHiscore) return 0
-
-    return playerHiscore[propName as keyof PlayerHiscoresSortField]
-  }
-
-  const getExp = (hiscoreType: HiscoreType) => {
-    const playerHiscore = hiscoresData?.find(isMatchingUser)
-
-    if (!playerHiscore) return '0'
-
-    if (hiscoreType === 'Overall') {
-      return convertExp(getTotalExp(playerHiscore))
-    }
-
-    return convertExp(playerHiscore[`${hiscoreType.toLowerCase()}xp` as keyof PlayerHiscoresSortField])
-  }
-
-  const getPlayerHiscoreRow = (hiscoreType: HiscoreType) => {
-    const exp = getExp(hiscoreType)
-
-    return {
-      skill: hiscoreType,
-      rank: exp === '0' ? 0 : getRank(hiscoreType),
-      level: getLevel(hiscoreType),
-      exp: getExp(hiscoreType),
-    }
-  }
-
+const PlayerHiscorePage = ({ accountName, playerHiscore }: PlayerHiscorePageProps) => {
   const handleSetActiveTab = (tab: Tab) => {
     if (tab.label === 'NPC Kills') {
       redirectTo(`/npc-hiscores/player/${accountName}`)
     }
   }
 
-  useEffect(() => {
-    if (!hiscoresData) return
+  const totalExp = convertExp(playerHiscore?.totalXp || 0)
+  const totalExpShorthand = formatExp(totalExp)
 
-    const playerHiscoreRowArray: PlayerHiscoreRow[] = []
-    playerHiscoreRowArray.push(getPlayerHiscoreRow('Overall'))
-    playerHiscoreRowArray.push(getPlayerHiscoreRow('Hits'))
-    playerHiscoreRowArray.push(getPlayerHiscoreRow('Ranged'))
-    playerHiscoreRowArray.push(getPlayerHiscoreRow('Prayer'))
-    playerHiscoreRowArray.push(getPlayerHiscoreRow('Magic'))
-    playerHiscoreRowArray.push(getPlayerHiscoreRow('Cooking'))
-    playerHiscoreRowArray.push(getPlayerHiscoreRow('Woodcut'))
-    playerHiscoreRowArray.push(getPlayerHiscoreRow('Fishing'))
-    playerHiscoreRowArray.push(getPlayerHiscoreRow('Firemaking'))
-    playerHiscoreRowArray.push(getPlayerHiscoreRow('Crafting'))
-    playerHiscoreRowArray.push(getPlayerHiscoreRow('Smithing'))
-    playerHiscoreRowArray.push(getPlayerHiscoreRow('Mining'))
-
-    setPlayerHiscores(playerHiscoreRowArray)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hiscoresData])
+  const statCards: StatisticCardProps[] = [
+    {
+      label: 'Overall rank',
+      children: `#${playerHiscore?.overallRank || 0}`,
+      footnote: 'of all players',
+      isRank: true,
+    },
+    {
+      label: 'Skill total',
+      children: playerHiscore?.skill_total || 0,
+      footnote: 'across 14 skills',
+    },
+    {
+      label: 'Total exp',
+      children: totalExpShorthand,
+      footnote: `${totalExp} xp`,
+    },
+  ]
 
   return (
     <>
-      {renderHead(`${accountName} | Player Hiscores`, `Skill rankings for ${accountName}.`)}
-      <ContentBlock>
-        <PageHeading>{accountName}</PageHeading>
-        <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
-        {typeof accountName !== 'string' || !playerHiscores || !hiscoresData?.find(isMatchingUser) ? (
-          <BodyText variant='body' bodyTextAlign='center'>
-            No hiscore found for this player.
-          </BodyText>
+      {renderHead(
+        `${typeof accountName !== 'string' || !playerHiscore ? 'Player Not Found' : accountName} | Player Hiscores`,
+        `Skill rankings for ${accountName}.`,
+      )}
+      <div className='mx-auto max-w-200 text-center'>
+        <div className='mb-4'>
+          <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
+        </div>
+        {typeof accountName !== 'string' || !playerHiscore ? (
+          <BodyText bodyTextAlign='center'>No hiscore found for this player.</BodyText>
         ) : (
           <>
-            <PlayerHiscoreTableContainer>
-              <PlayerHiscoreTable
-                accountName={accountName}
-                columns={
+            <PlayerHiscoreHeader
+              isLoading={!playerHiscore}
+              accountName={accountName}
+              lastLoginMillis={playerHiscore.login_date ?? 0}
+              statCards={statCards}
+            />
+            <PlayerHiscoreTable
+              accountName={accountName}
+              columns={
+                <>
+                  <th className={hiscoresStyles.hiscoresHeaderCellClass}>Skill</th>
+                  <th className={hiscoresStyles.hiscoresHeaderCellClass}>Rank</th>
+                  <th className={hiscoresStyles.hiscoresHeaderCellClass}>Level</th>
+                  <th className={hiscoresStyles.hiscoresHeaderCellClass}>EXP</th>
+                </>
+              }
+              body={
+                !playerHiscore ? (
+                  <PlayerHiscoreTableRowsSkeleton />
+                ) : (
                   <>
-                    <HiscoreTableHeaderCell>Skill</HiscoreTableHeaderCell>
-                    <HiscoreTableHeaderCell>Rank</HiscoreTableHeaderCell>
-                    <HiscoreTableHeaderCell>Level</HiscoreTableHeaderCell>
-                    <HiscoreTableHeaderCell>EXP</HiscoreTableHeaderCell>
+                    <PlayerHiscoreTableRow
+                      skill='Overall'
+                      rank={playerHiscore.overallRank}
+                      level={playerHiscore.skill_total}
+                      exp={playerHiscore.totalXp}
+                    />
+                    <PlayerHiscoreTableRow
+                      skill='Hits'
+                      rank={playerHiscore.hitsRank}
+                      level={playerHiscore.hits}
+                      exp={playerHiscore.hitsxp}
+                    />
+                    <PlayerHiscoreTableRow
+                      skill='Ranged'
+                      rank={playerHiscore.rangedRank}
+                      level={playerHiscore.ranged}
+                      exp={playerHiscore.rangedxp}
+                    />
+                    <PlayerHiscoreTableRow
+                      skill='Prayer'
+                      rank={playerHiscore.prayerRank}
+                      level={playerHiscore.prayer}
+                      exp={playerHiscore.prayerxp}
+                    />
+                    <PlayerHiscoreTableRow
+                      skill='Magic'
+                      rank={playerHiscore.magicRank}
+                      level={playerHiscore.magic}
+                      exp={playerHiscore.magicxp}
+                    />
+                    <PlayerHiscoreTableRow
+                      skill='Cooking'
+                      rank={playerHiscore.cookingRank}
+                      level={playerHiscore.cooking}
+                      exp={playerHiscore.cookingxp}
+                    />
+                    <PlayerHiscoreTableRow
+                      skill='Woodcut'
+                      rank={playerHiscore.woodcutRank}
+                      level={playerHiscore.woodcut}
+                      exp={playerHiscore.woodcutxp}
+                    />
+                    <PlayerHiscoreTableRow
+                      skill='Fishing'
+                      rank={playerHiscore.fishingRank}
+                      level={playerHiscore.fishing}
+                      exp={playerHiscore.fishingxp}
+                    />
+                    <PlayerHiscoreTableRow
+                      skill='Firemaking'
+                      rank={playerHiscore.firemakingRank}
+                      level={playerHiscore.firemaking}
+                      exp={playerHiscore.firemakingxp}
+                    />
+                    <PlayerHiscoreTableRow
+                      skill='Crafting'
+                      rank={playerHiscore.craftingRank}
+                      level={playerHiscore.crafting}
+                      exp={playerHiscore.craftingxp}
+                    />
+                    <PlayerHiscoreTableRow
+                      skill='Smithing'
+                      rank={playerHiscore.smithingRank}
+                      level={playerHiscore.smithing}
+                      exp={playerHiscore.smithingxp}
+                    />
+                    <PlayerHiscoreTableRow
+                      skill='Mining'
+                      rank={playerHiscore.miningRank}
+                      level={playerHiscore.mining}
+                      exp={playerHiscore.miningxp}
+                    />
                   </>
-                }
-                body={playerHiscores.map(playerHiscoreRow => (
-                  <HiscoreTableRow key={playerHiscoreRow.skill}>
-                    <HiscoreSkillTableCell>
-                      <HiscoreSkillIcon src={`/img/skills/${playerHiscoreRow.skill}.png`} alt='' />
-                      <SkillLink href={`/hiscores?skill=${playerHiscoreRow.skill}`}>{playerHiscoreRow.skill}</SkillLink>
-                    </HiscoreSkillTableCell>
-                    <PlayerHiscoreTableCell>
-                      <PlayerHiscoresRank rank={playerHiscoreRow.rank} />
-                    </PlayerHiscoreTableCell>
-                    <PlayerHiscoreTableCell>{playerHiscoreRow.level}</PlayerHiscoreTableCell>
-                    <ExperienceCell>{playerHiscoreRow.exp}</ExperienceCell>
-                  </HiscoreTableRow>
-                ))}
-              />
-            </PlayerHiscoreTableContainer>
-            <BodyText variant='body' bodyTextAlign='center'>
-              <strong>Last Login:</strong> {lastLoginMillis ? getPrettyDateStringFromMillis(lastLoginMillis) : 'Never'}
-            </BodyText>
+                )
+              }
+            />
           </>
         )}
-        <BackToLink href='/hiscores'>{'<'} Return to Hiscores</BackToLink>
-      </ContentBlock>
+        <BackToLink href='/hiscores'>← Return to Hiscores</BackToLink>
+      </div>
     </>
   )
 }
@@ -171,27 +179,22 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const fetchBody = { username: accountName.toLowerCase() }
 
   const response = await fetch(fetchUrl, { method: 'POST', body: JSON.stringify(fetchBody) })
-  const output = await response.json()
+  const output: PlayerHiscoreDataRow[] = await response.json()
 
-  if (output) {
-    const hiscores: PlayerHiscoreDataRow[] = output
-
-    // Get player last login date as a millis number.
-    // A value of 0 for millis means the user has never logged in. Likewise for undefined.
-    const lastLoginMillis = hiscores.find(
-      (row: PlayerHiscoreDataRow) => row.username.toLowerCase() === accountName.toLowerCase(),
-    )?.login_date
-
+  if (output && Array.isArray(output) && output.length > 0) {
     return {
       props: {
         accountName,
-        hiscoresData: hiscores,
-        lastLoginMillis,
+        playerHiscore: output[0],
       },
     }
-  }
-
-  return {
-    notFound: true,
+  } else {
+    // An empty `output` array usually means the player does not exist, so we need to return null
+    return {
+      props: {
+        accountName,
+        playerHiscore: null,
+      },
+    }
   }
 }

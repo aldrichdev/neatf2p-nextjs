@@ -1,4 +1,4 @@
-import { push } from '@helpers/router'
+import { push } from '@utils/router'
 import { useRouter } from 'next/router'
 
 const useHiscoresPagination = (
@@ -15,12 +15,7 @@ const useHiscoresPagination = (
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value)
-    router.query.page = value.toString()
     push(router, isNpcHiscores ? '/npc-hiscores' : '/hiscores', router.query)
-  }
-
-  const handleScrollToTop = () => {
-    window.scrollTo({ top: 525, behavior: 'smooth' })
   }
 
   return {
@@ -28,7 +23,6 @@ const useHiscoresPagination = (
     endingRecord,
     pageCount,
     handlePageChange,
-    handleScrollToTop,
   }
 }
 
