@@ -13,16 +13,18 @@ import { convertMillisToEpochTimestamp } from '@helpers/date/date'
 /** A reusable form for creating or updating an event. */
 const EventForm = (props: EventFormProps) => {
   const { websiteEvent, onSubmitForm } = props
-  const [title, setTitle] = useState<string>(websiteEvent?.title || '')
-  const [startDate, setStartDate] = useState<Dayjs>(dayjs(websiteEvent?.startDate))
-  const [endDate, setEndDate] = useState<Dayjs>(dayjs(websiteEvent?.endDate))
-  const [relativeUrl, setRelativeUrl] = useState<string>(websiteEvent?.relativeUrl || '')
-  const [location, setLocation] = useState<string>(websiteEvent?.location || '')
-  const [emojiName, setEmojiName] = useState<string | null>(websiteEvent?.emojiName || '')
-  const [recurring, setRecurring] = useState<boolean>(Boolean(websiteEvent?.recurring || 0))
-  const [recursEvery, setRecursEvery] = useState<string | null>(websiteEvent?.recursEvery || '')
+  const [title, setTitle] = useState<string>(websiteEvent?.Title || '')
+  const [startDate, setStartDate] = useState<Dayjs>(dayjs.unix(websiteEvent?.StartDate || 0))
+  const [endDate, setEndDate] = useState<Dayjs>(dayjs.unix(websiteEvent?.EndDate || 0))
+  const [relativeUrl, setRelativeUrl] = useState<string>(websiteEvent?.RelativeUrl || '')
+  const [location, setLocation] = useState<string>(websiteEvent?.Location || '')
+  const [emojiName, setEmojiName] = useState<string | null>(websiteEvent?.EmojiName || '')
+  const [recurring, setRecurring] = useState<boolean>(Boolean(websiteEvent?.Recurring || 0))
+  const [recursEvery, setRecursEvery] = useState<string | null>(websiteEvent?.RecursEvery || '')
   const [submitDisabled, setSubmitDisabled] = useState(false)
   const [submitResult, setSubmitResult] = useState<{ answer: string; code: string }>()
+
+  console.log('startDate', startDate)
 
   const enableSubmit = () => setSubmitDisabled(false)
 
@@ -85,15 +87,15 @@ const EventForm = (props: EventFormProps) => {
 
     // Submit the form using the callback provided (will create or update an event)
     onSubmitForm({
-      id: websiteEvent ? websiteEvent.id : 0,
-      title,
-      startDate: convertMillisToEpochTimestamp(startDate.toDate().getTime()),
-      endDate: convertMillisToEpochTimestamp(endDate.toDate().getTime()),
-      relativeUrl,
-      location,
-      emojiName,
-      recurring,
-      recursEvery,
+      Id: websiteEvent ? websiteEvent.Id : 0,
+      Title: title,
+      StartDate: convertMillisToEpochTimestamp(startDate.toDate().getTime()),
+      EndDate: convertMillisToEpochTimestamp(endDate.toDate().getTime()),
+      RelativeUrl: relativeUrl,
+      Location: location,
+      EmojiName: emojiName || undefined,
+      Recurring: Number(recurring),
+      RecursEvery: recursEvery || undefined,
       setSubmitResult,
     })
   }

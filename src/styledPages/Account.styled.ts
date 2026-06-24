@@ -55,8 +55,8 @@ export const AdminToolsHeading = styled(Heading)(
 
 export const AdminToolsButtonArea = styled('div')(
   () => css`
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     justify-content: center;
     gap: 20px;
     margin-top: 40px;

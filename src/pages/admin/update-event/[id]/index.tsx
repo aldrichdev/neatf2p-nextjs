@@ -7,32 +7,40 @@ import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
+import { getWebsiteBaseUrl } from '@helpers/envUtils'
 import { handleForbiddenRedirect, sendApiRequest } from '@helpers/api/apiUtils'
 import { AxiosError } from 'axios'
 import { EventSubmitProps } from '@molecules/EventForm/EventForm.types'
-import { EventForm } from '@molecules/EventForm'
 import { redirectTo } from '@helpers/window'
+import { EventForm } from '@molecules/EventForm'
+import { DatabaseEvent } from '@globalTypes/event'
 
-type CreateEventPageProps = {
+type UpdateEventPageProps = {
+  /** The event that is being updated. */
+  event: DatabaseEvent
   user: User
 }
 
-const CreateEventPage = ({ user }: CreateEventPageProps) => {
-  const handleCreateEvent = (props: EventSubmitProps) => {
-    const { id, title, startDate, endDate, relativeUrl, location, emojiName, recurring, recursEvery, setSubmitResult } =
+const UpdateEventPage = ({ event, user }: UpdateEventPageProps) => {
+  const handleUpdateEvent = (props: EventSubmitProps) => {
+    const { Id, Title, StartDate, EndDate, RelativeUrl, Location, EmojiName, Recurring, RecursEvery, setSubmitResult } =
       props
+
+    if (event?.Id === null) {
+      return
+    }
 
     sendApiRequest('POST', '/api/upsertEvent', {
       userId: user.id,
-      id,
-      title,
-      startDate,
-      endDate,
-      relativeUrl,
-      location,
-      emojiName: emojiName === '' ? null : emojiName,
-      recurring,
-      recursEvery: recursEvery === '' ? null : recursEvery,
+      Id,
+      Title,
+      StartDate,
+      EndDate,
+      RelativeUrl,
+      Location,
+      EmojiName: EmojiName === '' ? null : EmojiName,
+      Recurring,
+      RecursEvery: RecursEvery === '' ? null : RecursEvery,
     })
       .then(response => {
         setSubmitResult({
@@ -59,28 +67,42 @@ const CreateEventPage = ({ user }: CreateEventPageProps) => {
 
   return (
     <>
-      {renderHead('Create Event')}
+      {renderHead('Update Event')}
       {!user?.isAdmin ? (
         <MustBeAdminBlock />
       ) : (
         <ContentBlock>
-          <PageHeading>Create an Event</PageHeading>
-          <EventForm onSubmitForm={handleCreateEvent} />
+          <PageHeading>Update an Event</PageHeading>
+          <EventForm websiteEvent={event} onSubmitForm={handleUpdateEvent} />
         </ContentBlock>
       )}
     </>
   )
 }
 
-export default CreateEventPage
+export default UpdateEventPage
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res, params }) => {
+  console.log('getServerSideProps running for update-event/[id]')
+  const fetchUrl = `${getWebsiteBaseUrl()}/api/getEvents${params?.id ? `?id=${params.id}` : ''}`
+  const response = await fetch(fetchUrl)
+  const events = await response.json()
+
   const session = await getIronSession(req, res, sessionOptions)
   const user: User = session?.user || NullUser
 
+  console.log('events', events)
+
+  if (events.length === 1) {
+    return {
+      props: {
+        event: events[0],
+        user: JSON.parse(JSON.stringify(user)),
+      },
+    }
+  }
+
   return {
-    props: {
-      user: JSON.parse(JSON.stringify(user)),
-    },
+    notFound: true,
   }
 }
