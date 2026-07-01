@@ -5,8 +5,8 @@ import { Button } from '@ui/button'
 import { Input } from '@ui/input'
 import { CalendarIcon } from 'lucide-react'
 import { DateTimePickerProps } from './DateTimePicker.types'
-import clsx from 'clsx'
 import { formatDate, formatTime } from './DateTimePicker.utils'
+import { cn } from '@utils/cn'
 
 const DateTimePicker = (props: DateTimePickerProps) => {
   const { label, value, onChange, className } = props
@@ -49,7 +49,7 @@ const DateTimePicker = (props: DateTimePickerProps) => {
   }
 
   return (
-    <div className={clsx('flex flex-wrap gap-2 lg:flex-nowrap', className)}>
+    <div className={cn('flex flex-wrap gap-2 lg:flex-nowrap', className)}>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button variant='outline' className='w-full flex-1 justify-start text-left font-normal lg:w-50'>
