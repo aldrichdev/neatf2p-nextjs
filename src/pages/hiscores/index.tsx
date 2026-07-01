@@ -54,9 +54,8 @@ const Hiscores = ({ skill }: HiscoresProps) => {
         <PageTabs tabs={HiscoresTabs} activeTab={HiscoresTabs[0]} setActiveTab={tab => handleSetActiveTab(tab)} />
         <div
           className={clsx(
-            'flex flex-wrap justify-between gap-4',
-            'md:mt-4 md:grid md:h-250 md:grid-cols-[160px_1fr_200px]',
-            'lg:flex-nowrap',
+            'flex flex-wrap justify-between gap-4 md:mt-4 md:grid md:grid-cols-[20%_55%_20%]',
+            'lg:h-250 lg:grid-cols-[160px_1fr_200px] lg:flex-nowrap',
           )}
         >
           <HiscoresMenu hiscoreType={hiscoreType} buttonOnClick={handleMenuItemClick} />
