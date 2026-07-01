@@ -4,11 +4,11 @@ import { Calendar } from '@ui/calendar'
 import { Button } from '@ui/button'
 import { Input } from '@ui/input'
 import { CalendarIcon } from 'lucide-react'
-import { DatePickerProps } from './DateTimePicker.types'
+import { DateTimePickerProps } from './DateTimePicker.types'
 import clsx from 'clsx'
 import { formatDate, formatTime } from './DateTimePicker.utils'
 
-const DateTimePicker = (props: DatePickerProps) => {
+const DateTimePicker = (props: DateTimePickerProps) => {
   const { label, value, onChange, className } = props
   const [open, setOpen] = useState(false)
   const [time, setTime] = useState(value ? formatTime(value) : '00:00')

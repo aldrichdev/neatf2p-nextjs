@@ -1,4 +1,4 @@
-export type DatePickerProps = {
+export type DateTimePickerProps = {
   id?: string
   label: string
   value?: Date
