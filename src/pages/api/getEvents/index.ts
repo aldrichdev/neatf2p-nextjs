@@ -15,7 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<DatabaseEvent>)
 
     const list: DatabaseEvent[] = []
     const query = `
-      SELECT e.Id, e.Title, e.StartDate, e.EndDate, e.RelativeUrl, e.Location, e.EmojiName, e.Recurring, e.RecursEvery
+      SELECT e.id, e.title, e.startDate, e.endDate, e.relativeUrl, e.location, e.emojiName, e.recurring, e.recursEvery
       FROM events e
       ${hasId ? `WHERE e.Id = ${Number(id)}` : ''}
     `

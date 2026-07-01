@@ -23,24 +23,24 @@ type UpdateEventPageProps = {
 
 const UpdateEventPage = ({ event, user }: UpdateEventPageProps) => {
   const handleUpdateEvent = (props: EventSubmitProps) => {
-    const { Id, Title, StartDate, EndDate, RelativeUrl, Location, EmojiName, Recurring, RecursEvery, setSubmitResult } =
+    const { id, title, startDate, endDate, relativeUrl, location, emojiName, recurring, recursEvery, setSubmitResult } =
       props
 
-    if (event?.Id === null) {
+    if (event?.id === null) {
       return
     }
 
     sendApiRequest('POST', '/api/upsertEvent', {
       userId: user.id,
-      id: Id,
-      title: Title,
-      startDate: StartDate,
-      endDate: EndDate,
-      relativeUrl: RelativeUrl,
-      location: Location,
-      emojiName: EmojiName === '' ? null : EmojiName,
-      recurring: Recurring || 0,
-      recursEvery: RecursEvery === '' ? null : RecursEvery,
+      id,
+      title,
+      startDate,
+      endDate,
+      relativeUrl,
+      location,
+      emojiName: emojiName === '' ? null : emojiName,
+      recurring: recurring || 0,
+      recursEvery: recursEvery === '' ? null : recursEvery,
     })
       .then(response => {
         setSubmitResult({

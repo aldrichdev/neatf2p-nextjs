@@ -17,14 +17,14 @@ const EventCalendar = () => {
           const databaseEvents: DatabaseEvent[] = response?.data
 
           const mappedEvents: Event[] = databaseEvents.map(dbEvent => ({
-            id: dbEvent.Id,
-            title: dbEvent.EmojiName ? `${getEmojiByName(dbEvent.EmojiName)} ${dbEvent.Title}` : dbEvent.Title,
-            start: getDateFromMillis(dbEvent.StartDate),
-            end: getDateFromMillis(dbEvent.EndDate),
-            resource: dbEvent.RelativeUrl,
-            location: dbEvent.Location,
-            recurring: dbEvent.Recurring === 1 ? true : false,
-            recursEvery: dbEvent.RecursEvery,
+            id: dbEvent.id,
+            title: dbEvent.emojiName ? `${getEmojiByName(dbEvent.emojiName)} ${dbEvent.title}` : dbEvent.title,
+            start: getDateFromMillis(dbEvent.startDate),
+            end: getDateFromMillis(dbEvent.endDate),
+            resource: dbEvent.relativeUrl,
+            location: dbEvent.location,
+            recurring: dbEvent.recurring === 1 ? true : false,
+            recursEvery: dbEvent.recursEvery,
           }))
 
           setEvents(mappedEvents)

@@ -19,17 +19,17 @@ const AgendaView = (props: AgendaViewProps) => {
   return (
     <>
       <PageHeading>Upcoming Events</PageHeading>
-      {(isLoading || sortedAndFilteredEvents?.length > 0) && (
+      {sortedAndFilteredEvents?.length > 0 && (
         <BodyText>
           Below is a list of events that will be happening on the Neat F2P server within the next 6 months. All event
           times are shown in your local time zone.
         </BodyText>
       )}
-      <div className='grid grid-cols-1 gap-5 text-base font-normal md:grid-cols-2 lg:grid-cols-3'>
-        {isLoading ? (
-          <Spinner />
-        ) : sortedAndFilteredEvents?.length > 0 ? (
-          sortedAndFilteredEvents.map(event => (
+      {isLoading ? (
+        <Spinner className='basis-full' />
+      ) : sortedAndFilteredEvents?.length > 0 ? (
+        <div className='grid grid-cols-1 gap-5 text-base font-normal md:grid-cols-2 lg:grid-cols-3'>
+          {sortedAndFilteredEvents.map(event => (
             <div key={event.id} className='w-full border border-black'>
               <p className='m-0 border-b border-black'>{event.title}</p>
               <div className='p-2 text-left'>
@@ -62,11 +62,13 @@ const AgendaView = (props: AgendaViewProps) => {
                 )}
               </div>
             </div>
-          ))
-        ) : (
-          <BodyText>No Upcoming Events</BodyText>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <BodyText className='basis-full' bodyTextAlign='center'>
+          No Upcoming Events
+        </BodyText>
+      )}
     </>
   )
 }
