@@ -1,47 +1,59 @@
 import { MustBeAdminBlock } from '@molecules/MustBeAdminBlock'
 import { PageHeading } from '@atoms/PageHeading'
-import { sharedStyles } from '@consts/styles/shared'
 import { renderHead } from '@utils/renderUtils'
 import { User } from '@globalTypes/User'
 import { NullUser } from '@models/NullUser'
 import { sessionOptions } from '@models/session'
 import { getIronSession } from 'iron-session'
 import { GetServerSideProps } from 'next'
-import { NewsPostForm } from '@organisms/NewsPostForm'
-import { NewsPost } from '@globalTypes/NewsPost'
 import { getWebsiteBaseUrl } from '@utils/envUtils'
 import { handleForbiddenRedirect, sendApiRequest } from '@utils/api/apiUtils'
 import { AxiosError } from 'axios'
-import { NewsPostSubmitProps } from '@organisms/NewsPostForm/NewsPostForm.types'
+import { EventSubmitProps } from '@molecules/EventForm/EventForm.types'
+import { redirectTo } from '@utils/window'
+import { EventForm } from '@molecules/EventForm'
+import { DatabaseEvent } from '@globalTypes/event'
+import { sharedStyles } from '@consts/styles/shared'
 
-type UpdateNewsPostPageProps = {
-  /** The news post that is being updated. */
-  newsPost: NewsPost
+type UpdateEventPageProps = {
+  /** The event that is being updated. */
+  event: DatabaseEvent
   user: User
 }
 
-const UpdateNewsPostPage = ({ newsPost, user }: UpdateNewsPostPageProps) => {
-  const handleUpdateNewsPost = (props: NewsPostSubmitProps) => {
-    const { image, alt, title, bodyHtml, bodyInput, setSubmitResult } = props
+const UpdateEventPage = ({ event, user }: UpdateEventPageProps) => {
+  const handleUpdateEvent = (props: EventSubmitProps) => {
+    const { id, title, startDate, endDate, relativeUrl, location, emojiName, recurring, recursEvery, setSubmitResult } =
+      props
 
-    if (newsPost?.id === null) {
+    if (event?.id === null) {
       return
     }
 
-    sendApiRequest('POST', '/api/updateNewsPost', {
+    sendApiRequest('POST', '/api/upsertEvent', {
       userId: user.id,
-      newsPostId: newsPost?.id,
-      image,
-      alt,
+      id,
       title,
-      body: bodyHtml,
-      bodyInput,
+      startDate,
+      endDate,
+      relativeUrl,
+      location,
+      emojiName: emojiName === '' ? null : emojiName,
+      recurring: recurring || 0,
+      recursEvery: recursEvery === '' ? null : recursEvery,
     })
       .then(response => {
         setSubmitResult({
           answer: response?.data,
           code: response?.data?.includes('Success') ? 'green' : 'red',
         })
+
+        // If response was successful, redirect to the account page after a delay
+        if (response?.data?.includes('Success')) {
+          setTimeout(() => {
+            redirectTo('/account')
+          }, 5000)
+        }
       })
       .catch((error: AxiosError<string>) => {
         setSubmitResult({
@@ -55,33 +67,32 @@ const UpdateNewsPostPage = ({ newsPost, user }: UpdateNewsPostPageProps) => {
 
   return (
     <>
-      {renderHead('Update News Post')}
+      {renderHead('Update Event')}
       {!user?.isAdmin ? (
         <MustBeAdminBlock />
       ) : (
         <div className={sharedStyles.defaultContainer}>
-          <PageHeading>Update a News Post</PageHeading>
-          <NewsPostForm newsPost={newsPost} onSubmitForm={handleUpdateNewsPost} />
+          <PageHeading>Update an Event</PageHeading>
+          <EventForm websiteEvent={event} onSubmitForm={handleUpdateEvent} />
         </div>
       )}
     </>
   )
 }
 
-export default UpdateNewsPostPage
+export default UpdateEventPage
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res, params }) => {
-  const fetchUrl = `${getWebsiteBaseUrl()}/api/getNewsPosts${params?.id ? `?id=${params.id}` : ''}`
+  const fetchUrl = `${getWebsiteBaseUrl()}/api/getEvents${params?.id ? `?id=${params.id}` : ''}`
   const response = await fetch(fetchUrl)
-  const newsPosts = await response.json()
-
+  const events = await response.json()
   const session = await getIronSession(req, res, sessionOptions)
   const user: User = session?.user || NullUser
 
-  if (newsPosts.length === 1) {
+  if (events.length === 1) {
     return {
       props: {
-        newsPost: newsPosts[0],
+        event: events[0],
         user: JSON.parse(JSON.stringify(user)),
       },
     }

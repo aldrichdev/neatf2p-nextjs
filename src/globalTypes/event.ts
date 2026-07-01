@@ -12,17 +12,15 @@ export type Event = {
   recursEvery?: string
 }
 
-/** Database verison of `Event`. The structure that lives in the database.
- * Properties need to be title case since the column names are.
- */
+/** Database verison of `Event`. The structure that lives in the database. */
 export type DatabaseEvent = {
-  Id: number
-  Title: string
-  StartDate: number
-  EndDate: number
-  RelativeUrl: string
-  Location: string
-  EmojiName?: string
-  Recurring: number
-  RecursEvery?: string
+  id: number
+  title: string
+  startDate: number
+  endDate: number
+  relativeUrl: string
+  location: string
+  emojiName?: string
+  recurring: number
+  recursEvery?: string
 }

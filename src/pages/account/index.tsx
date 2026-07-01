@@ -38,6 +38,24 @@ const AccountPage = ({ user }: AccountPageProps) => {
     window.location.href = `/admin/update-news-post/${userInteger}`
   }
 
+  const handleUpdateEventClick = () => {
+    const userInput = prompt('Enter the ID of the event you wish to update:')
+
+    if (userInput === null) {
+      // User cancelled the prompt
+      return
+    }
+
+    const userInteger = parseInt(userInput, 10)
+
+    if (isNaN(userInteger)) {
+      alert("That's not a valid integer. Please try again.")
+      return
+    }
+
+    window.location.href = `/admin/update-event/${userInteger}`
+  }
+
   return (
     <>
       {renderHead('Account', 'The account page allows you to modify your website account and create in-game accounts.')}
@@ -87,11 +105,15 @@ const AccountPage = ({ user }: AccountPageProps) => {
                 <BodyText bodyTextAlign='center'>
                   Below are some admin tools to help you manage content on this site.
                 </BodyText>
-                <div className='flex flex-wrap justify-center gap-5'>
+                <div className='grid grid-cols-2 flex-wrap justify-center gap-5'>
                   <Button asChild>
                     <Link href='/admin/create-news-post'>➕ Create News Post</Link>
                   </Button>
                   <Button onClick={handleUpdateNewsPostClick}>📝 Update News Post</Button>
+                  <Button asChild>
+                    <Link href='/admin/create-event'>🌃 Create Event</Link>
+                  </Button>
+                  <Button onClick={handleUpdateEventClick}>✍ Update Event</Button>
                 </div>
               </div>
             </>

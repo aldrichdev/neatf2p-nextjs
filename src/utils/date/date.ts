@@ -51,6 +51,10 @@ export const getDateFromMillis = (millis: number): Date => {
   return new Date(millis * 1000)
 }
 
+export const convertMillisToEpochTimestamp = (millis: number): number => {
+  return Math.floor(millis / 1000)
+}
+
 export const getPrettyDateStringFromMillis = (millis: number, useToday?: boolean): string => {
   const date = getDateFromMillis(millis)
 
