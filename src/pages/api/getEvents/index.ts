@@ -23,25 +23,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<DatabaseEvent>)
     const response: Array<DatabaseEvent> | ErrorResult = await queryDatabase('website', query)
 
     if (response instanceof Array) {
-      // Map `DatabaseEvent` to `Event`.
       response?.map((rowDataPacket: DatabaseEvent) => {
-        // No! An API should return raw data from the database.
-        // Do your model mapping somewhere else where receivers of it care.
+        // Return raw data from the database
         list.push(rowDataPacket)
-
-        // const newObject: Event = {
-        //   id: rowDataPacket.Id,
-        //   title: rowDataPacket.EmojiName
-        //     ? `${getEmojiByName(rowDataPacket.EmojiName)} ${rowDataPacket.Title}`
-        //     : rowDataPacket.Title,
-        //   start: getDateFromMillis(rowDataPacket.StartDate),
-        //   end: getDateFromMillis(rowDataPacket.EndDate),
-        //   resource: rowDataPacket.RelativeUrl,
-        //   location: rowDataPacket.Location,
-        //   recurring: rowDataPacket.Recurring === 1 ? true : false,
-        //   recursEvery: rowDataPacket.RecursEvery,
-        // }
-        //list.push(newObject)
       })
 
       res.statusCode = 200

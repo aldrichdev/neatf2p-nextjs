@@ -31,7 +31,7 @@ const CreateEventPage = ({ user }: CreateEventPageProps) => {
       relativeUrl: RelativeUrl,
       location: Location,
       emojiName: EmojiName === '' ? null : EmojiName,
-      recurring: Recurring,
+      recurring: Recurring || 0,
       recursEvery: RecursEvery === '' ? null : RecursEvery,
     })
       .then(response => {
@@ -40,10 +40,10 @@ const CreateEventPage = ({ user }: CreateEventPageProps) => {
           code: response?.data?.includes('Success') ? 'green' : 'red',
         })
 
-        // If response was successful, redirect to /events page after a delay
+        // If response was successful, redirect to /account page after a delay
         if (response?.data?.includes('Success')) {
           setTimeout(() => {
-            redirectTo('/events')
+            redirectTo('/account')
           }, 5000)
         }
       })

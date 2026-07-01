@@ -32,15 +32,15 @@ const UpdateEventPage = ({ event, user }: UpdateEventPageProps) => {
 
     sendApiRequest('POST', '/api/upsertEvent', {
       userId: user.id,
-      Id,
-      Title,
-      StartDate,
-      EndDate,
-      RelativeUrl,
-      Location,
-      EmojiName: EmojiName === '' ? null : EmojiName,
-      Recurring,
-      RecursEvery: RecursEvery === '' ? null : RecursEvery,
+      id: Id,
+      title: Title,
+      startDate: StartDate,
+      endDate: EndDate,
+      relativeUrl: RelativeUrl,
+      location: Location,
+      emojiName: EmojiName === '' ? null : EmojiName,
+      recurring: Recurring || 0,
+      recursEvery: RecursEvery === '' ? null : RecursEvery,
     })
       .then(response => {
         setSubmitResult({
@@ -48,10 +48,10 @@ const UpdateEventPage = ({ event, user }: UpdateEventPageProps) => {
           code: response?.data?.includes('Success') ? 'green' : 'red',
         })
 
-        // If response was successful, redirect to /events page after a delay
+        // If response was successful, redirect to the account page after a delay
         if (response?.data?.includes('Success')) {
           setTimeout(() => {
-            redirectTo('/events')
+            redirectTo('/account')
           }, 5000)
         }
       })
@@ -83,15 +83,11 @@ const UpdateEventPage = ({ event, user }: UpdateEventPageProps) => {
 export default UpdateEventPage
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res, params }) => {
-  console.log('getServerSideProps running for update-event/[id]')
   const fetchUrl = `${getWebsiteBaseUrl()}/api/getEvents${params?.id ? `?id=${params.id}` : ''}`
   const response = await fetch(fetchUrl)
   const events = await response.json()
-
   const session = await getIronSession(req, res, sessionOptions)
   const user: User = session?.user || NullUser
-
-  console.log('events', events)
 
   if (events.length === 1) {
     return {

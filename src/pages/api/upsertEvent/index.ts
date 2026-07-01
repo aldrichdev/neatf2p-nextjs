@@ -7,7 +7,6 @@ import { DatabaseEvent } from '@globalTypes/event'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<DatabaseEvent>) => {
   const { userId, id, title, startDate, endDate, relativeUrl, location, emojiName, recurring, recursEvery } = req.body
-  console.log('event id', id)
   const sessionCookie = req.cookies?.['neat-f2p-session']
 
   if (await shouldBlockApiCall(userId, sessionCookie)) {
@@ -17,16 +16,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<DatabaseEvent>)
     return
   }
 
-  console.log('Not forbidden.')
-
   try {
     if (id) {
-      console.log('Update existing. user id = ', userId)
       // Update existing event
-      // TODO: Why does the `SELECT COUNT(*) FROM users WHERE id = ? AND isAdmin = 1` part return 0?
-      // Query this at home
-      const updateEventQuery =
-        'UPDATE events SET Title = ?, StartDate = ?, EndDate = ?, RelativeUrl = ?, Location = ?, EmojiName = ?, Recurring = ?, RecursEvery = ? WHERE Id = ? AND (SELECT COUNT(*) FROM users WHERE id = ? AND isAdmin = 1) > 0 LIMIT 1'
+      const updateEventQuery = `UPDATE events SET Title = ?, StartDate = ?, EndDate = ?, RelativeUrl = ?, Location = ?, 
+          EmojiName = ?, Recurring = ?, RecursEvery = ? WHERE Id = ? 
+          AND (SELECT COUNT(*) FROM users WHERE id = ? AND isAdmin = 1) > 0 LIMIT 1`
       const updateEventResponse: OkPacket | ErrorResult = await queryDatabase('website', updateEventQuery, [
         title,
         startDate,
@@ -36,19 +31,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<DatabaseEvent>)
         emojiName,
         recurring,
         recursEvery,
-        userId,
         id,
+        userId,
       ])
 
-      console.log('updateEvent worked')
-
       if (!isOkPacket(updateEventResponse)) {
-        console.log('not ok packet')
         throw new Error(updateEventResponse?.error?.toString())
       }
 
       if (updateEventResponse?.affectedRows < 1) {
-        console.log('0 affected rows')
         // Probably the user is not an admin...
         throw new Error('Unauthorized')
       }
@@ -56,11 +47,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<DatabaseEvent>)
       // Return a JSON result indicating success
       res.statusCode = 200
       res.setHeader('Content-Type', 'application/json')
-      res.end(JSON.stringify(`Success! Updated event with ID ${id}. Redirecting you to the Events page...`))
+      res.end(JSON.stringify(`Success! Updated event with ID ${id}. Redirecting you to the Account  page...`))
     } else {
       // Insert new event
-      const insertEventQuery =
-        'INSERT INTO events (Title, StartDate, EndDate, RelativeUrl, Location, EmojiName, Recurring, RecursEvery) SELECT ?, ?, ?, ?, ?, ?, ?, ? FROM events WHERE (SELECT COUNT(*) FROM users WHERE id = ? AND isAdmin = 1) > 0 LIMIT 1'
+      const insertEventQuery = `INSERT INTO events (Title, StartDate, EndDate, RelativeUrl, Location, EmojiName, 
+        Recurring, RecursEvery)
+        SELECT ?, ?, ?, ?, ?, ?, ?, ?
+        FROM events
+        WHERE (SELECT COUNT(*) FROM users WHERE id = ? AND isAdmin = 1) > 0
+        LIMIT 1`
       const insertEventResponse: OkPacket | ErrorResult = await queryDatabase('website', insertEventQuery, [
         title,
         startDate,
@@ -88,11 +83,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<DatabaseEvent>)
       res.statusCode = 200
       res.setHeader('Content-Type', 'application/json')
       res.end(
-        JSON.stringify(`Success! Created event with ID ${insertedEventId}. Redirecting you to the Events page...`),
+        JSON.stringify(`Success! Created event with ID ${insertedEventId}. Redirecting you to the Account page...`),
       )
     }
   } catch (error) {
-    console.log('An error occurred in the upsertEvent API: ', error)
+    console.error('An error occurred in the upsertEvent API: ', error)
     res.statusCode = 500
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(`${error?.toString()}`))

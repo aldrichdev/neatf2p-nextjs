@@ -105,21 +105,15 @@ const AccountPage = ({ user }: AccountPageProps) => {
                 <BodyText bodyTextAlign='center'>
                   Below are some admin tools to help you manage content on this site.
                 </BodyText>
-                <div className='flex flex-wrap justify-center gap-5'> {/** TODO: May need to change to grid and [1fr_1fr] template cols? */}
+                <div className='grid grid-cols-2 flex-wrap justify-center gap-5'>
                   <Button asChild>
                     <Link href='/admin/create-news-post'>➕ Create News Post</Link>
                   </Button>
-                  <Button onClick={handleUpdateNewsPostClick}>
-                    📝 Update News Post
-                  </Button>
+                  <Button onClick={handleUpdateNewsPostClick}>📝 Update News Post</Button>
                   <Button asChild>
-                    <Link href='/admin/create-event'>
-                    🌃 Create Event
-                    </Link>
+                    <Link href='/admin/create-event'>🌃 Create Event</Link>
                   </Button>
-                  <Button onClick={handleUpdateEventClick}>
-                    ✍ Update Event
-                  </Button>
+                  <Button onClick={handleUpdateEventClick}>✍ Update Event</Button>
                 </div>
               </div>
             </>

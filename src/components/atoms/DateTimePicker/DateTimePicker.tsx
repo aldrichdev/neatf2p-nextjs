@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import { Popover, PopoverContent, PopoverTrigger } from '@ui/popover'
 import { Calendar } from '@ui/calendar'
 import { Button } from '@ui/button'
@@ -27,12 +27,21 @@ const DateTimePicker = (props: DatePickerProps) => {
     setOpen(false)
   }
 
-  const handleTimeChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newTime = event.target.value
     setTime(newTime)
 
+    if (!event.target.validity.valid || !newTime) {
+      return
+    }
+
+    const [hours, minutes] = newTime.split(':').map(Number)
+
+    if (Number.isNaN(hours) || Number.isNaN(minutes)) {
+      return
+    }
+
     if (value) {
-      const [hours, minutes] = newTime.split(':').map(Number)
       const combined = new Date(value)
       combined.setHours(hours, minutes)
       onChange?.(combined)
@@ -40,10 +49,10 @@ const DateTimePicker = (props: DatePickerProps) => {
   }
 
   return (
-    <div className={clsx('flex flex-wrap gap-2', className)}>
+    <div className={clsx('flex flex-wrap gap-2 lg:flex-nowrap', className)}>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button variant='outline' className='justify-start text-left font-normal'>
+          <Button variant='outline' className='w-full flex-1 justify-start text-left font-normal lg:w-50'>
             <CalendarIcon className='mr-2 size-4' />
             {value ? formatDate(value) : label}
           </Button>
@@ -52,7 +61,7 @@ const DateTimePicker = (props: DatePickerProps) => {
           <Calendar mode='single' selected={value} onSelect={handleDateSelect} />
         </PopoverContent>
       </Popover>
-      <Input type='time' value={time} onChange={handleTimeChange} className='w-32' />
+      <Input type='time' value={time} onChange={handleTimeChange} className='w-full lg:w-40' />
     </div>
   )
 }
