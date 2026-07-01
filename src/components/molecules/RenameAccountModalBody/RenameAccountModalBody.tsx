@@ -23,7 +23,7 @@ const RenameAccountModalBody = (props: RenameAccountModalBodyProps) => {
   if (playerRenamedMaximumAmount) {
     // # symbols are omitted since # is a special symbol added by the website to denote maximum rename attempts.
     return (
-      <>
+      <div className='flex flex-wrap gap-4'>
         <p>
           You have already renamed your character (<code>{account.username}</code>) once and changed it back once, so
           you cannot rename again. If you think this is a mistake, please contact the admin directly over Discord
@@ -32,13 +32,13 @@ const RenameAccountModalBody = (props: RenameAccountModalBodyProps) => {
         <p>
           Your previous name was <code>{account.former_name.replace('#', '')}</code>.
         </p>
-      </>
+      </div>
     )
   }
 
   if (playerRenamedOnce) {
     return (
-      <>
+      <div className='flex flex-wrap gap-4'>
         <strong>
           Please log <code>{account.username}</code> out of the game before continuing.
         </strong>{' '}
@@ -60,7 +60,7 @@ const RenameAccountModalBody = (props: RenameAccountModalBodyProps) => {
           </BodyText>
         )}
         {restoreErrorMessage && <FieldValidationMessage>{restoreErrorMessage}</FieldValidationMessage>}
-      </>
+      </div>
     )
   }
 
