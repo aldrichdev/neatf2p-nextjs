@@ -88,7 +88,7 @@ const CharacterInfoModal = (props: CharacterInfoModalProps) => {
               <TooltipTrigger asChild>
                 <strong className='cursor-pointer'>PKDR</strong>
               </TooltipTrigger>
-              <TooltipContent className='bg-black text-sm text-white shadow-md'>
+              <TooltipContent className='text-sm shadow-md'>
                 {`Player Kill Death Ratio (doesn't count NPCs)`}
               </TooltipContent>
             </Tooltip>
