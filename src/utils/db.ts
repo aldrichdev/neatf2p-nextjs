@@ -11,6 +11,7 @@ const sqlServerSettings = {
   port,
   user: process.env.MARIADB_USER,
   password: process.env.MARIADB_PASSWORD,
+  charset: 'UTF8MB4_GENERAL_CI',
 }
 
 const gameDB = mysql({
