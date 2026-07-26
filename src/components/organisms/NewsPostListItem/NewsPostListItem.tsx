@@ -26,13 +26,17 @@ const NewsPostListItem = (props: NewsPostItemProps) => {
         </Link>
         <div className='text-left'>
           <p>
-            <StandardLink href={newsPostUrl} hoverUnderline className='font-semibold text-black hover:text-black'>
+            <StandardLink
+              href={newsPostUrl}
+              hoverUnderline
+              className='text-text-base hover:text-text-base font-semibold'
+            >
               {newsPost.title}
             </StandardLink>
           </p>
           <div>
-            <p className='text-gray-500'>{getPrettyDateStringFromISOString(newsPost.datePosted)}</p>
-            <span className='text-black'>
+            <p className='text-neutral-500'>{getPrettyDateStringFromISOString(newsPost.datePosted)}</p>
+            <span className='text-text-base'>
               <ReadMore linkHref={newsPostUrl}>{newsPost.body}</ReadMore>
             </span>
           </div>

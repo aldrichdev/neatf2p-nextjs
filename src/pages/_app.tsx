@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 import { Footer } from '@atoms/Footer'
 import Link from 'next/link'
 import { TooltipProvider } from '@ui/tooltip'
+import { ThemeProvider } from 'next-themes'
 
 export default function App({ Component, pageProps }: AppProps) {
   const user = useAuthentication()
@@ -16,7 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => emailjs.init('NnydzXPqox79rXZ4M'), [])
 
   return (
-    <>
+    <ThemeProvider attribute='class' defaultTheme='light' enableSystem={false}>
       <Head>
         <title>Page | Neat F2P</title>
         <meta
@@ -42,6 +43,6 @@ export default function App({ Component, pageProps }: AppProps) {
         </div>
         <Footer />
       </TooltipProvider>
-    </>
+    </ThemeProvider>
   )
 }

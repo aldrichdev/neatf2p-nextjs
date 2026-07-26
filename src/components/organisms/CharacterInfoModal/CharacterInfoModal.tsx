@@ -50,7 +50,7 @@ const CharacterInfoModal = (props: CharacterInfoModalProps) => {
       return (
         <button
           onClick={loadKdrStatistics}
-          className={clsx('h-6 pb-1.5 text-black underline', 'hover:text-red-500 hover:underline')}
+          className={clsx('text-text-base h-6 pb-1.5 underline', 'hover:text-red-500 hover:underline')}
         >
           View
         </button>
