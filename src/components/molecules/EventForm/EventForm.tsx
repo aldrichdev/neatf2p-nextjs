@@ -204,7 +204,7 @@ const EventForm = (props: EventFormProps) => {
           Submit
         </Button>
       </div>
-      <label className={clsx('mt-2.5 basis-full', submitColorClass[submitResult?.code ?? ''] ?? 'text-black')}>
+      <label className={clsx('mt-2.5 basis-full', submitColorClass[submitResult?.code ?? ''] ?? 'text-text-primary')}>
         {submitResult?.answer}
       </label>
     </form>

@@ -35,7 +35,7 @@ const Footer = () => {
   return (
     <footer
       className={clsx(
-        'relative flex flex-col items-center justify-center bg-stone-950 text-white',
+        'bg-dark-gray relative flex flex-col items-center justify-center text-white',
         'overflow-hidden px-20 py-10 md:flex-row',
       )}
       onMouseEnter={handleFooterHover}

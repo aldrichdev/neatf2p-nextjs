@@ -31,7 +31,7 @@ const NpcPlayerHiscoreFilterBar = (props: NpcPlayerHiscoreFilterBarProps) => {
           className={clsx(
             'box-border h-8.5 w-full min-w-0 px-2 py-1.5',
             'border-divider rounded-md border-[0.5px]',
-            'text-primary-dark bg-background-paper text-base',
+            'text-text-primary bg-background-paper text-base',
             'font-sans outline-none',
             'md:px-2.5 md:py-1.75',
           )}
@@ -45,7 +45,7 @@ const NpcPlayerHiscoreFilterBar = (props: NpcPlayerHiscoreFilterBarProps) => {
               'cursor-pointer border-none bg-transparent p-0',
               'flex items-center justify-center',
               'text-tertiary-text text-base leading-none',
-              'hover:text-primary-dark',
+              'hover:text-text-primary',
               '[-webkit-tap-highlight-color:transparent]',
             )}
           >

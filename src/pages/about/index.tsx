@@ -7,7 +7,7 @@ import clsx from 'clsx'
 
 const About = () => {
   const featureLiClass = clsx(
-    'text-primary-dark before:text-primary-main flex items-start gap-2.5 text-left',
+    'text-text-primary before:text-primary-main flex items-start gap-2.5 text-left',
     'before:mt-px before:shrink-0 before:font-bold before:content-["✓"]',
   )
 
