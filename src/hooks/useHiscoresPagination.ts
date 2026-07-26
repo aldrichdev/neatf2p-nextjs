@@ -13,7 +13,7 @@ const useHiscoresPagination = (
   const startingRecord = page === 1 ? 0 : (page - 1) * resultsPerPage
   const endingRecord = page == 1 ? resultsPerPage : startingRecord + resultsPerPage
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handlePageChange = (value: number) => {
     setPage(value)
     push(router, isNpcHiscores ? '/npc-hiscores' : '/hiscores', router.query)
   }

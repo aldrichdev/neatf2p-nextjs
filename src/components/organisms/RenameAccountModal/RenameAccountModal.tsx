@@ -79,8 +79,8 @@ const RenameAccountModal = (props: RenameAccountModalProps) => {
   }
 
   const handleRestoreUsername = () => {
-    // For the current `account`, change its username to `account.former_name` and its former_name to `#account.username`
-    // (hash indicates they have restored once and used maximum renames)
+    // For the current `account`, change its username to `account.former_name` and its former_name to
+    // `#account.username` (hash indicates they have restored once and used maximum renames)
     updateUsername(`#${account.username}`, account.former_name)
   }
 

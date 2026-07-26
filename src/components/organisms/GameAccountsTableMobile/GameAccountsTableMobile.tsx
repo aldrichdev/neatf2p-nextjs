@@ -11,7 +11,10 @@ import { CharacterInfoButton } from '@atoms/CharacterInfoButton'
 import { CharacterInfoModal } from '@organisms/CharacterInfoModal'
 import { Button } from '@ui/button'
 import { BodyText } from '@atoms/BodyText'
+import usePagination from '@hooks/usePagination'
+import { PaginationBar } from '@atoms/PaginationBar'
 
+/** The mobile view of the game accounts table. `GameAccountsTable` covers the desktop/tablet version. */
 const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
   const {
     user,
@@ -28,6 +31,7 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
   } = props
   const [isLoading, setIsLoading] = useState(true)
   const accounts = useGameAccounts(user?.id)
+  const { startingRecord, endingRecord, page, setPage, pageCount } = usePagination(accounts?.length || 0)
 
   useEffect(() => {
     if (accounts) setIsLoading(false)
@@ -57,8 +61,8 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
   }
 
   return (
-    <div className='md:hidden'>
-      {accounts?.map(account => (
+    <div className='flex flex-wrap gap-4 md:hidden'>
+      {accounts?.slice(startingRecord, endingRecord).map(account => (
         <table aria-label='Player Account' key={`mobile-${account.id}`} className='w-full border border-black'>
           <tbody>
             <GameAccountRowMobile account={account} rowLabel='Id' rowValue={account.id} />
@@ -87,6 +91,7 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
           </tbody>
         </table>
       ))}
+      {pageCount > 1 && <PaginationBar page={page} pageCount={pageCount} handlePageChange={setPage} />}
       {renameModalVisible && activeAccount && (
         <RenameAccountModal
           account={activeAccount}

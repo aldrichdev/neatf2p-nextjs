@@ -1,4 +1,4 @@
-import { HiscoresControlsProps } from './HiscoresControls.types'
+import { HiscoresControlsProps } from './PaginationBar.types'
 import {
   Pagination,
   PaginationContent,
@@ -9,15 +9,15 @@ import {
   PaginationEllipsis,
 } from '@ui/pagination'
 import clsx from 'clsx'
-import { ChangeEvent } from 'react'
 
-const HiscoresControls = (props: HiscoresControlsProps) => {
+/** The pagination bar that appears under a table or list. */
+const PaginationBar = (props: HiscoresControlsProps) => {
   const { page, pageCount, handlePageChange } = props
   const currentPage = page ?? 1
 
   const handleClick = (newPage: number) => {
     if (newPage < 1 || newPage > pageCount) return
-    handlePageChange({} as ChangeEvent<unknown>, newPage)
+    handlePageChange(newPage)
   }
 
   const getPageNumbers = (): (number | 'ellipsis')[] => {
@@ -83,4 +83,4 @@ const HiscoresControls = (props: HiscoresControlsProps) => {
   )
 }
 
-export default HiscoresControls
+export default PaginationBar

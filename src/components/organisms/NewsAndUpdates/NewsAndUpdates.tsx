@@ -4,6 +4,8 @@ import { NewsPostListItem } from '@organisms/NewsPostListItem'
 import { Spinner } from '@molecules/Spinner'
 import { PageHeading } from '@atoms/PageHeading'
 import { sendApiRequest } from '@utils/api/apiUtils'
+import usePagination from '@hooks/usePagination'
+import { PaginationBar } from '@atoms/PaginationBar'
 
 interface NewsAndUpdatesProps {
   heading: string
@@ -15,6 +17,7 @@ const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
   const { heading, limit } = props
   const [isLoading, setIsLoading] = useState(true)
   const [newsPosts, setNewsPosts] = useState<NewsPost[] | undefined>(undefined)
+  const { startingRecord, endingRecord, page, setPage, pageCount } = usePagination(newsPosts?.length || 0)
 
   useEffect(() => {
     const fetchNewsPosts = () => {
@@ -42,10 +45,11 @@ const NewsAndUpdates = (props: NewsAndUpdatesProps) => {
     <div className='w-full'>
       <PageHeading>{heading}</PageHeading>
       <ul className='mt-10 flex flex-col justify-center gap-8 p-0'>
-        {newsPosts.map((newsPost: NewsPost) => (
+        {newsPosts.slice(startingRecord, endingRecord).map((newsPost: NewsPost) => (
           <NewsPostListItem key={newsPost.id} newsPost={newsPost} />
         ))}
       </ul>
+      {pageCount > 1 && <PaginationBar page={page} pageCount={pageCount} handlePageChange={setPage} />}
     </div>
   )
 }
