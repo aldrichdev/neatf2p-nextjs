@@ -8,7 +8,10 @@ import { GameAccountsTableCell } from '@atoms/GameAccountsTableCell'
 import useGameAccounts from '@hooks/useGameAccounts'
 import { CharacterInfoModal } from '@organisms/CharacterInfoModal'
 import { BodyText } from '@atoms/BodyText'
+import usePagination from '@hooks/usePagination'
+import { PaginationBar } from '@atoms/PaginationBar'
 
+/** The desktop & tablet view of the game accounts table. `GameAccountsTableMobile` covers the mobile version. */
 const GameAccountsTable = (props: GameAccountsTableProps) => {
   const {
     user,
@@ -25,6 +28,7 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
   } = props
   const [isLoading, setIsLoading] = useState(true)
   const accounts = useGameAccounts(user?.id)
+  const { startingRecord, endingRecord, page, setPage, pageCount } = usePagination(accounts?.length || 0)
 
   useEffect(() => {
     if (accounts) setIsLoading(false)
@@ -61,7 +65,7 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
           </tr>
         </thead>
         <tbody>
-          {accounts?.map(account => (
+          {accounts?.slice(startingRecord, endingRecord).map(account => (
             <GameAccountRow
               key={account.id}
               account={account}
@@ -72,6 +76,7 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
           ))}
         </tbody>
       </table>
+      {pageCount > 1 && <PaginationBar page={page} pageCount={pageCount} handlePageChange={setPage} />}
       {renameModalVisible && activeAccount && (
         <RenameAccountModal
           account={activeAccount}

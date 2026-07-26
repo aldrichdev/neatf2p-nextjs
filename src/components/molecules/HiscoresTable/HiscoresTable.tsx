@@ -1,7 +1,7 @@
 import { PlayerHiscoreDataRow } from '@globalTypes/Database/PlayerHiscoreDataRow'
 import { HiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { convertExp } from '@utils/hiscores/hiscoresUtils'
-import { HiscoresControls } from '@atoms/HiscoresControls'
+import { PaginationBar } from '@atoms/PaginationBar'
 import useHiscoresPagination from '@hooks/useHiscoresPagination'
 import { GoldBadge, SilverBadge, BronzeBadge, RankBadge, TopBadge } from './Badges'
 import { formatExp } from '@utils/string/stringUtils'
@@ -107,7 +107,7 @@ const HiscoresTable = (props: HiscoresTableProps) => {
           </tbody>
         </table>
       </div>
-      {pageCount > 1 && <HiscoresControls page={page} pageCount={pageCount} handlePageChange={handlePageChange} />}
+      {pageCount > 1 && <PaginationBar page={page} pageCount={pageCount} handlePageChange={handlePageChange} />}
     </div>
   )
 }

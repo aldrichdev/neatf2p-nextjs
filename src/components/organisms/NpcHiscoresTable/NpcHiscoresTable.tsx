@@ -1,6 +1,6 @@
 import { NpcHiscoreType } from '@globalTypes/Hiscores/HiscoreType'
 import { getNpcNameById } from '@utils/hiscores/hiscoresUtils'
-import { HiscoresControls } from '@atoms/HiscoresControls'
+import { PaginationBar } from '@atoms/PaginationBar'
 import { NpcHiscoreDataRow } from '@globalTypes/Database/NpcHiscoreDataRow'
 import useHiscoresPagination from '@hooks/useHiscoresPagination'
 import { GoldBadge, SilverBadge, BronzeBadge, RankBadge, TopBadge } from '@molecules/HiscoresTable/Badges'
@@ -74,7 +74,7 @@ const NpcHiscoresTable = (props: NpcHiscoresTableProps) => {
           </tbody>
         </table>
       </div>
-      {pageCount > 1 && <HiscoresControls page={page} pageCount={pageCount} handlePageChange={handlePageChange} />}
+      {pageCount > 1 && <PaginationBar page={page} pageCount={pageCount} handlePageChange={handlePageChange} />}
     </div>
   )
 }
