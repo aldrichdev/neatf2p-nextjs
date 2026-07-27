@@ -4,6 +4,7 @@ import { MainNavigationDropdownItem } from '@atoms/MainNavigationDropdownItem'
 import Link from 'next/link'
 import { cn } from '@utils/cn'
 import clsx from 'clsx'
+import { ExternalLink } from 'lucide-react'
 
 const MainNavigation = () => {
   const { asPath } = useRouter()
@@ -50,7 +51,11 @@ const MainNavigation = () => {
         },
         {
           path: 'https://1drv.ms/x/c/0cb70e2f2bdaea22/EfbycDseWvJIpIkJt5itoNsBPD5TaJHX0bTjNb7Heor5UA?e=7zaO8Q',
-          text: 'Price Guide',
+          text: (
+            <div className='flex items-center justify-center gap-1'>
+              Price Guide <ExternalLink className='size-4' />
+            </div>
+          ),
           opensInNewTab: true,
         },
       ],
