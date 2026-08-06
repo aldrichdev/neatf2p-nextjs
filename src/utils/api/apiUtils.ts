@@ -86,7 +86,9 @@ export const handleForbiddenRedirect = (error: AxiosError<string>) => {
   }
 }
 
-/** Handles errors in API calls by logging the error and throwing a 500. */
+/** Handles errors in API calls by logging the error and throwing a 500.
+ * Note that the error is logged to the server, not the client (browser).
+ */
 export const handleError = <T>(res: NextApiResponse<T>, error: unknown, source: string) => {
   console.error(`An error occurred in the ${source} API handler: ${error}`)
   res.statusCode = 500

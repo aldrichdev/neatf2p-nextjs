@@ -105,7 +105,11 @@ const AccountLoginPage = ({ user }: AccountLoginPageProps) => {
             setValidationError(`An error occurred logging you in: ${error?.response?.data}`)
           })
       })
-      .catch((error: string) => error)
+      .catch((error: { response: { data: string } }) => {
+        console.error(error?.response?.data)
+        setButtonDisabled(false)
+        setValidationError(`An error occurred logging you in: ${error?.response?.data}`)
+      })
   }
 
   return (
