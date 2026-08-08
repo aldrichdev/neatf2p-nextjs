@@ -45,82 +45,80 @@ const AccountWidget = (props: AccountWidgetProps) => {
   const initial = isLoggedIn ? user.username.charAt(0).toUpperCase() : null
 
   return (
-    <div className='absolute top-2.5 right-2.5 md:top-5 md:right-5'>
-      <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
-        <DropdownMenuTrigger asChild>
-          <button
-            className={cn(
-              'flex h-10 w-10 items-center justify-center rounded-full',
-              'bg-dark-gray font-sans font-semibold text-white lg:text-xl',
-              'shadow-lg shadow-black/30',
-              'transition-opacity hover:opacity-90 focus:outline-none',
-              isLoggedIn && `bg-secondary-main`,
-            )}
-            aria-label='Account menu'
-          >
-            {isLoggedIn ? initial : <UserIcon className='h-5 w-5' />}
-          </button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align='end' className='bg-background-paper border-divider w-60'>
-          {isLoggedIn ? (
-            <>
-              <DropdownMenuLabel className='text-text-primary text-base font-normal'>
-                Hi{' '}
-                <StandardLink
-                  href='/account'
-                  hoverUnderline
-                  onClick={() => setOpen(false)}
-                  className='text-primary-main hover:text-primary-main font-semibold'
-                >
-                  {user.username}
-                </StandardLink>
-                !
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator className='bg-divider' />
-              <div className='px-2 py-1.5'>{mounted && <ThemeSwitch theme={theme} setTheme={setTheme} />}</div>
-              <DropdownMenuSeparator className='bg-divider' />
-              <DropdownMenuItem
-                onClick={handleLogout}
-                className={clsx(
-                  'text-text-primary hover:bg-primary-light focus:bg-primary-light',
-                  'focus:text-text-primary cursor-pointer gap-2',
-                )}
-              >
-                <LogOut className='h-4 w-4' />
-                Logout
-              </DropdownMenuItem>
-            </>
-          ) : (
-            <>
-              <DropdownMenuItem asChild className='hover:bg-primary-light focus:bg-primary-light cursor-pointer'>
-                <StandardLink
-                  href='/account/login'
-                  underline={false}
-                  onClick={() => setOpen(false)}
-                  className='text-text-primary hover:text-text-primary flex items-center gap-2'
-                >
-                  <LogIn className='h-4 w-4' />
-                  Login
-                </StandardLink>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild className='hover:bg-primary-light focus:bg-primary-light cursor-pointer'>
-                <StandardLink
-                  href='/account/create'
-                  underline={false}
-                  onClick={() => setOpen(false)}
-                  className='text-text-primary hover:text-text-primary flex items-center gap-2'
-                >
-                  <UserPlus className='h-4 w-4' />
-                  Register
-                </StandardLink>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator className='bg-divider' />
-              <div className='px-2 py-1.5'>{mounted && <ThemeSwitch theme={theme} setTheme={setTheme} />}</div>
-            </>
+    <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
+      <DropdownMenuTrigger asChild>
+        <button
+          className={cn(
+            'flex size-6 items-center justify-center rounded-full font-[Cinzel] text-xs lg:size-9',
+            'bg-dark-gray text-white lg:text-xl lg:font-medium',
+            'shadow-lg shadow-black/30',
+            'transition-opacity hover:opacity-90 focus:outline-none',
+            isLoggedIn && `bg-secondary-main`,
           )}
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+          aria-label='Account menu'
+        >
+          {isLoggedIn ? initial : <UserIcon className='h-5 w-5' />}
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align='end' className='bg-background-paper border-divider w-60'>
+        {isLoggedIn ? (
+          <>
+            <DropdownMenuLabel className='text-text-primary text-base font-normal'>
+              Hi{' '}
+              <StandardLink
+                href='/account'
+                hoverUnderline
+                onClick={() => setOpen(false)}
+                className='text-primary-main hover:text-primary-main font-semibold'
+              >
+                {user.username}
+              </StandardLink>
+              !
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator className='bg-divider' />
+            <div className='px-2 py-1.5'>{mounted && <ThemeSwitch theme={theme} setTheme={setTheme} />}</div>
+            <DropdownMenuSeparator className='bg-divider' />
+            <DropdownMenuItem
+              onClick={handleLogout}
+              className={clsx(
+                'text-text-primary hover:bg-primary-light focus:bg-primary-light',
+                'focus:text-text-primary cursor-pointer gap-2',
+              )}
+            >
+              <LogOut className='h-4 w-4' />
+              Logout
+            </DropdownMenuItem>
+          </>
+        ) : (
+          <>
+            <DropdownMenuItem asChild className='hover:bg-primary-light focus:bg-primary-light cursor-pointer'>
+              <StandardLink
+                href='/account/login'
+                underline={false}
+                onClick={() => setOpen(false)}
+                className='text-text-primary hover:text-text-primary flex items-center gap-2'
+              >
+                <LogIn className='h-4 w-4' />
+                Login
+              </StandardLink>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild className='hover:bg-primary-light focus:bg-primary-light cursor-pointer'>
+              <StandardLink
+                href='/account/create'
+                underline={false}
+                onClick={() => setOpen(false)}
+                className='text-text-primary hover:text-text-primary flex items-center gap-2'
+              >
+                <UserPlus className='h-4 w-4' />
+                Register
+              </StandardLink>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator className='bg-divider' />
+            <div className='px-2 py-1.5'>{mounted && <ThemeSwitch theme={theme} setTheme={setTheme} />}</div>
+          </>
+        )}
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
 

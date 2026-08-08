@@ -78,6 +78,11 @@ const Footer = () => {
             GitHub (Website)
           </StandardLink>
         </li>
+        <li className={listItemClassName}>
+          <StandardLink href='/bug-reports' hoverUnderline className='text-white'>
+            Report a Bug
+          </StandardLink>
+        </li>
       </ul>
       {showEasterEgg && !!randomEasterEgg && (
         <img
