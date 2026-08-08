@@ -49,8 +49,8 @@ const AccountWidget = (props: AccountWidgetProps) => {
       <DropdownMenuTrigger asChild>
         <button
           className={cn(
-            'flex size-6 items-center justify-center rounded-full font-[Cinzel] text-xs lg:size-9',
-            'bg-dark-gray text-white lg:text-xl lg:font-medium',
+            'flex size-6 items-center justify-center rounded-full text-xs lg:size-7',
+            'bg-dark-gray font-normal text-white lg:text-xl',
             'shadow-lg shadow-black/30',
             'transition-opacity hover:opacity-90 focus:outline-none',
             isLoggedIn && `bg-secondary-main`,
