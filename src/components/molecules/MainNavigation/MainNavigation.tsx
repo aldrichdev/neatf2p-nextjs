@@ -3,94 +3,21 @@ import { NavigationItem } from './MainNavigation.types'
 import { MainNavigationDropdownItem } from '@atoms/MainNavigationDropdownItem'
 import Link from 'next/link'
 import { cn } from '@utils/cn'
-import clsx from 'clsx'
-import { ExternalLink } from 'lucide-react'
+import { AccountWidget } from '@molecules/AccountWidget'
+import useAuthentication from '@hooks/useAuthentication'
+import { MobileNavTrigger } from '@atoms/MobileNavTrigger'
+import { navigationItems } from '@consts/navigation'
+import { isLinkActive } from '@utils/navigation'
 
 const MainNavigation = () => {
   const { asPath } = useRouter()
-
-  const navigationItems: NavigationItem[] = [
-    {
-      path: '/',
-      text: 'Home',
-    },
-    {
-      path: '/about',
-      text: 'About',
-    },
-    {
-      path: '/news',
-      text: 'News',
-    },
-    {
-      path: '/events',
-      text: 'Events',
-    },
-    {
-      path: '/how-to-play',
-      text: 'How to Play',
-    },
-    {
-      path: '/hiscores',
-      text: 'Hiscores',
-    },
-    {
-      text: 'Other Pages',
-      subItems: [
-        {
-          path: '/hall-of-fame',
-          text: 'Hall of Fame',
-        },
-        {
-          path: '/bug-reports',
-          text: 'Report a Bug',
-        },
-        {
-          path: '/tournament-info',
-          text: 'Tournaments',
-        },
-        {
-          path: 'https://1drv.ms/x/c/0cb70e2f2bdaea22/EfbycDseWvJIpIkJt5itoNsBPD5TaJHX0bTjNb7Heor5UA?e=7zaO8Q',
-          text: (
-            <div className='flex items-center justify-center gap-1'>
-              Price Guide <ExternalLink className='size-4' />
-            </div>
-          ),
-          opensInNewTab: true,
-        },
-      ],
-    },
-  ]
-
-  const isLinkActive = (linkPath: string): boolean => {
-    // Special cases.
-    if (linkPath === '/about' && asPath.startsWith('/about')) {
-      return true
-    }
-
-    if (linkPath === '/news' && asPath.startsWith('/news')) {
-      return true
-    }
-
-    if (linkPath === '/hiscores' && (asPath.startsWith('/hiscores') || asPath.startsWith('/npc-hiscores'))) {
-      return true
-    }
-
-    if (linkPath === '/how-to-play' && asPath.startsWith('/how-to-play')) {
-      return true
-    }
-
-    return linkPath === asPath
-  }
+  const user = useAuthentication()
 
   return (
-    <div className='flex justify-center'>
-      <ul
-        className={clsx(
-          'bg-dark-gray m-0 flex w-full list-none flex-wrap items-center justify-center gap-4 border-0',
-          'py-3 md:gap-8 md:border-2 md:border-solid md:border-black lg:flex-nowrap',
-        )}
-      >
+    <div className='bg-dark-gray flex items-center justify-between px-5 py-3'>
+      <MobileNavTrigger />
+      <span className='flex items-center font-medium whitespace-nowrap text-white'>Neat F2P</span>
+      <ul className='ml-auto hidden items-center gap-5 lg:flex'>
         {navigationItems.map((item: NavigationItem) => (
           <li key={item.path || item.subItems?.[0]?.path} className='flex items-center'>
             {item.path ? (
@@ -99,7 +26,7 @@ const MainNavigation = () => {
                 target={item.opensInNewTab ? '_blank' : '_self'}
                 className={cn(
                   'hover:text-nav-link-hover p-2 text-lg font-normal text-white',
-                  isLinkActive(item.path) ? 'text-secondary-main hover:text-secondary-main' : '',
+                  isLinkActive(asPath, item.path) ? 'text-secondary-main hover:text-secondary-main' : '',
                 )}
               >
                 {item.text}
@@ -114,6 +41,9 @@ const MainNavigation = () => {
           </li>
         ))}
       </ul>
+      <div className='flex items-center justify-center lg:ml-5'>
+        <AccountWidget user={user} />
+      </div>
     </div>
   )
 }

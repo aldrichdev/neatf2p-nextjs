@@ -3,12 +3,14 @@ import { MainNavigationDropdownItemProps } from './MainNavigationDropdownItem.ty
 import { Button } from '@ui/button'
 import Link from 'next/link'
 import clsx from 'clsx'
+import { useRouter } from 'next/router'
 
 const MainNavigationDropdownItem = (props: MainNavigationDropdownItemProps) => {
   const { title, subItems, isItemActive } = props
+  const { asPath } = useRouter()
   const [isDropdownVisible, setIsDropdownVisible] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
-  const isActive = subItems.some(subItem => isItemActive(subItem.path))
+  const isActive = subItems.some(subItem => isItemActive(asPath, subItem.path))
 
   const handleClick = () => {
     setIsDropdownVisible(prev => !prev)
@@ -43,11 +45,7 @@ const MainNavigationDropdownItem = (props: MainNavigationDropdownItemProps) => {
         {title}
       </Button>
       <div
-        className={clsx(
-          'absolute z-1 w-full',
-          isDropdownVisible ? 'block' : 'hidden',
-          'lg:hidden lg:group-hover:block',
-        )}
+        className={clsx('absolute z-1 w-32', isDropdownVisible ? 'block' : 'hidden', 'lg:hidden lg:group-hover:block')}
       >
         <ul className='m-0 list-none p-0'>
           {subItems.map(subItem => (

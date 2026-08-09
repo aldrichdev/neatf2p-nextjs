@@ -11,7 +11,7 @@ const CommunityAchievementsTable = () => {
   )
 
   return (
-    <table className='bg-dark-gray w-full overflow-hidden border-2 border-black'>
+    <table className='bg-dark-gray border-foreground w-full overflow-hidden border-2'>
       <thead>
         <tr className={rowClass}>
           <th className={cn(cellClass, 'text-left font-bold')}>Achievement</th>

@@ -2,6 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['html-react-parser', 'domhandler', 'htmlparser2'],
+  images: {
+    qualities: [25, 50, 75, 90, 100],
+  },
   async headers() {
     return [
       {

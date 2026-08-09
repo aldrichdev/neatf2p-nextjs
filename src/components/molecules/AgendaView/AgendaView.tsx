@@ -30,8 +30,8 @@ const AgendaView = (props: AgendaViewProps) => {
       ) : sortedAndFilteredEvents?.length > 0 ? (
         <div className='grid grid-cols-1 gap-5 text-base font-normal md:grid-cols-2 lg:grid-cols-3'>
           {sortedAndFilteredEvents.map(event => (
-            <div key={event.id} className='w-full border border-black'>
-              <p className='m-0 border-b border-black'>{event.title}</p>
+            <div key={event.id} className='border-foreground w-full border'>
+              <p className='border-foreground m-0 border-b'>{event.title}</p>
               <div className='p-2 text-left'>
                 {event.location && (
                   <p className='my-3'>
