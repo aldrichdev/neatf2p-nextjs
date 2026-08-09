@@ -49,15 +49,14 @@ const AccountWidget = (props: AccountWidgetProps) => {
       <DropdownMenuTrigger asChild>
         <button
           className={cn(
-            'flex size-6 items-center justify-center rounded-full text-xs lg:size-7',
+            'flex size-6 items-center justify-center rounded-full text-xs lg:size-9',
             'bg-dark-gray font-normal text-white lg:text-xl',
-            'shadow-lg shadow-black/30',
             'transition-opacity hover:opacity-90 focus:outline-none',
-            isLoggedIn && `bg-secondary-main`,
+            isLoggedIn && `bg-secondary-main shadow-lg shadow-black/30`,
           )}
           aria-label='Account menu'
         >
-          {isLoggedIn ? initial : <UserIcon className='h-5 w-5' />}
+          {isLoggedIn ? initial : <UserIcon className='size-5' />}
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='bg-background-paper border-divider w-60'>

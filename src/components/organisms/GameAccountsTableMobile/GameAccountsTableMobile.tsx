@@ -63,7 +63,7 @@ const GameAccountsTableMobile = (props: GameAccountsTableProps) => {
   return (
     <div className='flex flex-wrap gap-4 md:hidden'>
       {accounts?.slice(startingRecord, endingRecord).map(account => (
-        <table aria-label='Player Account' key={`mobile-${account.id}`} className='w-full border border-black'>
+        <table aria-label='Player Account' key={`mobile-${account.id}`} className='border-foreground w-full border'>
           <tbody>
             <GameAccountRowMobile account={account} rowLabel='Id' rowValue={account.id} />
             <GameAccountRowMobile account={account} rowLabel='Account Name' rowValue={account.username} />

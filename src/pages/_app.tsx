@@ -45,11 +45,16 @@ export default function App({ Component, pageProps }: AppProps) {
             )}
           />
           <div
-            className='to-dark-gray absolute inset-x-0 bottom-0 h-16 bg-linear-to-b from-transparent'
+            className='to-dark-gray absolute inset-x-0 bottom-0 h-40 bg-linear-to-b from-transparent'
             aria-hidden='true'
           />
           <div className='absolute inset-0 flex flex-col items-center justify-center' aria-hidden='true'>
-            <span className='font-[Cinzel] text-[clamp(3rem,8vw,4.5rem)] text-white drop-shadow-[0_4px_2px_rgba(0,0,0,1)]'>
+            <span
+              className={clsx(
+                'font-[Cinzel] text-[clamp(3rem,8vw,4.5rem)] text-white',
+                'font-semibold drop-shadow-[0_4px_2px_rgba(0,0,0,1)]',
+              )}
+            >
               Neat
             </span>
             <span className='flex gap-4 text-[clamp(2rem,5vw,3rem)] font-bold drop-shadow-[0_4px_2px_rgba(0,0,0,1)]'>
