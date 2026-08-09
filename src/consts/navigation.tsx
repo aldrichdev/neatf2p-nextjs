@@ -11,6 +11,10 @@ export const navigationItems: NavigationItem[] = [
     text: 'About',
   },
   {
+    path: '/how-to-play',
+    text: 'How to Play',
+  },
+  {
     path: '/news',
     text: 'News',
   },
@@ -18,10 +22,7 @@ export const navigationItems: NavigationItem[] = [
     path: '/events',
     text: 'Events',
   },
-  {
-    path: '/how-to-play',
-    text: 'How to Play',
-  },
+
   {
     path: '/hiscores',
     text: 'Hiscores',
