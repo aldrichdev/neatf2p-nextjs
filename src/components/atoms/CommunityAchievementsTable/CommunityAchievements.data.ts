@@ -126,8 +126,8 @@ export const communityAchievements = [
   },
   {
     achievement: 'First to 99 Firemaking',
-    playerName: 'TBD',
-    date: 'TBD',
+    playerName: 'Lord Jolt',
+    date: '8/22/2026',
   },
   {
     achievement: 'First to 99 Crafting',
