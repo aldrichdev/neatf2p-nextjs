@@ -33,7 +33,11 @@ const PlayNowPage = () => {
 
   return (
     <>
-      {renderHead('Play Now', 'This page contains important information for how to play Neat F2P. Read it carefully.')}
+      {renderHead(
+        'Play Now',
+        'Play Neat F2P, a free RuneScape Classic private server. Create an account and start in your browser, ' +
+          'or use RSC+, WinRune, or Android.',
+      )}
       <div className={sharedStyles.defaultContainer}>
         <PageHeading>Play Now</PageHeading>
         {userIsLoggedIn ? (
