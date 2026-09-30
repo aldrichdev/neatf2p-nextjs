@@ -47,8 +47,7 @@ const About = () => {
           <li className={featureLiClass}>Launched February 24th, 2024</li>
         </ul>
         <BodyText bodyTextAlign='center'>
-          So, <StandardLink href='/how-to-play'>jump in today</StandardLink> and experience what a F2P-only economy can
-          be!
+          So, <StandardLink href='/play-now'>jump in today</StandardLink> and experience what a F2P-only economy can be!
         </BodyText>
         <BodyText bodyTextAlign='center'>
           Read our server rules <StandardLink href='/about/rules'>here</StandardLink>.

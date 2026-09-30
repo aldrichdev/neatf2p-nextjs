@@ -38,8 +38,8 @@ const RscPlusInfoPage = () => {
           caretaker of RSC+.
         </BodyText>
         <YouTubeVideo embedUrl='https://www.youtube.com/embed/a4aD-PL6WK0?si=_sVgn5vyC16QXzSt' />
-        <BackToLink href='/how-to-play' className='mt-0'>
-          ← Back to How to Play page
+        <BackToLink href='/play-now' className='mt-0'>
+          ← Back
         </BackToLink>
       </div>
     </>

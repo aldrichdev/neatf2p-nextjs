@@ -11,8 +11,8 @@ export const navigationItems: NavigationItem[] = [
     text: 'About',
   },
   {
-    path: '/how-to-play',
-    text: 'How to Play',
+    path: '/play-now',
+    text: 'Play Now',
   },
   {
     path: '/news',

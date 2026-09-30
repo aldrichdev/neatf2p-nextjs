@@ -24,7 +24,7 @@ const buttonVariants = cva(
           'dark:border-input dark:bg-input/30 dark:hover:bg-input/50',
         ),
         secondary: cn(
-          'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+          'bg-secondary-main-constant text-white hover:bg-secondary-dark-constant',
           'aria-expanded:bg-secondary aria-expanded:text-secondary-foreground',
         ),
         ghost: cn(
