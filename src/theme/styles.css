@@ -52,6 +52,12 @@
   --color-secondary-light: #f0ecfa;
   --color-secondary-dark: #5c3d9a;
 
+  /** These tokens don't change between light and dark modes.
+  The above ones do and that doesn't work for buttons specifically. */
+  --color-secondary-main-constant: #7c5cbf;
+  --color-secondary-light-constant: #f0ecfa;
+  --color-secondary-dark-constant: #5c3d9a;
+
   /* Background */
   --color-background-default: #f9faf9;
   --color-background-paper: #ffffff;
@@ -180,6 +186,12 @@
   --color-secondary-main: #9b7ddb;
   --color-secondary-light: #2a2140;
   --color-secondary-dark: #c3aef0;
+
+  /** These tokens don't change between light and dark modes.
+  The above ones do and that doesn't work for buttons specifically. */
+  --color-secondary-main-constant: #7c5cbf;
+  --color-secondary-light-constant: #f0ecfa;
+  --color-secondary-dark-constant: #5c3d9a;
 
   --color-background-default: #10140c; /* deep forest-black, subtle green undertone */
   --color-background-paper: #1a2116; /* slightly lifted, for cards/panels */

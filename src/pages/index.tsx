@@ -18,7 +18,7 @@ const Homepage = () => (
       <StandardLink href='/about'>About page</StandardLink>.
     </p>
     <Button size='lg' asChild className='font-semibold'>
-      <Link href='/how-to-play'>⚔️ Play Now</Link>
+      <Link href='/play-now'>⚔️ Play Now</Link>
     </Button>
     <img
       src='/img/banners/HomepageBanner.png'
