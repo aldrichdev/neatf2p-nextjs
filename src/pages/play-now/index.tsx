@@ -5,12 +5,19 @@ import Link from 'next/link'
 import { renderHead } from '@utils/renderUtils'
 import clsx from 'clsx'
 import { Button } from '@ui/button'
-import useAuthentication from '@hooks/useAuthentication'
 import { UserIsLoggedIn } from '@utils/users/users'
 import { cn } from '@utils/cn'
+import { User } from '@globalTypes/User'
+import { GetServerSideProps } from 'next'
+import { sessionOptions } from '@models/session'
+import { getIronSession } from 'iron-session'
+import { NullUser } from '@models/NullUser'
 
-const PlayNowPage = () => {
-  const user = useAuthentication()
+type PlayNowPageProps = {
+  user: User
+}
+
+const PlayNowPage = ({ user }: PlayNowPageProps) => {
   const userIsLoggedIn = UserIsLoggedIn(user)
 
   const styles = {
@@ -110,3 +117,14 @@ const PlayNowPage = () => {
 }
 
 export default PlayNowPage
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getIronSession(req, res, sessionOptions)
+  const user: User = session?.user || NullUser
+
+  return {
+    props: {
+      user: JSON.parse(JSON.stringify(user)),
+    },
+  }
+}

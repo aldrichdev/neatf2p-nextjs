@@ -11,13 +11,15 @@ const Homepage = () => (
   <div className='mx-auto mb-5 flex w-full flex-col flex-wrap items-center justify-center gap-10 md:max-w-300'>
     {renderHead('Home')}
     <OnlinePlayers />
-    <PageHeading>Welcome back to 2003</PageHeading>
+    <PageHeading>
+      Welcome back <br className='block md:hidden' /> to 2003
+    </PageHeading>
     <p className='text-center'>
       Neat F2P is a RuneScape Classic private server that aims to provide you with an RS1 F2P experience, featuring a
       F2P-only world and economy to explore and enjoy. For more information, check out the{' '}
       <StandardLink href='/about'>About page</StandardLink>.
     </p>
-    <Button size='lg' asChild className='font-semibold'>
+    <Button size='lg' asChild className='w-full font-semibold md:w-auto'>
       <Link href='/play-now'>⚔️ Play Now</Link>
     </Button>
     <img

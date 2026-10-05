@@ -69,9 +69,14 @@ const AccountPage = ({ user }: AccountPageProps) => {
             game accounts and update passwords.
           </BodyText>
           <div className='mt-2.5 flex flex-wrap justify-center gap-5 md:flex-nowrap'>
+            <Button size='lg' className='w-full md:w-auto' asChild>
+              <Link href='/account/game-accounts'>🕹️ Manage Game Accounts</Link>
+            </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button size='lg'>⚙️ Manage Website Account</Button>
+                <Button size='lg' className='w-full md:w-auto'>
+                  ⚙️ Manage Website Account
+                </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem asChild>
@@ -91,9 +96,6 @@ const AccountPage = ({ user }: AccountPageProps) => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button size='lg' asChild>
-              <Link href='/account/game-accounts'>🕹️ Manage Game Accounts</Link>
-            </Button>
           </div>
           {user?.isAdmin && (
             <>

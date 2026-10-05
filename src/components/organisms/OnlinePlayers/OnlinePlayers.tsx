@@ -20,7 +20,8 @@ const OnlinePlayers = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (!playerCount) return null
+  // If there are no players online, show an empty div and make spacing around the heading consistent
+  if (!playerCount) return <div className='-mb-2.5' />
 
   return (
     <div className='flex animate-[fadeUp_0.5s_ease-out_forwards] justify-center transition-colors'>
