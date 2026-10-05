@@ -11,7 +11,7 @@ import { BodyText } from '@atoms/BodyText'
 import usePagination from '@hooks/usePagination'
 import { PaginationBar } from '@atoms/PaginationBar'
 
-/** The desktop & tablet view of the game accounts table. `GameAccountsTableMobile` covers the mobile version. */
+/** A table showing all game accounts the user has created. */
 const GameAccountsTable = (props: GameAccountsTableProps) => {
   const {
     user,
@@ -36,32 +36,33 @@ const GameAccountsTable = (props: GameAccountsTableProps) => {
 
   if (isLoading) {
     return (
-      <div className='hidden md:block'>
+      <div className='w-full'>
         <Spinner />
       </div>
     )
   } else if (process.env.NEXT_PUBLIC_GAME_ACCOUNTS_DISABLE_CREATION === 'true') {
     return null
   } else if (accounts && accounts.length < 1) {
-    return (
-      <BodyText bodyTextAlign='center' className='hidden md:block'>
-        You don&apos;t have any accounts right now. Why not create one?
-      </BodyText>
-    )
+    return <BodyText bodyTextAlign='center'>You don&apos;t have any accounts right now. Why not create one?</BodyText>
   }
 
   return (
-    <div className='hidden overflow-hidden rounded md:block'>
-      <table className='w-full' aria-label='Game Accounts Table'>
+    <div className='overflow-hidden rounded'>
+      <table className='w-full table-fixed lg:table-auto' aria-label='Game Accounts Table'>
         <thead>
           <tr>
-            <GameAccountsTableCell bold>Id</GameAccountsTableCell>
+            <GameAccountsTableCell bold className='w-12 lg:hidden lg:w-auto' />
+            <GameAccountsTableCell bold className='hidden lg:table-cell'>
+              Id
+            </GameAccountsTableCell>
             <GameAccountsTableCell bold>Account Name</GameAccountsTableCell>
             <GameAccountsTableCell bold>Combat Level</GameAccountsTableCell>
-            <GameAccountsTableCell bold>Last Login</GameAccountsTableCell>
-            <GameAccountsTableCell bold>Rename?</GameAccountsTableCell>
-            <GameAccountsTableCell bold>Password</GameAccountsTableCell>
-            <GameAccountsTableCell bold>Info</GameAccountsTableCell>
+            <GameAccountsTableCell bold className='hidden lg:table-cell'>
+              Last Login
+            </GameAccountsTableCell>
+            <GameAccountsTableCell bold className='hidden lg:table-cell'>
+              Actions
+            </GameAccountsTableCell>
           </tr>
         </thead>
         <tbody>

@@ -63,16 +63,16 @@ const AccountWidget = (props: AccountWidgetProps) => {
         {isLoggedIn ? (
           <>
             <DropdownMenuLabel className='text-text-primary text-base font-normal'>
-              Hi{' '}
+              <p>
+                Hi <strong>{user.username}</strong>!
+              </p>
               <StandardLink
                 href='/account'
-                hoverUnderline
                 onClick={() => setOpen(false)}
-                className='text-primary-main hover:text-primary-main font-semibold'
+                className='text-primary-main hover:text-primary-main text-sm'
               >
-                {user.username}
+                My account
               </StandardLink>
-              !
             </DropdownMenuLabel>
             <DropdownMenuSeparator className='bg-divider' />
             <div className='px-2 py-1.5'>{mounted && <ThemeSwitch theme={theme} setTheme={setTheme} />}</div>

@@ -2,7 +2,6 @@ import { BodyText } from '@atoms/BodyText'
 import { sharedStyles } from '@consts/styles/shared'
 import { GameAccountsTable } from '@organisms/GameAccountsTable'
 import { UserIsLoggedIn } from '@utils/users/users'
-import { GameAccountsTableMobile } from '@organisms/GameAccountsTableMobile'
 import { redirectTo } from '@utils/window'
 import { NotLoggedIn } from '@molecules/NotLoggedIn'
 import { useState } from 'react'
@@ -62,20 +61,10 @@ const GameAccountsPage = ({ user }: GameAccountsPageProps) => {
             Here, you can view your current game accounts, create new ones, rename them, and update passwords. All times
             shown are in your local timezone.
           </BodyText>
+          <Button onClick={handleCreateAccount} disabled={creationsDisabled} className='mx-auto md:basis-auto'>
+            Create Account
+          </Button>
           <GameAccountsTable
-            user={user}
-            activeAccount={activeAccount}
-            renameModalVisible={renameModalVisible}
-            passwordModalVisible={passwordModalVisible}
-            characterInfoModalVisible={characterInfoModalVisible}
-            setRenameModalVisible={setRenameModalVisible}
-            setPasswordModalVisible={setPasswordModalVisible}
-            setCharacterInfoModalVisible={setCharacterInfoModalVisible}
-            showRenameModal={showRenameModal}
-            showPasswordModal={showPasswordModal}
-            showCharacterInfoModal={showCharacterInfoModal}
-          />
-          <GameAccountsTableMobile
             user={user}
             activeAccount={activeAccount}
             renameModalVisible={renameModalVisible}
@@ -93,9 +82,6 @@ const GameAccountsPage = ({ user }: GameAccountsPageProps) => {
               Game account creations are temporarily disabled until further notice.
             </BodyText>
           )}
-          <Button onClick={handleCreateAccount} disabled={creationsDisabled} className='mx-auto basis-auto!'>
-            Create Account
-          </Button>
         </div>
       )}
     </>
