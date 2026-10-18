@@ -4,7 +4,7 @@ import ReadMore from '@molecules/ReadMore/ReadMore'
 import { getNewsPostImageUrl } from '@utils/imageUtils'
 import { cn } from '@utils/cn'
 import Link from 'next/link'
-import { StandardLink } from '@atoms/StandardLink'
+import clsx from 'clsx'
 
 const NewsPostListItem = (props: NewsPostItemProps) => {
   const { newsPost } = props
@@ -13,36 +13,27 @@ const NewsPostListItem = (props: NewsPostItemProps) => {
   const isPlaceholder = newsPostImage === '/img/NewsImagePlaceholder.png'
 
   return (
-    <div>
-      <li className='mx-0 flex flex-wrap items-start gap-4 p-0 md:flex-nowrap'>
-        <Link href={newsPostUrl} className='w-full md:mr-5 md:w-auto'>
-          <div className='mt-2 flex justify-center md:justify-start'>
-            <img
-              src={newsPostImage}
-              alt={newsPost.alt}
-              className={cn('w-[60%] max-w-none md:w-21.25', isPlaceholder && 'rounded-[50%]')}
-            />
-          </div>
-        </Link>
-        <div className='text-left'>
-          <p>
-            <StandardLink
-              href={newsPostUrl}
-              hoverUnderline
-              className='text-text-base hover:text-text-base font-semibold'
-            >
-              {newsPost.title}
-            </StandardLink>
-          </p>
-          <div>
-            <p className='text-neutral-500'>{getPrettyDateStringFromISOString(newsPost.datePosted)}</p>
-            <span className='text-text-base'>
-              <ReadMore linkHref={newsPostUrl}>{newsPost.body}</ReadMore>
-            </span>
+    <Link href={newsPostUrl}>
+      <li
+        className={clsx(
+          'bg-sidebar-bg border-divider hover:border-primary-dark flex flex-wrap',
+          'gap-4 rounded-xl border p-4 transition-transform hover:scale-101',
+        )}
+      >
+        <div className='flex flex-nowrap items-center gap-4'>
+          <img src={newsPostImage} alt={newsPost.alt} className={cn('w-18', isPlaceholder && 'rounded-[50%]')} />
+          <div className='text-left'>
+            <p className='text-text-base hover:text-text-base font-semibold'>{newsPost.title}</p>
+            <div>
+              <p className='text-neutral-500'>{getPrettyDateStringFromISOString(newsPost.datePosted)}</p>
+            </div>
           </div>
         </div>
+        <span className='text-text-base'>
+          <ReadMore>{newsPost.body}</ReadMore>
+        </span>
       </li>
-    </div>
+    </Link>
   )
 }
 
