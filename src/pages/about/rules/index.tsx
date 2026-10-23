@@ -58,9 +58,8 @@ const RulesPage = () => (
             (via a VPN or any other method) is considered cheating.
           </>,
           <>
-            <strong>No account OR account name trading. </strong>Trading game accounts or game account names with other
-            users for anything (in-game money, real money, etc.) is not allowed. This will be punishable by mute, temp
-            ban, or more serious measures if needed.
+            <strong>No account OR account name trading / exchanging. </strong>Trading or giving away game accounts or
+            game account names is strictly prohibited and can result in the exchanged accounts being permanently banned.
           </>,
           <>
             <strong>Keep trade offers in the #⁠marketplace channel of our Discord.</strong> This is the only Discord
