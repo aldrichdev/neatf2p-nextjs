@@ -30,6 +30,11 @@ export const communityAchievements = [
     date: '5/25/2024',
   },
   {
+    achievement: 'First to obtain Half-Wine',
+    playerName: 'TBD',
+    date: 'TBD',
+  },
+  {
     achievement: 'First to fish Lobster',
     playerName: 'Apsolutnul',
     date: '2/24/2024',
